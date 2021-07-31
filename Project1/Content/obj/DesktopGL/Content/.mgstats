@@ -1,0 +1,9 @@
+Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"C:/Users/thein/source/repos/Project1/Project1/Content/../../../../../Downloads/arrow.png","C:/Users/thein/source/repos/Project1/Project1/Content/bin/DesktopGL/Content/arrow.xnb","TextureProcessor","Texture2DContent",2024,16085,1.4369467
+"C:/Users/thein/source/repos/Project1/Project1/Content/ball.png","C:/Users/thein/source/repos/Project1/Project1/Content/bin/DesktopGL/Content/ball.xnb","TextureProcessor","Texture2DContent",8368,16469,3.8084483
+"C:/Users/thein/source/repos/Project1/Project1/Content/download.png","C:/Users/thein/source/repos/Project1/Project1/Content/bin/DesktopGL/Content/download.xnb","TextureProcessor","Texture2DContent",6708,201325,1.4735363
+"C:/Users/thein/source/repos/Project1/Project1/Content/Score.spritefont","C:/Users/thein/source/repos/Project1/Project1/Content/bin/DesktopGL/Content/Score.xnb","FontDescriptionProcessor","SpriteFontContent",2008,21538,5.305147
+"C:/Users/thein/source/repos/Project1/Project1/Content/SmileyWalk.png","C:/Users/thein/source/repos/Project1/Project1/Content/bin/DesktopGL/Content/SmileyWalk.xnb","TextureProcessor","Texture2DContent",40026,262229,1.1681376
+"C:/Users/thein/source/repos/Project1/Project1/Content/social icon.png","C:/Users/thein/source/repos/Project1/Project1/Content/bin/DesktopGL/Content/icon.xnb","TextureProcessor","Texture2DContent",15582,312445,1.4626265
+"C:/Users/thein/source/repos/Project1/Project1/Content/triangle.png","C:/Users/thein/source/repos/Project1/Project1/Content/bin/DesktopGL/Content/triangle.xnb","TextureProcessor","Texture2DContent",528431,36000085,7.494644
+"C:/Users/thein/source/repos/Project1/Project1/Content/unknown.jpg","C:/Users/thein/source/repos/Project1/Project1/Content/bin/DesktopGL/Content/unknown.xnb","TextureProcessor","Texture2DContent",20569,1342933,0.9370752

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SourceFileCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Profile>Reach</Profile>
+  <Platform>DesktopGL</Platform>
+  <Config />
+  <SourceFiles>
+    <File>C:/Users/thein/source/repos/Project1/Project1/Content/../../../../../Downloads/arrow.png</File>
+    <File>C:/Users/thein/source/repos/Project1/Project1/Content/ball.png</File>
+    <File>C:/Users/thein/source/repos/Project1/Project1/Content/download.png</File>
+    <File>C:/Users/thein/source/repos/Project1/Project1/Content/Score.spritefont</File>
+    <File>C:/Users/thein/source/repos/Project1/Project1/Content/SmileyWalk.png</File>
+    <File>C:/Users/thein/source/repos/Project1/Project1/Content/social icon.png</File>
+    <File>C:/Users/thein/source/repos/Project1/Project1/Content/triangle.png</File>
+    <File>C:/Users/thein/source/repos/Project1/Project1/Content/unknown.jpg</File>
+  </SourceFiles>
+  <DestFiles>
+    <File>arrow.png</File>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File>icon.png</File>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+  </DestFiles>
+</SourceFileCollection>
