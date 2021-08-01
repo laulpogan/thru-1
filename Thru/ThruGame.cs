@@ -5,149 +5,133 @@ using System;
 
 namespace Thru
 {
-	public class ThruGame : Game
-	{
-		Texture2D ballTexture;
-		Vector2 ballPosition;
-		float ballSpeed;
-		private SpriteFont font;
-		private Texture2D background;
-		private Texture2D ball;
-		private GraphicsDeviceManager _graphics;
-		private SpriteBatch _spriteBatch;
-		private AnimatedSprite animatedSprite;
-		private Button button1;
-		private Button button2;
-		private MouseState oldState;
-		private Texture2D arrow;
-		private float angle = 0;
-		private ButtonGroup buttonGroup;
-		private State state;
+    public class ThruGame : Game
+    {
+        enum StateMode
+        {
+            Update,
+            Draw
+        }
+        const int
+            EASY_BUTTON_INDEX = 0,
+            MEDIUM_BUTTON_INDEX = 1,
+            HARD_BUTTON_INDEX = 2;
+        private SpriteFont font;
+        private GraphicsDeviceManager _graphics;
+        private SpriteBatch _spriteBatch;
+        private State state;
+        private Menu menu;
 
-		public ThruGame()
-		{
-			_graphics = new GraphicsDeviceManager(this);
-			Content.RootDirectory = "Content";
-			IsMouseVisible = true;
+        public ThruGame()
+        {
+            menu = new Menu(Window.ClientBounds.Width, Window.ClientBounds.Height, Services);
+            _graphics = new GraphicsDeviceManager(this);
+            Content.RootDirectory = "Content";
+            IsMouseVisible = true;
 
-			
-		}
 
-		
-		protected override void Initialize()
-		{
-			state = State.Start;
-			// TODO: Add your initialization logic here
-			ballPosition = new Vector2(_graphics.PreferredBackBufferWidth / 2,
-_graphics.PreferredBackBufferHeight / 2);
-			ballSpeed = 100f;
-			_graphics.PreferredBackBufferWidth = 1000;  // set this value to the desired width of your window
-			_graphics.PreferredBackBufferHeight = 1000;   // set this value to the desired height of your window
-			_graphics.ApplyChanges();
-			base.Initialize();
-		}
+        }
 
-		protected override void LoadContent()
-		{
-	
-			// TODO: use this.Content to load your game content here
-			ballTexture = Content.Load<Texture2D>("ball");
-			_spriteBatch = new SpriteBatch(GraphicsDevice);
-			arrow = Content.Load<Texture2D>("arrow"); // use the name of your texture here, if you are using your own
-			button1 = new Button(Content.Load<Texture2D>("roundbutton"), "");
-			button2 = new Button(Content.Load<Texture2D>("longbutton"), "");
-		
-			buttonGroup = new ButtonGroup(new Button[] { button1, button2 });
 
-			background = Content.Load<Texture2D>("triangle"); // change these names to the names of your images
-			ball = Content.Load<Texture2D>("ball");
-			Texture2D texture = Content.Load<Texture2D>("SmileyWalk");
-			animatedSprite = new AnimatedSprite(texture, 4, 4);
-			font = Content.Load<SpriteFont>("Score"); // Use the name of your sprite font file here instead of 'Score'.
+        protected override void Initialize()
+        {
+            state = State.Menu;
 
-		}
+            _graphics.PreferredBackBufferWidth = 1000;  // set this value to the desired width of your window
+            _graphics.PreferredBackBufferHeight = 1000;   // set this value to the desired height of your window
+            _graphics.ApplyChanges();
+            base.Initialize();
+        }
 
-		protected override void Update(GameTime gameTime)
-		{
-			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-				Exit();
-			MouseState newState = Mouse.GetState();
-			int x = newState.X;
-			int y = newState.Y;
-            double ballangle = Math.Atan2(y - 240, x - 400);
-			angle = (float)ballangle;
-			angle += (float)1.571;
-			if (newState.LeftButton == ButtonState.Pressed && oldState.LeftButton == ButtonState.Released)
-			{
-				
-				ballPosition.Y = y;
-				ballPosition.X = x;
-			}
+        protected override void LoadContent()
+        {
 
-			if (newState.LeftButton == ButtonState.Pressed)
-			{
-				ballPosition.Y = y;
-				ballPosition.X = x;
-			}
-			oldState = newState; // this reassigns the old state so that it is ready for next time
+            menu.LoadContent();
 
-			// TODO: Add your update logic here
-			var kstate = Keyboard.GetState();
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            ///font = Content.Load<SpriteFont>("Score"); // Use the name of your sprite font file here instead of 'Score'.
 
-			if (kstate.IsKeyDown(Keys.Up))
-				ballPosition.Y -= ballSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+        }
 
-			if (kstate.IsKeyDown(Keys.Down))
-				ballPosition.Y += ballSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+        protected override void Update(GameTime gameTime)
+        {
 
-			if (kstate.IsKeyDown(Keys.Left))
-				ballPosition.X -= ballSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                Exit();
+            stateMachine(gameTime, StateMode.Update);
 
-			if (kstate.IsKeyDown(Keys.Right))
-				ballPosition.X += ballSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-			/*if (ballPosition.X > _graphics.PreferredBackBufferWidth - ballTexture.Width / 2)
-				ballPosition.X = _graphics.PreferredBackBufferWidth - ballTexture.Width / 2;
-			else if (ballPosition.X < ballTexture.Width / 2)
-				ballPosition.X = ballTexture.Width / 2;
 
-			if (ballPosition.Y > _graphics.PreferredBackBufferHeight - ballTexture.Height / 2)
-				ballPosition.Y = _graphics.PreferredBackBufferHeight - ballTexture.Height / 2;
-			else if (ballPosition.Y < ballTexture.Height / 2)
-				ballPosition.Y = ballTexture.Height / 2; */
-			animatedSprite.Update();
-			buttonGroup.Update();
+            // TODO: Add your update logic here
+            var kstate = Keyboard.GetState();
 
-			base.Update(gameTime);
-		}
 
-		protected override void Draw(GameTime gameTime)
-		{
-            if (button1.isPressed)
+
+            base.Update(gameTime);
+        }
+
+        protected override void Draw(GameTime gameTime)
+        {
+            
+            _spriteBatch.Begin();
+            stateMachine(gameTime, StateMode.Draw);
+
+
+   
+
+            _spriteBatch.End();
+            base.Draw(gameTime);
+        }
+
+
+        private void stateMachine( GameTime gameTime, StateMode stateMode)
+        {
+
+            switch (state)
             {
-				_graphics.GraphicsDevice.Clear(Color.PeachPuff) ;
+                case State.Menu:
+                    state = runState(menu, stateMode, gameTime) ?? state ;
+                    break;
+                /*case State.Start:
+					break;
+				case State.Game:
+					break;
+				case State.Final:
+					break;
+				case State.Road:
+					break;
+				case State.Town:
+					break;
+				case State.Trailhead:
+					break;
+				case State.Start:
+					break;
+				case State.Start:
+					break;*/
+                default:
+                    Console.WriteLine("game is broken bucko");
+                    Exit();
+                    break;
 
-			}
-			else
+            }
+        }
+
+        private State? runState(IGameView gameView, StateMode stateMode, GameTime gameTime) 
+        {
+            switch(stateMode)
             {
-				_graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
-			}
+                case StateMode.Update:
+                    return gameView.Update(gameTime);
+                     
+                case StateMode.Draw:
+                    gameView.Draw(_spriteBatch, _graphics);
+                    return null;
+                default:
+                    Exit();
+                    break;
+            }
+            return null;
+        }
 
-			_spriteBatch.Begin();
-			_spriteBatch.Draw(background, new Rectangle(0, 0, 800, 480), Color.White);
-			buttonGroup.Draw(_spriteBatch, new Vector2(100, 200));
-
-			Vector2 location = new Vector2(400, 240);
-			Rectangle sourceRectangle = new Rectangle(0, 0, arrow.Width, arrow.Height);
-			Vector2 origin = new Vector2(arrow.Width / 2, arrow.Height);
-			_spriteBatch.Draw(arrow, location, sourceRectangle, Color.White, angle, origin, 1.0f, SpriteEffects.None, 1);
-			_spriteBatch.Draw(ball, new Vector2(ballPosition.X, ballPosition.Y), Color.White);
-			_spriteBatch.DrawString(font, "Score" + 0, new Vector2(100, 200), Color.Black);
-			animatedSprite.Draw(_spriteBatch, new Vector2(400, 200));
-
-
-			_spriteBatch.End();
-			base.Draw(gameTime);
-		}
-	}
+    }
 }

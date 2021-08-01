@@ -2,6 +2,9 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "C:/Users/thein/source/repos/thru/Thru/Content/../../../../../Downloads/arrow.png","C:/Users/thein/source/repos/thru/Thru/Content/bin/DesktopGL/Content/arrow.xnb","TextureProcessor","Texture2DContent",2024,16085,5.39462
 "C:/Users/thein/source/repos/thru/Thru/Content/ball.png","C:/Users/thein/source/repos/thru/Thru/Content/bin/DesktopGL/Content/ball.xnb","TextureProcessor","Texture2DContent",8368,16469,0.4046615
 "C:/Users/thein/source/repos/thru/Thru/Content/download.png","C:/Users/thein/source/repos/thru/Thru/Content/bin/DesktopGL/Content/download.xnb","TextureProcessor","Texture2DContent",6708,201325,0.7386269
+"C:/Users/thein/source/repos/thru/Thru/Content/images/easy.png","C:/Users/thein/source/repos/thru/Thru/Content/bin/DesktopGL/Content/images/easy.xnb","TextureProcessor","Texture2DContent",6077,56085,1.4370142
+"C:/Users/thein/source/repos/thru/Thru/Content/images/hard.png","C:/Users/thein/source/repos/thru/Thru/Content/bin/DesktopGL/Content/images/hard.xnb","TextureProcessor","Texture2DContent",6089,60605,0.0336427
+"C:/Users/thein/source/repos/thru/Thru/Content/images/medium.png","C:/Users/thein/source/repos/thru/Thru/Content/bin/DesktopGL/Content/images/medium.xnb","TextureProcessor","Texture2DContent",8149,86725,0.0251639
 "C:/Users/thein/source/repos/thru/Thru/Content/longbutton.png","C:/Users/thein/source/repos/thru/Thru/Content/bin/DesktopGL/Content/longbutton.xnb","TextureProcessor","Texture2DContent",245396,3276885,2.2770202
 "C:/Users/thein/source/repos/thru/Thru/Content/roughbutton.png","C:/Users/thein/source/repos/thru/Thru/Content/bin/DesktopGL/Content/roughbutton.xnb","TextureProcessor","Texture2DContent",907823,2130005,0.2876545
 "C:/Users/thein/source/repos/thru/Thru/Content/roundbutton.png","C:/Users/thein/source/repos/thru/Thru/Content/bin/DesktopGL/Content/roundbutton.xnb","TextureProcessor","Texture2DContent",711021,1512985,0.3445473

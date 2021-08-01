@@ -7,6 +7,9 @@
     <File>C:/Users/thein/source/repos/thru/Thru/Content/../../../../../Downloads/arrow.png</File>
     <File>C:/Users/thein/source/repos/thru/Thru/Content/ball.png</File>
     <File>C:/Users/thein/source/repos/thru/Thru/Content/download.png</File>
+    <File>C:/Users/thein/source/repos/thru/Thru/Content/images/easy.png</File>
+    <File>C:/Users/thein/source/repos/thru/Thru/Content/images/hard.png</File>
+    <File>C:/Users/thein/source/repos/thru/Thru/Content/images/medium.png</File>
     <File>C:/Users/thein/source/repos/thru/Thru/Content/longbutton.png</File>
     <File>C:/Users/thein/source/repos/thru/Thru/Content/roughbutton.png</File>
     <File>C:/Users/thein/source/repos/thru/Thru/Content/roundbutton.png</File>
@@ -18,6 +21,9 @@
   </SourceFiles>
   <DestFiles>
     <File>arrow.png</File>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

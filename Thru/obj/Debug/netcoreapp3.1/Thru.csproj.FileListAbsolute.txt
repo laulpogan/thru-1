@@ -32,3 +32,6 @@ C:\Users\thein\source\repos\thru\Thru\obj\Debug\netcoreapp3.1\Thru.genruntimecon
 C:\Users\thein\source\repos\thru\Thru\bin\Debug\netcoreapp3.1\Content\longbutton.xnb
 C:\Users\thein\source\repos\thru\Thru\bin\Debug\netcoreapp3.1\Content\roughbutton.xnb
 C:\Users\thein\source\repos\thru\Thru\bin\Debug\netcoreapp3.1\Content\roundbutton.xnb
+C:\Users\thein\source\repos\thru\Thru\bin\Debug\netcoreapp3.1\Content\images\easy.xnb
+C:\Users\thein\source\repos\thru\Thru\bin\Debug\netcoreapp3.1\Content\images\hard.xnb
+C:\Users\thein\source\repos\thru\Thru\bin\Debug\netcoreapp3.1\Content\images\medium.xnb
