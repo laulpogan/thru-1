@@ -2,6 +2,9 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "C:/Users/thein/source/repos/thru/Thru/Content/../../../../../Downloads/arrow.png","C:/Users/thein/source/repos/thru/Thru/Content/bin/DesktopGL/arrow.xnb","TextureProcessor","Texture2DContent",2024,16085,2.5185063
 "C:/Users/thein/source/repos/thru/Thru/Content/ball.png","C:/Users/thein/source/repos/thru/Thru/Content/bin/DesktopGL/ball.xnb","TextureProcessor","Texture2DContent",8368,16469,0.0507907
 "C:/Users/thein/source/repos/thru/Thru/Content/download.png","C:/Users/thein/source/repos/thru/Thru/Content/bin/DesktopGL/download.xnb","TextureProcessor","Texture2DContent",6708,201325,0.0933301
+"C:/Users/thein/source/repos/thru/Thru/Content/longbutton.png","C:/Users/thein/source/repos/thru/Thru/Content/bin/DesktopGL/longbutton.xnb","TextureProcessor","Texture2DContent",245396,3276885,1.7553353
+"C:/Users/thein/source/repos/thru/Thru/Content/roughbutton.png","C:/Users/thein/source/repos/thru/Thru/Content/bin/DesktopGL/roughbutton.xnb","TextureProcessor","Texture2DContent",907823,2130005,0.8971008
+"C:/Users/thein/source/repos/thru/Thru/Content/roundbutton.png","C:/Users/thein/source/repos/thru/Thru/Content/bin/DesktopGL/roundbutton.xnb","TextureProcessor","Texture2DContent",711021,1512985,0.5597262
 "C:/Users/thein/source/repos/thru/Thru/Content/Score.spritefont","C:/Users/thein/source/repos/thru/Thru/Content/bin/DesktopGL/Score.xnb","FontDescriptionProcessor","SpriteFontContent",2068,21538,1.0204352
 "C:/Users/thein/source/repos/thru/Thru/Content/SmileyWalk.png","C:/Users/thein/source/repos/thru/Thru/Content/bin/DesktopGL/SmileyWalk.xnb","TextureProcessor","Texture2DContent",40026,262229,0.1898501
 "C:/Users/thein/source/repos/thru/Thru/Content/social icon.png","C:/Users/thein/source/repos/thru/Thru/Content/bin/DesktopGL/icon.xnb","TextureProcessor","Texture2DContent",15582,312445,0.1507983

@@ -7,23 +7,31 @@ namespace Thru
 { 	
 	public class ButtonGroup
 		{
-			public ArrayList allMyButtons;
+			public ArrayList ButtonList;
 			public ButtonGroup(Button[] buttonList)
 			{
-				allMyButtons = new ArrayList();
+				ButtonList = new ArrayList();
 				foreach ( Button i in buttonList) {
-					allMyButtons.Add(i);
+					ButtonList.Add(i);
 				}
 			}
 
 			public void Update()
 			{
+			foreach (Button button in ButtonList)
+			{
+				button.Update();
 			}
 
-			public void Draw(SpriteBatch spriteBatch, Vector2 location)
+		}
+
+		public void Draw(SpriteBatch spriteBatch, Vector2 location)
 			{
-				foreach (Button button in allMyButtons){
-					button.Draw(spriteBatch, location) ;
+			Vector2 bound = new Vector2(0,0) ;
+			Vector2 margin = new Vector2(50, 50);
+				foreach (Button button in ButtonList){
+					button.Draw(spriteBatch, location + bound + margin);
+				bound += new Vector2(button.Bounds.Size.X, 0);
 				}
 
 			}

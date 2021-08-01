@@ -17,9 +17,13 @@ namespace Thru
 		private SpriteBatch _spriteBatch;
 		private AnimatedSprite animatedSprite;
 		private Button button1;
+		private Button button2;
 		private MouseState oldState;
 		private Texture2D arrow;
 		private float angle = 0;
+		private ButtonGroup buttonGroup;
+		private State state;
+
 		public ThruGame()
 		{
 			_graphics = new GraphicsDeviceManager(this);
@@ -32,9 +36,7 @@ namespace Thru
 		
 		protected override void Initialize()
 		{
-			Texture2D buttonImage = new Texture2D(_graphics.GraphicsDevice, 100, 400);
-			button1 = new Button(buttonImage, "");
-	
+			state = State.Start;
 			// TODO: Add your initialization logic here
 			ballPosition = new Vector2(_graphics.PreferredBackBufferWidth / 2,
 _graphics.PreferredBackBufferHeight / 2);
@@ -52,8 +54,11 @@ _graphics.PreferredBackBufferHeight / 2);
 			ballTexture = Content.Load<Texture2D>("ball");
 			_spriteBatch = new SpriteBatch(GraphicsDevice);
 			arrow = Content.Load<Texture2D>("arrow"); // use the name of your texture here, if you are using your own
-			button1.Texture = Content.Load<Texture2D>("download");
-			// This is the code we added earlier.
+			button1 = new Button(Content.Load<Texture2D>("roundbutton"), "");
+			button2 = new Button(Content.Load<Texture2D>("longbutton"), "");
+		
+			buttonGroup = new ButtonGroup(new Button[] { button1, button2 });
+
 			background = Content.Load<Texture2D>("triangle"); // change these names to the names of your images
 			ball = Content.Load<Texture2D>("ball");
 			Texture2D texture = Content.Load<Texture2D>("SmileyWalk");
@@ -111,7 +116,7 @@ _graphics.PreferredBackBufferHeight / 2);
 			else if (ballPosition.Y < ballTexture.Height / 2)
 				ballPosition.Y = ballTexture.Height / 2; */
 			animatedSprite.Update();
-			button1.Update();
+			buttonGroup.Update();
 
 			base.Update(gameTime);
 		}
@@ -130,7 +135,7 @@ _graphics.PreferredBackBufferHeight / 2);
 
 			_spriteBatch.Begin();
 			_spriteBatch.Draw(background, new Rectangle(0, 0, 800, 480), Color.White);
-			button1.Draw(_spriteBatch, new Vector2(100, 200));
+			buttonGroup.Draw(_spriteBatch, new Vector2(100, 200));
 
 			Vector2 location = new Vector2(400, 240);
 			Rectangle sourceRectangle = new Rectangle(0, 0, arrow.Width, arrow.Height);
