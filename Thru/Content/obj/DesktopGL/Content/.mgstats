@@ -1,0 +1,9 @@
+Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"C:/Users/thein/source/repos/thru/Thru/Content/../../../../../Downloads/arrow.png","C:/Users/thein/source/repos/thru/Thru/Content/bin/DesktopGL/Content/arrow.xnb","TextureProcessor","Texture2DContent",2024,16085,5.39462
+"C:/Users/thein/source/repos/thru/Thru/Content/ball.png","C:/Users/thein/source/repos/thru/Thru/Content/bin/DesktopGL/Content/ball.xnb","TextureProcessor","Texture2DContent",8368,16469,0.4046615
+"C:/Users/thein/source/repos/thru/Thru/Content/download.png","C:/Users/thein/source/repos/thru/Thru/Content/bin/DesktopGL/Content/download.xnb","TextureProcessor","Texture2DContent",6708,201325,0.7386269
+"C:/Users/thein/source/repos/thru/Thru/Content/Score.spritefont","C:/Users/thein/source/repos/thru/Thru/Content/bin/DesktopGL/Content/Score.xnb","FontDescriptionProcessor","SpriteFontContent",2068,21538,28.701317
+"C:/Users/thein/source/repos/thru/Thru/Content/SmileyWalk.png","C:/Users/thein/source/repos/thru/Thru/Content/bin/DesktopGL/Content/SmileyWalk.xnb","TextureProcessor","Texture2DContent",40026,262229,0.6456294
+"C:/Users/thein/source/repos/thru/Thru/Content/social icon.png","C:/Users/thein/source/repos/thru/Thru/Content/bin/DesktopGL/Content/icon.xnb","TextureProcessor","Texture2DContent",15582,312445,0.9640428
+"C:/Users/thein/source/repos/thru/Thru/Content/triangle.png","C:/Users/thein/source/repos/thru/Thru/Content/bin/DesktopGL/Content/triangle.xnb","TextureProcessor","Texture2DContent",528431,36000085,23.361845
+"C:/Users/thein/source/repos/thru/Thru/Content/unknown.jpg","C:/Users/thein/source/repos/thru/Thru/Content/bin/DesktopGL/Content/unknown.xnb","TextureProcessor","Texture2DContent",20569,1342933,1.4411623
