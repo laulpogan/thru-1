@@ -21,10 +21,9 @@ namespace Thru
         private SpriteBatch _spriteBatch;
         private State state;
         private Menu menu;
-
+        private MainSettings mainSettings;
         public ThruGame()
         {
-            menu = new Menu(Window.ClientBounds.Width, Window.ClientBounds.Height, Services);
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
@@ -36,7 +35,8 @@ namespace Thru
         protected override void Initialize()
         {
             state = State.Menu;
-
+            menu = new Menu(Window.ClientBounds.Width, Window.ClientBounds.Height, Services);
+            mainSettings = new MainSettings(Window.ClientBounds.Width, Window.ClientBounds.Height, Services);
             _graphics.PreferredBackBufferWidth = 1000;  // set this value to the desired width of your window
             _graphics.PreferredBackBufferHeight = 1000;   // set this value to the desired height of your window
             _graphics.ApplyChanges();
@@ -46,7 +46,6 @@ namespace Thru
         protected override void LoadContent()
         {
 
-            menu.LoadContent();
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             ///font = Content.Load<SpriteFont>("Score"); // Use the name of your sprite font file here instead of 'Score'.
@@ -72,7 +71,8 @@ namespace Thru
 
         protected override void Draw(GameTime gameTime)
         {
-            
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+
             _spriteBatch.Begin();
             stateMachine(gameTime, StateMode.Draw);
 
@@ -91,10 +91,16 @@ namespace Thru
             {
                 case State.Menu:
                     state = runState(menu, stateMode, gameTime) ?? state ;
+                    _graphics.GraphicsDevice.Clear(Color.Green);
+
                     break;
-                /*case State.Start:
+                case State.MainSettings:
+                    _graphics.GraphicsDevice.Clear(Color.Blue);
+                    
+
+                    state = runState(mainSettings, stateMode, gameTime) ?? state;
 					break;
-				case State.Game:
+				/*case State.Game:
 					break;
 				case State.Final:
 					break;

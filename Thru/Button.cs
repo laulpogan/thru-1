@@ -7,62 +7,93 @@ namespace Thru
 {
 	public class Button
 	{
-
 		public Texture2D Texture { get; set; }
-		public bool isPressed { get; set; }
-		private MouseState oldState;
-		private string Text;
+		public BState State { get; set; }
+		public MouseState mouse_state;
+		public string Text;
+		public int mx, my;
 		public Rectangle Bounds;
+		bool mpressed, prev_mpressed = false;
+		public double timer = 0;
+		double frameTime;
 
-		public Button(Texture2D texture, string text)
+
+		public Button(Texture2D texture)
 		{
 			Texture = texture;
-			Text = text;
-			isPressed = false;
 			Bounds = texture.Bounds;
+			State = BState.UP;
 		}
 
-		protected bool isInsideRectal(Point point1, Rectangle bound)
-        {
-			return bound.Contains(point1);
-
-		}
-		protected bool isInsideRectangle(Vector2 point1, Vector2 point2, Rectangle bound)
+		public void Update(GameTime gameTime)
 		{
+			frameTime = gameTime.ElapsedGameTime.Milliseconds / 1000.0;
 
-			return bound.Contains(point1 - point2);
+			// update mouse variables
+			MouseState mouse_state = Mouse.GetState();
+			mx = mouse_state.X;
+			my = mouse_state.Y;
+			prev_mpressed = mpressed;
+			mpressed = mouse_state.LeftButton == ButtonState.Pressed;
+			update_button();
 
 		}
-		public void Update()
+
+		public void Draw(SpriteBatch spriteBatch)
 		{
-			MouseState newState = Mouse.GetState();
-			int x = newState.X;
-			int y = newState.Y;
-			if (newState.LeftButton == ButtonState.Pressed && oldState.LeftButton == ButtonState.Released)
-			{
-				if (isInsideRectal(new Point(x, y), Bounds))
+			
+				spriteBatch.Draw(Texture,Bounds, Color.White);
+			
+
+		}
+
+		// determine state and color of button
+		void update_button()
+		{
+			
+
+				if (ThruLib.hit_image_alpha(
+					Bounds, Texture, mx, my))
 				{
-					isPressed = !isPressed;
-
+					timer = 0.0;
+					if (mpressed)
+					{
+						// mouse is currently down
+						State = BState.DOWN;
+					}
+					else if (!mpressed && prev_mpressed)
+					{
+						// mouse was just released
+						if (State == BState.DOWN)
+						{
+							// button i was just down
+							State = BState.JUST_RELEASED;
+						}
+					}
+					else
+					{
+						State = BState.HOVER;
+					}
 				}
+				else
+				{
+					State = BState.UP;
+					if (timer > 0)
+					{
+						timer = timer - frameTime;
+					}
 				
-			}
-			oldState = newState; // this reassigns the old state so that it is ready for next time
+				}
 
-		}
-
-		public void Draw(SpriteBatch spriteBatch, Vector2 location)
-		{
-			if (isPressed)
-			{
-				spriteBatch.Draw(Texture, location, Color.Green);
+				if (State == BState.JUST_RELEASED)
+				{
+					onClick();
+				}
 			}
-			else
-			{
-				spriteBatch.Draw(Texture, location, Color.Red);
-			}
+		protected void onClick() { }
 
-		}
 	}
 
 }
+
+

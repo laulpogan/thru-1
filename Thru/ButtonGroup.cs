@@ -9,30 +9,41 @@ namespace Thru
 	public class ButtonGroup
 		{
 			public ArrayList ButtonList;
-			public ButtonGroup(Button[] buttonList)
+		private int buttonHeight;
+		private int buttonWidth;
+		private int heightTracker;
+			public ButtonGroup(Button[] buttonList, int clientWidth, int clientHeight)
 			{
 				ButtonList = new ArrayList();
 				foreach ( Button i in buttonList) {
+					buttonHeight = i.Bounds.Height;
+					buttonWidth = i.Bounds.Width;
+					int y = clientHeight / 2 -
+					buttonList.Length / 2 * buttonHeight -
+					(buttonList.Length % 2) * buttonHeight / 2;
+					heightTracker += y + buttonHeight;
+					i.Bounds.Y = heightTracker;
+					i.Bounds.X = clientWidth / 2 - buttonWidth / 2;
 					ButtonList.Add(i);
-				}
-			}
-
-			public void Update()
-			{
-			foreach (Button button in ButtonList)
-			{
-				button.Update();
+				Console.WriteLine(i.Bounds.X + " " + i.Bounds.Y);
 			}
 
 		}
 
-		public void Draw(SpriteBatch spriteBatch, Vector2 location)
+		public void Update(GameTime gameTime)
 			{
-			Vector2 bound = new Vector2(0,0) ;
-			Vector2 margin = new Vector2(50, 50);
+			foreach (Button button in ButtonList)
+			{
+				button.Update(gameTime);
+			}
+
+		}
+
+		public void Draw(SpriteBatch spriteBatch)
+			{
+		
 				foreach (Button button in ButtonList){
-					button.Draw(spriteBatch, location + bound + margin);
-				bound += new Vector2(button.Bounds.Size.X, 0);
+					button.Draw(spriteBatch);
 				}
 
 			}
