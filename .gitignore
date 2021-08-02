@@ -39,4 +39,7 @@ Thumbs.db
 # Directories #
 ####################
 /.vs
-/
+Thru/bin
+Thru/obj
+Thru/Content/bin
+Thru/Content/obj
