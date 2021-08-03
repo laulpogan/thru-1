@@ -5,11 +5,11 @@ using System;
 
 namespace Thru
 {
-	public class Player : ICharacter
+	public class NPC : ICharacter
 	{
 		public float morale, money;
 		public string Name;
-		public Player()
+		public NPC()
 		{
 		}
 		public State Update(GameTime gameTime) { return State.MainSettings; }

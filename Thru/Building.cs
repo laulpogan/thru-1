@@ -12,7 +12,8 @@ namespace Thru
 		int capacity;
 		int gas;
 		Location location;
-		ArrayList inhabitants;
+		ArrayList inhabitants
+			;
 		public Building()
 		{
 		}

@@ -23,6 +23,7 @@ namespace Thru
         private Menu menu;
         private MainSettings mainSettings;
         public Texture2D background;
+        public DisplayWindow displayBox;
         public ThruGame()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -36,10 +37,17 @@ namespace Thru
         protected override void Initialize()
         {
             state = State.Menu;
+            Texture2D rect = new Texture2D(_graphics.GraphicsDevice, 1000, 250);
+
+
+            
+            displayBox = new DisplayWindow(rect, Services);
             menu = new Menu(Window.ClientBounds.Width, Window.ClientBounds.Height, Services);
             mainSettings = new MainSettings(Window.ClientBounds.Width, Window.ClientBounds.Height, Services);
-            _graphics.PreferredBackBufferWidth = 1000;  // set this value to the desired width of your window
-            _graphics.PreferredBackBufferHeight = 1000;   // set this value to the desired height of your window
+            background = Content.Load<Texture2D>("southern_terminus");
+
+            _graphics.PreferredBackBufferWidth = background.Width;  // set this value to the desired width of your window
+            _graphics.PreferredBackBufferHeight = background.Height;   // set this value to the desired height of your window
             _graphics.ApplyChanges();
             base.Initialize();
         }
@@ -49,7 +57,6 @@ namespace Thru
 
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            background = Content.Load<Texture2D>("southern_terminus");
             ///font = Content.Load<SpriteFont>("Score"); // Use the name of your sprite font file here instead of 'Score'.
 
         }
@@ -81,7 +88,8 @@ namespace Thru
             stateMachine(gameTime, StateMode.Draw);
 
 
-   
+
+            displayBox.Draw(_spriteBatch, gameTime);
 
             _spriteBatch.End();
             base.Draw(gameTime);
