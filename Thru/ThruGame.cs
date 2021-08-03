@@ -22,6 +22,7 @@ namespace Thru
         private State state;
         private Menu menu;
         private MainSettings mainSettings;
+        public Texture2D background;
         public ThruGame()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -48,6 +49,7 @@ namespace Thru
 
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            background = Content.Load<Texture2D>("southern_terminus");
             ///font = Content.Load<SpriteFont>("Score"); // Use the name of your sprite font file here instead of 'Score'.
 
         }
@@ -74,6 +76,8 @@ namespace Thru
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             _spriteBatch.Begin();
+            _spriteBatch.Draw(background, new Vector2(0,0), Color.White);
+
             stateMachine(gameTime, StateMode.Draw);
 
 
