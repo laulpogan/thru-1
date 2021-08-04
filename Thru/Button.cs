@@ -20,7 +20,7 @@ namespace Thru
 		public double timer = 0;
 		double frameTime;
 		public SpriteFont Font;
-
+		public string ID;
 
 		public Button(Texture2D texture)
 		{
@@ -46,8 +46,11 @@ namespace Thru
 		public void Draw(SpriteBatch spriteBatch)
 		{
 			
-				spriteBatch.Draw(Texture,Bounds, Color.White);
-				spriteBatch.DrawString(Font ?? null, Text, new Vector2(Bounds.Width/2,Bounds.Height/2), Color.White);
+			spriteBatch.Draw(Texture,Bounds, Color.White);
+			if(Font != null)
+            {
+				spriteBatch.DrawString(Font, Text, new Vector2((Bounds.Width / 2)/2+Bounds.X, Bounds.Height / 2+Bounds.Y), Color.White);
+			}
 
 
 		}

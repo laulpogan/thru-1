@@ -29,7 +29,7 @@ namespace Thru
 			newGameButton = new Button(easy);
 			mainSettingsButton = new Button(medium);
 			loadGameButton = new Button(hard);
-			buttonGroup = new ButtonGroup(new Button[] { newGameButton, mainSettingsButton, loadGameButton }, clientWidth, clientHeight);
+			buttonGroup = new ButtonGroup(new Button[] { newGameButton, mainSettingsButton, loadGameButton }, new Vector2(100,100));
 
 
 			
@@ -48,7 +48,7 @@ namespace Thru
 				return State.MainSettings;
 			} else if (loadGameButton.State == BState.JUST_RELEASED)
 			{
-				return State.Menu;
+				return State.Game;
 			}
 
 			return State.Menu;

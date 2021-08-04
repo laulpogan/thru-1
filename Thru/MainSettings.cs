@@ -18,7 +18,7 @@ namespace Thru
 
 			Texture2D buttonImage = Content.Load<Texture2D>("longbutton");
 			returnButton = new Button(buttonImage);
-			buttonGroup = new ButtonGroup(new Button[] { returnButton }, clientWidth, clientHeight);
+			buttonGroup = new ButtonGroup(new Button[] { returnButton }, new Vector2(100, 100));
 		}
 
 		public void Draw(SpriteBatch _spriteBatch, GraphicsDeviceManager _graphics) {

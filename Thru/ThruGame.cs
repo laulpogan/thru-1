@@ -13,20 +13,17 @@ namespace Thru
             Update,
             Draw
         }
-        const int
-            EASY_BUTTON_INDEX = 0,
-            MEDIUM_BUTTON_INDEX = 1,
-            HARD_BUTTON_INDEX = 2;
+      
         private SpriteFont font;
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private State state;
         private Menu menu;
         private MainSettings mainSettings;
+        public MainGameView mainGameView;
         public Texture2D background;
         public DisplayWindow displayBox;
         Location location1, location2, location3;
-        Location currentLocal;
         ArrayList Locations;
         public ThruGame()
         {
@@ -36,27 +33,33 @@ namespace Thru
 
 
         }
-
+        public void setupLocations()
+        {
+            Locations = new ArrayList();
+            location1 = new Location( Locations, background, "southern terminus");
+            Locations.Add(location1);
+            location2 = new Location( Locations,  Content.Load<Texture2D>("Moms_Diner"), "mom's diner");
+            Locations.Add(location2);
+            location1.AdjacentLocations.Add(location2);
+            location3 = new Location(Locations, Content.Load<Texture2D>("triangle"), "7th dimension hyperroom");
+            location2.AdjacentLocations.Add(location3);
+            location1.AdjacentLocations.Add(location3);
+            Locations.Add(location3);
+            
+        }
 
         protected override void Initialize()
         {
             state = State.Menu;
-            Texture2D rect = new Texture2D(_graphics.GraphicsDevice, 1000, 250);
-            Locations = new ArrayList();
-            location1 = new Location(Window.ClientBounds.Width, Window.ClientBounds.Height, Services, Locations);
-            Locations.Add(location1);
-            location2 = new Location(Window.ClientBounds.Width, Window.ClientBounds.Height, Services, Locations);
-            Locations.Add(location2);
-            location1.AdjacentLocations.Add(location2);
-            location3 = new Location(Window.ClientBounds.Width, Window.ClientBounds.Height, Services, Locations);
-            location2.AdjacentLocations.Add(location3);
-            location1.AdjacentLocations.Add(location3);
-            Locations.Add(location3);
-            currentLocal = location1;
-            displayBox = new DisplayWindow(rect, Services);
+            //Texture2D rect = new Texture2D(_graphics.GraphicsDevice, 1000, 250);
+
+            //displayBox = new DisplayWindow(rect, Services);
             menu = new Menu(Window.ClientBounds.Width, Window.ClientBounds.Height, Services);
-            mainSettings = new MainSettings(Window.ClientBounds.Width, Window.ClientBounds.Height, Services);
+             mainSettings = new MainSettings(Window.ClientBounds.Width, Window.ClientBounds.Height, Services);
             background = Content.Load<Texture2D>("southern_terminus");
+            setupLocations();
+            mainGameView = new MainGameView(location1, Services);
+
 
             _graphics.PreferredBackBufferWidth = background.Width;  // set this value to the desired width of your window
             _graphics.PreferredBackBufferHeight = background.Height;   // set this value to the desired height of your window
@@ -81,10 +84,6 @@ namespace Thru
             stateMachine(gameTime, StateMode.Update);
 
 
-            foreach(Location location in Locations)
-            {
-                location.Update(gameTime);
-            }
             // TODO: Add your update logic here
             var kstate = Keyboard.GetState();
 
@@ -99,13 +98,11 @@ namespace Thru
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             _spriteBatch.Begin();
-            _spriteBatch.Draw(background, new Vector2(0,0), Color.White);
-            currentLocal.Draw(_spriteBatch);
             stateMachine(gameTime, StateMode.Draw);
 
 
 
-            displayBox.Draw(_spriteBatch, gameTime);
+            //displayBox.Draw(_spriteBatch, gameTime);
 
             _spriteBatch.End();
             base.Draw(gameTime);
@@ -114,7 +111,6 @@ namespace Thru
 
         private void stateMachine( GameTime gameTime, StateMode stateMode)
         {
-
             switch (state)
             {
                 case State.Menu:
@@ -128,9 +124,11 @@ namespace Thru
 
                     state = runState(mainSettings, stateMode, gameTime) ?? state;
 					break;
-				/*case State.Game:
-					break;
-				case State.Final:
+				case State.Game:
+                    state = runState(mainGameView, stateMode, gameTime) ?? state;
+
+                    break;
+				/*case State.Final:
 					break;
 				case State.Road:
 					break;
@@ -139,11 +137,9 @@ namespace Thru
 				case State.Trailhead:
 					break;
 				case State.Start:
-					break;
-				case State.Start:
-					break;*/
+					break; */
                 default:
-                    Console.WriteLine("game is broken bucko");
+                    Console.WriteLine("game is broken bucko: "+state);
                     Exit();
                     break;
 
