@@ -10,12 +10,7 @@ namespace Thru
 	public class Menu : IGameView
 	{
 		Button newGameButton, mainSettingsButton, loadGameButton;
-		const int NUMBER_OF_BUTTONS = 3,
-			EASY_BUTTON_INDEX = 0,
-			MEDIUM_BUTTON_INDEX = 1,
-			HARD_BUTTON_INDEX = 2,
-			BUTTON_HEIGHT = 40,
-			BUTTON_WIDTH = 88;
+		
 
 		private Color background_color = Color.Red;
 		private ButtonGroup buttonGroup;

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Collections;
 
 namespace Thru
 {
@@ -24,6 +25,9 @@ namespace Thru
         private MainSettings mainSettings;
         public Texture2D background;
         public DisplayWindow displayBox;
+        Location location1, location2, location3;
+        Location currentLocal;
+        ArrayList Locations;
         public ThruGame()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -38,9 +42,17 @@ namespace Thru
         {
             state = State.Menu;
             Texture2D rect = new Texture2D(_graphics.GraphicsDevice, 1000, 250);
-
-
-            
+            Locations = new ArrayList();
+            location1 = new Location(Window.ClientBounds.Width, Window.ClientBounds.Height, Services, Locations);
+            Locations.Add(location1);
+            location2 = new Location(Window.ClientBounds.Width, Window.ClientBounds.Height, Services, Locations);
+            Locations.Add(location2);
+            location1.AdjacentLocations.Add(location2);
+            location3 = new Location(Window.ClientBounds.Width, Window.ClientBounds.Height, Services, Locations);
+            location2.AdjacentLocations.Add(location3);
+            location1.AdjacentLocations.Add(location3);
+            Locations.Add(location3);
+            currentLocal = location1;
             displayBox = new DisplayWindow(rect, Services);
             menu = new Menu(Window.ClientBounds.Width, Window.ClientBounds.Height, Services);
             mainSettings = new MainSettings(Window.ClientBounds.Width, Window.ClientBounds.Height, Services);
@@ -69,9 +81,13 @@ namespace Thru
             stateMachine(gameTime, StateMode.Update);
 
 
-
+            foreach(Location location in Locations)
+            {
+                location.Update(gameTime);
+            }
             // TODO: Add your update logic here
             var kstate = Keyboard.GetState();
+
 
 
 
@@ -84,7 +100,7 @@ namespace Thru
 
             _spriteBatch.Begin();
             _spriteBatch.Draw(background, new Vector2(0,0), Color.White);
-
+            currentLocal.Draw(_spriteBatch);
             stateMachine(gameTime, StateMode.Draw);
 
 

@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Content;
+using System.Text;
 
 namespace Thru
 {
@@ -16,6 +19,7 @@ namespace Thru
 		bool mpressed, prev_mpressed = false;
 		public double timer = 0;
 		double frameTime;
+		public SpriteFont Font;
 
 
 		public Button(Texture2D texture)
@@ -43,7 +47,8 @@ namespace Thru
 		{
 			
 				spriteBatch.Draw(Texture,Bounds, Color.White);
-			
+				spriteBatch.DrawString(Font ?? null, Text, new Vector2(Bounds.Width/2,Bounds.Height/2), Color.White);
+
 
 		}
 
