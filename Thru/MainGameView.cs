@@ -36,16 +36,25 @@ namespace Thru
 		}
 		public  State Update(GameTime gameTime)
         {
-            Location = Map.Update(gameTime);
-			buttonGroup.Update(gameTime);
-            if (menuButton.State == BState.JUST_RELEASED)
+
+            if (Map.ShowMap) {
+				Location = Map.Update(gameTime);
+			}
+			if (menuButton.State == BState.JUST_RELEASED)
 			{
+				Console.Write("Menu Button PRess" );
+
 				return State.Menu;
 			}
 			if (mapButton.State == BState.JUST_RELEASED)
 			{
+
 				Map.ShowMap = !Map.ShowMap;
+				Console.Write("Show Map: " + Map.ShowMap);
+
 			}
+			buttonGroup.Update(gameTime);
+
 			return State;
         }
 		public  void Draw(SpriteBatch _spriteBatch, GraphicsDeviceManager _graphics)

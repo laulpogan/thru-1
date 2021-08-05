@@ -38,7 +38,7 @@ namespace Thru
 
             if (ShowMap)
             {
-                spriteBatch.Draw(Background, new Vector2(0, 0), Color.White);
+               spriteBatch.Draw(Background, new Vector2(0, 0), Color.White);
 
                 buttonGroup.Draw(spriteBatch);
             }
@@ -52,7 +52,9 @@ namespace Thru
             {
                 if (button.State == BState.JUST_RELEASED)
                 {
-                    return findLocationByName(button.Text, Location.AdjacentLocations);
+                    Location newLocation = findLocationByName(button.Text, Location.AdjacentLocations);
+                    Location = newLocation;
+                    return newLocation;
                 }
             }
             return Location;

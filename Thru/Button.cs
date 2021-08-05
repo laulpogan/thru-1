@@ -21,6 +21,7 @@ namespace Thru
 		double frameTime;
 		public SpriteFont Font;
 		public string ID;
+		private GameTime GameTime;
 
 		public Button(Texture2D texture)
 		{
@@ -32,7 +33,7 @@ namespace Thru
 		public void Update(GameTime gameTime)
 		{
 			frameTime = gameTime.ElapsedGameTime.Milliseconds / 1000.0;
-
+			GameTime = gameTime;
 			// update mouse variables
 			MouseState mouse_state = Mouse.GetState();
 			mx = mouse_state.X;
@@ -98,7 +99,9 @@ namespace Thru
 					onClick();
 				}
 			}
-		protected void onClick() { }
+		protected void onClick() {
+			Console.WriteLine(Text + " State: " + State);
+		}
 
 	}
 
