@@ -16,15 +16,18 @@ namespace Thru
         public bool ShowMap;
         public Texture2D buttonImage;
         public Button mapButton;
+        public Button menuButton;
         public ArrayList graph;
         public Location Location;
 	public Map( IServiceProvider services, Location location)
 	{
+            Button[] buttons = new Button[0];
+        buttonGroup= new ButtonGroup(buttons,new Vector2(100, 100));
             Content = new ContentManager(services, "Content");
-
+            Background = Content.Load<Texture2D>("westcoast");
             buttonImage = Content.Load<Texture2D>("longbutton");
             Location = location;
-            ShowMap = true;
+            ShowMap = false;
             buildMapButtons();
             
 
@@ -32,15 +35,18 @@ namespace Thru
 
         public void Draw(SpriteBatch spriteBatch)
         {
+
             if (ShowMap)
             {
+                spriteBatch.Draw(Background, new Vector2(0, 0), Color.White);
+
                 buttonGroup.Draw(spriteBatch);
             }
         }
         public Location Update(GameTime gameTime)
         {
             buttonGroup.Update(gameTime);
-           
+
 
             foreach (Button button in buttonGroup.ButtonList)
             {
@@ -59,11 +65,15 @@ namespace Thru
             {
                 Button button = new Button(buttonImage);
                 button.Text = location.Name;
+                Console.WriteLine(button.Text);
                 button.Font = font;
-                button.Bounds.X = 150;
-                button.Bounds.Y = 150;
                 buttons[button.Text] = button;
             }
+            foreach(Button button in buttonGroup.ButtonList)
+            {
+                buttons[button.Text] = button;
+            }
+           
             List<Button> arr = new List<Button>(buttons.Values);
             Button[] buttonFinal = (new List<Button>(buttons.Values)).ToArray();
             buttonGroup = new ButtonGroup(buttonFinal, new Vector2(100, 100));

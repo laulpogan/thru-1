@@ -30,7 +30,9 @@ namespace Thru
 			menuButton.Text = "Menu";
 			menuButton.Font = Content.Load<SpriteFont>("Score");
 			Map.buttonGroup.ButtonList.Add(menuButton);
-			buttonGroup = new ButtonGroup((Button[])Map.buttonGroup.ButtonList.ToArray(typeof(Button)), new Vector2(100, 100));
+			Button[] tempList = { mapButton, menuButton };
+			buttonGroup = new ButtonGroup(tempList, new Vector2(100, 600));
+
 		}
 		public  State Update(GameTime gameTime)
         {
@@ -49,14 +51,15 @@ namespace Thru
 		public  void Draw(SpriteBatch _spriteBatch, GraphicsDeviceManager _graphics)
         {
 			Location.Draw(_spriteBatch);
-            if (Map.ShowMap)
-            {
+            
 				Map.Draw(_spriteBatch);
-            }
-            else
+
+            if (!Map.ShowMap)
             {
 				buttonGroup.Draw(_spriteBatch);
+
 			}
+
 
 		}
 	}
