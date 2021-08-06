@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections;
+using System.Text.Json;
 
 namespace Thru
 {
@@ -45,7 +46,18 @@ namespace Thru
             location2.AdjacentLocations.Add(location3);
             location1.AdjacentLocations.Add(location3);
             Locations.Add(location3);
-            
+
+            // var options = new JsonSerializerOptions { WriteIndented = true };
+            var options = new JsonSerializerOptions()
+            {
+                MaxDepth = 0,
+                IgnoreNullValues = true,
+                IgnoreReadOnlyProperties = true,
+                WriteIndented = true
+            };
+            string jsonString = JsonSerializer.Serialize(Locations, options);
+            Console.WriteLine(jsonString);
+
         }
 
         protected override void Initialize()
@@ -148,7 +160,8 @@ namespace Thru
 
         private State? runState(IGameView gameView, StateMode stateMode, GameTime gameTime) 
         {
-            switch(stateMode)
+           
+            switch (stateMode)
             {
                 case StateMode.Update:
                     return gameView.Update(gameTime);

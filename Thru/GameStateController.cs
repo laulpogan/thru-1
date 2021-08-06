@@ -7,6 +7,12 @@ namespace Thru
 {
 	public class GameStateController
 	{
+
+		Player Player;
+		Map Map;
+		MainGameView MainGameView;
+		Location Location;
+
 		public GameStateController()
 		{
 		}

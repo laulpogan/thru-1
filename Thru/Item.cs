@@ -7,13 +7,10 @@ using Microsoft.Xna.Framework.Content;
 
 namespace Thru
 {
-	public class Building
+	public class Item
 	{
-		int capacity;
-		int gas;
-		Location location;
-		ArrayList inhabitants;
-		public Building()
+	
+		public Item()
 		{
 		}
 

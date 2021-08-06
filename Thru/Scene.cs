@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -7,13 +9,12 @@ using Microsoft.Xna.Framework.Content;
 
 namespace Thru
 {
-	public class Building
+	public class Scene
 	{
-		int capacity;
-		int gas;
-		Location location;
-		ArrayList inhabitants;
-		public Building()
+		Encounter Encounter; 
+		Location Location;
+		Dictionary<string,ICharacter> Characters;
+		public Scene()
 		{
 		}
 
@@ -21,7 +22,7 @@ namespace Thru
 		{
 
 		}
-
+		
 		public void Draw()
 		{
 
