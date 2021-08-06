@@ -52,9 +52,9 @@ namespace Thru
             {
                 if (button.State == BState.JUST_RELEASED)
                 {
-                    Location newLocation = findLocationByName(button.Text, Location.AdjacentLocations);
-                    Location = newLocation;
-                    return newLocation;
+                  
+                    Location = Location.AdjacentLocations[button.Text] ?? Location;
+                    return Location;
                 }
             }
             return Location;
@@ -63,7 +63,7 @@ namespace Thru
         {
             Dictionary<string, Button> buttons = new Dictionary<string, Button>();
 
-            foreach (Location location in Location.AdjacentLocations)
+            foreach (Location location in Location.AdjacentLocations.Values)
             {
                 Button button = new Button(buttonImage);
                 button.Text = location.Name;

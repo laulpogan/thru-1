@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections;
 using System.Text.Json;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Thru
 {
@@ -24,8 +26,9 @@ namespace Thru
         public MainGameView mainGameView;
         public Texture2D background;
         public DisplayWindow displayBox;
+        public IOController IOController;
         Location location1, location2, location3;
-        ArrayList Locations;
+        Dictionary<string,Location> Locations;
         public ThruGame()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -36,35 +39,39 @@ namespace Thru
         }
         public void setupLocations()
         {
-            Locations = new ArrayList();
-            location1 = new Location( Locations, background, "southern terminus");
-            Locations.Add(location1);
-            location2 = new Location( Locations,  Content.Load<Texture2D>("Moms_Diner"), "mom's diner");
-            Locations.Add(location2);
-            location1.AdjacentLocations.Add(location2);
+            Locations = new Dictionary<string, Location>();
+
+            location1 = new Location(Locations, background, "southern terminus");
+            Locations["southern terminus"] = location1;
+
+            location2 = new Location(Locations, Content.Load<Texture2D>("Moms_Diner"), "mom's diner");
+            Locations["mom's diner"] = location2;
+            location1.AdjacentLocations["mom's diner"] = location2;
+
             location3 = new Location(Locations, Content.Load<Texture2D>("triangle"), "7th dimension hyperroom");
-            location2.AdjacentLocations.Add(location3);
-            location1.AdjacentLocations.Add(location3);
-            Locations.Add(location3);
+            Locations["7th dimension hyperroom"] = location3;
+            location2.AdjacentLocations["7th dimension hyperroom"] = location3;
+            location1.AdjacentLocations["7th dimension hyperroom"] = location3;
 
-            // var options = new JsonSerializerOptions { WriteIndented = true };
-            var options = new JsonSerializerOptions()
-            {
-                MaxDepth = 0,
-                IgnoreNullValues = true,
-                IgnoreReadOnlyProperties = true,
-                WriteIndented = true
-            };
-            string jsonString = JsonSerializer.Serialize(Locations, options);
-            Console.WriteLine(jsonString);
+            // IOController.serializeToFile(Locations);
 
+            foreach (Location location in Locations.Values)
+            {   
+                Console.WriteLine("NAME: " + location.Name);
+                    
+                    IOController.serializeToFile(new DataBag( location.Name));
+
+              
+            }
+            DataBag jsonString =IOController.deserializeFromFile();
+            Console.WriteLine("LOADED: " + jsonString);
         }
 
         protected override void Initialize()
         {
             state = State.Menu;
             //Texture2D rect = new Texture2D(_graphics.GraphicsDevice, 1000, 250);
-
+            IOController = new IOController(Services);
             //displayBox = new DisplayWindow(rect, Services);
             menu = new Menu(Window.ClientBounds.Width, Window.ClientBounds.Height, Services);
              mainSettings = new MainSettings(Window.ClientBounds.Width, Window.ClientBounds.Height, Services);

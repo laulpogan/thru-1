@@ -13,12 +13,12 @@ namespace Thru
     public class Location
     {
         [JsonIgnore]
-        public ArrayList AdjacentLocations;
+        public Dictionary<string,Location> AdjacentLocations;
         [JsonInclude]
         public Texture2D Background;
         [JsonInclude]
         public string Name;
-        public Location(ArrayList adjacentLocations, Texture2D image, string name)
+        public Location(Dictionary<string,Location> adjacentLocations, Texture2D image, string name)
         {
             Background = image;
             AdjacentLocations = adjacentLocations;
