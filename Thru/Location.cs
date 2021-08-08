@@ -18,6 +18,7 @@ namespace Thru
         public Texture2D Background;
         [JsonInclude]
         public string Name;
+        public string ID;
         public Location(Dictionary<string,Location> adjacentLocations, Texture2D image, string name)
         {
             Background = image;

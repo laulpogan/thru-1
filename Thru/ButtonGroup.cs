@@ -18,18 +18,18 @@ namespace Thru
 			Origin = origin;
 				ButtonList = new ArrayList();
 			heightTracker = (int)origin.Y;
-			
-				foreach ( Button i in buttonList) {
-					
-					buttonHeight = i.Bounds.Height;
-					buttonWidth = i.Bounds.Width;
+		
+			Console.WriteLine(buttonList.Length);											
+				foreach ( Button button in buttonList) {
+					buttonHeight = button.Bounds.Height;
+					buttonWidth = button.Bounds.Width;
 				Console.WriteLine("button Width: " + buttonWidth + " button Height: " + buttonHeight);
 
-				i.Bounds.Y = heightTracker;
+				button.Bounds.Y = heightTracker;
 				heightTracker += buttonHeight + 10;
-				i.Bounds.X = (int)origin.X;
-				Console.WriteLine("Name: "+ i.Text+" BoundsX: " + i.Bounds.X + " BoundsY: "+ i.Bounds.Y  );
-					ButtonList.Add(i);
+				button.Bounds.X = (int)origin.X;
+				Console.WriteLine("Name: "+ button.Text+" BoundsX: " + button.Bounds.X + " BoundsY: "+ button.Bounds.Y  );
+					ButtonList.Add(button);
 			}
 
 		}

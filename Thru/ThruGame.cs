@@ -29,6 +29,8 @@ namespace Thru
         public IOController IOController;
         Location location1, location2, location3;
         Dictionary<string,Location> Locations;
+        GameStateController GameStateController;
+
         public ThruGame()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -54,31 +56,35 @@ namespace Thru
             location1.AdjacentLocations["7th dimension hyperroom"] = location3;
 
             // IOController.serializeToFile(Locations);
-
+            DataBag[] dataBags = new DataBag[Locations.Count];
+            int count = 0;
             foreach (Location location in Locations.Values)
             {   
                 Console.WriteLine("NAME: " + location.Name);
-                    
-                    IOController.serializeToFile(new DataBag( location.Name));
+                dataBags[count]=new DataBag(location.Name);
+                count++;  
 
               
             }
-            DataBag jsonString =IOController.deserializeFromFile();
-            Console.WriteLine("LOADED: " + jsonString);
+             //IOController.serializeToFile();
+           // DataBag[] jsonString =IOController.deserializeFromFile<DataBag[]>();
+           // Console.WriteLine("LOADED: " + jsonString);
         }
 
         protected override void Initialize()
         {
             state = State.Menu;
             //Texture2D rect = new Texture2D(_graphics.GraphicsDevice, 1000, 250);
-            IOController = new IOController(Services);
+           // IOController = new IOController(Services, "Places.json");
             //displayBox = new DisplayWindow(rect, Services);
             menu = new Menu(Window.ClientBounds.Width, Window.ClientBounds.Height, Services);
              mainSettings = new MainSettings(Window.ClientBounds.Width, Window.ClientBounds.Height, Services);
             background = Content.Load<Texture2D>("southern_terminus");
             setupLocations();
             mainGameView = new MainGameView(location1, Services);
-
+            Texture2D rect = new Texture2D(_graphics.GraphicsDevice, 1000, 200);
+            displayBox = new DisplayWindow(rect, "", "", Services);
+            GameStateController = new GameStateController(Services,displayBox);
 
             _graphics.PreferredBackBufferWidth = background.Width;  // set this value to the desired width of your window
             _graphics.PreferredBackBufferHeight = background.Height;   // set this value to the desired height of your window
@@ -91,7 +97,7 @@ namespace Thru
 
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            ///font = Content.Load<SpriteFont>("Score"); // Use the name of your sprite font file here instead of 'Score'.
+            font = Content.Load<SpriteFont>("Score"); // Use the name of your sprite font file here instead of 'Score'.
 
         }
 
@@ -101,8 +107,8 @@ namespace Thru
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             stateMachine(gameTime, StateMode.Update);
-
-
+            Console.WriteLine(state);
+            GameStateController.Update(gameTime);
             // TODO: Add your update logic here
             var kstate = Keyboard.GetState();
 
@@ -118,7 +124,7 @@ namespace Thru
 
             _spriteBatch.Begin();
             stateMachine(gameTime, StateMode.Draw);
-
+            GameStateController.Draw(_spriteBatch, gameTime);
 
 
             //displayBox.Draw(_spriteBatch, gameTime);

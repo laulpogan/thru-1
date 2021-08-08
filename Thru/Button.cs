@@ -23,10 +23,12 @@ namespace Thru
 		public string ID;
 		private GameTime GameTime;
 
-		public Button(Texture2D texture)
+		public Button(Texture2D texture, string text = "", SpriteFont font = null)
 		{
 			Texture = texture;
 			Bounds = texture.Bounds;
+			Text = text;
+			Font = font;
 			State = BState.UP;
 		}
 

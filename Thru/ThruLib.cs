@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Content;
 namespace Thru {
 	public static class ThruLib
 	{
@@ -38,6 +41,19 @@ namespace Thru {
 				x <= tx + tex.Width &&
 				y >= ty &&
 				y <= ty + tex.Height);
+		}
+		public static T[] deDupeArray<T>(T[] array)
+		{
+			Dictionary<T, T> deDupe = new Dictionary<T, T>();
+
+
+			for (int i = 0; i < array.Length; i++)
+			{
+				deDupe.Add(array[i], array[i]);
+			}
+
+			T[] noDupes = (new List<T>(deDupe.Values)).ToArray();
+			return noDupes;
 		}
 
 	}

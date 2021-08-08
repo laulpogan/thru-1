@@ -20,15 +20,11 @@ namespace Thru
 
 			Content = new ContentManager(services, "Content");
 
-			Texture2D easy =
-					   Content.Load<Texture2D>(@"images/easy");
-			Texture2D medium =
-				Content.Load<Texture2D>(@"images/medium");
-			Texture2D hard =
-				Content.Load<Texture2D>(@"images/hard");
-			newGameButton = new Button(easy);
-			mainSettingsButton = new Button(medium);
-			loadGameButton = new Button(hard);
+			Texture2D buttonImage = Content.Load<Texture2D>("longButton");
+			SpriteFont font = Content.Load<SpriteFont>("Score");
+			newGameButton = new Button(buttonImage, "New Game", font);
+			mainSettingsButton = new Button(buttonImage, "Main Settings", font);
+			loadGameButton = new Button(buttonImage, "Load Game", font);
 			buttonGroup = new ButtonGroup(new Button[] { newGameButton, mainSettingsButton, loadGameButton }, new Vector2(100,100));
 
 

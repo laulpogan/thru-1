@@ -32,18 +32,18 @@ namespace Thru
 			Map.buttonGroup.ButtonList.Add(menuButton);
 			Button[] tempList = { mapButton, menuButton };
 			buttonGroup = new ButtonGroup(tempList, new Vector2(100, 600));
-
+			State = State.Game;
 		}
 		public  State Update(GameTime gameTime)
         {
-
-            if (Map.ShowMap) {
+			buttonGroup.Update(gameTime);
+			if (Map.ShowMap) {
 				Location = Map.Update(gameTime);
 			}
 			if (menuButton.State == BState.JUST_RELEASED)
 			{
-				Console.Write("Menu Button PRess" );
-
+				Console.Write("Menu Button Press" );
+				State = State.Game;
 				return State.Menu;
 			}
 			if (mapButton.State == BState.JUST_RELEASED)
@@ -53,7 +53,7 @@ namespace Thru
 				Console.Write("Show Map: " + Map.ShowMap);
 
 			}
-			buttonGroup.Update(gameTime);
+			
 
 			return State;
         }

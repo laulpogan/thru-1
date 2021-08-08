@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
+using System.Text;
 
 namespace Thru
 {
@@ -23,30 +25,18 @@ namespace Thru
 			NumberHandling = JsonNumberHandling.AllowReadingFromString |
 	 JsonNumberHandling.WriteAsString
 		};
-		static string fileName = "lololo.json";
-		string path = fileName;
-		public IOController(IServiceProvider services)
+		static string fileName;
+		string path;
+		public IOController(IServiceProvider services, string filename)
 		{
-			
-
+			fileName = filename;
+			path = fileName;
 		}
-
-		public void Update()
-		{
-
-		}
-
-		public void Draw()
-		{
-
-		}
-
-		public void serializeToFile(DataBag obj)
+		public void serializeToFile<T>(T[] obj)
         {
 			
-			string jsonString = JsonSerializer.Serialize<DataBag>(obj, options);
+			string jsonString = JsonSerializer.Serialize<T[]>(obj, options);
 
-			//using FileStream createStream = File.Create(fileName);
 			if (!File.Exists(path))
 			{
 			Console.WriteLine("Creating file" + GetPath(fileName));
@@ -62,33 +52,36 @@ namespace Thru
 
 				using (StreamWriter sw = File.CreateText(path))
 				{
+					T[] temp = deserializeFromFile<T[]>();
+					T[] dataBags = new T[temp.Length + obj.Length];
+					temp.CopyTo( dataBags,0);
+					obj.CopyTo(dataBags, temp.Length);		
+				
+					jsonString = JsonSerializer.Serialize<T[]>(ThruLib.deDupeArray(dataBags), options);
 					sw.WriteLine(jsonString);
 				}
 			}
 
-			// This text is always added, making the file longer over time
-			// if it is not deleted.
+
 			
 			Console.WriteLine(jsonString);
 		}
 
-		public DataBag deserializeFromFile()
+		public  T deserializeFromFile<T>()
         {
 			
-			string jsonString ="";
+			StringBuilder jsonString = new StringBuilder("");
 
-			//using FileStream openStream = File.OpenRead(fileName);
 			// Open the file to read from.
 			using (StreamReader sr = File.OpenText(path))
 			{
 				string s = "";
 				while ((s = sr.ReadLine()) != null)
 				{
-					jsonString += s;
-					Console.WriteLine(s);
+					jsonString.Append(s);
 				}
 			}
-			return JsonSerializer.Deserialize<DataBag>(jsonString, options);
+			return JsonSerializer.Deserialize<T>(jsonString.ToString(), options);
 		}
 		string GetPath(string filePath)
 		{

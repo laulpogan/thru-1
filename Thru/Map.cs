@@ -53,7 +53,7 @@ namespace Thru
                 if (button.State == BState.JUST_RELEASED)
                 {
                   
-                    Location = Location.AdjacentLocations[button.Text] ?? Location;
+                    Location = Location.AdjacentLocations.ContainsKey(button.Text) ? Location.AdjacentLocations[button.Text] : Location;
                     return Location;
                 }
             }
@@ -76,7 +76,6 @@ namespace Thru
                 buttons[button.Text] = button;
             }
            
-            List<Button> arr = new List<Button>(buttons.Values);
             Button[] buttonFinal = (new List<Button>(buttons.Values)).ToArray();
             buttonGroup = new ButtonGroup(buttonFinal, new Vector2(100, 100));
         }
