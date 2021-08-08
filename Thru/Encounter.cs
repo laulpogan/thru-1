@@ -56,7 +56,7 @@ namespace Thru
 
 			}
 			Console.WriteLine(buttonList.ToString());
-			ButtonGroup = new ButtonGroup(buttonList, new Vector2(900, 200));
+			ButtonGroup = new ButtonGroup(buttonList, new Vector2(1600, 250));
 		}
 
 		public State Update(GameTime gameTime)
