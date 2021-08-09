@@ -4,20 +4,24 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 
 namespace Thru
 {
+    [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
     public class Location
     {
-        [JsonIgnore]
+         [JsonIgnore]
         public Dictionary<string,Location> AdjacentLocations;
-        [JsonInclude]
+        [JsonIgnore]
         public Texture2D Background;
-        [JsonInclude]
+        [JsonProperty(PropertyName = "Description")]
+        public string Description { get; set; }
+        [JsonProperty(PropertyName = "Name")]
         public string Name;
+
+        [JsonProperty(PropertyName = "Id")]
         public string ID;
         public Location(Dictionary<string,Location> adjacentLocations, Texture2D image, string name)
         {

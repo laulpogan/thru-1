@@ -23,7 +23,7 @@ namespace Thru
 			[JsonInclude]
 			public string most_likely;
         }
-		Dictionary<string, FirstName> jsonText;
+		Dictionary<string, FirstName> nameDict;
 		Player Player;
 		Map Map;
 		MainGameView MainGameView;
@@ -34,7 +34,8 @@ namespace Thru
         public GameStateController(IServiceProvider services, DisplayWindow displayWindow)
         {
             IOController = new IOController(services, "C:\\Users\\thein\\source\\repos\\thru\\Thru\\Content\\first_name_list.json");
-            jsonText = IOController.deserializeFromFile<Dictionary<string, FirstName>>();
+			var jsonText = IOController.deserializeFromFile<FirstName>();
+			nameDict = jsonText;
 
             Player boo = createCharacter();
             Dictionary<string, Player> participants = new Dictionary<string, Player>();
@@ -57,11 +58,11 @@ namespace Thru
 			
 			Random rand = new Random();
 
-			List<string> names = new List<string>(jsonText.Keys);
+			List<string> names = new List<string>(nameDict.Keys);
 			Player character = new Player(names[rand.Next(names.Count)]);
 			Console.WriteLine(character.Name);
 
-			if (jsonText[character.Name].most_likely == "male")
+			if (nameDict[character.Name].most_likely == "male")
             {
 				character.Gender = Player.Genders.male;
             } else

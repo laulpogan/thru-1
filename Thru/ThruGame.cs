@@ -55,27 +55,20 @@ namespace Thru
             location2.AdjacentLocations["7th dimension hyperroom"] = location3;
             location1.AdjacentLocations["7th dimension hyperroom"] = location3;
 
-            // IOController.serializeToFile(Locations);
-            DataBag[] dataBags = new DataBag[Locations.Count];
-            int count = 0;
-            foreach (Location location in Locations.Values)
-            {   
-                Console.WriteLine("NAME: " + location.Name);
-                dataBags[count]=new DataBag(location.Name);
-                count++;  
-
-              
+           
+            IOController.serializeToFile<Location>(Locations);
+            var jsonString = IOController.deserializeFromFile<Location>();
+            foreach (string key in jsonString.Keys)
+            {
+                Console.WriteLine("LOADED: " + key + ": " + jsonString[key]);
             }
-             //IOController.serializeToFile();
-           // DataBag[] jsonString =IOController.deserializeFromFile<DataBag[]>();
-           // Console.WriteLine("LOADED: " + jsonString);
         }
 
         protected override void Initialize()
         {
             state = State.Menu;
             //Texture2D rect = new Texture2D(_graphics.GraphicsDevice, 1000, 250);
-           // IOController = new IOController(Services, "Places.json");
+           IOController = new IOController(Services, "TestPlaces3.json");
             //displayBox = new DisplayWindow(rect, Services);
             menu = new Menu(Window.ClientBounds.Width, Window.ClientBounds.Height, Services);
              mainSettings = new MainSettings(Window.ClientBounds.Width, Window.ClientBounds.Height, Services);
@@ -107,7 +100,6 @@ namespace Thru
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             stateMachine(gameTime, StateMode.Update);
-            Console.WriteLine(state);
             GameStateController.Update(gameTime);
             // TODO: Add your update logic here
             var kstate = Keyboard.GetState();

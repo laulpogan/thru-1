@@ -53,7 +53,7 @@ namespace Thru
                 if (button.State == BState.JUST_RELEASED)
                 {
                   
-                    Location = Location.AdjacentLocations.ContainsKey(button.Text) ? Location.AdjacentLocations[button.Text] : Location;
+                    Location = (Location)(Location.AdjacentLocations.ContainsKey(button.Text) ? Location.AdjacentLocations[button.Text] : Location);
                     return Location;
                 }
             }
