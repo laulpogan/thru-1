@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Thru
 {
-	public class Map
+    public class Map
     {
         public Texture2D Background;
         public SpriteFont font;
@@ -19,17 +19,17 @@ namespace Thru
         public Button menuButton;
         public ArrayList graph;
         public Location Location;
-	public Map( IServiceProvider services, Location location)
-	{
+        public Map(IServiceProvider services, Location location)
+        {
             Button[] buttons = new Button[0];
-        buttonGroup= new ButtonGroup(buttons,new Vector2(100, 100));
+            buttonGroup = new ButtonGroup(buttons, new Vector2(100, 100));
             Content = new ContentManager(services, "Content");
             Background = Content.Load<Texture2D>("westcoast");
             buttonImage = Content.Load<Texture2D>("longbutton");
             Location = location;
             ShowMap = false;
             buildMapButtons();
-            
+
 
         }
 
@@ -38,7 +38,7 @@ namespace Thru
 
             if (ShowMap)
             {
-               spriteBatch.Draw(Background, new Vector2(0, 0), Color.White);
+                spriteBatch.Draw(Background, new Vector2(0, 0), Color.White);
 
                 buttonGroup.Draw(spriteBatch);
             }
@@ -52,7 +52,7 @@ namespace Thru
             {
                 if (button.State == BState.JUST_RELEASED)
                 {
-                  
+
                     Location = (Location)(Location.AdjacentLocations.ContainsKey(button.Text) ? Location.AdjacentLocations[button.Text] : Location);
                     return Location;
                 }
@@ -71,11 +71,11 @@ namespace Thru
                 button.Font = font;
                 buttons[button.Text] = button;
             }
-            foreach(Button button in buttonGroup.ButtonList)
+            foreach (Button button in buttonGroup.ButtonList)
             {
                 buttons[button.Text] = button;
             }
-           
+
             Button[] buttonFinal = (new List<Button>(buttons.Values)).ToArray();
             buttonGroup = new ButtonGroup(buttonFinal, new Vector2(100, 100));
         }
@@ -89,6 +89,11 @@ namespace Thru
                 }
             }
             return Location;
+        }
+
+        public void setupCoords()
+        {
+           
         }
 
     }

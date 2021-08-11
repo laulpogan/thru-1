@@ -2,13 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.Json;
+using System.Text;
 using System.Threading.Tasks;
-using System.Text.Json.Serialization;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
+using GeoJSON;
+using Newtonsoft.Json;
+using GeoJSON.Net.Geometry;
+using GeoJSON.Net.Feature;
 
 namespace Thru
 {
@@ -16,13 +19,22 @@ namespace Thru
 	{
 		public record FirstName
         {
-			[JsonInclude]
+			[JsonProperty(PropertyName = "female")]
 			public int female;
-			[JsonInclude]
+			[JsonProperty(PropertyName = "male")] 
 			public int male;
-			[JsonInclude]
+			[JsonProperty(PropertyName = "most_likely")] 
 			public string most_likely;
         }
+	/*	public record Feature
+        {
+			LineString geometry;
+        }
+		public record FeatureCollection
+		{
+			Feature[] features;
+
+        }*/
 		Dictionary<string, FirstName> nameDict;
 		Player Player;
 		Map Map;
@@ -31,18 +43,28 @@ namespace Thru
 		public IOController IOController;
 		public Encounter Encounter;
 
-        public GameStateController(IServiceProvider services, DisplayWindow displayWindow)
+		public GameStateController(IServiceProvider services, DisplayWindow displayWindow)
         {
-            IOController = new IOController(services, "C:\\Users\\thein\\source\\repos\\thru\\Thru\\Content\\first_name_list.json");
+			
+			/*IOController mapData = new IOController(services, "C:\\Users\\thein\\Downloads\\PacificCrestTrail.json");
+			Dictionary<string, Point> mapDict = mapData.deserializeFromFile<Point>();
+
+			foreach (string key in mapDict.Keys)
+			{
+				Console.WriteLine(mapDict[key]);
+			}*/
+			IOController = new IOController(services, "C:\\Users\\thein\\source\\repos\\thru\\Thru\\Content\\first_name_list.json");
 			var jsonText = IOController.deserializeFromFile<FirstName>();
 			nameDict = jsonText;
 
-            Player boo = createCharacter();
+			Player boo = createCharacter();
             Dictionary<string, Player> participants = new Dictionary<string, Player>();
             participants[boo.Name] = boo;
             Encounter = new Encounter(participants, "luck", 12, "Boo", "You whore", displayWindow, services);
 
         }
+
+		
 
 		public State Update(GameTime gameTime)
         {
@@ -50,10 +72,11 @@ namespace Thru
         }
 		public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
+			
 			Encounter.Draw(spriteBatch, gameTime);
         }
-
-        public  Player createCharacter()
+		
+		public  Player createCharacter()
         {
 			
 			Random rand = new Random();

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
+using GeoJSON;
 
 namespace Thru
 {
@@ -82,13 +83,13 @@ namespace Thru
                 string s = "";
                 while ((s = sr.ReadLine()) != null)
                 {
+
                     jsonString.Append(s);
                 }
                 sr.Close();
             }
 
-            var oops = JsonConvert.DeserializeObject<Dictionary<string, T>>(jsonString.ToString(), Settings);
-            return  oops;
+            return JsonConvert.DeserializeObject<Dictionary<string, T>>(jsonString.ToString(), Settings);
         }
         string GetPath(string filePath)
         {
