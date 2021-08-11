@@ -14,6 +14,7 @@ using Newtonsoft.Json;
 using System.IO;
 using System.Linq;
 using MonoGame;
+using System.Threading;
 
 namespace Thru
 {
@@ -57,14 +58,14 @@ namespace Thru
             p0 = new Dictionary<string, double>() {
                                 { "scrX", 0},        // Minimum X position on screen
                                 { "scrY",0},         // Minimum Y position on screen
-                                { "lat",32.826225},    // Latitude
-                                { "lng",-116.631558}     // Longitude
+                                { "lat",32.69145},    // Latitude
+                                { "lng",-116.53645}     // Longitude
                             };
             p1 = new Dictionary<string, double>() {
                                 { "scrX", Window.ClientBounds.Width},        // Maximum X position on screen
                                 { "scrY", Window.ClientBounds.Height},         // Maximum Y position on screen
-                                { "lat",32.604008},    // Latitude
-                                { "lng",-116.350353}     // Longitude
+                                { "lat",32.59114},    // Latitude
+                                { "lng",-116.46230}     // Longitude
                             };
             pos0 = latlngToGlobalXY(p0["lat"], p0["lng"]);
             pos1 = latlngToGlobalXY(p1["lat"], p1["lng"]);
@@ -117,16 +118,18 @@ namespace Thru
 
         public Dictionary<string, double>  trueAdjuster(double lat, double lng)
         {
-            double x = (1000 / 360) * (180 + lng) ;
-            double y = (700 / 180) * (90 - lat);
+            //todo: switch back to client bounds
+
+            double x = Window.ClientBounds.Width / 360 * (180 + lng) ;
+            double y = Window.ClientBounds.Height / 180 * (90 - lat);
             Dictionary<string, double> returnPos = new Dictionary<string, double>() { { "x", x }, { "y", y } };
             return returnPos;
         }
 
         public Dictionary<string, double> thirdTry(double lat, double lng)
         {
-            double x = Window.ClientBounds.Width/360 * (180 + lat)/360;
-            double y = Window.ClientBounds.Height/180 * (90 - lng)/180;
+            double x = Window.ClientBounds.Width * (180 + lat)/360;
+            double y = Window.ClientBounds.Height * (90 - lng)/180;
             Dictionary<string, double> returnPos = new Dictionary<string, double>() { { "x", x }, { "y", y } };
             return returnPos;
         }
@@ -149,85 +152,104 @@ namespace Thru
             _graphics.PreferredBackBufferHeight = background.Height;   // set this value to the desired height of your window
             _graphics.ApplyChanges();
 
-           /*List<string> geoType = new List<string>(){"Point", "MultiPoint", "LineString",
-      "MultiLineString", "Polygon", "MultiPolygon",
-      "GeometryCollection"};*/
-            FeatureCollection boogle = loadMapData("C:\\Users\\thein\\Downloads\\mygeodata (2)\\Thru.geojson");
-            features = boogle.Features;
-            //features.RemoveAll(item => item == null);
-            shapeList = new List<PolygonShape>();
-            vert = new List<VertexPositionColorTexture>();
-            foreach (Feature feature in features ?? Enumerable.Empty<Feature>())
+            /*List<string> geoType = new List<string>(){"Point", "MultiPoint", "LineString",
+       "MultiLineString", "Polygon", "MultiPolygon",
+       "GeometryCollection"};*/
+            List<FeatureCollection> mapDataTotal = loadMapData("C:\\Users\\thein\\Downloads\\output (1)") ?? new List<FeatureCollection>();
+            foreach (FeatureCollection mapDataIndividual in mapDataTotal)
             {
-                if (feature == new Feature(null, null))
+                features = mapDataIndividual.Features;
+                features.RemoveAll(item => item == null);
+                shapeList = new List<PolygonShape>();
+                vert = new List<VertexPositionColorTexture>();
+                Dictionary<string, double> pos = new Dictionary<string, double>();
+                VertexPositionColorTexture tempVPT = new VertexPositionColorTexture();
+            foreach (Feature feature in features ?? Enumerable.Empty<Feature>())
                 {
-                    continue;
-                }
-                Console.WriteLine(feature.Geometry.Type);
-                switch (feature.Geometry.Type)
-                {
-                    case GeoJSONObjectType.LineString:
-                        LineString lineString = (LineString)feature.Geometry;
-                        foreach (IPosition coord in lineString.Coordinates)
-                        {
-                            Console.WriteLine(coord.Altitude);
-                            Console.WriteLine(coord.Latitude);
-                            Console.WriteLine(coord.Longitude);
-                            if(coord != null)
+                    
+                    Console.WriteLine(feature.Geometry.Type);
+                    double altitude;
+
+                    switch (feature.Geometry.Type)
+                    {
+                        case GeoJSONObjectType.LineString:
+                            LineString lineString = (LineString)feature.Geometry;
+                            foreach (IPosition coord in lineString.Coordinates)
                             {
-                                Dictionary<string, double> pos = trueAdjuster(coord.Latitude, coord.Longitude);
-                                Console.WriteLine("X: " + coord.Latitude + " Y: " + coord.Longitude);
-                                Console.WriteLine("X: " + pos["x"] + " Y: " + pos["y"]);
-                                VertexPositionColorTexture tempVPT = new VertexPositionColorTexture();
-                                tempVPT.Position = new Vector3((float)pos["x"],(float) pos["y"], (float)coord.Altitude);
-                                tempVPT.TextureCoordinate = new Vector2(0,0);
-                                vert.Add(tempVPT);
-                            }
-                            
-
-
-
-
-
-                        }
-
-
-                        break;
-                    case GeoJSONObjectType.Polygon:
-                        Polygon polygon = (Polygon)feature.Geometry;
-                        foreach (LineString lines in polygon.Coordinates)
-                        {
-
-                            foreach (IPosition coord in lines.Coordinates)
-                            {
-                                double altitude = coord.Altitude ?? 0;
-                                Console.WriteLine(altitude);
+                                /*Console.WriteLine(coord.Altitude);
                                 Console.WriteLine(coord.Latitude);
-                                Console.WriteLine(coord.Longitude);
-                                Dictionary<string, double> pos = thirdTry(coord.Latitude, coord.Longitude);
-                                Console.WriteLine("X: " + coord.Latitude + " Y: " + coord.Longitude);
-                                Console.WriteLine("X: " + pos["x"] + " Y: " + pos["y"]);
-                                VertexPositionColorTexture tempVPT = new VertexPositionColorTexture();
+                                Console.WriteLine(coord.Longitude);*/
+                                altitude = coord.Altitude ?? 0;
+
+                                pos = thirdTry(coord.Latitude, coord.Longitude) ?? new Dictionary<string, double>();
+                                   /* Console.WriteLine("X: " + coord.Latitude + " Y: " + coord.Longitude);
+                                    Console.WriteLine("X: " + pos["x"] + " Y: " + pos["y"]);*/
+                                    tempVPT = new VertexPositionColorTexture();
                                 tempVPT.Position = new Vector3((float)pos["x"], (float)pos["y"], (float)altitude);
-                                tempVPT.TextureCoordinate = new Vector2((float)pos["x"], (float)pos["y"]);
-                                tempVPT.Color = Color.FloralWhite;
+                                tempVPT.TextureCoordinate = new Vector2(0, 0);
                                 vert.Add(tempVPT);
                             }
-                            tempShape = new PolygonShape(_graphics.GraphicsDevice, vert.ToArray());
-                            shapeList.Add(tempShape);
-                        }
+                            break;
+                        case GeoJSONObjectType.Polygon:
+                            Polygon polygon = (Polygon)feature.Geometry;
+                            foreach (LineString lines in polygon.Coordinates)
+                            {
 
-                        break;
-                    default:
-                        break;
+                                foreach (IPosition coord in lines.Coordinates)
+                                {
+                                    altitude = coord.Altitude ?? 0;
+                                    //Console.WriteLine(altitude);
+                                    //Console.WriteLine(coord.Latitude);
+                                    //Console.WriteLine(coord.Longitude);
+                                    pos = thirdTry(coord.Latitude, coord.Longitude);
+                                    //Console.WriteLine("X: " + coord.Latitude + " Y: " + coord.Longitude);
+                                    //Console.WriteLine("X: " + pos["x"] + " Y: " + pos["y"]);
+                                    tempVPT = new VertexPositionColorTexture();
+                                    tempVPT.Position = new Vector3((float)pos["x"], (float)pos["y"], (float)altitude);
+                                    tempVPT.TextureCoordinate = new Vector2((float)pos["x"], (float)pos["y"]);
+                                    tempVPT.Color = Color.FloralWhite;
+                                    vert.Add(tempVPT);
+                                }
+                                tempShape = new PolygonShape(_graphics.GraphicsDevice, vert.ToArray());
+                                shapeList.Add(tempShape);
+                            }
+
+                            break;
+                        case GeoJSONObjectType.Point:
+
+                            GeoJSON.Net.Geometry.Point point = (GeoJSON.Net.Geometry.Point)feature.Geometry;
+                            altitude = point.Coordinates.Altitude ?? 0;
+                            pos = thirdTry(point.Coordinates.Latitude, point.Coordinates.Longitude);
+                            tempVPT = new VertexPositionColorTexture();
+                            tempVPT.Position = new Vector3((float)pos["x"], (float)pos["y"], (float)altitude);
+                            tempVPT.TextureCoordinate = new Vector2((float)pos["x"], (float)pos["y"]);
+                            tempVPT.Color = Color.FloralWhite;
+                            vert.Add(tempVPT);
+                            break;
+                        case GeoJSONObjectType.MultiLineString:
+                            Console.WriteLine("FOUND A " + GeoJSONObjectType.MultiLineString);
+                            break;
+                        case GeoJSONObjectType.GeometryCollection:
+                            Console.WriteLine("FOUND A " + GeoJSONObjectType.GeometryCollection);
+                            break;
+                        case GeoJSONObjectType.MultiPoint:
+                            Console.WriteLine("FOUND A " + GeoJSONObjectType.MultiPoint);
+                            break;
+                        case GeoJSONObjectType.MultiPolygon:
+                            Console.WriteLine("FOUND A " + GeoJSONObjectType.MultiPolygon);
+                            break;
+                        default:
+                            break;
+
+                    }
+
+
+
+
 
                 }
-
-
-            
-
-         
             }
+            
             basicEffect = new StandardBasicEffect(_graphics.GraphicsDevice);
             basicEffect.TextureEnabled = true;
 
@@ -235,7 +257,8 @@ namespace Thru
 
             base.Initialize();
         }
-        public FeatureCollection loadMapData(string fileName)
+
+        public FeatureCollection loadMapDataFile(string fileName)
         {
             StringBuilder jsonString = new StringBuilder("");
             Console.WriteLine("Reading from file " + fileName);
@@ -250,9 +273,26 @@ namespace Thru
                     jsonString.Append(s);
                 }
                 sr.Close();
+                Console.WriteLine(fileName + " closed");
+            }
+            return JsonConvert.DeserializeObject<FeatureCollection>(jsonString.ToString());
+        }
+        
+        public List<FeatureCollection> loadMapData(string directoryName)
+        {
+            List<FeatureCollection> mapList = new List<FeatureCollection>();
+            foreach(string fileName in Directory.GetFiles(directoryName))
+            {
+                try
+                {
+                    mapList.Add(loadMapDataFile(fileName)?? new FeatureCollection());
+                }   catch(Exception e)
+                {
+                    Console.WriteLine(fileName + " " + e.ToString());
+                }
             }
 
-            return JsonConvert.DeserializeObject<FeatureCollection>(jsonString.ToString());
+            return mapList;
         }
         protected override void LoadContent()
         {
@@ -286,21 +326,27 @@ namespace Thru
 
             _spriteBatch.Begin();
             stateMachine(gameTime, StateMode.Draw);
-            GameStateController.Draw(_spriteBatch, gameTime);
+            //GameStateController.Draw(_spriteBatch, gameTime);
 
             foreach (PolygonShape shape in shapeList)
             {
-                shape.Draw(basicEffect);
+               shape.Draw(basicEffect);
                 
                 for (int i = shape.vertices.Length-1; i>0; i--)
                 {
                     var x1 = shape.vertices[i].Position.X;
                     var x2 = shape.vertices[i-1].Position.X;
-                    var y1 = shape.vertices[i].Position.Y;
+                    var y1 = shape.vertices[i].Position.Y ;
                     var y2 = shape.vertices[i-1].Position.Y;
 
-                    //Console.WriteLine("Drawing line from " +x1 + "," + y1 + " to " + x2 + "," + y2);
                     _spriteBatch.DrawLine(new Vector2(x1,y1), new Vector2(x2,y2), Color.SeaGreen);
+                    ThreadWork.x1 = x1;
+                    ThreadWork.x2 = x2;
+                    ThreadWork.y1 = y1;
+                    ThreadWork.y2 = y2;
+
+                    Thread thread1 = new Thread(ThreadWork.Log);
+                    thread1.Start();
 
                 }
 
@@ -312,6 +358,14 @@ namespace Thru
             base.Draw(gameTime);
         }
 
+        public class ThreadWork
+        {
+            public static float x1, x2, y1, y2;
+            public static void Log()
+            {
+                Console.WriteLine("Drawing line from " + x1 + "," + y1 + " to " + x2 + "," + y2);
+            }
+        }
 
         private void stateMachine( GameTime gameTime, StateMode stateMode)
         {
