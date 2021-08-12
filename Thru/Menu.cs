@@ -12,7 +12,6 @@ namespace Thru
 		Button newGameButton, mainSettingsButton, loadGameButton;
 		
 
-		private Color background_color = Color.Red;
 		private ButtonGroup buttonGroup;
 		private ContentManager Content;
 		public Menu (int clientWidth, int clientHeight, IServiceProvider services )
@@ -54,7 +53,6 @@ namespace Thru
 
 
 		public void Draw(SpriteBatch _spriteBatch, GraphicsDeviceManager _graphics) {
-			_graphics.GraphicsDevice.Clear(background_color);
 			buttonGroup.Draw(_spriteBatch);
 
 		}
