@@ -46,14 +46,14 @@ namespace Thru
 		public GameStateController(IServiceProvider services, DisplayWindow displayWindow)
         {
 			
-			/*IOController mapData = new IOController(services, "C:\\Users\\thein\\Downloads\\PacificCrestTrail.json");
+			/*IOController mapData = new IOController(services, "G:\\Users\\thein\\Downloads\\PacificCrestTrail.json");
 			Dictionary<string, Point> mapDict = mapData.deserializeFromFile<Point>();
 
 			foreach (string key in mapDict.Keys)
 			{
 				Console.WriteLine(mapDict[key]);
 			}*/
-			IOController = new IOController(services, "C:\\Users\\thein\\source\\repos\\thru\\Thru\\Content\\first_name_list.json");
+			IOController = new IOController(services, "G:\\Users\\thein\\source\\repos\\thru\\Thru\\Content\\first_name_list.json");
 			var jsonText = IOController.deserializeFromFile<FirstName>();
 			nameDict = jsonText;
 

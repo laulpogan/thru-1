@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
@@ -6,9 +6,14 @@
     <TieredCompilation>false</TieredCompilation>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
-    <ApplicationIcon>Icon.ico</ApplicationIcon>
+    <ApplicationIcon></ApplicationIcon>
     <StartupObject></StartupObject>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Win32Resource />
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <Nullable>warnings</Nullable>
+    <UserSecretsId>77f73cec-26cc-4081-a038-2876f4364ada</UserSecretsId>
+    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -17,6 +22,182 @@
   <ItemGroup>
     <None Remove="Icon.ico" />
     <None Remove="Icon.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="{00000300-0000-0010-8000-00aa006d2ea4}">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>6</VersionMajor>
+      <Guid>00000300-0000-0010-8000-00aa006d2ea4</Guid>
+    </COMReference>
+    <COMReference Include="{00000600-0000-0010-8000-00aa006d2ea4}">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>6</VersionMajor>
+      <Guid>00000600-0000-0010-8000-00aa006d2ea4</Guid>
+    </COMReference>
+    <COMReference Include="{00025e01-0000-0000-c000-000000000046}">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>5</VersionMajor>
+      <Guid>00025e01-0000-0000-c000-000000000046</Guid>
+    </COMReference>
+    <COMReference Include="{05589fa0-c356-11ce-bf01-00aa0055595a}">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>2</VersionMajor>
+      <Guid>05589fa0-c356-11ce-bf01-00aa0055595a</Guid>
+    </COMReference>
+    <COMReference Include="{0665189c-5848-4dc6-bdb4-3c56253b3438}">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>11</VersionMajor>
+      <Guid>0665189c-5848-4dc6-bdb4-3c56253b3438</Guid>
+    </COMReference>
+    <COMReference Include="{0adda82f-2c26-11d2-ad65-00a0c9af11a6}">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>2</VersionMajor>
+      <Guid>0adda82f-2c26-11d2-ad65-00a0c9af11a6</Guid>
+    </COMReference>
+    <COMReference Include="{0e59f1d2-1fbe-11d0-8ff2-00a0d10038bc}">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>1</VersionMajor>
+      <Guid>0e59f1d2-1fbe-11d0-8ff2-00a0d10038bc</Guid>
+    </COMReference>
+    <COMReference Include="{1c82ead8-508e-11d1-8dcf-00c04fb951f9}">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>1</VersionMajor>
+      <Guid>1c82ead8-508e-11d1-8dcf-00c04fb951f9</Guid>
+    </COMReference>
+    <COMReference Include="{2206ceb0-19c1-11d1-89e0-00c04fd7a829}">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>1</VersionMajor>
+      <Guid>2206ceb0-19c1-11d1-89e0-00c04fd7a829</Guid>
+    </COMReference>
+    <COMReference Include="{22813728-8bd3-11d0-b4ef-00a0c9138ca4}">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>6</VersionMajor>
+      <Guid>22813728-8bd3-11d0-b4ef-00a0c9138ca4</Guid>
+    </COMReference>
+    <COMReference Include="{26ad1324-4b7c-44bc-84f8-b86aed45729f}">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>10</VersionMajor>
+      <Guid>26ad1324-4b7c-44bc-84f8-b86aed45729f</Guid>
+    </COMReference>
+    <COMReference Include="{2c941fd0-975b-59be-a960-9a2a262853a5}">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>1</VersionMajor>
+      <Guid>2c941fd0-975b-59be-a960-9a2a262853a5</Guid>
+    </COMReference>
+    <COMReference Include="{420b2830-e718-11cf-893d-00a0c9054228}">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>1</VersionMajor>
+      <Guid>420b2830-e718-11cf-893d-00a0c9054228</Guid>
+    </COMReference>
+    <COMReference Include="{54af9343-1923-11d3-9ca4-00c04f72c514}">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>50</VersionMinor>
+      <VersionMajor>2</VersionMajor>
+      <Guid>54af9343-1923-11d3-9ca4-00c04f72c514</Guid>
+    </COMReference>
+    <COMReference Include="{56d04f5d-964f-4dbf-8d23-b97989e53418}">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>5</VersionMinor>
+      <VersionMajor>1</VersionMajor>
+      <Guid>56d04f5d-964f-4dbf-8d23-b97989e53418</Guid>
+    </COMReference>
+    <COMReference Include="{736bfa21-b74f-439d-a701-1173f72771f7}">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>1</VersionMajor>
+      <Guid>736bfa21-b74f-439d-a701-1173f72771f7</Guid>
+    </COMReference>
+    <COMReference Include="{77d2c909-7779-11d8-9070-00065b840d9c}">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>1</VersionMajor>
+      <Guid>77d2c909-7779-11d8-9070-00065b840d9c</Guid>
+    </COMReference>
+    <COMReference Include="{8405d0df-9fdd-4829-aead-8e2b0a18fea4}">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>1</VersionMajor>
+      <Guid>8405d0df-9fdd-4829-aead-8e2b0a18fea4</Guid>
+    </COMReference>
+    <COMReference Include="{8e80422b-cac4-472b-b272-9635f1dfef3b}">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>1</VersionMajor>
+      <Guid>8e80422b-cac4-472b-b272-9635f1dfef3b</Guid>
+    </COMReference>
+    <COMReference Include="{ac0714f2-3d04-11d1-ae7d-00a0c90f26f4}">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>1</VersionMajor>
+      <Guid>ac0714f2-3d04-11d1-ae7d-00a0c90f26f4</Guid>
+    </COMReference>
+    <COMReference Include="{ac3b8b4c-b6ca-11d1-9f31-00c04fc29d52}">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>6</VersionMinor>
+      <VersionMajor>2</VersionMajor>
+      <Guid>ac3b8b4c-b6ca-11d1-9f31-00c04fc29d52</Guid>
+    </COMReference>
+    <COMReference Include="{b691e011-1797-432e-907a-4d8c69339129}">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>1</VersionMinor>
+      <VersionMajor>6</VersionMajor>
+      <Guid>b691e011-1797-432e-907a-4d8c69339129</Guid>
+    </COMReference>
+    <COMReference Include="{bd96c556-65a3-11d0-983a-00c04fc29e30}">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>5</VersionMinor>
+      <VersionMajor>1</VersionMajor>
+      <Guid>bd96c556-65a3-11d0-983a-00c04fc29e30</Guid>
+    </COMReference>
+    <COMReference Include="{cd000000-8b95-11d1-82db-00c04fb1625d}">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>1</VersionMajor>
+      <Guid>cd000000-8b95-11d1-82db-00c04fb1625d</Guid>
+    </COMReference>
+    <COMReference Include="{d1e5c5ae-21fb-11d9-adcd-00065b840d9c}">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>2</VersionMajor>
+      <Guid>d1e5c5ae-21fb-11d9-adcd-00065b840d9c</Guid>
+    </COMReference>
+    <COMReference Include="{d7ca032c-b7d0-429e-9fd7-82241c356b4a}">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>1</VersionMajor>
+      <Guid>d7ca032c-b7d0-429e-9fd7-82241c356b4a</Guid>
+    </COMReference>
+    <COMReference Include="{e0e270c2-c0be-11d0-8fe4-00a0c90a6341}">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>5</VersionMinor>
+      <VersionMajor>1</VersionMajor>
+      <Guid>e0e270c2-c0be-11d0-8fe4-00a0c90a6341</Guid>
+    </COMReference>
+    <COMReference Include="{eab22ac0-30c1-11cf-a7eb-0000c05bae0b}">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>1</VersionMinor>
+      <VersionMajor>1</VersionMajor>
+      <Guid>eab22ac0-30c1-11cf-a7eb-0000c05bae0b</Guid>
+    </COMReference>
+    <COMReference Include="{f5078f18-c551-11d3-89b9-0000f81fe221}">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>3</VersionMajor>
+      <Guid>f5078f18-c551-11d3-89b9-0000f81fe221</Guid>
+    </COMReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
@@ -30,12 +211,45 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="GeoJSON.Net" Version="1.2.22-rc" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.8" />
-    <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.0.1641" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.9" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="5.0.0" />
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.0.1641" />
     <PackageReference Include="MonoGame.Primitives2D" Version="1.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="QuikGraph" Version="2.3.0" />
-    <PackageReference Include="System.Text.Json" Version="6.0.0-preview.6.21352.12" />
+    <PackageReference Include="System.Text.Json" Version="6.0.0-preview.7.21377.19" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="dotnet">
+      <HintPath>..\..\..\..\..\..\Program Files\dotnet\sdk\5.0.400\dotnet.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework">
+      <HintPath>G:\Windows\Microsoft.NET\assembly\GAC_32\Microsoft.Xna.Framework\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Game">
+      <HintPath>G:\Windows\Microsoft.NET\assembly\GAC_32\Microsoft.Xna.Framework.Game\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Game.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Graphics">
+      <HintPath>G:\Windows\Microsoft.NET\assembly\GAC_32\Microsoft.Xna.Framework.Graphics\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Graphics.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Xact">
+      <HintPath>G:\Windows\Microsoft.NET\assembly\GAC_32\Microsoft.Xna.Framework.Xact\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Xact.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoGame.Framework">
+      <HintPath>bin\Debug\netcoreapp3.1\MonoGame.Framework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

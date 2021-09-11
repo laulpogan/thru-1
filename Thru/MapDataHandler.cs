@@ -51,8 +51,8 @@ namespace Thru
             pos0 = latlngToGlobalXY(p0["lat"], p0["lng"]);
             pos1 = latlngToGlobalXY(p1["lat"], p1["lng"]);
             List<FeatureCollection> mapDataTotal =   new List<FeatureCollection>();
-            //    loadMapData("C:\\Users\\thein\\Downloads\\output (1)") ?? new List<FeatureCollection>();//
-            mapDataTotal.Add(loadMapDataFile("C:\\Users\\thein\\Downloads\\output (1)\\Elev_Contour2.json"));
+            //    loadMapData("G:\\Users\\thein\\Downloads\\output (1)") ?? new List<FeatureCollection>();//
+            mapDataTotal.Add(loadMapDataFile("G:\\Users\\thein\\Downloads\\output (1)\\Elev_Contour2.json"));
                                                                                                                    // 
             vert = new List<VertexPositionColorTexture>();
             allShapes = new List<List<VertexPositionColorTexture>>();

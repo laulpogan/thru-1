@@ -18,7 +18,7 @@ namespace Thru
 		{
 
 			Content = new ContentManager(services, "Content");
-
+			Content.RootDirectory = "Content";
 			Texture2D buttonImage = Content.Load<Texture2D>("longButton");
 			SpriteFont font = Content.Load<SpriteFont>("Score");
 			newGameButton = new Button(buttonImage, "New Game", font);

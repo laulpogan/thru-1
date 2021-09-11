@@ -1,7 +1,7 @@
 
 #----------------------------- Global Properties ----------------------------#
 
-/outputDir:bin/$(Platform)
+/outputDir:G:/Users/thein/source/repos/thru/Thru/Content/bin/DesktopGL$(Platform)
 /intermediateDir:obj/$(Platform)
 /platform:DesktopGL
 /config:
