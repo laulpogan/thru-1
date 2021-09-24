@@ -39,6 +39,8 @@ namespace Thru
         MapDataHandler mapHandler;
         public MouseState mouseState;
         Camera cam;
+        private AnimatedSprite animatedSprite;
+
         public ThruGame()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -78,7 +80,7 @@ namespace Thru
             newRect.SetData(data);
 */
             state = State.Menu;
-            //Texture2D rect = new Texture2D(_graphics.GraphicsDevice, 1000, 250);
+            Texture2D rect = new Texture2D(_graphics.GraphicsDevice, 1000, 250);
             IOController = new IOController(Services, "TestPlaces3.json");
             //displayBox = new DisplayWindow(rect, Services);
             menu = new Menu(Window.ClientBounds.Width, Window.ClientBounds.Height, Services);
@@ -86,14 +88,17 @@ namespace Thru
             background = Content.Load<Texture2D>("southern_terminus");
             setupLocations();
             mainGameView = new MainGameView(location1, Services);
-            Texture2D rect = new Texture2D(_graphics.GraphicsDevice, 1000, 200);
+            //Texture2D rect = new Texture2D(_graphics.GraphicsDevice, 1000, 200);
             displayBox = new DisplayWindow(rect, "", "", Services);
             GameStateController = new GameStateController(Services, displayBox);
             _graphics.PreferredBackBufferWidth = background.Width;  // set this value to the desired width of your window
             _graphics.PreferredBackBufferHeight = background.Height;   // set this value to the desired height of your window
             _graphics.ApplyChanges();
-            mapHandler = new MapDataHandler(Window.ClientBounds.Width, Window.ClientBounds.Height);
+           // mapHandler = new MapDataHandler(Window.ClientBounds.Width, Window.ClientBounds.Height);
             cam = new Camera(_graphics.GraphicsDevice.Viewport);
+
+            Texture2D texture = Content.Load<Texture2D>("hiker1sprite");
+            animatedSprite = new AnimatedSprite(texture,6,9);
             base.Initialize();
         }
 
@@ -112,10 +117,11 @@ namespace Thru
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             stateMachine(gameTime, StateMode.Update);
-          
+
+            animatedSprite.Update();
 
 
-            mapHandler.Update(gameTime);
+            //////mapHandler.Update(gameTime);
            // GameStateController.Update(gameTime);
             // TODO: Add your update logic here
             var kstate = Keyboard.GetState();
@@ -131,15 +137,17 @@ namespace Thru
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _graphics.GraphicsDevice.Clear(Color.Black);
-            _spriteBatch.Begin(SpriteSortMode.FrontToBack,null,
+            /*_spriteBatch.Begin(SpriteSortMode.FrontToBack,null,
                         null,
                         null,
                         null,
                         null,
-                        cam.Transform);
+                        cam.Transform);*/
+            _spriteBatch.Begin();
             stateMachine(gameTime, StateMode.Draw);
-            mapHandler.Draw(_spriteBatch, gameTime);
-           
+            //mapHandler.Draw(_spriteBatch, gameTime);
+           // animatedSprite.Draw(_spriteBatch, new Vector2(400, 200));
+
             _spriteBatch.End();
             base.Draw(gameTime);
         }
@@ -150,11 +158,11 @@ namespace Thru
             {
                 case State.Menu:
                     state = runState(menu, stateMode, gameTime) ?? state ;
-                   // _graphics.GraphicsDevice.Clear(Color.Green);
+                    _graphics.GraphicsDevice.Clear(Color.Green);
 
                     break;
                 case State.MainSettings:
-                    //_graphics.GraphicsDevice.Clear(Color.Blue);
+                    _graphics.GraphicsDevice.Clear(Color.Blue);
                     
 
                     state = runState(mainSettings, stateMode, gameTime) ?? state;

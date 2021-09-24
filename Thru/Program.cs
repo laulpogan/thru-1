@@ -9,6 +9,6 @@ namespace Thru
 		{
 			using (var game = new ThruGame())
 				game.Run();
-		}
+			}
 	}
 }
