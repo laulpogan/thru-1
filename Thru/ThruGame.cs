@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -40,7 +41,7 @@ namespace Thru
         public MouseState mouseState;
         Camera cam;
         private AnimatedSprite animatedSprite;
-
+        private Graph gameMap;
         public ThruGame()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -49,9 +50,24 @@ namespace Thru
         }
         public void setupLocations()
         {
+            
             Locations = new Dictionary<string, Location>();
+            ArrayList trails = new ArrayList();
+            ArrayList locations = new ArrayList();
+            location2 = new Location(trails, "7th dimension's", Content.Load<Texture2D>("buttonSheet"), new Vector2(300, 300));
+            location1 = new Location(trails, "Mom's", Content.Load<Texture2D>("buttonSheet"), new Vector2(200, 200));
+            Trail trail1 = new Trail(location1, location2, 10, "trail1", background);
+            location1.Trails.Add(trail1);
+            location2.Trails.Add(trail1);
+            Locations["Mom's"] = location1;
+            Locations["7th dimension's"] = location2;
+            trails.Add(trail1);
+            locations.Add(location1);
+            locations.Add(location2);
+            gameMap = new Graph(locations, trails, "gameMap", background );
 
-            location1 = new Location(Locations, background, "southern terminus");
+
+            /*location1 = new Location(Locations, background, "southern terminus");
             Locations["southern terminus"] = location1;
 
             location2 = new Location(Locations, Content.Load<Texture2D>("Moms_Diner"), "mom's diner");
@@ -63,7 +79,7 @@ namespace Thru
             location2.AdjacentLocations["7th dimension hyperroom"] = location3;
             location1.AdjacentLocations["7th dimension hyperroom"] = location3;
 
-           
+           */
             IOController.serializeToFile<Location>(Locations);
             var jsonString = IOController.deserializeFromFile<Location>();
             foreach (string key in jsonString.Keys)
@@ -79,9 +95,11 @@ namespace Thru
             for (int i = 0; i < data.Length; ++i) data[i] = Color.White;
             newRect.SetData(data);
 */
-            state = State.Menu;
+                      state = State.Menu;
             Texture2D rect = new Texture2D(_graphics.GraphicsDevice, 1000, 250);
-            IOController = new IOController(Services, "TestPlaces3.json");
+            IOController = new IOController(Services, "TestPlaces4.json");
+            setupLocations();
+
             //displayBox = new DisplayWindow(rect, Services);
             menu = new Menu(Window.ClientBounds.Width, Window.ClientBounds.Height, Services);
             mainSettings = new MainSettings(Window.ClientBounds.Width, Window.ClientBounds.Height, Services);
@@ -94,11 +112,11 @@ namespace Thru
             _graphics.PreferredBackBufferWidth = background.Width;  // set this value to the desired width of your window
             _graphics.PreferredBackBufferHeight = background.Height;   // set this value to the desired height of your window
             _graphics.ApplyChanges();
-           // mapHandler = new MapDataHandler(Window.ClientBounds.Width, Window.ClientBounds.Height);
+            mapHandler = new MapDataHandler(Window.ClientBounds.Width, Window.ClientBounds.Height);
             cam = new Camera(_graphics.GraphicsDevice.Viewport);
 
-            Texture2D texture = Content.Load<Texture2D>("hiker1sprite");
-            animatedSprite = new AnimatedSprite(texture,6,9);
+            Texture2D texture = Content.Load<Texture2D>("buttonsheet");
+            animatedSprite = new AnimatedSprite(texture,2,2);
             base.Initialize();
         }
 
@@ -118,16 +136,16 @@ namespace Thru
                 Exit();
             stateMachine(gameTime, StateMode.Update);
 
-            animatedSprite.Update();
+            animatedSprite.Update(gameTime);
 
 
-            //////mapHandler.Update(gameTime);
-           // GameStateController.Update(gameTime);
+            mapHandler.Update(gameTime);
+            GameStateController.Update(gameTime);
             // TODO: Add your update logic here
             var kstate = Keyboard.GetState();
 
 
-
+            gameMap.Update(gameTime);
             cam.UpdateCamera(_graphics.GraphicsDevice.Viewport);
 
             base.Update(gameTime);
@@ -136,18 +154,18 @@ namespace Thru
         protected override void Draw(GameTime gameTime)
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _graphics.GraphicsDevice.Clear(Color.Black);
+            _graphics.GraphicsDevice.Clear(Color.White);
             /*_spriteBatch.Begin(SpriteSortMode.FrontToBack,null,
                         null,
                         null,
                         null,
                         null,
                         cam.Transform);*/
-            _spriteBatch.Begin();
+           _spriteBatch.Begin();
             stateMachine(gameTime, StateMode.Draw);
-            //mapHandler.Draw(_spriteBatch, gameTime);
-           // animatedSprite.Draw(_spriteBatch, new Vector2(400, 200));
-
+            mapHandler.Draw(_spriteBatch, gameTime);
+            //animatedSprite.Draw(_spriteBatch, new Vector2(400, 200));
+            gameMap.Draw(_spriteBatch);
             _spriteBatch.End();
             base.Draw(gameTime);
         }
@@ -158,11 +176,11 @@ namespace Thru
             {
                 case State.Menu:
                     state = runState(menu, stateMode, gameTime) ?? state ;
-                    _graphics.GraphicsDevice.Clear(Color.Green);
+                    _graphics.GraphicsDevice.Clear(Color.White);
 
                     break;
                 case State.MainSettings:
-                    _graphics.GraphicsDevice.Clear(Color.Blue);
+                    _graphics.GraphicsDevice.Clear(Color.White);
                     
 
                     state = runState(mainSettings, stateMode, gameTime) ?? state;

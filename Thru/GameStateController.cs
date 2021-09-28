@@ -97,6 +97,7 @@ namespace Thru
 				" " + character.stats["intelligence"] + " Strength " + character.stats["strength"] + " Luck " + character.stats["luck"]);
 			return character;
         }
+
 	}
 
 }

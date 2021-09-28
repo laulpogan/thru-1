@@ -28,7 +28,8 @@ namespace Thru
         public int Columns { get; set; }
         private int currentFrame;
         private int totalFrames;
-        private bool isOn;
+        int timeSinceLastFrame = 0;
+        int millisecondsPerFrame = 500;
         public AnimatedSprite(Texture2D texture, int rows, int columns)
         {
             Texture = texture;
@@ -36,20 +37,19 @@ namespace Thru
             Columns = columns;
             currentFrame = 0;
             totalFrames = Rows * Columns;
-            isOn = true;
         }
 
-        public void Update()
+        public void Update(GameTime gameTime)
         {
-            if (isOn)
+
+
+            timeSinceLastFrame += gameTime.ElapsedGameTime.Milliseconds;
+            if (timeSinceLastFrame > millisecondsPerFrame)
             {
+                timeSinceLastFrame -= millisecondsPerFrame;
                 currentFrame++;
                 if (currentFrame == totalFrames)
                     currentFrame = 0;
-                isOn = false;
-            } else
-            {
-                isOn = true;
             }
             
         }
@@ -64,7 +64,7 @@ namespace Thru
             Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
             Rectangle destinationRectangle = new Rectangle((int)location.X, (int)location.Y, width, height);
 
-            spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White);
+            spriteBatch.Draw(Texture,location, sourceRectangle, Color.White, 0f, Vector2.Zero, 0.1f, SpriteEffects.None, 0f);
         }
     }
 }

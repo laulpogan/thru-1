@@ -52,8 +52,14 @@ namespace Thru
             {
                 if (button.State == BState.JUST_RELEASED)
                 {
-
-                    Location = (Location)(Location.AdjacentLocations.ContainsKey(button.Text) ? Location.AdjacentLocations[button.Text] : Location);
+                    var adjactLocations = Location.AdjacentLocations();
+                    foreach (Location location in adjactLocations)
+                    {
+                        if(location.Name == button.Text)
+                        {
+                            Location = location;
+                        } 
+                    }
                     return Location;
                 }
             }
@@ -63,8 +69,9 @@ namespace Thru
         {
             Dictionary<string, Button> buttons = new Dictionary<string, Button>();
 
-            foreach (Location location in Location.AdjacentLocations.Values)
+            foreach (Location location in Location.AdjacentLocations())
             {
+                
                 Button button = new Button(buttonImage);
                 button.Text = location.Name;
                 Console.WriteLine(button.Text);
