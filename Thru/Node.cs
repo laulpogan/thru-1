@@ -39,6 +39,7 @@ namespace Thru
 			Trails = edges;
 			isCurrent = false;
 			Name = name;
+			ID = name;
 			//Characters = Characters;
 			sprite = new AnimatedSprite(texture, 2, 2);
 		}
@@ -57,10 +58,11 @@ namespace Thru
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
-			var widthAvg = (sprite.Texture.Width/sprite.Columns /2 )*.1;
-			var heightAvg = (sprite.Texture.Height / sprite.Rows /2 )*.1;
-			Console.WriteLine("Sprite width: " + sprite.Texture.Width + " Sprite height:"+ sprite.Texture.Height + " Columns: " + sprite.Columns+ " widthavg:"+widthAvg + " Rows: " + sprite.Rows + " heightavg:"+heightAvg);
-			sprite.Draw(spriteBatch, new Vector2(Coords.X - (int)widthAvg, Coords.Y - (int)heightAvg));
+			float scale = .01f;
+			var widthAvg = (sprite.Texture.Width/sprite.Columns /2 )*scale;
+			var heightAvg = (sprite.Texture.Height / sprite.Rows /2 )*scale;
+			Console.WriteLine("coordinates for location waypoint: " + Coords);
+			sprite.Draw(spriteBatch, new Vector2(Coords.X - (int)widthAvg, Coords.Y - (int)heightAvg), scale);
 
 		}
 		public ArrayList AdjacentLocations()
@@ -68,7 +70,9 @@ namespace Thru
 			ArrayList returnList = new ArrayList();
 			foreach (Trail trail in Trails)
             {
-				if (trail.Location1.ID == ID)
+				if (trail.Location1 is null || trail.Location2 is null)
+					continue;
+				else if (trail.Location1.ID == ID)
 					returnList.Add(trail.Location2);
 				else if (trail.Location2.ID == ID)
 					returnList.Add(trail.Location1);

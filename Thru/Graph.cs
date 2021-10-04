@@ -21,7 +21,7 @@ namespace Thru
 			Locations = nodes;
 			Trails = edges;
 			Name = name;
-			Origin = origin;
+			Origin = new Vector2(0,0);
 			sprite = new AnimatedSprite(texture, 2, 2);
 			/*foreach(Location node in Locations)
             {

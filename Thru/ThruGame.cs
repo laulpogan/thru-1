@@ -41,7 +41,7 @@ namespace Thru
         public MouseState mouseState;
         Camera cam;
         private AnimatedSprite animatedSprite;
-        private Graph gameMap;
+        public Graph gameMap;
         public ThruGame()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -64,7 +64,7 @@ namespace Thru
             trails.Add(trail1);
             locations.Add(location1);
             locations.Add(location2);
-            gameMap = new Graph(locations, trails, "gameMap", background );
+            gameMap = new Graph(locations, trails, "gameMap", background, new Vector2(400,400) );
 
 
             /*location1 = new Location(Locations, background, "southern terminus");
@@ -98,21 +98,25 @@ namespace Thru
                       state = State.Menu;
             Texture2D rect = new Texture2D(_graphics.GraphicsDevice, 1000, 250);
             IOController = new IOController(Services, "TestPlaces4.json");
-            setupLocations();
+            //setupLocations();
 
             //displayBox = new DisplayWindow(rect, Services);
             menu = new Menu(Window.ClientBounds.Width, Window.ClientBounds.Height, Services);
             mainSettings = new MainSettings(Window.ClientBounds.Width, Window.ClientBounds.Height, Services);
             background = Content.Load<Texture2D>("southern_terminus");
-            setupLocations();
-            mainGameView = new MainGameView(location1, Services);
             //Texture2D rect = new Texture2D(_graphics.GraphicsDevice, 1000, 200);
             displayBox = new DisplayWindow(rect, "", "", Services);
             GameStateController = new GameStateController(Services, displayBox);
             _graphics.PreferredBackBufferWidth = background.Width;  // set this value to the desired width of your window
             _graphics.PreferredBackBufferHeight = background.Height;   // set this value to the desired height of your window
             _graphics.ApplyChanges();
-            mapHandler = new MapDataHandler(Window.ClientBounds.Width, Window.ClientBounds.Height);
+            mapHandler = new MapDataHandler(Window.ClientBounds.Width, Window.ClientBounds.Height, Services);
+            gameMap = mapHandler.getGameMap();
+            Location startingLocation = (Location)gameMap.Locations.ToArray()[0];
+            mainGameView = new MainGameView(startingLocation , Services);
+
+            //setupLocations();
+
             cam = new Camera(_graphics.GraphicsDevice.Viewport);
 
             Texture2D texture = Content.Load<Texture2D>("buttonsheet");
@@ -155,16 +159,15 @@ namespace Thru
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _graphics.GraphicsDevice.Clear(Color.White);
-            /*_spriteBatch.Begin(SpriteSortMode.FrontToBack,null,
+            _spriteBatch.Begin(SpriteSortMode.FrontToBack, null,
                         null,
                         null,
                         null,
                         null,
-                        cam.Transform);*/
-           _spriteBatch.Begin();
+                        cam.Transform);
+            //_spriteBatch.Begin();
             stateMachine(gameTime, StateMode.Draw);
             mapHandler.Draw(_spriteBatch, gameTime);
-            //animatedSprite.Draw(_spriteBatch, new Vector2(400, 200));
             gameMap.Draw(_spriteBatch);
             _spriteBatch.End();
             base.Draw(gameTime);

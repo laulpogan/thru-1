@@ -23,12 +23,12 @@ namespace Thru
 				foreach ( Button button in buttonList) {
 					buttonHeight = button.Bounds.Height;
 					buttonWidth = button.Bounds.Width;
-				Console.WriteLine("button Width: " + buttonWidth + " button Height: " + buttonHeight);
+				//Console.WriteLine("button Width: " + buttonWidth + " button Height: " + buttonHeight);
 
 				button.Bounds.Y = heightTracker;
 				heightTracker += buttonHeight + 10;
 				button.Bounds.X = (int)origin.X;
-				Console.WriteLine("Name: "+ button.Text+" BoundsX: " + button.Bounds.X + " BoundsY: "+ button.Bounds.Y  );
+				//Console.WriteLine("Name: "+ button.Text+" BoundsX: " + button.Bounds.X + " BoundsY: "+ button.Bounds.Y  );
 					ButtonList.Add(button);
 			}
 

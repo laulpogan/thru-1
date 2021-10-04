@@ -18,7 +18,7 @@ namespace Thru
         public Button mapButton;
         public Button menuButton;
         public ArrayList graph;
-        public Location Location;
+        public Location currentLocation;
         public Map(IServiceProvider services, Location location)
         {
             Button[] buttons = new Button[0];
@@ -26,7 +26,7 @@ namespace Thru
             Content = new ContentManager(services, "Content");
             Background = Content.Load<Texture2D>("westcoast");
             buttonImage = Content.Load<Texture2D>("longbutton");
-            Location = location;
+            currentLocation = location;
             ShowMap = false;
             buildMapButtons();
 
@@ -52,29 +52,28 @@ namespace Thru
             {
                 if (button.State == BState.JUST_RELEASED)
                 {
-                    var adjactLocations = Location.AdjacentLocations();
+                    var adjactLocations = currentLocation.AdjacentLocations();
                     foreach (Location location in adjactLocations)
                     {
                         if(location.Name == button.Text)
                         {
-                            Location = location;
+                            currentLocation = location;
                         } 
                     }
-                    return Location;
+                    return currentLocation;
                 }
             }
-            return Location;
+            return currentLocation;
         }
         public void buildMapButtons()
         {
             Dictionary<string, Button> buttons = new Dictionary<string, Button>();
 
-            foreach (Location location in Location.AdjacentLocations())
+            foreach (Location location in currentLocation.AdjacentLocations())
             {
                 
                 Button button = new Button(buttonImage);
                 button.Text = location.Name;
-                Console.WriteLine(button.Text);
                 button.Font = font;
                 buttons[button.Text] = button;
             }
@@ -95,7 +94,7 @@ namespace Thru
                     return location;
                 }
             }
-            return Location;
+            return currentLocation;
         }
 
         public void setupCoords()
