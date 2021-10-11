@@ -85,6 +85,18 @@
 /processorParam:TextureFormat=Color
 /build:C:/Users/thein/Downloads/HIKER.png;HIKER.png
 
+#begin C:/Users/thein/Downloads/longbutton.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:C:/Users/thein/Downloads/longbutton.png;longbutton.png
+
 #begin download.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -144,18 +156,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:images/medium.png
-
-#begin longbutton.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:longbutton.png
 
 #begin Moms_Diner.png
 /importer:TextureImporter

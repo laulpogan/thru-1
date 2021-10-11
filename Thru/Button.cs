@@ -61,9 +61,12 @@ namespace Thru
 		// determine state and color of button
 		void update_button()
 		{
-			
+			if (mpressed)
+			{
+				onClick();
+			}
 
-				if (ThruLib.hit_image_alpha(
+			if (ThruLib.hit_image_alpha(
 					Bounds, Texture, mx, my))
 				{
 					timer = 0.0;
@@ -102,7 +105,7 @@ namespace Thru
 				}
 			}
 		protected void onClick() {
-			Console.WriteLine(Text + " State: " + State);
+			//Console.WriteLine(mx + " " + my);
 		}
 
 	}

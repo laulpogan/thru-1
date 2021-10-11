@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Thru
 {
-    public class MapMenu : IGameView
+    public class MapMenu 
     {
         public SpriteFont font;
         private ContentManager Content;
@@ -18,16 +18,24 @@ namespace Thru
         public Button menuButton;
         public ArrayList graph;
         public Location currentLocation;
-        public MapMenu(IServiceProvider services, Location location)
+        public GraphicsDeviceManager Graphics;
+        public Vector2 Coords;
+       // public Camera2d Cam;
+        public MapMenu(IServiceProvider services, Location location, GraphicsDeviceManager graphics)
         {
-            Button[] buttons = new Button[0];
-            buttonGroup = new ButtonGroup(buttons, new Vector2(100, 100));
+            //Cam = cam; 
+            Graphics = graphics;
+            Coords = new Vector2(100, 100);
+            ArrayList buttons = new ArrayList();
+            buttonGroup = new ButtonGroup(buttons, Coords);
             Content = new ContentManager(services, "Content");
             buttonImage = Content.Load<Texture2D>("longbutton");
+            font = Content.Load<SpriteFont>("Score");
             currentLocation = location;
             ShowMap = false;
             buildMapButtons();
-
+            foreach (Location location1 in currentLocation.AdjacentLocations())
+                Console.WriteLine("Adjacent Locations: " + location1.Name);
 
         }
 
@@ -36,28 +44,42 @@ namespace Thru
 
             if (ShowMap)
             {
-
                 buttonGroup.Draw(spriteBatch);
             }
         }
         public Location Update(GameTime gameTime)
         {
-            buttonGroup.Update(gameTime);
 
+
+            buttonGroup.Update(gameTime);
 
             foreach (Button button in buttonGroup.ButtonList)
             {
                 if (button.State == BState.JUST_RELEASED)
                 {
-                    var adjactLocations = currentLocation.AdjacentLocations();
-                    foreach (Location location in adjactLocations)
+                    var adjacentLocations = currentLocation.AdjacentLocations();
+                    foreach (Location location in adjacentLocations)
                     {
-                        if(location.Name == button.Text)
+                            Console.WriteLine("Adjacent Location: " + location.Name);
+
+                            if (location.Name == button.Text)
                         {
+                            Console.WriteLine("Hey Congratulations you have a match");
                             currentLocation = location;
-                        } 
+                            int width = Graphics.GraphicsDevice.Viewport.Width;
+                            int height = Graphics.GraphicsDevice.Viewport.Height;
+                            int xcoord = (int)location.Coords.X;
+                            int ycoord = (int)location.Coords.Y;
+                            int newX =  (width/2 > xcoord ? width/2 - xcoord : xcoord - width/2);
+                            int newY = (height/2 > ycoord ? height/2 - ycoord : ycoord - height/2);
+                            Vector2 newOrigin = new Vector2(newX - width/2, newY - height/2);                             
+                            //Cam.Pos = location.Coords;
+                            //Graphics.GraphicsDevice.Viewport = new Viewport(newX, newY , width , height );
+                            //Coords = newOrigin;
+                            buildMapButtons();
+             
+                        }
                     }
-                    return currentLocation;
                 }
             }
             return currentLocation;
@@ -71,34 +93,18 @@ namespace Thru
                 
                 Button button = new Button(buttonImage);
                 button.Text = location.Name;
-                Console.WriteLine(button.Text);
                 button.Font = font;
                 buttons[button.Text] = button;
             }
-            foreach (Button button in buttonGroup.ButtonList)
+      /*      foreach (Button button in buttonGroup.ButtonList)
             {
                 buttons[button.Text] = button;
-            }
+            }*/
 
-            Button[] buttonFinal = (new List<Button>(buttons.Values)).ToArray();
-            buttonGroup = new ButtonGroup(buttonFinal, new Vector2(100, 100));
+            ArrayList buttonFinal = new ArrayList(buttons.Values);
+            buttonGroup = new ButtonGroup(buttonFinal, Coords);
         }
-        public Location findLocationByName(string name, ArrayList locations)
-        {
-            foreach (Location location in locations)
-            {
-                if (location.Name == name)
-                {
-                    return location;
-                }
-            }
-            return currentLocation;
-        }
-
-        public void setupCoords()
-        {
-           
-        }
+     
 
     }
 }

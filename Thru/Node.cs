@@ -61,7 +61,7 @@ namespace Thru
 			float scale = .01f;
 			var widthAvg = (sprite.Texture.Width/sprite.Columns /2 )*scale;
 			var heightAvg = (sprite.Texture.Height / sprite.Rows /2 )*scale;
-			Console.WriteLine("coordinates for location waypoint: " + Coords);
+			//Console.WriteLine("coordinates for location waypoint: " + Coords);
 			sprite.Draw(spriteBatch, new Vector2(Coords.X - (int)widthAvg, Coords.Y - (int)heightAvg), scale);
 
 		}

@@ -1,4 +1,4 @@
-﻿/*using System;
+﻿using System;
 using System.Collections;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -9,59 +9,83 @@ namespace Thru
 {
 	public class MapView : IGameView
 	{
+		public Location currentLocation;
+		public State State = State.Game;
+		public Button menuButton, mapButton;
+		public Texture2D buttonImage;
+		public ContentManager Content;
+		public MapMenu MapMenu;
+		public ButtonGroup buttonGroup;
+		MapDataHandler mapHandler;
+		public MapView mapView;
+		public Graph gameMap;
 
-
-		private ButtonGroup buttonGroup;
-		private ContentManager Content;
-		public Menu(int clientWidth, int clientHeight, IServiceProvider services)
+		public MapView( IServiceProvider services, int width, int height, GraphicsDeviceManager graphics)
 		{
-
+			
+			mapHandler = new MapDataHandler(width, height, services);
+			gameMap = mapHandler.getGameMap();
+			currentLocation = (Location)gameMap.Locations.ToArray()[1];
 			Content = new ContentManager(services, "Content");
-			Content.RootDirectory = "Content";
-			Texture2D buttonImage = Content.Load<Texture2D>("longButton");
-			SpriteFont font = Content.Load<SpriteFont>("Score");
-			newGameButton = new Button(buttonImage, "New Game", font);
-			mainSettingsButton = new Button(buttonImage, "Main Settings", font);
-			loadGameButton = new Button(buttonImage, "Load Game", font);
-			buttonGroup = new ButtonGroup(new Button[] { newGameButton, mainSettingsButton, loadGameButton }, new Vector2(100, 100));
-
-
-
-
+			MapMenu = new MapMenu(services, currentLocation, graphics);
+			buttonImage = Content.Load<Texture2D>("longbutton");
+			mapButton = new Button(buttonImage);
+			mapButton.Text = "Map";
+			mapButton.Font = Content.Load<SpriteFont>("Score");
+			MapMenu.buttonGroup.ButtonList.Add(mapButton);
+			menuButton = new Button(buttonImage);
+			menuButton.Text = "Menu";
+			menuButton.Font = Content.Load<SpriteFont>("Score");
+			MapMenu.buttonGroup.ButtonList.Add(menuButton);
+			ArrayList tempList = new ArrayList();
+			tempList.Add(mapButton);
+			tempList.Add(menuButton);
+			buttonGroup = new ButtonGroup(tempList, new Vector2(100, 600));
 
 		}
-		public State Update(GameTime gameTime)
-		{
+		public  State Update(GameTime gameTime)
+        {
+			mapHandler.Update(gameTime);
+			gameMap.Update(gameTime);
 
 			buttonGroup.Update(gameTime);
-			if (newGameButton.State == BState.JUST_RELEASED)
+			if (MapMenu.ShowMap) {
+				currentLocation = MapMenu.Update(gameTime);
+				return State.Map;
+			}
+			if (menuButton.State == BState.JUST_RELEASED)
 			{
-				//todo: add stuff like return State.NewGame
+				Console.Write("Menu Button Press" );
+				State = State.Game;
 				return State.Menu;
 			}
-			else if (mainSettingsButton.State == BState.JUST_RELEASED)
+			if (mapButton.State == BState.JUST_RELEASED)
 			{
-				return State.MainSettings;
+
+				MapMenu.ShowMap = !MapMenu.ShowMap;
+				Console.Write("Show Map: " + MapMenu.ShowMap);
+
 			}
-			else if (loadGameButton.State == BState.JUST_RELEASED)
-			{
-				return State.Game;
+			
+
+			return State;
+        }
+		public  void Draw(SpriteBatch _spriteBatch, GraphicsDeviceManager _graphics)
+        {
+			//Location.Draw(_spriteBatch);
+			mapHandler.Draw(_spriteBatch);
+			gameMap.Draw(_spriteBatch);
+
+			MapMenu.Draw(_spriteBatch);
+
+            if (!MapMenu.ShowMap)
+            {
+				buttonGroup.Draw(_spriteBatch);
+
 			}
 
-			return State.Menu;
-		}
-
-
-
-
-		public void Draw(SpriteBatch _spriteBatch, GraphicsDeviceManager _graphics)
-		{
-			buttonGroup.Draw(_spriteBatch);
 
 		}
-
-
 
 	}
-
-}*/
+}

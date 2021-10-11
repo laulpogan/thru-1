@@ -89,8 +89,8 @@ public  MapDataHandler(int clientWidth, int clientHeight, IServiceProvider servi
                             newLoc = geojsonToLocation(feature);
                             if (oldLoc.Trails != null)
                             {
-                                oldLoc.Trails.Add(tempEdge);
                                 tempEdge = new Trail(oldLoc, newLoc, 0, "test", Content.Load<Texture2D>("southern_terminus"));
+                                oldLoc.Trails.Add(tempEdge);
                                 newLoc.Trails.Add(tempEdge);
                                 gameMap.Trails.Add(tempEdge);
                             }
@@ -169,7 +169,7 @@ public  MapDataHandler(int clientWidth, int clientHeight, IServiceProvider servi
         {
             var geometry = geoTypeParser(feature.Geometry);
             Console.WriteLine("Creating Location: " + feature.Properties["name"].ToString() + " at " + geometry);
-            Location location = new Location(new ArrayList(), feature.Properties["name"].ToString(), Content.Load<Texture2D>("buttonSheet"),(Vector2)geometry) ;
+            Location location = new Location(new ArrayList(), feature.Properties["desc"].ToString(), Content.Load<Texture2D>("buttonSheet"),(Vector2)geometry) ;
             return location;
         }
 
@@ -276,7 +276,7 @@ public  MapDataHandler(int clientWidth, int clientHeight, IServiceProvider servi
            
         }
 
-        public  void Draw(SpriteBatch _spriteBatch, GameTime gameTime)
+        public  void Draw(SpriteBatch _spriteBatch)
         {
 
           

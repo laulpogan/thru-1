@@ -13,13 +13,12 @@ namespace Thru
 		private int buttonWidth;
 		private int heightTracker;
 		public Vector2 Origin;
-			public ButtonGroup(Button[] buttonList, Vector2 origin)
+			public ButtonGroup(ArrayList buttonList, Vector2 origin)
 			{
 			Origin = origin;
 				ButtonList = new ArrayList();
 			heightTracker = (int)origin.Y;
 		
-			Console.WriteLine(buttonList.Length);											
 				foreach ( Button button in buttonList) {
 					buttonHeight = button.Bounds.Height;
 					buttonWidth = button.Bounds.Width;

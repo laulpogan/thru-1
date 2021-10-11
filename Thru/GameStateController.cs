@@ -37,8 +37,8 @@ namespace Thru
         }*/
 		Dictionary<string, FirstName> nameDict;
 		Player Player;
-		Map Map;
-		MainGameView MainGameView;
+		MapMenu Map;
+		MapView mapView;
 		Location Location;
 		public IOController IOController;
 		public Encounter Encounter;

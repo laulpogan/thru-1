@@ -35,7 +35,7 @@ namespace Thru
 				{ "intelligence", "You chose C" },
 				{ "charisma", "You chose D" }
             };
-			Button[] buttonList = new Button[OptionsAndOutcomes.Keys.Count];
+			ArrayList buttonList = new ArrayList();
 			Console.WriteLine("OptionsAndOutcomes.Keys.Count = " + OptionsAndOutcomes.Keys.Count);
 			ContentManager Content = new ContentManager(services, "Content");
 
@@ -48,7 +48,7 @@ namespace Thru
 				tempButton.Text = key;
 				tempButton.Font = font;
 				Console.WriteLine(tempButton.Bounds.Height);
-				buttonList[i]= tempButton;
+				buttonList.Add(tempButton);
 			}
 			foreach (Button button in buttonList)
 			{

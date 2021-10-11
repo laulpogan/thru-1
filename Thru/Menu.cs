@@ -21,10 +21,14 @@ namespace Thru
 			Content.RootDirectory = "Content";
 			Texture2D buttonImage = Content.Load<Texture2D>("longButton");
 			SpriteFont font = Content.Load<SpriteFont>("Score");
+			ArrayList buttonList = new ArrayList();
 			newGameButton = new Button(buttonImage, "New Game", font);
 			mainSettingsButton = new Button(buttonImage, "Main Settings", font);
 			loadGameButton = new Button(buttonImage, "Load Game", font);
-			buttonGroup = new ButtonGroup(new Button[] { newGameButton, mainSettingsButton, loadGameButton }, new Vector2(100,100));
+			buttonList.Add(newGameButton);
+			buttonList.Add(mainSettingsButton);
+			buttonList.Add(loadGameButton);
+			buttonGroup = new ButtonGroup(buttonList, new Vector2(100,100));
 
 
 			
@@ -43,7 +47,7 @@ namespace Thru
 				return State.MainSettings;
 			} else if (loadGameButton.State == BState.JUST_RELEASED)
 			{
-				return State.Game;
+				return State.Map;
 			}
 
 			return State.Menu;
