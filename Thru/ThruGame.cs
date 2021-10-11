@@ -13,10 +13,11 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame;
 using Newtonsoft.Json;
+using Nez;
 
 namespace Thru
 {
-    public class ThruGame : Game
+    public class ThruGame : Core
     {
         enum StateMode
         {

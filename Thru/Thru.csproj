@@ -220,6 +220,9 @@
     <PackageReference Include="System.Text.Json" Version="6.0.0-preview.7.21377.19" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Nez\Nez.Portable\Nez.csproj" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="dotnet">
       <HintPath>..\..\..\..\..\..\Program Files\dotnet\sdk\5.0.400\dotnet.dll</HintPath>
     </Reference>
