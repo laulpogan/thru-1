@@ -13,6 +13,7 @@
         PlayerDesign,
         Pause,
         MainSettings,
-        Options
+        Options,
+        Map
     }
 }

@@ -1,7 +1,7 @@
 
 #----------------------------- Global Properties ----------------------------#
 
-/outputDir:bin/$(Platform)
+/outputDir:G:/Users/thein/source/repos/thru/Thru/Content/bin/DesktopGL$(Platform)
 /intermediateDir:obj/$(Platform)
 /platform:DesktopGL
 /config:
@@ -24,6 +24,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:../../../../../Downloads/arrow.png;arrow.png
+
+#begin 58afdad6829958a978a4a693.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:58afdad6829958a978a4a693.png
 
 #begin ball.png
 /importer:TextureImporter
@@ -49,6 +61,42 @@
 /processorParam:TextureFormat=Color
 /build:Blurp_Scooter.png
 
+#begin buttonsheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:buttonsheet.png
+
+#begin C:/Users/thein/Downloads/HIKER.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:C:/Users/thein/Downloads/HIKER.png;HIKER.png
+
+#begin C:/Users/thein/Downloads/longbutton.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:C:/Users/thein/Downloads/longbutton.png;longbutton.png
+
 #begin download.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -60,6 +108,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:download.png
+
+#begin hiker1sprite.tif
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:hiker1sprite.tif
 
 #begin images/easy.png
 /importer:TextureImporter
@@ -97,7 +157,7 @@
 /processorParam:TextureFormat=Color
 /build:images/medium.png
 
-#begin longbutton.png
+#begin Moms_Diner.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -107,7 +167,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:longbutton.png
+/build:Moms_Diner.png
 
 #begin roughbutton.png
 /importer:TextureImporter
@@ -176,6 +236,18 @@
 /processorParam:TextureFormat=Color
 /build:southern_terminus.png
 
+#begin spritesheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:spritesheet.png
+
 #begin triangle.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -199,4 +271,16 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:unknown.jpg
+
+#begin westcoast.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:westcoast.png
 

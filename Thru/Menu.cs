@@ -10,31 +10,25 @@ namespace Thru
 	public class Menu : IGameView
 	{
 		Button newGameButton, mainSettingsButton, loadGameButton;
-		const int NUMBER_OF_BUTTONS = 3,
-			EASY_BUTTON_INDEX = 0,
-			MEDIUM_BUTTON_INDEX = 1,
-			HARD_BUTTON_INDEX = 2,
-			BUTTON_HEIGHT = 40,
-			BUTTON_WIDTH = 88;
+		
 
-		private Color background_color = Color.Red;
 		private ButtonGroup buttonGroup;
 		private ContentManager Content;
 		public Menu (int clientWidth, int clientHeight, IServiceProvider services )
 		{
 
 			Content = new ContentManager(services, "Content");
-
-			Texture2D easy =
-					   Content.Load<Texture2D>(@"images/easy");
-			Texture2D medium =
-				Content.Load<Texture2D>(@"images/medium");
-			Texture2D hard =
-				Content.Load<Texture2D>(@"images/hard");
-			newGameButton = new Button(easy);
-			mainSettingsButton = new Button(medium);
-			loadGameButton = new Button(hard);
-			buttonGroup = new ButtonGroup(new Button[] { newGameButton, mainSettingsButton, loadGameButton }, clientWidth, clientHeight);
+			Content.RootDirectory = "Content";
+			Texture2D buttonImage = Content.Load<Texture2D>("longButton");
+			SpriteFont font = Content.Load<SpriteFont>("Score");
+			ArrayList buttonList = new ArrayList();
+			newGameButton = new Button(buttonImage, "New Game", font);
+			mainSettingsButton = new Button(buttonImage, "Main Settings", font);
+			loadGameButton = new Button(buttonImage, "Load Game", font);
+			buttonList.Add(newGameButton);
+			buttonList.Add(mainSettingsButton);
+			buttonList.Add(loadGameButton);
+			buttonGroup = new ButtonGroup(buttonList, new Vector2(100,100));
 
 
 			
@@ -53,7 +47,7 @@ namespace Thru
 				return State.MainSettings;
 			} else if (loadGameButton.State == BState.JUST_RELEASED)
 			{
-				return State.Menu;
+				return State.Map;
 			}
 
 			return State.Menu;
@@ -63,7 +57,6 @@ namespace Thru
 
 
 		public void Draw(SpriteBatch _spriteBatch, GraphicsDeviceManager _graphics) {
-			_graphics.GraphicsDevice.Clear(background_color);
 			buttonGroup.Draw(_spriteBatch);
 
 		}

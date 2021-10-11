@@ -12,30 +12,46 @@ namespace Thru
 		private int buttonHeight;
 		private int buttonWidth;
 		private int heightTracker;
-			public ButtonGroup(Button[] buttonList, int clientWidth, int clientHeight)
+		public Vector2 Origin;
+			public ButtonGroup(ArrayList buttonList, Vector2 origin)
 			{
+			Origin = origin;
 				ButtonList = new ArrayList();
-				foreach ( Button i in buttonList) {
-					buttonHeight = i.Bounds.Height;
-					buttonWidth = i.Bounds.Width;
-					int y = clientHeight / 2 -
-					buttonList.Length / 2 * buttonHeight -
-					(buttonList.Length % 2) * buttonHeight / 2;
-					heightTracker += y + buttonHeight;
-					i.Bounds.Y = heightTracker;
-					i.Bounds.X = clientWidth / 2 - buttonWidth / 2;
-					ButtonList.Add(i);
-				Console.WriteLine(i.Bounds.X + " " + i.Bounds.Y);
+			heightTracker = (int)origin.Y;
+		
+				foreach ( Button button in buttonList) {
+					buttonHeight = button.Bounds.Height;
+					buttonWidth = button.Bounds.Width;
+				//Console.WriteLine("button Width: " + buttonWidth + " button Height: " + buttonHeight);
+
+				button.Bounds.Y = heightTracker;
+				heightTracker += buttonHeight + 10;
+				button.Bounds.X = (int)origin.X;
+				//Console.WriteLine("Name: "+ button.Text+" BoundsX: " + button.Bounds.X + " BoundsY: "+ button.Bounds.Y  );
+					ButtonList.Add(button);
 			}
 
 		}
+		public void updatePositions(GameTime gameTime)
+        {
+			heightTracker = (int)Origin.Y;
 
-		public void Update(GameTime gameTime)
-			{
 			foreach (Button button in ButtonList)
 			{
+
+				buttonHeight = button.Bounds.Height;
+				buttonWidth = button.Bounds.Width;
+				button.Bounds.Y = heightTracker;
+				heightTracker += buttonHeight + 10;
+				button.Bounds.X = (int)Origin.X;
 				button.Update(gameTime);
+
 			}
+		
+		}
+		public void Update(GameTime gameTime)
+			{
+			updatePositions(gameTime);
 
 		}
 

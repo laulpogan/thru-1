@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Content;
+using System.Text;
 
 namespace Thru
 {
@@ -16,19 +19,23 @@ namespace Thru
 		bool mpressed, prev_mpressed = false;
 		public double timer = 0;
 		double frameTime;
+		public SpriteFont Font;
+		public string ID;
+		private GameTime GameTime;
 
-
-		public Button(Texture2D texture)
+		public Button(Texture2D texture, string text = "", SpriteFont font = null)
 		{
 			Texture = texture;
 			Bounds = texture.Bounds;
+			Text = text;
+			Font = font;
 			State = BState.UP;
 		}
 
 		public void Update(GameTime gameTime)
 		{
 			frameTime = gameTime.ElapsedGameTime.Milliseconds / 1000.0;
-
+			GameTime = gameTime;
 			// update mouse variables
 			MouseState mouse_state = Mouse.GetState();
 			mx = mouse_state.X;
@@ -42,17 +49,24 @@ namespace Thru
 		public void Draw(SpriteBatch spriteBatch)
 		{
 			
-				spriteBatch.Draw(Texture,Bounds, Color.White);
-			
+			spriteBatch.Draw(Texture,Bounds, Color.White);
+			if(Font != null)
+            {
+				spriteBatch.DrawString(Font, Text, new Vector2((Bounds.Width / 2)/2+Bounds.X, Bounds.Height / 2+Bounds.Y), Color.White);
+			}
+
 
 		}
 
 		// determine state and color of button
 		void update_button()
 		{
-			
+			if (mpressed)
+			{
+				onClick();
+			}
 
-				if (ThruLib.hit_image_alpha(
+			if (ThruLib.hit_image_alpha(
 					Bounds, Texture, mx, my))
 				{
 					timer = 0.0;
@@ -90,7 +104,9 @@ namespace Thru
 					onClick();
 				}
 			}
-		protected void onClick() { }
+		protected void onClick() {
+			//Console.WriteLine(mx + " " + my);
+		}
 
 	}
 

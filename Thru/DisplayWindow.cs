@@ -17,26 +17,26 @@ namespace Thru
         Texture2D Picture;
         GraphicsDevice GraphicsDevice;
         Vector2 Coor;
-        string Message;
-        string Speaker;
+        public string Message;
+        public string Title;
         private ContentManager Content;
         Vector2 textOffset;
 
-        public DisplayWindow(Texture2D rect, IServiceProvider services)
+        public DisplayWindow(Texture2D rect, string message, string title, IServiceProvider services)
         {
             Content = new ContentManager(services, "Content");
             Picture = Content.Load<Texture2D>("Blurp_Scooter");
             textOffset = new Vector2(Picture.Width, 25) + new Vector2(50,25);
             font = Content.Load<SpriteFont>("Score"); // Use the name of your sprite font file here instead of 'Score'.
-
-            Color[] data = new Color[1000 * 250];
+            Bounds = rect.Bounds;
+            Color[] data = new Color[Bounds.Width * Bounds.Height];
             for (int i = 0; i < data.Length; ++i) data[i] = Color.Chocolate;
             rect.SetData(data);
             Rect = rect;
-            Speaker = "Blurp Scooter:";
+            Title = title;
               
            Message = WrapText(font,
-                "Are you starting the PCT today? Make sure you sign the logbook. You wouldn't believe how many people forget. ;)", Rect.Width-textOffset.X);
+               message, Rect.Bounds.Width-textOffset.X);
             Coor = new Vector2(600, 800);
         
         }
@@ -44,7 +44,9 @@ namespace Thru
         public void Update()
         {
 
-
+            Message = WrapText(font,
+            Message, Rect.Bounds.Width - textOffset.X);
+            Coor = new Vector2(600, 800);
 
 
         }
@@ -62,7 +64,7 @@ namespace Thru
             {
                  spriteBatch.Draw(Rect, Coor, Color.Black);
             spriteBatch.Draw(Picture, Coor + new Vector2(25, 25), Color.White);
-            spriteBatch.DrawString(font, Speaker, Coor + textOffset, Color.White);
+            spriteBatch.DrawString(font, Title, Coor + textOffset, Color.White);
             spriteBatch.DrawString(font,Message, Coor +textOffset + new Vector2(0,70), Color.White);
 
 

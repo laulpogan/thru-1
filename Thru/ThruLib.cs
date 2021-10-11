@@ -1,7 +1,12 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Content;
+using System.Linq;
+
 namespace Thru {
 	public static class ThruLib
 	{
@@ -39,6 +44,7 @@ namespace Thru {
 				y >= ty &&
 				y <= ty + tex.Height);
 		}
+		
 
 	}
 
