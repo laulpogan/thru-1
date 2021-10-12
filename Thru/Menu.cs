@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
+using Nez;
 
 namespace Thru
 { 
@@ -14,7 +15,8 @@ namespace Thru
 
 		private ButtonGroup buttonGroup;
 		private ContentManager Content;
-		public Menu (int clientWidth, int clientHeight, IServiceProvider services )
+		public SpriteBatch spriteBatch;
+		public Menu (int clientWidth, int clientHeight, IServiceProvider services, GraphicsDeviceManager graphics)
 		{
 
 			Content = new ContentManager(services, "Content");
@@ -30,10 +32,11 @@ namespace Thru
 			buttonList.Add(loadGameButton);
 			buttonGroup = new ButtonGroup(buttonList, new Vector2(100,100));
 
+			spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
 
-			
-			
-		
+
+
+
 		}
 		public State Update(GameTime gameTime) {
 
@@ -56,8 +59,10 @@ namespace Thru
 
 
 
-		public void Draw(SpriteBatch _spriteBatch, GraphicsDeviceManager _graphics) {
-			buttonGroup.Draw(_spriteBatch);
+		public void Draw(GraphicsDeviceManager _graphics) {
+			spriteBatch.Begin();
+			buttonGroup.Draw(spriteBatch);
+			spriteBatch.End();
 
 		}
 

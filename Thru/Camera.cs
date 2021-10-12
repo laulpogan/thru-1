@@ -18,7 +18,7 @@ namespace Thru
     public class Camera
     {
         public float Zoom { get; set; }
-        public Vector2 Position { get; set; }
+        public Vector2 Pos { get; set; }
         public Rectangle Bounds { get; protected set; }
         public Rectangle VisibleArea { get; protected set; }
         public Matrix Transform { get; protected set; }
@@ -29,7 +29,7 @@ namespace Thru
         {
             Bounds = viewport.Bounds;
             Zoom = 1f;
-            Position = Vector2.Zero;
+            Pos = Vector2.Zero;
         }
 
 
@@ -53,7 +53,7 @@ namespace Thru
 
         private void UpdateMatrix()
         {
-            Transform = Matrix.CreateTranslation(new Vector3(-Position.X, -Position.Y, 0)) * 
+            Transform = Matrix.CreateTranslation(new Vector3(-Pos.X, -Pos.Y, 0)) * 
                     Matrix.CreateTranslation(new Vector3(-Mouse.GetState().X - Bounds.Width / 2, -Mouse.GetState().Y - Bounds.Height / 2, 0)) * //Mouse Translation Matrix
                     Matrix.CreateScale(Zoom) *
                     Matrix.CreateTranslation(new Vector3(Bounds.Width * 0.5f, Bounds.Height * 0.5f, 0));
@@ -62,21 +62,26 @@ namespace Thru
 
         public void MoveCamera(Vector2 movePosition)
         {
-            Vector2 newPosition = Position + movePosition;
-            Position = newPosition;
-            //Console.WriteLine("New Camera Position: " + Position);
+
+            if (Pos + movePosition != Pos)
+            {
+                Console.WriteLine("Old Camera Position: " +  Pos);
+                Pos += movePosition;
+                Console.WriteLine("New Camera Position: " + Pos);
+
+            }
         }
 
         public void AdjustZoom(float zoomAmount)
         {
             Zoom += zoomAmount;
-            if (Zoom < .35f)
+            if (Zoom < .1f)
             {
-                Zoom = .35f;
+                Zoom = .1f;
             }
-            if (Zoom > 2f)
+            if (Zoom > 10f)
             {
-                Zoom = 2f;
+                Zoom = 10f;
             }
         }
 
@@ -90,44 +95,52 @@ namespace Thru
 
             if (Zoom > .8f)
             {
-                moveSpeed = 15;
+                moveSpeed = 45;
             }
             else if (Zoom < .8f && Zoom >= .6f)
             {
-                moveSpeed = 20;
+                moveSpeed = 60;
             }
             else if (Zoom < .6f && Zoom > .35f)
             {
-                moveSpeed = 25;
+                moveSpeed = 75;
             }
             else if (Zoom <= .35f)
             {
-                moveSpeed = 30;
+                moveSpeed = 100;
             }
             else
             {
-                moveSpeed = 10;
+                moveSpeed = 25;
             }
 
 
             if (Keyboard.GetState().IsKeyDown(Keys.Up))
             {
                 cameraMovement.Y = -moveSpeed;
+                Console.WriteLine("Up Arrow Pressed");
+
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.Down))
             {
                 cameraMovement.Y = moveSpeed;
+                Console.WriteLine("Down Arrow Pressed");
+
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.Left))
             {
                 cameraMovement.X = -moveSpeed;
+                Console.WriteLine("Left Arrow Pressed");
+
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.Right))
             {
                 cameraMovement.X = moveSpeed;
+                Console.WriteLine("Right Arrow Pressed");
+
             }
 
             previousMouseWheelValue = currentMouseWheelValue;
@@ -136,20 +149,20 @@ namespace Thru
             if (currentMouseWheelValue > previousMouseWheelValue)
             {
                 AdjustZoom(1f);
-                Console.WriteLine(moveSpeed);
+                Console.WriteLine("Camera Movespeed adjusted: " + moveSpeed);
             }
 
             if (currentMouseWheelValue < previousMouseWheelValue)
             {
                 AdjustZoom(-.5f);
-                Console.WriteLine(moveSpeed);
+                Console.WriteLine("Camera Movespeed adjusted: " + moveSpeed);
             }
 
             previousZoom = zoom;
             zoom = Zoom;
             if (previousZoom != zoom)
             {
-                Console.WriteLine(zoom);
+                Console.WriteLine("Camera Zoom Adjusted from "+ previousZoom + " to "+ zoom );
 
             }
 

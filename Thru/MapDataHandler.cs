@@ -58,51 +58,61 @@ public  MapDataHandler(int clientWidth, int clientHeight, IServiceProvider servi
             ClientHeight = clientHeight;
       
             List<FeatureCollection> mapDataTotal =   new List<FeatureCollection>();
-            //    loadMapData("G:\\Users\\thein\\Downloads\\output (1)") ?? new List<FeatureCollection>();//
-            mapDataTotal.Add(loadMapDataFile("G:\\Users\\thein\\Downloads\\CA_Sec_A_waypoints\\waypoints.geojson"));
-            mapDataTotal.Add(loadMapDataFile("G:\\Users\\thein\\Downloads\\CA_Sec_A_tracks\\tracks.geojson"));
-            mapDataTotal.Add(loadMapDataFile("G:\\Users\\thein\\Downloads\\CA_Sec_A_tracks\\track_points.geojson"));
 
+            foreach (var file in
+            Directory.GetFiles("C:\\Users\\thein\\Downloads\\mapData\\", "*.geojson"))
+            {
+                var data = loadMapDataFile(file);
+                if (data.Features.Count > 0)
+                {
+                    Console.WriteLine(data);
+                    mapDataTotal.Add(data);
 
-            // 
+                }
+            }
             vert = new List<VertexPositionColorTexture>();
             allShapes = new List<List<VertexPositionColorTexture>>();
             gameMap = new Graph(new ArrayList(), new ArrayList(), "Game Map", null, new Vector2(0, 0));
-            foreach (FeatureCollection mapDataIndividual in mapDataTotal)
-            {
-                Console.WriteLine("vertices list size: " + vert.Count);
-                features = mapDataIndividual.Features;
-                //features.RemoveAll(item => item == null);
-                shapeList = new List<PolygonShape>();
-                List<VertexPositionColorTexture> tempVerts = new List<VertexPositionColorTexture>();
-                Location newLoc = new Location(null, null, null, new Vector2(0,0));
-                Location oldLoc = new Location(null, null, null, new Vector2(0, 0));
-                Trail tempEdge = new Trail(null, null, 0, "",null);
-                foreach (Feature feature in features ?? Enumerable.Empty<Feature>())
+
+            
+                
+                foreach (FeatureCollection mapDataIndividual in mapDataTotal)
                 {
-                    //only waypoints have names in geoJSON
-                    if (feature.Properties.ContainsKey("name") && feature.Properties.ContainsKey("sym"))
+                    Console.WriteLine("vertices list size: " + vert.Count);
+                    features = mapDataIndividual.Features;
+                    //features.RemoveAll(item => item == null);
+                    shapeList = new List<PolygonShape>();
+                    List<VertexPositionColorTexture> tempVerts = new List<VertexPositionColorTexture>();
+                    Location newLoc = new Location(null, null, null, new Vector2(0, 0));
+                    Location oldLoc = new Location(null, null, null, new Vector2(0, 0));
+                    Trail tempEdge = new Trail(null, null, 0, "", null);
+                    foreach (Feature feature in features ?? Enumerable.Empty<Feature>())
                     {
-                        if (String.Equals(feature.Properties["sym"].ToString(), "Campground")) 
+                        //only waypoints have names in geoJSON
+                        if (feature.Properties.ContainsKey("name") && feature.Properties.ContainsKey("sym"))
                         {
-                            oldLoc = newLoc;
-                            newLoc = geojsonToLocation(feature);
-                            if (oldLoc.Trails != null)
+                            if (String.Equals(feature.Properties["sym"].ToString(), "Campground"))
                             {
-                                tempEdge = new Trail(oldLoc, newLoc, 0, "test", Content.Load<Texture2D>("southern_terminus"));
-                                oldLoc.Trails.Add(tempEdge);
-                                newLoc.Trails.Add(tempEdge);
-                                gameMap.Trails.Add(tempEdge);
+                                oldLoc = newLoc;
+                                newLoc = geojsonToLocation(feature);
+                                if (oldLoc.Trails != null)
+                                {
+                                    tempEdge = new Trail(oldLoc, newLoc, 0, "test", Content.Load<Texture2D>("southern_terminus"));
+                                    oldLoc.Trails.Add(tempEdge);
+                                    newLoc.Trails.Add(tempEdge);
+                                    gameMap.Trails.Add(tempEdge);
+                                }
+
+
+                                gameMap.Locations.Add(newLoc);
                             }
 
-
-                            gameMap.Locations.Add(newLoc);
                         }
-                            
+                        geoTypeParser(feature.Geometry);
                     }
-                    geoTypeParser(feature.Geometry);
                 }
-            }
+
+           
            
         }
 

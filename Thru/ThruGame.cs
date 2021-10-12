@@ -27,7 +27,17 @@ namespace Thru
       
         private SpriteFont font;
         private GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
+        public State currentState { 
+            get { return state; } 
+            set {
+                if (state != value)
+                {
+                    Console.WriteLine("Changed state from " + state + " to " + value);
+                }
+                state = value;
+
+            }
+        }
         private State state;
         private Menu menu;
         private MainSettings mainSettings;
@@ -37,7 +47,6 @@ namespace Thru
         public IOController IOController;
         GameStateController GameStateController;
         public MouseState mouseState;
-        Camera2d cam;
         private AnimatedSprite animatedSprite;
         public ThruGame()
         {
@@ -53,13 +62,13 @@ namespace Thru
             for (int i = 0; i < data.Length; ++i) data[i] = Color.White;
             newRect.SetData(data);
 */
-                      state = State.Menu;
+                      currentState = State.Menu;
             Texture2D rect = new Texture2D(_graphics.GraphicsDevice, 1000, 250);
             IOController = new IOController(Services, "TestPlaces4.json");
 
             //displayBox = new DisplayWindow(rect, Services);
-            menu = new Menu(Window.ClientBounds.Width, Window.ClientBounds.Height, Services);
-            mainSettings = new MainSettings(Window.ClientBounds.Width, Window.ClientBounds.Height, Services);
+            menu = new Menu(Window.ClientBounds.Width, Window.ClientBounds.Height, Services, _graphics);
+            mainSettings = new MainSettings(Window.ClientBounds.Width, Window.ClientBounds.Height, Services, _graphics);
             background = Content.Load<Texture2D>("southern_terminus");
             //Texture2D rect = new Texture2D(_graphics.GraphicsDevice, 1000, 200);
             displayBox = new DisplayWindow(rect, "", "", Services);
@@ -68,9 +77,7 @@ namespace Thru
             _graphics.PreferredBackBufferHeight = background.Height;   // set this value to the desired height of your window
             _graphics.ApplyChanges();
 
-            cam = new Camera2d(_graphics);
-            cam.Pos = new Vector2(Window.ClientBounds.Width / 2, Window.ClientBounds.Height / 2);
-
+          
             mapView = new MapView( Services, Window.ClientBounds.Width, Window.ClientBounds.Height, _graphics);
 
             //setupLocations();
@@ -86,7 +93,6 @@ namespace Thru
         {
 
 
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
             font = Content.Load<SpriteFont>("Score"); // Use the name of your sprite font file here instead of 'Score'.
 
         }
@@ -111,50 +117,31 @@ namespace Thru
 
         protected override void Draw(GameTime gameTime)
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
             _graphics.GraphicsDevice.Clear(Color.White);
-            /*_spriteBatch.Begin(SpriteSortMode.FrontToBack, null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        cam.Transform);*/
-            _spriteBatch.Begin();
-          /*  _spriteBatch.Begin(SpriteSortMode.BackToFront,
-                        BlendState.AlphaBlend,
-                        null,
-                        null,
-                        null,
-                        null,
-                        cam.get_transformation());*/
+                      
             stateMachine(gameTime, StateMode.Draw);
             
-            _spriteBatch.End();
             base.Draw(gameTime);
         }
 
         private void stateMachine( GameTime gameTime, StateMode stateMode)
         {
-            switch (state)
+            _graphics.GraphicsDevice.Clear(Color.White);
+
+            switch (currentState)
             {
                 case State.Menu:
-                    state = runState(menu, stateMode, gameTime) ?? state ;
-                    _graphics.GraphicsDevice.Clear(Color.White);
-
+                    currentState = runState(menu, stateMode, gameTime) ?? currentState ;
                     break;
                 case State.MainSettings:
-                    _graphics.GraphicsDevice.Clear(Color.White);
-                    
-
-                    state = runState(mainSettings, stateMode, gameTime) ?? state;
+                    currentState = runState(mainSettings, stateMode, gameTime) ?? currentState;
 					break;
 				case State.Game:
-                    state = runState(mapView, stateMode, gameTime) ?? state;
+                    currentState = runState(mapView, stateMode, gameTime) ?? currentState;
 
                     break;
                 case State.Map:
-                    _graphics.GraphicsDevice.Clear(Color.White);
-                    state = runState(mapView, stateMode, gameTime) ?? state;
+                    currentState = runState(mapView, stateMode, gameTime) ?? currentState;
 
                     break;
                 /*case State.Final:
@@ -168,7 +155,7 @@ namespace Thru
 				case State.Start:
 					break; */
                 default:
-                    Console.WriteLine("game is broken bucko: "+state);
+                    Console.WriteLine("game is broken bucko: "+currentState);
                     Exit();
                     break;
 
@@ -184,14 +171,16 @@ namespace Thru
                     return gameView.Update(gameTime);
                      
                 case StateMode.Draw:
-                    gameView.Draw(_spriteBatch, _graphics);
+                    gameView.Draw(_graphics);
                     return null;
                 default:
                     Exit();
                     break;
             }
             return null;
-        }
+        }  
+
+
 
     }
 }

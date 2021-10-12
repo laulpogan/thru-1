@@ -12,7 +12,6 @@ namespace Thru
         public SpriteFont font;
         private ContentManager Content;
         public ButtonGroup buttonGroup;
-        public bool ShowMap;
         public Texture2D buttonImage;
         public Button mapButton;
         public Button menuButton;
@@ -20,19 +19,23 @@ namespace Thru
         public Location currentLocation;
         public GraphicsDeviceManager Graphics;
         public Vector2 Coords;
-       // public Camera2d Cam;
         public MapMenu(IServiceProvider services, Location location, GraphicsDeviceManager graphics)
         {
-            //Cam = cam; 
-            Graphics = graphics;
-            Coords = new Vector2(100, 100);
-            ArrayList buttons = new ArrayList();
-            buttonGroup = new ButtonGroup(buttons, Coords);
+           
             Content = new ContentManager(services, "Content");
             buttonImage = Content.Load<Texture2D>("longbutton");
             font = Content.Load<SpriteFont>("Score");
+            Graphics = graphics;
+            Coords = new Vector2(100, 100);
+            buttonGroup = new ButtonGroup(new ArrayList(), Coords);
             currentLocation = location;
-            ShowMap = false;
+            buttonImage = Content.Load<Texture2D>("longbutton");
+
+            mapButton = new Button(buttonImage, "Map", Content.Load<SpriteFont>("Score"));
+
+            menuButton = new Button(buttonImage, "Menu", Content.Load<SpriteFont>("Score"));
+
+
             buildMapButtons();
             foreach (Location location1 in currentLocation.AdjacentLocations())
                 Console.WriteLine("Adjacent Locations: " + location1.Name);
@@ -42,10 +45,10 @@ namespace Thru
         public void Draw(SpriteBatch spriteBatch)
         {
 
-            if (ShowMap)
-            {
+            
                 buttonGroup.Draw(spriteBatch);
-            }
+            
+
         }
         public Location Update(GameTime gameTime)
         {
@@ -57,6 +60,7 @@ namespace Thru
             {
                 if (button.State == BState.JUST_RELEASED)
                 {
+                    Console.WriteLine("You just pressed "+button.Text);
                     var adjacentLocations = currentLocation.AdjacentLocations();
                     foreach (Location location in adjacentLocations)
                     {
@@ -102,6 +106,8 @@ namespace Thru
             }*/
 
             ArrayList buttonFinal = new ArrayList(buttons.Values);
+            buttonFinal.Add(mapButton);
+            buttonFinal.Add(menuButton);
             buttonGroup = new ButtonGroup(buttonFinal, Coords);
         }
      
