@@ -12,6 +12,7 @@ namespace Thru
 	public class MapView : IGameView
 	{
 		public Location currentLocation;
+		public Location lastLocation;
 		public State State = State.Game;
 		public Button menuButton, mapButton;
 		public Texture2D buttonImage;
@@ -23,17 +24,21 @@ namespace Thru
 		public Graph gameMap;
 		public SpriteBatch spriteBatch, hudBatch;
 		public bool ShowMap;
-		public Camera2d cam;
-
+		public Camera cam;
+		public GraphicsDeviceManager Graphics;
 		public MapView( IServiceProvider services, int width, int height, GraphicsDeviceManager graphics)
 {
-			cam = new Camera2d(graphics);
+			Graphics = graphics;
+			cam = new Camera(graphics.GraphicsDevice.Viewport);
 			cam.Pos = new Vector2(width / 2, height / 2);
 
 
 			mapHandler = new MapDataHandler(width, height, services);
 			gameMap = mapHandler.getGameMap();
-			currentLocation = (Location)gameMap.Locations.ToArray()[1];
+			
+				currentLocation = (Location)gameMap.Locations.ToArray()[0];
+
+			
 			Content = new ContentManager(services, "Content");
 			mapMenu = new MapMenu(services, currentLocation, graphics);
 			spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
@@ -45,10 +50,16 @@ namespace Thru
         {
 			mapHandler.Update(gameTime);
 			gameMap.Update(gameTime);
-
+			lastLocation = currentLocation;
+			currentLocation = mapMenu.Update(gameTime);
+			if( lastLocation != currentLocation)
+            {
+				cam.Pos = currentLocation.Coords;
+			}
+			cam.UpdateCamera(Graphics.GraphicsDevice.Viewport);
 			State returnState = State.Map;
 			if (ShowMap) {
-				currentLocation = mapMenu.Update(gameTime);
+				
 				returnState = State.Map;
 			}
 			if (mapMenu.menuButton.State == BState.JUST_RELEASED)
@@ -63,11 +74,9 @@ namespace Thru
 				Console.Write("Show Map: " + ShowMap);
 
 			}
-			cam.Pos = currentLocation.Coords;
-			//Graphics.GraphicsDevice.Viewport = new Viewport(newX, newY , width , height );
-			//Coords = newOrigin;
-
-			mapMenu.Update(gameTime);
+			
+		
+			
 
 			return returnState;
         }
@@ -79,7 +88,7 @@ namespace Thru
 					null,
 					null,
 					null,
-					cam.get_transformation());
+					cam.Transform);
 			if (ShowMap)
 			{
 				mapHandler.Draw(spriteBatch);
