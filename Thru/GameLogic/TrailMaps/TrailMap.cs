@@ -8,7 +8,7 @@ using GeoJSON.Net.Feature;
 
 namespace Thru
 {
-	public class Graph
+	public class TrailMap
 	{
 		public ArrayList Locations;
 		public AnimatedSprite sprite;
@@ -16,7 +16,7 @@ namespace Thru
 		public ArrayList Trails;
 		public String Name;
 		public Vector2 Origin;
-		public Graph(ArrayList nodes, ArrayList edges,   String name, Texture2D texture, Vector2 origin)
+		public TrailMap(ArrayList nodes, ArrayList edges,   String name, Texture2D texture, Vector2 origin)
 		{
 			Locations = nodes;
 			Trails = edges;

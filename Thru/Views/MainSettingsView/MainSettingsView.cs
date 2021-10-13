@@ -4,18 +4,18 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using System.Collections;
-using Nez;
+
 
 namespace Thru
 {
 
-	public class MainSettings : IGameView
+	public class MainSettingsView : IGameView
 	{
 		Button returnButton;
 		private ContentManager Content;
 		public ButtonGroup buttonGroup;
 		public SpriteBatch spriteBatch;
-		public MainSettings(int clientWidth, int clientHeight, IServiceProvider services, GraphicsDeviceManager graphics)
+		public MainSettingsView(int clientWidth, int clientHeight, IServiceProvider services, GraphicsDeviceManager graphics)
 		{
 			Content = new ContentManager(services, "Content");
 			spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
