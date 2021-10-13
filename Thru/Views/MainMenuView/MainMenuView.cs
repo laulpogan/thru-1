@@ -4,11 +4,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
-using Nez;
 
 namespace Thru
 { 
-	public class Menu : IGameView
+	public class MainMenuView : IGameView
 	{
 		Button newGameButton, mainSettingsButton, loadGameButton;
 		
@@ -16,7 +15,7 @@ namespace Thru
 		private ButtonGroup buttonGroup;
 		private ContentManager Content;
 		public SpriteBatch spriteBatch;
-		public Menu (int clientWidth, int clientHeight, IServiceProvider services, GraphicsDeviceManager graphics)
+		public MainMenuView (int clientWidth, int clientHeight, IServiceProvider services, GraphicsDeviceManager graphics)
 		{
 
 			Content = new ContentManager(services, "Content");

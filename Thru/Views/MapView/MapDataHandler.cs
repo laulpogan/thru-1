@@ -38,7 +38,7 @@ namespace Thru
         short[] ind;
         List<Feature> features;
         double radius = 6371;
-        Graph gameMap;
+        TrailMap gameMap;
 
         Dictionary<string, double> p0;
         Dictionary<string, double> p1;
@@ -72,7 +72,7 @@ public  MapDataHandler(int clientWidth, int clientHeight, IServiceProvider servi
             }
             vert = new List<VertexPositionColorTexture>();
             allShapes = new List<List<VertexPositionColorTexture>>();
-            gameMap = new Graph(new ArrayList(), new ArrayList(), "Game Map", null, new Vector2(0, 0));
+            gameMap = new TrailMap(new ArrayList(), new ArrayList(), "Game Map", null, new Vector2(0, 0));
 
             
                 
@@ -116,7 +116,7 @@ public  MapDataHandler(int clientWidth, int clientHeight, IServiceProvider servi
            
         }
 
-        public Graph getGameMap()
+        public TrailMap getGameMap()
         {
             return gameMap;
         }

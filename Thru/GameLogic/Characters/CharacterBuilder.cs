@@ -15,7 +15,7 @@ using GeoJSON.Net.Feature;
 
 namespace Thru
 {
-	public class GameStateController
+	public class CharacterBuilder
 	{
 		public record FirstName
         {
@@ -26,33 +26,14 @@ namespace Thru
 			[JsonProperty(PropertyName = "most_likely")] 
 			public string most_likely;
         }
-	/*	public record Feature
-        {
-			LineString geometry;
-        }
-		public record FeatureCollection
-		{
-			Feature[] features;
 
-        }*/
 		Dictionary<string, FirstName> nameDict;
-		Player Player;
-		MapMenu Map;
-		MapView mapView;
-		Location Location;
 		public IOController IOController;
-		public Encounter Encounter;
 
-		public GameStateController(IServiceProvider services, DisplayWindow displayWindow)
+		public CharacterBuilder(IServiceProvider services, DisplayWindow displayWindow)
         {
 			
-			/*IOController mapData = new IOController(services, "G:\\Users\\thein\\Downloads\\PacificCrestTrail.json");
-			Dictionary<string, Point> mapDict = mapData.deserializeFromFile<Point>();
-
-			foreach (string key in mapDict.Keys)
-			{
-				Console.WriteLine(mapDict[key]);
-			}*/
+	
 			IOController = new IOController(services, "G:\\Users\\thein\\source\\repos\\thru\\Thru\\Content\\first_name_list.json");
 			var jsonText = IOController.deserializeFromFile<FirstName>();
 			nameDict = jsonText;
@@ -60,22 +41,10 @@ namespace Thru
 			Player boo = createCharacter();
             Dictionary<string, Player> participants = new Dictionary<string, Player>();
             participants[boo.Name] = boo;
-            Encounter = new Encounter(participants, "luck", 12, "Boo", "You whore", displayWindow, services);
-
         }
 
 		
 
-		public State Update(GameTime gameTime)
-        {
-			return Encounter.Update(gameTime );
-        }
-		public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
-        {
-			
-			Encounter.Draw(spriteBatch, gameTime);
-        }
-		
 		public  Player createCharacter()
         {
 			

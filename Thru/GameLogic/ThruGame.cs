@@ -39,13 +39,13 @@ namespace Thru
             }
         }
         private State state;
-        private Menu menu;
-        private MainSettings mainSettings;
+        private MainMenuView menu;
+        private MainSettingsView mainSettings;
         public MapView mapView;
         public Texture2D background;
         public DisplayWindow displayBox;
         public IOController IOController;
-        GameStateController GameStateController;
+        CharacterBuilder GameStateController;
         public MouseState mouseState;
         private AnimatedSprite animatedSprite;
         public ThruGame()
@@ -67,12 +67,12 @@ namespace Thru
             IOController = new IOController(Services, "TestPlaces4.json");
 
             //displayBox = new DisplayWindow(rect, Services);
-            menu = new Menu(Window.ClientBounds.Width, Window.ClientBounds.Height, Services, _graphics);
-            mainSettings = new MainSettings(Window.ClientBounds.Width, Window.ClientBounds.Height, Services, _graphics);
+            menu = new MainMenuView(Window.ClientBounds.Width, Window.ClientBounds.Height, Services, _graphics);
+            mainSettings = new MainSettingsView(Window.ClientBounds.Width, Window.ClientBounds.Height, Services, _graphics);
             background = Content.Load<Texture2D>("southern_terminus");
             //Texture2D rect = new Texture2D(_graphics.GraphicsDevice, 1000, 200);
             displayBox = new DisplayWindow(rect, "", "", Services);
-            GameStateController = new GameStateController(Services, displayBox);
+            GameStateController = new CharacterBuilder(Services, displayBox);
             _graphics.PreferredBackBufferWidth = background.Width;  // set this value to the desired width of your window
             _graphics.PreferredBackBufferHeight = background.Height;   // set this value to the desired height of your window
             _graphics.ApplyChanges();
@@ -105,7 +105,6 @@ namespace Thru
             stateMachine(gameTime, StateMode.Update);
 
 
-            GameStateController.Update(gameTime);
             // TODO: Add your update logic here
             var kstate = Keyboard.GetState();
 
