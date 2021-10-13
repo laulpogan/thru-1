@@ -68,18 +68,7 @@ namespace Thru
 
                             if (location.Name == button.Text)
                         {
-                            Console.WriteLine("Hey Congratulations you have a match");
                             currentLocation = location;
-                            int width = Graphics.GraphicsDevice.Viewport.Width;
-                            int height = Graphics.GraphicsDevice.Viewport.Height;
-                            int xcoord = (int)location.Coords.X;
-                            int ycoord = (int)location.Coords.Y;
-                            int newX =  (width/2 > xcoord ? width/2 - xcoord : xcoord - width/2);
-                            int newY = (height/2 > ycoord ? height/2 - ycoord : ycoord - height/2);
-                            Vector2 newOrigin = new Vector2(newX - width/2, newY - height/2);                             
-                            //Cam.Pos = location.Coords;
-                            //Graphics.GraphicsDevice.Viewport = new Viewport(newX, newY , width , height );
-                            //Coords = newOrigin;
                             buildMapButtons();
              
                         }

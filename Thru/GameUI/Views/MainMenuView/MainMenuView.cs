@@ -40,17 +40,17 @@ namespace Thru
 		public State Update(GameTime gameTime) {
 
 			buttonGroup.Update(gameTime);
-			if(newGameButton.State == BState.JUST_RELEASED)
-            {
-				//todo: add stuff like return State.NewGame
-				return State.Menu;
-            } else if (mainSettingsButton.State == BState.JUST_RELEASED)
+			
+			if (mainSettingsButton.State == BState.JUST_RELEASED)
 			{
 				return State.MainSettings;
 			} else if (loadGameButton.State == BState.JUST_RELEASED)
 			{
 				return State.Map;
-			}
+			} else if (newGameButton.State == BState.JUST_RELEASED)
+            {
+				return State.CharacterCreation;
+            }
 
 			return State.Menu;
 		}

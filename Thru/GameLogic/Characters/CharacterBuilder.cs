@@ -30,7 +30,7 @@ namespace Thru
 		Dictionary<string, FirstName> nameDict;
 		public IOController IOController;
 
-		public CharacterBuilder(IServiceProvider services, DisplayWindow displayWindow)
+		public CharacterBuilder(IServiceProvider services, GraphicsDeviceManager graphics)
         {
 			
 	

@@ -22,12 +22,16 @@ namespace Thru
         private ContentManager Content;
         Vector2 textOffset;
 
-        public DisplayWindow(Texture2D rect, string message, string title, IServiceProvider services)
+        public DisplayWindow( string message, string title, IServiceProvider services, GraphicsDeviceManager graphics)
         {
+
+
             Content = new ContentManager(services, "Content");
+
+            Texture2D rect = new Texture2D(graphics.GraphicsDevice, 1000, 250);
             Picture = Content.Load<Texture2D>("Blurp_Scooter");
             textOffset = new Vector2(Picture.Width, 25) + new Vector2(50,25);
-            font = Content.Load<SpriteFont>("Score"); // Use the name of your sprite font file here instead of 'Score'.
+            font = Content.Load<SpriteFont>("Score"); 
             Bounds = rect.Bounds;
             Color[] data = new Color[Bounds.Width * Bounds.Height];
             for (int i = 0; i < data.Length; ++i) data[i] = Color.Chocolate;

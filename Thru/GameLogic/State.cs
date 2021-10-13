@@ -14,6 +14,7 @@
         Pause,
         MainSettings,
         Options,
-        Map
+        Map,
+        CharacterCreation
     }
 }
