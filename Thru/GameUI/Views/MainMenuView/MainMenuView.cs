@@ -15,6 +15,7 @@ namespace Thru
 		private ButtonGroup buttonGroup;
 		private ContentManager Content;
 		public SpriteBatch spriteBatch;
+		public AnimatedSprite background;
 		public MainMenuView (int clientWidth, int clientHeight, IServiceProvider services, GraphicsDeviceManager graphics)
 		{
 
@@ -32,7 +33,7 @@ namespace Thru
 			buttonGroup = new ButtonGroup(buttonList, new Vector2(100,100));
 
 			spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
-
+			background = new AnimatedSprite(Content.Load<Texture2D>("thru-switch-sheet"), 2, 2);
 
 
 
@@ -40,7 +41,7 @@ namespace Thru
 		public State Update(GameTime gameTime) {
 
 			buttonGroup.Update(gameTime);
-			
+			background.Update(gameTime);
 			if (mainSettingsButton.State == BState.JUST_RELEASED)
 			{
 				return State.MainSettings;
@@ -60,6 +61,7 @@ namespace Thru
 
 		public void Draw(GraphicsDeviceManager _graphics) {
 			spriteBatch.Begin();
+			background.Draw(spriteBatch, new Vector2(650, 40), 1f);
 			buttonGroup.Draw(spriteBatch);
 			spriteBatch.End();
 
