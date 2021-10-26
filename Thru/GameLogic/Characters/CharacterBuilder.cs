@@ -52,7 +52,7 @@ namespace Thru
 				character.Gender = Player.Genders.female;
 			}
 ;
-			Console.WriteLine(character.Name + " " + character.Gender + " Morale "+ character.stats["morale"] + " Miles " + character.stats["miles"] + " Money " + character.stats["money"] + " Age " + character.stats["age"] + " Speed " + character.stats["speed"] + " Charisma " + character.stats["charisma"] + " Hardiness " + character.stats["hardiness"] + " Intelligence" +
+			Console.WriteLine(character.Name + " " + character.Gender + " Morale "+ character.stats["morale"] + " Miles " + character.stats["miles"] + " Money " + character.stats["money"] + " Age " + character.stats["age"] + " Speed " + character.stats["speed"] + " Charisma " + character.stats["charisma"] + " Outdoorsyness " + character.stats["Outdoorsyness"] + " Intelligence" +
 				" " + character.stats["intelligence"] + " Strength " + character.stats["strength"] + " Luck " + character.stats["luck"]);
 			return character;
         }

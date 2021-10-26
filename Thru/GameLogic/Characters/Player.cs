@@ -45,7 +45,7 @@ namespace Thru
 			stats["age"] = rand.Next(20) + 15;
 			stats["speed"] = rand.Next(20);
 			stats["charisma"] = rand.Next(20);
-			stats["hardiness"] = rand.Next(20);
+			stats["Outdoorsyness"] = rand.Next(20);
 			stats["intelligence"] = rand.Next(20);
 			stats["strength"] = rand.Next(20);
 			stats["luck"] = rand.Next(20);

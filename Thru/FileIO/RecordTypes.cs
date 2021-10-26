@@ -63,11 +63,14 @@ namespace Thru
 		public int effect;
 		[JsonProperty(PropertyName = "rewardItem")]
 		public ItemData rewardItem;
+		[JsonProperty(PropertyName = "rewardTrailName")]
 		public TrailNameData rewardTrailName;
-
-
 	}
 
+	public record EncounterRewardData
+    {
+
+    }
 
 	public record ItemData
     {
@@ -81,28 +84,18 @@ namespace Thru
 
 	public record CharacterData
     {
+		[JsonProperty(PropertyName = "name")]
+		public string name;
 		[JsonProperty(PropertyName = "characterStats")]
-		public CharacterStatsData characterStats;
+		public Stats characterStats;
 		[JsonProperty(PropertyName = "trailName")]
 		public TrailNameData trailName;
+		[JsonProperty(PropertyName = "tramily")]
+		public CharacterData[] tramily;
     }
 
-	public record CharacterStatsData
-    {
-		[JsonProperty(PropertyName = "Morale")]
-		public int Morale;
-		[JsonProperty(PropertyName = "Money")]
-		public int Money;
-		[JsonProperty(PropertyName = "Charisma")]
-		public int Charisma;
-		[JsonProperty(PropertyName = "Hardiness")]
-		public int Hardiness;
-		[JsonProperty(PropertyName = "Cleverness")]
-		public int Cleverness;
-		[JsonProperty(PropertyName = "Chillness")]
-		public int Chillness;
+	
 
-	}
 
 	public record TrailNameData
     {
@@ -123,5 +116,15 @@ namespace Thru
 		[JsonProperty(PropertyName = "statModifier")]
 		public int statModifier;
     }
+
+
+
+	public record perkData
+    {
+		[JsonProperty(PropertyName = "name")]
+		public string name;
+		[JsonProperty(PropertyName = "buff")]
+		public buffData buff;
+	}
 
 }
