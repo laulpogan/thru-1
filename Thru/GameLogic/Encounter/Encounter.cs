@@ -12,6 +12,15 @@ namespace Thru
 {
 	public class Encounter
 	{
+
+
+		public class EncounterOption
+        {
+			public EncounterOption()
+            {
+
+            }
+        }
 		public Dictionary<string, Player> Participants;
 		public Location Location;
 		public  string TestStat;

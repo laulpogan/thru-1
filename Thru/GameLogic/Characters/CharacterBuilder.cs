@@ -17,16 +17,6 @@ namespace Thru
 {
 	public class CharacterBuilder
 	{
-		public record FirstName
-        {
-			[JsonProperty(PropertyName = "female")]
-			public int female;
-			[JsonProperty(PropertyName = "male")] 
-			public int male;
-			[JsonProperty(PropertyName = "most_likely")] 
-			public string most_likely;
-        }
-
 		Dictionary<string, FirstName> nameDict;
 		public IOController IOController;
 
