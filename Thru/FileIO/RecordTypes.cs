@@ -31,6 +31,8 @@ namespace Thru
 		public EncounterOptionData[] options;
 		[JsonProperty(PropertyName = "dropRate")]
 		public float dropRate;
+		[JsonProperty(PropertyName = "locationType")]
+		public LocationType locationType;
     }
 
 	public record EncounterOptionData
@@ -69,10 +71,10 @@ namespace Thru
 
 	public record ItemData
     {
-		[JsonProperty(PropertyName = "name")]
-		public string name;
 		[JsonProperty(PropertyName = "ID")]
 		public string ID;
+		[JsonProperty(PropertyName = "name")]
+		public string name;
 		[JsonProperty(PropertyName = "buff")]
 		public buffData buff;
     }
@@ -80,10 +82,27 @@ namespace Thru
 	public record CharacterData
     {
 		[JsonProperty(PropertyName = "characterStats")]
-		public Dictionary<Stats, int> characterStats;
+		public CharacterStatsData characterStats;
 		[JsonProperty(PropertyName = "trailName")]
 		public TrailNameData trailName;
     }
+
+	public record CharacterStatsData
+    {
+		[JsonProperty(PropertyName = "Morale")]
+		public int Morale;
+		[JsonProperty(PropertyName = "Money")]
+		public int Money;
+		[JsonProperty(PropertyName = "Charisma")]
+		public int Charisma;
+		[JsonProperty(PropertyName = "Hardiness")]
+		public int Hardiness;
+		[JsonProperty(PropertyName = "Cleverness")]
+		public int Cleverness;
+		[JsonProperty(PropertyName = "Chillness")]
+		public int Chillness;
+
+	}
 
 	public record TrailNameData
     {
@@ -97,8 +116,8 @@ namespace Thru
 
 	public record buffData
     {
-		[JsonProperty(PropertyName = "isdeBuff")]
-		public bool isdeBuff = false;
+		[JsonProperty(PropertyName = "isDeBuff")]
+		public bool isDeBuff = false;
 		[JsonProperty(PropertyName = "effectedStat")]
 		public Stats effectedStat;
 		[JsonProperty(PropertyName = "statModifier")]

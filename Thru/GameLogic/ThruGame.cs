@@ -41,6 +41,7 @@ namespace Thru
         private MainSettingsView mainSettings;
         public MapView mapView;
         public CharacterCreationView characterCreationView;
+        public GameView gameView;
         public Texture2D background;
         public DisplayWindow displayBox;
         public IOController IOController;
@@ -64,6 +65,7 @@ namespace Thru
             IOController = new IOController(Services, "TestPlaces4.json");
             menu = new MainMenuView(windowWidth, windowHeight, Services, _graphics);
             mainSettings = new MainSettingsView(windowWidth, windowHeight, Services, _graphics);
+            gameView = new GameView(windowWidth, windowHeight, Services, _graphics);
             background = Content.Load<Texture2D>("southern_terminus");
             CharacterBuilder = new CharacterBuilder(Services, _graphics);
             _graphics.PreferredBackBufferWidth = background.Width;  // set this value to the desired width of your window
@@ -110,7 +112,7 @@ namespace Thru
                     currentState = runState(mainSettings, stateMode, gameTime) ?? currentState;
 					break;
 				case State.Game:
-                    currentState = runState(mapView, stateMode, gameTime) ?? currentState;
+                    currentState = runState(gameView, stateMode, gameTime) ?? currentState;
                     break;
                 case State.Map:
                     currentState = runState(mapView, stateMode, gameTime) ?? currentState;

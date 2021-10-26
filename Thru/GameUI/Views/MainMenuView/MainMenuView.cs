@@ -9,7 +9,7 @@ namespace Thru
 { 
 	public class MainMenuView : IGameView
 	{
-		Button newGameButton, mainSettingsButton, loadGameButton;
+		Button newGameButton, mainSettingsButton, loadGameButton, characterCreationButton;
 		
 
 		private ButtonGroup buttonGroup;
@@ -27,9 +27,11 @@ namespace Thru
 			newGameButton = new Button(buttonImage, "New Game", font);
 			mainSettingsButton = new Button(buttonImage, "Main Settings", font);
 			loadGameButton = new Button(buttonImage, "Load Game", font);
+			characterCreationButton = new Button(buttonImage, "Character Creation", font);
 			buttonList.Add(newGameButton);
 			buttonList.Add(mainSettingsButton);
 			buttonList.Add(loadGameButton);
+			buttonList.Add(characterCreationButton);
 			buttonGroup = new ButtonGroup(buttonList, new Vector2(100,100));
 
 			spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
@@ -50,8 +52,12 @@ namespace Thru
 				return State.Map;
 			} else if (newGameButton.State == BState.JUST_RELEASED)
             {
-				return State.CharacterCreation;
+				return State.Game;
             }
+			else if (characterCreationButton.State == BState.JUST_RELEASED)
+			{
+				return State.CharacterCreation;
+			}
 
 			return State.Menu;
 		}
