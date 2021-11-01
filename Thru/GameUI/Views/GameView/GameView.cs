@@ -9,37 +9,32 @@ namespace Thru
 {
 	public class GameView : IGameView
 	{
-		Button  mainMenuButton;
 
 
-		private ButtonGroup buttonGroup;
 		private ContentManager Content;
 		public SpriteBatch spriteBatch;
-		public AnimatedSprite background;
+		public Texture2D background;
 		public Encounter Encounter;
+		public HUD hud;
+		public DesignGrid grid;
+		public Player player;
 		public GameView(int clientWidth, int clientHeight, IServiceProvider services, GraphicsDeviceManager graphics)
 		{
 			Content = new ContentManager(services, "Content");
 			Content.RootDirectory = "Content";
-			Texture2D buttonImage = Content.Load<Texture2D>("longButton");
-			SpriteFont font = Content.Load<SpriteFont>("Score");
-			ArrayList buttonList = new ArrayList();
-			mainMenuButton = new Button(buttonImage, "Main Menu", font);
-			buttonList.Add(mainMenuButton);
-			buttonGroup = new ButtonGroup(buttonList, new Vector2(100, 100));
-
+			background = Content.Load<Texture2D>("southern_terminus");
 			spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
-			background = new AnimatedSprite(Content.Load<Texture2D>("thru-switch-sheet"), 2, 2);
 			Encounter = setupTestEncounter(services, graphics);
-
-
+			hud = new HUD(services, graphics, player);
+			grid = new DesignGrid( services, graphics);
 		}
 
         public Encounter setupTestEncounter(IServiceProvider services, GraphicsDeviceManager graphics)
         {
 
 			CharacterBuilder CharacterBuilder = new CharacterBuilder(services, graphics);
-			Player player = CharacterBuilder.createCharacter();
+			player = CharacterBuilder.createCharacter();
+			
 			EncounterData data = new EncounterData();
 
 			EncounterOptionData option1 = new EncounterOptionData("option1", "Morale", 50, null);
@@ -59,13 +54,12 @@ namespace Thru
 		public State Update(GameTime gameTime)
 		{
 
-			buttonGroup.Update(gameTime);
-			background.Update(gameTime);
 			Encounter.Update(gameTime);
-			if (mainMenuButton.State == BState.JUST_RELEASED)
-			{
+			hud.Update(gameTime);
+			if (hud.mainMenuButton.State == BState.JUST_RELEASED)
 				return State.Menu;
-			}
+			if (hud.mapButton.State == BState.JUST_RELEASED)
+				return State.Map;
 			
 
 			return State.Game;
@@ -77,9 +71,10 @@ namespace Thru
 		public void Draw(GraphicsDeviceManager _graphics)
 		{
 			spriteBatch.Begin();
-			background.Draw(spriteBatch, new Vector2(650, 40), 1f);
-			buttonGroup.Draw(spriteBatch);
+			spriteBatch.Draw(background, new Vector2(0,0), Color.White);
 			Encounter.Draw(spriteBatch);
+			hud.Draw(spriteBatch);
+			grid.Draw(spriteBatch);
 			spriteBatch.End();
 
 		}

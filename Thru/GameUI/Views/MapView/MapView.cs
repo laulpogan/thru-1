@@ -67,13 +67,11 @@ namespace Thru
 				Console.Write("Menu Button Press" );
 				returnState = State.Menu;
 			}
-			if (mapMenu.mapButton.State == BState.JUST_RELEASED)
-			{
-
-				ShowMap = !ShowMap;
-				Console.Write("Show Map: " + ShowMap);
-
-			}
+			
+			if(mapMenu.gameButton.State == BState.JUST_RELEASED)
+            {
+				returnState = State.Game;
+            }
 			
 		
 			

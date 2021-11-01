@@ -45,7 +45,6 @@ namespace Thru
         public Texture2D background;
         public IOController IOController;
         public MouseState mouseState;
-        private AnimatedSprite animatedSprite;
         public int windowWidth, windowHeight;
         public ThruGame()
         {
@@ -70,7 +69,6 @@ namespace Thru
             _graphics.ApplyChanges();
             mapView = new MapView( Services, windowWidth, windowHeight, _graphics);
             Texture2D texture = Content.Load<Texture2D>("buttonsheet");
-            animatedSprite = new AnimatedSprite(texture,2,2);
             characterCreationView = new CharacterCreationView(Services, windowWidth, windowHeight, _graphics);
             base.Initialize();
         }
@@ -99,7 +97,6 @@ namespace Thru
 
         private void stateMachine( GameTime gameTime, StateMode stateMode)
         {
-            _graphics.GraphicsDevice.Clear(Color.White);
             switch (currentState)
             {
                 case State.Menu:

@@ -61,9 +61,9 @@ namespace Thru
 	public record EncounterConsequenceData
     {
 		[JsonProperty(PropertyName = "success")]
-		public EncounterResolutionData[] success;
+		public EncounterResolutionData success;
 		[JsonProperty(PropertyName = "failure")]
-		public EncounterResolutionData[] failure;
+		public EncounterResolutionData failure;
 
 
 	}
@@ -71,7 +71,7 @@ namespace Thru
 	public record EncounterResolutionData
 	{
 		[JsonProperty(PropertyName = "effectedStat")]
-		public Stats effectedStat;
+		public string effectedStat;
 		[JsonProperty(PropertyName = "effect")]
 		public int effect;
 		[JsonProperty(PropertyName = "rewardItem")]

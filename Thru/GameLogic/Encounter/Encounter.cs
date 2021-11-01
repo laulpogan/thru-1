@@ -79,22 +79,43 @@ namespace Thru
 			DisplayWindow.Draw(spriteBatch);
 		}
 
-		public void rollEncounter(EncounterOptionData option)
+		public bool rollEncounter(EncounterOptionData option)
         {
 			selectionMade = true;
+			bool success = false;
 			Message = option.text;
-
-				int y =character.stats.get(option.checkStat);
-				if (y > option.diceCheck)
+			Random rand = new Random();
+			int stat =character.stats.get(option.checkStat);
+				if (stat + rand.Next(20) >= option.diceCheck)
                 {
 					Title = "Success!";
 					Message= $"{character.Name} uses their superior {option.checkStat} to their advantage. {character.Name} Succeeds!";
-                } else
+					success = true;
+			} else
                 {
 					Title = "Failure!";
 					Message = $"{character.Name} isn't quite {option.checkStat}-y enough to get the job done. {character.Name} Fails!";
 				}
+
+
+            if (success)
+            {
+				resolveEncounter(option.consequence.success);
+            } else
+            {
+				resolveEncounter(option.consequence.failure);
+
+			}
+			return success;
         }
-	}
+
+		public void resolveEncounter(EncounterResolutionData resolution)
+        {
+            int stat = character.stats.get(resolution.effectedStat);
+			character.stats.set(resolution.effectedStat, stat + resolution.effect);
+
+        }
+
+    }
 
 }

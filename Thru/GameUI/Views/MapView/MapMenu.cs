@@ -13,8 +13,8 @@ namespace Thru
         private ContentManager Content;
         public ButtonGroup buttonGroup;
         public Texture2D buttonImage;
-        public Button mapButton;
         public Button menuButton;
+        public Button gameButton;
         public ArrayList graph;
         public Location currentLocation;
         public GraphicsDeviceManager Graphics;
@@ -31,9 +31,8 @@ namespace Thru
             currentLocation = location;
             buttonImage = Content.Load<Texture2D>("longbutton");
 
-            mapButton = new Button(buttonImage, "Map", Content.Load<SpriteFont>("Score"));
-
-            menuButton = new Button(buttonImage, "Menu", Content.Load<SpriteFont>("Score"));
+            menuButton = new Button(buttonImage, "Menu", font);
+            gameButton = new Button(buttonImage, "Game", font);
 
 
             buildMapButtons();
@@ -95,8 +94,8 @@ namespace Thru
             }*/
 
             ArrayList buttonFinal = new ArrayList(buttons.Values);
-            buttonFinal.Add(mapButton);
             buttonFinal.Add(menuButton);
+            buttonFinal.Add(gameButton);
             buttonGroup = new ButtonGroup(buttonFinal, Coords);
         }
      
