@@ -13,7 +13,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame;
 using Newtonsoft.Json;
-
+using System.Reflection.Emit;
 
 namespace Thru
 {
@@ -22,7 +22,7 @@ namespace Thru
     public class StateMachine
     {
         private GraphicsDeviceManager _graphics;
-
+    
         enum StateMode
         {
             Update,
@@ -42,10 +42,18 @@ namespace Thru
         }
         private State state;
         public enum States { };
-        public StateMachine(Enum states, GraphicsDeviceManager graphics )
+        public StateMachine(Enum states, GraphicsDeviceManager graphics)
         {
             _graphics = graphics;
             States = states;
+            foreach (var i in Enum.GetValues(typeof(States)))
+            {
+                string name = Enum.GetName(typeof(State), i);
+                if (currentState.ToString() == name)
+                {
+                    State thing = new State();
+                };
+            }
             currentState = State.Menu;
 
         }
@@ -71,8 +79,8 @@ namespace Thru
                     State thing = new State();
                 };
             }
-         
-        
+
+
         }
 
         private State? runState(IGameView gameView, StateMode stateMode, GameTime gameTime)
@@ -85,7 +93,6 @@ namespace Thru
                     gameView.Draw(_graphics);
                     return null;
                 default:
-                    Exit();
                     break;
             }
             return null;

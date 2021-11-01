@@ -43,9 +43,7 @@ namespace Thru
         public CharacterCreationView characterCreationView;
         public GameView gameView;
         public Texture2D background;
-        public DisplayWindow displayBox;
         public IOController IOController;
-        CharacterBuilder CharacterBuilder;
         public MouseState mouseState;
         private AnimatedSprite animatedSprite;
         public int windowWidth, windowHeight;
@@ -67,7 +65,6 @@ namespace Thru
             mainSettings = new MainSettingsView(windowWidth, windowHeight, Services, _graphics);
             gameView = new GameView(windowWidth, windowHeight, Services, _graphics);
             background = Content.Load<Texture2D>("southern_terminus");
-            CharacterBuilder = new CharacterBuilder(Services, _graphics);
             _graphics.PreferredBackBufferWidth = background.Width;  // set this value to the desired width of your window
             _graphics.PreferredBackBufferHeight = background.Height;   // set this value to the desired height of your window
             _graphics.ApplyChanges();

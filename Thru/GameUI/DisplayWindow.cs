@@ -64,7 +64,7 @@ namespace Thru
                // whiteRectangle.Dispose();
             }
 
-       public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+       public void Draw(SpriteBatch spriteBatch)
             {
                  spriteBatch.Draw(Rect, Coor, Color.Black);
             spriteBatch.Draw(Picture, Coor + new Vector2(25, 25), Color.White);

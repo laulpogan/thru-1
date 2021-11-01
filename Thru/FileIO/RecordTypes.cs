@@ -26,7 +26,11 @@ namespace Thru
 	}
 
 	public record EncounterData
-    {
+	{
+		[JsonProperty(PropertyName = "text")]
+		public string text;
+		[JsonProperty(PropertyName = "title")]
+		public string title;
 		[JsonProperty(PropertyName = "options")]
 		public EncounterOptionData[] options;
 		[JsonProperty(PropertyName = "dropRate")]
@@ -40,15 +44,24 @@ namespace Thru
 		[JsonProperty(PropertyName = "text")]
 		public string text;
 		[JsonProperty(PropertyName = "checkStat")]
-		public Stats checkStat;
+		public string checkStat;
 		[JsonProperty(PropertyName = "consequence")]
 		public EncounterConsequenceData consequence;
+		[JsonProperty(PropertyName = "diceCheck")]
+		public int diceCheck;
+        public EncounterOptionData(string Text, string CheckStat, int DC, EncounterConsequenceData Consequence)
+        {
+			text = Text;
+			checkStat = CheckStat;
+			consequence = Consequence;
+			diceCheck = DC;
+        }
 	}
 	
 	public record EncounterConsequenceData
     {
 		[JsonProperty(PropertyName = "success")]
-		public EncounterConsequenceData[] success;
+		public EncounterResolutionData[] success;
 		[JsonProperty(PropertyName = "failure")]
 		public EncounterResolutionData[] failure;
 
@@ -67,11 +80,8 @@ namespace Thru
 		public TrailNameData rewardTrailName;
 	}
 
-	public record EncounterRewardData
-    {
-
-    }
-
+	
+	
 	public record ItemData
     {
 		[JsonProperty(PropertyName = "ID")]

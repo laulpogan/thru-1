@@ -11,7 +11,7 @@ namespace Thru
 {
 	public class Player : ICharacter
 	{
-		public Dictionary<string, int> stats;
+		public Stats stats;
 		public string Name;
 		public string TrailName;
 		public DateTime Date;
@@ -34,21 +34,23 @@ namespace Thru
 		}
 
 
-		public Dictionary<string, int> buildStats()
+		public Stats buildStats()
         {
 
 			Random rand = new Random();
-			Dictionary<string, int> stats = new Dictionary<string, int>();
-			stats["morale"] = rand.Next(20);
-			stats["miles"] = rand.Next(20);
-			stats["money"] = rand.Next(20000);
-			stats["age"] = rand.Next(20) + 15;
-			stats["speed"] = rand.Next(20);
-			stats["charisma"] = rand.Next(20);
-			stats["Outdoorsyness"] = rand.Next(20);
-			stats["intelligence"] = rand.Next(20);
-			stats["strength"] = rand.Next(20);
-			stats["luck"] = rand.Next(20);
+			Stats stats = new Stats();
+			stats.Age = rand.Next(20) + 15;
+			stats.Charisma = rand.Next(20);
+			stats.Chillness = rand.Next(20);
+			stats.Cleverness = rand.Next(20);
+			stats.Fitness = rand.Next(20);
+			stats.Luck = rand.Next(20);
+			stats.Miles = rand.Next(20);
+			stats.Money = rand.Next(20000) + 10000;
+			stats.Morale = rand.Next(20);
+			stats.Outdoorsyness = rand.Next(20);
+			stats.Snacks = rand.Next(100) + 25;
+			stats.Speed = rand.Next(20);
 			return stats;
 		}
 		public State Update(GameTime gameTime) { return State.MainSettings; }

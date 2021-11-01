@@ -23,14 +23,7 @@ namespace Thru
 			Name = name;
 			Origin = new Vector2(0,0);
 			sprite = new AnimatedSprite(texture, 2, 2);
-			/*foreach(Location node in Locations)
-            {
-
-            }
-			foreach(Trail edge in Trails)
-            {
-
-            }*/
+			
 		}
 
 		public void Update(GameTime gameTime)
