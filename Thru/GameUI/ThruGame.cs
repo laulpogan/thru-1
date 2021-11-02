@@ -60,7 +60,7 @@ namespace Thru
             windowHeight = Window.ClientBounds.Height;
             Texture2D rect = new Texture2D(_graphics.GraphicsDevice, 1000, 250);
             IOController = new IOController(Services, "TestPlaces4.json");
-            menu = new MainMenuView(windowWidth, windowHeight, Services, _graphics);
+            menu = new MainMenuView(Services, _graphics);
             mainSettings = new MainSettingsView(windowWidth, windowHeight, Services, _graphics);
             gameView = new GameView(windowWidth, windowHeight, Services, _graphics);
             background = Content.Load<Texture2D>("southern_terminus");

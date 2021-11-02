@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -14,14 +13,14 @@ namespace Thru
         public Button mainMenuButton, mapButton;
         private ContentManager Content;
         ButtonGroup buttonGroup;
-        public TextBox DisplayWindow;
+        private PlayerStats _playerStats;
         Player Player;
 
         public HUD(IServiceProvider services, GraphicsDeviceManager graphics, Player player)
         {
             Content = new ContentManager(services, "Content");
             Player = player;
-            Texture2D buttonImage = Content.Load<Texture2D>("longButton");
+            Texture2D buttonImage = Content.Load<Texture2D>("square_button");
             SpriteFont font = Content.Load<SpriteFont>("Score");
             ArrayList buttonList = new ArrayList();
             Content.RootDirectory = "Content";
@@ -29,21 +28,20 @@ namespace Thru
             mapButton = new Button(buttonImage, "Map", font);
             buttonList.Add(mainMenuButton);
             buttonList.Add(mapButton);
-            buttonGroup = new ButtonGroup(buttonList, new Vector2(1000, 10));
-            string Message = $"Morale: {Player.stats.Morale} Money: ${Player.stats.Money} Snacks: {Player.stats.Snacks}"; 
-            DisplayWindow = new TextBox(Message, "Vitals", services, graphics);
-
+            buttonGroup = new ButtonGroup(buttonList, new Vector2(1700, 10));
+            _playerStats = new PlayerStats(services, player);
         }
 
         public void Update(GameTime gameTime)
         {
             buttonGroup.Update(gameTime);
-            DisplayWindow.Message = $"Morale: {Player.stats.Morale} Money: ${Player.stats.Money} Snacks: {Player.stats.Snacks}";
+            _playerStats.Update();
+            
         }
         public void Draw(SpriteBatch spriteBatch)
         {
             buttonGroup.Draw(spriteBatch);
-            DisplayWindow.Draw(spriteBatch);
+            _playerStats.Draw(spriteBatch);
         }
 
     }

@@ -4,54 +4,71 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 namespace Thru
-{ 	
-
+{
+	public enum ButtonArrangement
+	{
+		Horizontal,
+		Vertical
+	}
 	public class ButtonGroup
 		{
-			public ArrayList ButtonList;
-		private int buttonHeight;
-		private int buttonWidth;
-		private int heightTracker;
-		public Vector2 Origin;
-			public ButtonGroup(ArrayList buttonList, Vector2 origin)
+		public ArrayList ButtonList;
+		private ButtonArrangement _arrangement;
+		private Vector2 _origin;
+		private int _spacing;
+
+		public ButtonGroup(ArrayList buttonList, Vector2 origin, ButtonArrangement arrangement = ButtonArrangement.Vertical, int spacing_px = 10)
+		{
+			ButtonList = new ArrayList();
+			_arrangement = arrangement;
+			_origin = origin;
+			_spacing = spacing_px;
+
+			foreach (Button button in buttonList)
 			{
-			Origin = origin;
-				ButtonList = new ArrayList();
-			heightTracker = (int)origin.Y;
-		
-				foreach ( Button button in buttonList) {
-					buttonHeight = button.Bounds.Height;
-					buttonWidth = button.Bounds.Width;
-				//Console.WriteLine("button Width: " + buttonWidth + " button Height: " + buttonHeight);
-
-				button.Bounds.Y = heightTracker;
-				heightTracker += buttonHeight + 10;
-				button.Bounds.X = (int)origin.X;
-				//Console.WriteLine("Name: "+ button.Text+" BoundsX: " + button.Bounds.X + " BoundsY: "+ button.Bounds.Y  );
-					ButtonList.Add(button);
+				ButtonList.Add(button);
 			}
-
+			updatePositions();
 		}
-		public void updatePositions(GameTime gameTime)
+		public void updatePositions()
         {
-			heightTracker = (int)Origin.Y;
-
-			foreach (Button button in ButtonList)
+			if (_arrangement == ButtonArrangement.Vertical) 
 			{
+				int heightTracker = (int)_origin.Y;
+				foreach (Button button in ButtonList)
+				{
 
-				buttonHeight = button.Bounds.Height;
-				buttonWidth = button.Bounds.Width;
-				button.Bounds.Y = heightTracker;
-				heightTracker += buttonHeight + 10;
-				button.Bounds.X = (int)Origin.X;
-				button.Update(gameTime);
+					var buttonHeight = button.Bounds.Height;
+					button.Bounds.Y = heightTracker;
+					heightTracker += buttonHeight + _spacing;
+					button.Bounds.X = (int)_origin.X;
 
+				}
 			}
+			else if(_arrangement == ButtonArrangement.Horizontal)
+            {
+				int widthTracker = (int)_origin.X;
+				foreach (Button button in ButtonList)
+				{
+					var buttonWidth = button.Bounds.Width;
+					button.Bounds.Y = (int)_origin.Y;
+					widthTracker += buttonWidth + _spacing;
+					button.Bounds.X = widthTracker;
+				}
+			}
+			else
+            {
+				// big error
+            }
 		
 		}
 		public void Update(GameTime gameTime)
-			{
-			updatePositions(gameTime);
+		{
+			updatePositions();
+			foreach(Button button in ButtonList)
+			{ 
+				button.Update(gameTime); 
+			}
 
 		}
 

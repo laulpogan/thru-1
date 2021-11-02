@@ -4,14 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using GeoJSON.Net;
-using GeoJSON.Net.Feature;
-using GeoJSON.Net.Geometry;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame;
-using Newtonsoft.Json;
 
 namespace Thru
 {

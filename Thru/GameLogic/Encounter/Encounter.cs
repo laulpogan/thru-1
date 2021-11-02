@@ -17,7 +17,7 @@ namespace Thru
 
 		public Location Location;
 		public string Title, Message;
-		public TextBox DisplayWindow;
+		public InteractionMessageBox DisplayWindow;
         public Dictionary<string, EncounterOptionData> Options;
 		public ButtonGroup ButtonGroup;
 		public bool selectionMade;
@@ -29,11 +29,11 @@ namespace Thru
 			Options = new Dictionary<string,EncounterOptionData>();
 			ArrayList buttonList = new ArrayList();
 			ContentManager Content = new ContentManager(services, "Content");
-			Texture2D buttonImage = Content.Load<Texture2D>("longbutton");
+			Texture2D buttonImage = Content.Load<Texture2D>("short_button");
 			SpriteFont font = Content.Load<SpriteFont>("Score");
 			Title = data.title;
 			Message = data.text;
-			DisplayWindow = new TextBox(Message,Title,services,graphics);
+			DisplayWindow = new InteractionMessageBox(Message,Title,services,graphics);
 			foreach (EncounterOptionData option in data.options)
 			{
 				Button tempButton = new Button(buttonImage);
@@ -42,7 +42,7 @@ namespace Thru
 				buttonList.Add(tempButton);
 				Options.Add(option.text, option);
 			}
-			ButtonGroup = new ButtonGroup(buttonList, new Vector2(250, 250));
+			ButtonGroup = new ButtonGroup(buttonList, new Vector2(500, 850), ButtonArrangement.Horizontal);
 
 
             switch (data.resolutionType)
