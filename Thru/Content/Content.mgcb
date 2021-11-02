@@ -160,6 +160,180 @@
 /processorParam:TextureFormat=Color
 /build:Moms_Diner.png
 
+#begin pct_map/CA_Sec_A_tracks (1).gpx.geojson
+/copy:pct_map/CA_Sec_A_tracks (1).gpx.geojson
+
+#begin pct_map/CA_Sec_A_waypoints (1).gpx.geojson
+/copy:pct_map/CA_Sec_A_waypoints (1).gpx.geojson
+
+#begin pct_map/CA_Sec_B_tracks.gpx.geojson
+/copy:pct_map/CA_Sec_B_tracks.gpx.geojson
+
+#begin pct_map/CA_Sec_B_waypoints.gpx.geojson
+/copy:pct_map/CA_Sec_B_waypoints.gpx.geojson
+
+#begin pct_map/CA_Sec_C_tracks.gpx.geojson
+/copy:pct_map/CA_Sec_C_tracks.gpx.geojson
+
+#begin pct_map/CA_Sec_C_waypoints.gpx.geojson
+/copy:pct_map/CA_Sec_C_waypoints.gpx.geojson
+
+#begin pct_map/CA_Sec_D_tracks.gpx.geojson
+/copy:pct_map/CA_Sec_D_tracks.gpx.geojson
+
+#begin pct_map/CA_Sec_D_waypoints.gpx.geojson
+/copy:pct_map/CA_Sec_D_waypoints.gpx.geojson
+
+#begin pct_map/CA_Sec_E_tracks.gpx.geojson
+/copy:pct_map/CA_Sec_E_tracks.gpx.geojson
+
+#begin pct_map/CA_Sec_E_waypoints.gpx.geojson
+/copy:pct_map/CA_Sec_E_waypoints.gpx.geojson
+
+#begin pct_map/CA_Sec_F_tracks.gpx.geojson
+/copy:pct_map/CA_Sec_F_tracks.gpx.geojson
+
+#begin pct_map/CA_Sec_F_waypoints.gpx.geojson
+/copy:pct_map/CA_Sec_F_waypoints.gpx.geojson
+
+#begin pct_map/CA_Sec_G_tracks.gpx.geojson
+/copy:pct_map/CA_Sec_G_tracks.gpx.geojson
+
+#begin pct_map/CA_Sec_G_waypoints.gpx.geojson
+/copy:pct_map/CA_Sec_G_waypoints.gpx.geojson
+
+#begin pct_map/CA_Sec_H_tracks.gpx.geojson
+/copy:pct_map/CA_Sec_H_tracks.gpx.geojson
+
+#begin pct_map/CA_Sec_H_waypoints.gpx.geojson
+/copy:pct_map/CA_Sec_H_waypoints.gpx.geojson
+
+#begin pct_map/CA_Sec_I_tracks.gpx.geojson
+/copy:pct_map/CA_Sec_I_tracks.gpx.geojson
+
+#begin pct_map/CA_Sec_I_waypoints.gpx.geojson
+/copy:pct_map/CA_Sec_I_waypoints.gpx.geojson
+
+#begin pct_map/CA_Sec_J_tracks.gpx.geojson
+/copy:pct_map/CA_Sec_J_tracks.gpx.geojson
+
+#begin pct_map/CA_Sec_J_waypoints.gpx.geojson
+/copy:pct_map/CA_Sec_J_waypoints.gpx.geojson
+
+#begin pct_map/CA_Sec_K_tracks.gpx.geojson
+/copy:pct_map/CA_Sec_K_tracks.gpx.geojson
+
+#begin pct_map/CA_Sec_K_waypoints.gpx.geojson
+/copy:pct_map/CA_Sec_K_waypoints.gpx.geojson
+
+#begin pct_map/CA_Sec_L_tracks.gpx.geojson
+/copy:pct_map/CA_Sec_L_tracks.gpx.geojson
+
+#begin pct_map/CA_Sec_L_waypoints.gpx.geojson
+/copy:pct_map/CA_Sec_L_waypoints.gpx.geojson
+
+#begin pct_map/CA_Sec_M_tracks.gpx.geojson
+/copy:pct_map/CA_Sec_M_tracks.gpx.geojson
+
+#begin pct_map/CA_Sec_M_waypoints.gpx.geojson
+/copy:pct_map/CA_Sec_M_waypoints.gpx.geojson
+
+#begin pct_map/CA_Sec_N_tracks.gpx.geojson
+/copy:pct_map/CA_Sec_N_tracks.gpx.geojson
+
+#begin pct_map/CA_Sec_N_waypoints.gpx.geojson
+/copy:pct_map/CA_Sec_N_waypoints.gpx.geojson
+
+#begin pct_map/CA_Sec_O_tracks.gpx.geojson
+/copy:pct_map/CA_Sec_O_tracks.gpx.geojson
+
+#begin pct_map/CA_Sec_O_waypoints.gpx.geojson
+/copy:pct_map/CA_Sec_O_waypoints.gpx.geojson
+
+#begin pct_map/CA_Sec_P_tracks.gpx.geojson
+/copy:pct_map/CA_Sec_P_tracks.gpx.geojson
+
+#begin pct_map/CA_Sec_P_waypoints.gpx.geojson
+/copy:pct_map/CA_Sec_P_waypoints.gpx.geojson
+
+#begin pct_map/CA_Sec_Q_tracks.gpx.geojson
+/copy:pct_map/CA_Sec_Q_tracks.gpx.geojson
+
+#begin pct_map/CA_Sec_Q_waypoints.gpx.geojson
+/copy:pct_map/CA_Sec_Q_waypoints.gpx.geojson
+
+#begin pct_map/CA_Sec_R_tracks.gpx.geojson
+/copy:pct_map/CA_Sec_R_tracks.gpx.geojson
+
+#begin pct_map/CA_Sec_R_waypoints.gpx.geojson
+/copy:pct_map/CA_Sec_R_waypoints.gpx.geojson
+
+#begin pct_map/OR_Sec_B_tracks.gpx.geojson
+/copy:pct_map/OR_Sec_B_tracks.gpx.geojson
+
+#begin pct_map/OR_Sec_B_waypoints.gpx.geojson
+/copy:pct_map/OR_Sec_B_waypoints.gpx.geojson
+
+#begin pct_map/OR_Sec_C_tracks.gpx.geojson
+/copy:pct_map/OR_Sec_C_tracks.gpx.geojson
+
+#begin pct_map/OR_Sec_C_waypoints.gpx.geojson
+/copy:pct_map/OR_Sec_C_waypoints.gpx.geojson
+
+#begin pct_map/OR_Sec_D_tracks.gpx.geojson
+/copy:pct_map/OR_Sec_D_tracks.gpx.geojson
+
+#begin pct_map/OR_Sec_D_waypoints.gpx.geojson
+/copy:pct_map/OR_Sec_D_waypoints.gpx.geojson
+
+#begin pct_map/OR_Sec_E_tracks.gpx.geojson
+/copy:pct_map/OR_Sec_E_tracks.gpx.geojson
+
+#begin pct_map/OR_Sec_E_waypoints.gpx.geojson
+/copy:pct_map/OR_Sec_E_waypoints.gpx.geojson
+
+#begin pct_map/OR_Sec_F_tracks.gpx.geojson
+/copy:pct_map/OR_Sec_F_tracks.gpx.geojson
+
+#begin pct_map/OR_Sec_F_waypoints.gpx.geojson
+/copy:pct_map/OR_Sec_F_waypoints.gpx.geojson
+
+#begin pct_map/OR_Sec_G_tracks.gpx.geojson
+/copy:pct_map/OR_Sec_G_tracks.gpx.geojson
+
+#begin pct_map/OR_Sec_G_waypoints.gpx.geojson
+/copy:pct_map/OR_Sec_G_waypoints.gpx.geojson
+
+#begin pct_map/WA_Sec_H_tracks.gpx.geojson
+/copy:pct_map/WA_Sec_H_tracks.gpx.geojson
+
+#begin pct_map/WA_Sec_H_waypoints.gpx.geojson
+/copy:pct_map/WA_Sec_H_waypoints.gpx.geojson
+
+#begin pct_map/WA_Sec_I_tracks.gpx.geojson
+/copy:pct_map/WA_Sec_I_tracks.gpx.geojson
+
+#begin pct_map/WA_Sec_I_waypoints.gpx.geojson
+/copy:pct_map/WA_Sec_I_waypoints.gpx.geojson
+
+#begin pct_map/WA_Sec_J_tracks.gpx.geojson
+/copy:pct_map/WA_Sec_J_tracks.gpx.geojson
+
+#begin pct_map/WA_Sec_J_waypoints.gpx.geojson
+/copy:pct_map/WA_Sec_J_waypoints.gpx.geojson
+
+#begin pct_map/WA_Sec_K_tracks.gpx.geojson
+/copy:pct_map/WA_Sec_K_tracks.gpx.geojson
+
+#begin pct_map/WA_Sec_K_waypoints.gpx.geojson
+/copy:pct_map/WA_Sec_K_waypoints.gpx.geojson
+
+#begin pct_map/WA_Sec_L_tracks.gpx.geojson
+/copy:pct_map/WA_Sec_L_tracks.gpx.geojson
+
+#begin pct_map/WA_Sec_L_waypoints.gpx.geojson
+/copy:pct_map/WA_Sec_L_waypoints.gpx.geojson
+
 #begin roughbutton.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -190,6 +364,18 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:Score.spritefont
+
+#begin short_button.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:short_button.png
 
 #begin SmileyWalk.png
 /importer:TextureImporter
@@ -238,6 +424,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:spritesheet.png
+
+#begin square_button.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:square_button.png
+
+#begin stats_bar.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:stats_bar.png
 
 #begin thru-switch.gif
 /importer:TextureImporter

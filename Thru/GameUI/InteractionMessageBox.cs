@@ -8,21 +8,19 @@ using System.Text;
 
 namespace Thru
 {
-    public class TextBox
+    public class InteractionMessageBox
     {
         public SpriteFont font;
         Texture2D Rect;
-        string text;
         Rectangle Bounds;
         Texture2D Picture;
-        GraphicsDevice GraphicsDevice;
         Vector2 Coor;
         public string Message;
         public string Title;
         private ContentManager Content;
         Vector2 textOffset;
 
-        public TextBox( string message, string title, IServiceProvider services, GraphicsDeviceManager graphics)
+        public InteractionMessageBox( string message, string title, IServiceProvider services, GraphicsDeviceManager graphics)
         {
 
 
@@ -41,7 +39,7 @@ namespace Thru
               
            Message = WrapText(font,
                message, Rect.Bounds.Width-textOffset.X);
-            Coor = new Vector2(600, 800);
+            Coor = new Vector2(500, 600);
         
         }
 
@@ -50,7 +48,6 @@ namespace Thru
 
             Message = WrapText(font,
             Message, Rect.Bounds.Width - textOffset.X);
-            Coor = new Vector2(600, 800);
 
 
         }

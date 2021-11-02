@@ -35,7 +35,7 @@ namespace Thru
 			mapHandler = new MapDataHandler(width, height, services);
 			gameMap = mapHandler.getGameMap();
 			
-				currentLocation = (Location)gameMap.Locations.ToArray()[0];
+			currentLocation = (Location)gameMap.Locations.ToArray()[0];
 
 			
 			Content = new ContentManager(services, "Content");
