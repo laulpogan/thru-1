@@ -23,8 +23,8 @@ namespace Thru
 		public CharacterBuilder(IServiceProvider services, GraphicsDeviceManager graphics)
         {
 			
-	
-			IOController = new IOController(services, "G:\\Users\\thein\\source\\repos\\thru\\Thru\\Content\\first_name_list.json");
+			// TODO config file or relative path
+			IOController = new IOController(services, "Content\\first_name_list.json");
 			var jsonText = IOController.deserializeFromFile<FirstName>();
 			nameDict = jsonText;
 

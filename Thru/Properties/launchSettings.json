@@ -2,7 +2,6 @@
   "profiles": {
     "Thru": {
       "commandName": "Project",
-      "workingDirectory": "G:\\Users\\thein\\source\\thru\\Thru",
       "nativeDebugging": true
     }
   }

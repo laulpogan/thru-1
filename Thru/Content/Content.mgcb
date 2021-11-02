@@ -13,18 +13,6 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin ../../../../../Downloads/arrow.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../../../../../Downloads/arrow.png;arrow.png
-
 #begin 58afdad6829958a978a4a693.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -73,30 +61,6 @@
 /processorParam:TextureFormat=Color
 /build:buttonsheet.png
 
-#begin C:/Users/thein/Downloads/HIKER.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:C:/Users/thein/Downloads/HIKER.png;HIKER.png
-
-#begin C:/Users/thein/Downloads/longbutton.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:C:/Users/thein/Downloads/longbutton.png;longbutton.png
-
 #begin download.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -108,6 +72,21 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:download.png
+
+#begin first_name_list.json
+/copy:first_name_list.json
+
+#begin HIKER.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:HIKER.png
 
 #begin hiker1sprite.tif
 /importer:TextureImporter
@@ -156,6 +135,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:images/medium.png
+
+#begin longbutton.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:longbutton.png
 
 #begin Moms_Diner.png
 /importer:TextureImporter
@@ -272,6 +263,12 @@
 /processorParam:TextureFormat=Color
 /build:thru-switch-sheet.png
 
+#begin track_points.geojson
+/copy:track_points.geojson
+
+#begin tracks.geojson
+/copy:tracks.geojson
+
 #begin triangle.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -295,6 +292,9 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:unknown.jpg
+
+#begin waypoints.geojson
+/copy:waypoints.geojson
 
 #begin westcoast.png
 /importer:TextureImporter

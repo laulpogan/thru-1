@@ -61,8 +61,8 @@ public  MapDataHandler(int clientWidth, int clientHeight, IServiceProvider servi
       
             List<FeatureCollection> mapDataTotal =   new List<FeatureCollection>();
 
-            foreach (var file in
-            Directory.GetFiles("C:\\Users\\thein\\Downloads\\mapData\\", "*.geojson"))
+            // TODO config for map source data
+            foreach (var file in Directory.GetFiles("Content\\", "*.geojson"))
             {
                 var data = loadMapDataFile(file);
                 if (data.Features.Count > 0)
