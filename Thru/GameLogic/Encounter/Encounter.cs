@@ -17,7 +17,7 @@ namespace Thru
 
 		public Location Location;
 		public string Title, Message;
-		public DisplayWindow DisplayWindow;
+		public TextBox DisplayWindow;
         public Dictionary<string, EncounterOptionData> Options;
 		public ButtonGroup ButtonGroup;
 		public bool selectionMade;
@@ -33,7 +33,7 @@ namespace Thru
 			SpriteFont font = Content.Load<SpriteFont>("Score");
 			Title = data.title;
 			Message = data.text;
-			DisplayWindow = new DisplayWindow(Message,Title,services,graphics);
+			DisplayWindow = new TextBox(Message,Title,services,graphics);
 			foreach (EncounterOptionData option in data.options)
 			{
 				Button tempButton = new Button(buttonImage);
