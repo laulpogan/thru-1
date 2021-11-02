@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Thru
 {
-    public class DisplayWindow
+    public class TextBox
     {
         public SpriteFont font;
         Texture2D Rect;
@@ -22,7 +22,7 @@ namespace Thru
         private ContentManager Content;
         Vector2 textOffset;
 
-        public DisplayWindow( string message, string title, IServiceProvider services, GraphicsDeviceManager graphics)
+        public TextBox( string message, string title, IServiceProvider services, GraphicsDeviceManager graphics)
         {
 
 
