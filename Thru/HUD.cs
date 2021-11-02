@@ -13,7 +13,7 @@ namespace Thru
         public Button mainMenuButton, mapButton;
         private ContentManager Content;
         ButtonGroup buttonGroup;
-        public DisplayWindow DisplayWindow;
+        public TextBox DisplayWindow;
         Player Player;
 
         public HUD(IServiceProvider services, GraphicsDeviceManager graphics, Player player)
@@ -30,7 +30,7 @@ namespace Thru
             buttonList.Add(mapButton);
             buttonGroup = new ButtonGroup(buttonList, new Vector2(1000, 10));
             string Message = $"Morale: {Player.stats.Morale} Money: ${Player.stats.Money} Snacks: {Player.stats.Snacks}"; 
-            DisplayWindow = new DisplayWindow(Message, "Vitals", services, graphics);
+            DisplayWindow = new TextBox(Message, "Vitals", services, graphics);
 
         }
 
