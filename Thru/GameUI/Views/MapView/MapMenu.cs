@@ -67,7 +67,7 @@ namespace Thru
 
                             if (location.Name == button.Text)
                         {
-                            currentLocation = location;
+                            TravelTo(location);
                             buildMapButtons();
              
                         }
@@ -75,6 +75,11 @@ namespace Thru
                 }
             }
             return currentLocation;
+        }
+
+        public void TravelTo(Location location)
+        {
+            currentLocation = location;
         }
         public void buildMapButtons()
         {

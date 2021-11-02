@@ -37,6 +37,22 @@ namespace Thru
 		public float dropRate;
 		[JsonProperty(PropertyName = "locationType")]
 		public LocationType locationType;
+		[JsonProperty(PropertyName = "resolutionType")]
+		public ResolutionType resolutionType;
+	}
+
+	public enum ResolutionType
+    {
+		Cutscene,
+		Duo,
+		Leader,
+		PVP,
+		PVE,
+		Quadruple,
+		Random,
+		SimpleMajority,
+		Tramily,
+		Triple
     }
 
 	public record EncounterOptionData
@@ -49,7 +65,8 @@ namespace Thru
 		public EncounterConsequenceData consequence;
 		[JsonProperty(PropertyName = "diceCheck")]
 		public int diceCheck;
-        public EncounterOptionData(string Text, string CheckStat, int DC, EncounterConsequenceData Consequence)
+		
+		public EncounterOptionData(string Text, string CheckStat, int DC, EncounterConsequenceData Consequence)
         {
 			text = Text;
 			checkStat = CheckStat;
@@ -64,7 +81,11 @@ namespace Thru
 		public EncounterResolutionData success;
 		[JsonProperty(PropertyName = "failure")]
 		public EncounterResolutionData failure;
-
+		 public EncounterConsequenceData(EncounterResolutionData Success, EncounterResolutionData Failure)
+        {
+			success = Success;
+			failure = Failure;
+        }
 
 	}
 
@@ -78,6 +99,14 @@ namespace Thru
 		public ItemData rewardItem;
 		[JsonProperty(PropertyName = "rewardTrailName")]
 		public TrailNameData rewardTrailName;
+
+		public EncounterResolutionData(string EffectedStat, int Effect, ItemData item, TrailNameData trailName)
+        {
+			effectedStat = EffectedStat;
+			effect = Effect;
+			rewardItem = item;
+			rewardTrailName = trailName;
+        }
 	}
 
 	

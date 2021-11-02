@@ -18,6 +18,7 @@ namespace Thru
 		public HUD hud;
 		public DesignGrid grid;
 		public Player player;
+		public Location currentLocation;
 		public GameView(int clientWidth, int clientHeight, IServiceProvider services, GraphicsDeviceManager graphics)
 		{
 			Content = new ContentManager(services, "Content");
@@ -36,17 +37,23 @@ namespace Thru
 			player = CharacterBuilder.createCharacter();
 			
 			EncounterData data = new EncounterData();
+			EncounterResolutionData resolutionPos = new EncounterResolutionData("Morale", 1, null, null);
+			EncounterResolutionData resolutionNeg = new EncounterResolutionData("Morale", -1, null, null);
 
-			EncounterOptionData option1 = new EncounterOptionData("option1", "Morale", 50, null);
-			EncounterOptionData option2 = new EncounterOptionData("option2", "Speed", 10, null);
-			EncounterOptionData option3 = new EncounterOptionData("option3", "Chillness", 15, null);
+			EncounterConsequenceData consequence = new EncounterConsequenceData(resolutionPos, resolutionNeg);
+			EncounterOptionData option1 = new EncounterOptionData("option1", "Morale", 50, consequence);
+			EncounterOptionData option2 = new EncounterOptionData("option2", "Speed", 10, consequence);
+			EncounterOptionData option3 = new EncounterOptionData("option3", "Chillness", 15, consequence);
 			EncounterOptionData[] opts = new EncounterOptionData[] { option1, option2, option3 };
 			data.text = "Sampletext";
 			data.title = "SampleTitle";
 			data.options = opts;
 			data.dropRate = 4;
 			data.locationType = LocationType.Desert ;
-			return new Encounter(player, data, services, graphics);
+
+
+			
+			return new Encounter(player, data, null, services, graphics);
 
 		}
 

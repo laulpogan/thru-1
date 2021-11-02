@@ -22,7 +22,7 @@ namespace Thru
 		public ButtonGroup ButtonGroup;
 		public bool selectionMade;
 		public Player character;
-		public Encounter(Player player, EncounterData data, IServiceProvider services, GraphicsDeviceManager graphics)
+		public Encounter(Player player, EncounterData data, Location location, IServiceProvider services, GraphicsDeviceManager graphics)
 		{
 			character = player;
 			selectionMade = false;
@@ -43,6 +43,38 @@ namespace Thru
 				Options.Add(option.text, option);
 			}
 			ButtonGroup = new ButtonGroup(buttonList, new Vector2(250, 250));
+
+
+            switch (data.resolutionType)
+            {
+				case ResolutionType.Cutscene:
+					break;
+				case ResolutionType.Duo:
+					break;
+				case ResolutionType.Leader:
+					break;
+				case ResolutionType.PVP:
+					break;
+				case ResolutionType.PVE:
+					break;
+				case ResolutionType.Quadruple:
+					break;
+				case ResolutionType.Random:
+					break;
+				case ResolutionType.SimpleMajority:
+					foreach(ICharacter character in location.Characters)
+                    {
+
+                    }
+					break;
+				case ResolutionType.Tramily:
+					break;
+				case ResolutionType.Triple:
+					break;
+
+
+
+			}
 		}
 
 
