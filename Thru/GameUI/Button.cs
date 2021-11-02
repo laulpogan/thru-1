@@ -22,6 +22,7 @@ namespace Thru
 		public SpriteFont Font;
 		public string ID;
 		private GameTime GameTime;
+		public State stateMachineState { get; set; }
 
 		public Button(Texture2D texture, string text = "", SpriteFont font = null)
 		{

@@ -17,20 +17,10 @@ namespace Thru
 {
 	public class CharacterBuilder
 	{
-		public record FirstName
-        {
-			[JsonProperty(PropertyName = "female")]
-			public int female;
-			[JsonProperty(PropertyName = "male")] 
-			public int male;
-			[JsonProperty(PropertyName = "most_likely")] 
-			public string most_likely;
-        }
-
 		Dictionary<string, FirstName> nameDict;
 		public IOController IOController;
 
-		public CharacterBuilder(IServiceProvider services, DisplayWindow displayWindow)
+		public CharacterBuilder(IServiceProvider services, GraphicsDeviceManager graphics)
         {
 			
 	
@@ -62,8 +52,7 @@ namespace Thru
 				character.Gender = Player.Genders.female;
 			}
 ;
-			Console.WriteLine(character.Name + " " + character.Gender + " Morale "+ character.stats["morale"] + " Miles " + character.stats["miles"] + " Money " + character.stats["money"] + " Age " + character.stats["age"] + " Speed " + character.stats["speed"] + " Charisma " + character.stats["charisma"] + " Hardiness " + character.stats["hardiness"] + " Intelligence" +
-				" " + character.stats["intelligence"] + " Strength " + character.stats["strength"] + " Luck " + character.stats["luck"]);
+			Console.WriteLine(character.Name + " " + character.Gender );
 			return character;
         }
 

@@ -7,67 +7,90 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using System.Reflection;
 using System.Linq;
+using ADOX;
+using CDO;
 
 namespace Thru
 {
 	public class Encounter
 	{
-		public Dictionary<string, Player> Participants;
-		public Location Location;
-		public  string TestStat;
-		public string successCondition, failureCondition;
-		public string Title, Message;
-		public int DC;
-		public DisplayWindow DisplayWindow;
-        public Dictionary<string, string> OptionsAndOutcomes;
-		public ButtonGroup ButtonGroup;
-        public Encounter(Dictionary<string, Player> participants, string testStat, int dc, string title, string message, DisplayWindow displayWindow, IServiceProvider services)
-		{
-			Participants = participants;
-			TestStat = testStat;
-			DC = dc;
-			Title = title;
-			Message = message;
-			DisplayWindow = displayWindow;
-			OptionsAndOutcomes = new Dictionary<string,string>(){
-				{ "luck", "You chose A" },
-				{ "strength", "You chose B" },
-				{ "intelligence", "You chose C" },
-				{ "charisma", "You chose D" }
-            };
-			ArrayList buttonList = new ArrayList();
-			Console.WriteLine("OptionsAndOutcomes.Keys.Count = " + OptionsAndOutcomes.Keys.Count);
-			ContentManager Content = new ContentManager(services, "Content");
 
+		public Location Location;
+		public string Title, Message;
+		public DisplayWindow DisplayWindow;
+        public Dictionary<string, EncounterOptionData> Options;
+		public ButtonGroup ButtonGroup;
+		public bool selectionMade;
+		public Player character;
+		public Encounter(Player player, EncounterData data, Location location, IServiceProvider services, GraphicsDeviceManager graphics)
+		{
+			character = player;
+			selectionMade = false;
+			Options = new Dictionary<string,EncounterOptionData>();
+			ArrayList buttonList = new ArrayList();
+			ContentManager Content = new ContentManager(services, "Content");
 			Texture2D buttonImage = Content.Load<Texture2D>("longbutton");
 			SpriteFont font = Content.Load<SpriteFont>("Score");
-			for(int i = 0; i < OptionsAndOutcomes.Keys.Count; i++)
-            {
-				string key = OptionsAndOutcomes.Keys.ElementAt<string>(i);
-				Button tempButton = new Button(buttonImage);
-				tempButton.Text = key;
-				tempButton.Font = font;
-				Console.WriteLine(tempButton.Bounds.Height);
-				buttonList.Add(tempButton);
-			}
-			foreach (Button button in buttonList)
+			Title = data.title;
+			Message = data.text;
+			DisplayWindow = new DisplayWindow(Message,Title,services,graphics);
+			foreach (EncounterOptionData option in data.options)
 			{
-				Console.WriteLine(button.Text );
+				Button tempButton = new Button(buttonImage);
+				tempButton.Text = option.text;
+				tempButton.Font = font;
+				buttonList.Add(tempButton);
+				Options.Add(option.text, option);
+			}
+			ButtonGroup = new ButtonGroup(buttonList, new Vector2(250, 250));
+
+
+            switch (data.resolutionType)
+            {
+				case ResolutionType.Cutscene:
+					break;
+				case ResolutionType.Duo:
+					break;
+				case ResolutionType.Leader:
+					break;
+				case ResolutionType.PVP:
+					break;
+				case ResolutionType.PVE:
+					break;
+				case ResolutionType.Quadruple:
+					break;
+				case ResolutionType.Random:
+					break;
+				case ResolutionType.SimpleMajority:
+					foreach(ICharacter character in location.Characters)
+                    {
+
+                    }
+					break;
+				case ResolutionType.Tramily:
+					break;
+				case ResolutionType.Triple:
+					break;
+
+
 
 			}
-			Console.WriteLine(buttonList.ToString());
-			ButtonGroup = new ButtonGroup(buttonList, new Vector2(1600, 250));
 		}
 
+
+		/*public Encounter buildSampleEncounter()
+		{
+			Encounter encounter = new Encounter();
+			return encounter;
+		}*/
 		public State Update(GameTime gameTime)
 		{
 			foreach (Button button in ButtonGroup.ButtonList)
 			{
-				if (button.State == BState.JUST_RELEASED)
+				if (button.State == BState.JUST_RELEASED && !selectionMade)
 				{
-					Message = OptionsAndOutcomes[button.Text];
-					TestStat = button.Text;
-					rollEncounter();
+					Message = button.Text;
+					rollEncounter(Options[button.Text]);
 
 				}
 			}
@@ -79,29 +102,52 @@ namespace Thru
 			return State.Game;
 		}
 
-		public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+		public void Draw(SpriteBatch spriteBatch)
 		{
-			ButtonGroup.Draw(spriteBatch);
-			DisplayWindow.Draw(spriteBatch,gameTime);
+            if (!selectionMade)
+			{
+				ButtonGroup.Draw(spriteBatch);
+			}
+			DisplayWindow.Draw(spriteBatch);
 		}
 
-		public void rollEncounter()
+		public bool rollEncounter(EncounterOptionData option)
         {
-			foreach(Player character in Participants.Values)
-            {
-
-				int y =character.stats[TestStat];
-				if (y > DC)
+			selectionMade = true;
+			bool success = false;
+			Message = option.text;
+			Random rand = new Random();
+			int stat =character.stats.get(option.checkStat);
+				if (stat + rand.Next(20) >= option.diceCheck)
                 {
 					Title = "Success!";
-					Message= $"{character.Name} tenses and scrambles away, using their superior {TestStat} to their advantage. {character.Name} Succeeds!";
-                } else
+					Message= $"{character.Name} uses their superior {option.checkStat} to their advantage. {character.Name} Succeeds!";
+					success = true;
+			} else
                 {
 					Title = "Failure!";
-					Message = $"{character.Name} isn't quite {TestStat}-y enough to get the job done. {character.Name} Fails!";
+					Message = $"{character.Name} isn't quite {option.checkStat}-y enough to get the job done. {character.Name} Fails!";
 				}
-            }
+
+
+            if (success)
+            {
+				resolveEncounter(option.consequence.success);
+            } else
+            {
+				resolveEncounter(option.consequence.failure);
+
+			}
+			return success;
         }
-	}
+
+		public void resolveEncounter(EncounterResolutionData resolution)
+        {
+            int stat = character.stats.get(resolution.effectedStat);
+			character.stats.set(resolution.effectedStat, stat + resolution.effect);
+
+        }
+
+    }
 
 }

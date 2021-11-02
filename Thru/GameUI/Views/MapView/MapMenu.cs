@@ -13,8 +13,8 @@ namespace Thru
         private ContentManager Content;
         public ButtonGroup buttonGroup;
         public Texture2D buttonImage;
-        public Button mapButton;
         public Button menuButton;
+        public Button gameButton;
         public ArrayList graph;
         public Location currentLocation;
         public GraphicsDeviceManager Graphics;
@@ -31,9 +31,8 @@ namespace Thru
             currentLocation = location;
             buttonImage = Content.Load<Texture2D>("longbutton");
 
-            mapButton = new Button(buttonImage, "Map", Content.Load<SpriteFont>("Score"));
-
-            menuButton = new Button(buttonImage, "Menu", Content.Load<SpriteFont>("Score"));
+            menuButton = new Button(buttonImage, "Menu", font);
+            gameButton = new Button(buttonImage, "Game", font);
 
 
             buildMapButtons();
@@ -68,18 +67,7 @@ namespace Thru
 
                             if (location.Name == button.Text)
                         {
-                            Console.WriteLine("Hey Congratulations you have a match");
-                            currentLocation = location;
-                            int width = Graphics.GraphicsDevice.Viewport.Width;
-                            int height = Graphics.GraphicsDevice.Viewport.Height;
-                            int xcoord = (int)location.Coords.X;
-                            int ycoord = (int)location.Coords.Y;
-                            int newX =  (width/2 > xcoord ? width/2 - xcoord : xcoord - width/2);
-                            int newY = (height/2 > ycoord ? height/2 - ycoord : ycoord - height/2);
-                            Vector2 newOrigin = new Vector2(newX - width/2, newY - height/2);                             
-                            //Cam.Pos = location.Coords;
-                            //Graphics.GraphicsDevice.Viewport = new Viewport(newX, newY , width , height );
-                            //Coords = newOrigin;
+                            TravelTo(location);
                             buildMapButtons();
              
                         }
@@ -87,6 +75,11 @@ namespace Thru
                 }
             }
             return currentLocation;
+        }
+
+        public void TravelTo(Location location)
+        {
+            currentLocation = location;
         }
         public void buildMapButtons()
         {
@@ -106,8 +99,8 @@ namespace Thru
             }*/
 
             ArrayList buttonFinal = new ArrayList(buttons.Values);
-            buttonFinal.Add(mapButton);
             buttonFinal.Add(menuButton);
+            buttonFinal.Add(gameButton);
             buttonGroup = new ButtonGroup(buttonFinal, Coords);
         }
      

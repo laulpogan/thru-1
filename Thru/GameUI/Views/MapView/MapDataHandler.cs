@@ -49,6 +49,8 @@ namespace Thru
         public ContentManager Content;
 
         int ClientWidth, ClientHeight;
+        Trail tempEdge;
+        Location oldLoc, newLoc;
 public  MapDataHandler(int clientWidth, int clientHeight, IServiceProvider services)
         {
 
@@ -74,18 +76,17 @@ public  MapDataHandler(int clientWidth, int clientHeight, IServiceProvider servi
             allShapes = new List<List<VertexPositionColorTexture>>();
             gameMap = new TrailMap(new ArrayList(), new ArrayList(), "Game Map", null, new Vector2(0, 0));
 
-            
-                
-                foreach (FeatureCollection mapDataIndividual in mapDataTotal)
+            newLoc = new Location(null, null, null, new Vector2(0, 0));
+            oldLoc = new Location(null, null, null, new Vector2(0, 0));
+            tempEdge = new Trail(null, null, 0, "", null);
+
+            foreach (FeatureCollection mapDataIndividual in mapDataTotal)
                 {
                     Console.WriteLine("vertices list size: " + vert.Count);
                     features = mapDataIndividual.Features;
                     //features.RemoveAll(item => item == null);
                     shapeList = new List<PolygonShape>();
                     List<VertexPositionColorTexture> tempVerts = new List<VertexPositionColorTexture>();
-                    Location newLoc = new Location(null, null, null, new Vector2(0, 0));
-                    Location oldLoc = new Location(null, null, null, new Vector2(0, 0));
-                    Trail tempEdge = new Trail(null, null, 0, "", null);
                     foreach (Feature feature in features ?? Enumerable.Empty<Feature>())
                     {
                         //only waypoints have names in geoJSON
