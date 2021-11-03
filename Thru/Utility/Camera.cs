@@ -20,12 +20,16 @@ namespace Thru
         public Matrix Transform { get; protected set; }
 
         private float currentMouseWheelValue, previousMouseWheelValue, zoom, previousZoom;
+        private bool _useMouseInput;
+        private float _defaultZoom;
 
-        public Camera(Viewport viewport)
+        public Camera(Viewport viewport, bool useMouseInput=false, float defaultZoom=5f)
         {
             Bounds = viewport.Bounds;
-            Zoom = 1f;
+            Zoom = defaultZoom;
             Pos = Vector2.Zero;
+            _useMouseInput = useMouseInput;
+            _defaultZoom = defaultZoom;
         }
 
 
@@ -49,8 +53,13 @@ namespace Thru
 
         private void UpdateMatrix()
         {
+            var mouseTranslation = Matrix.Identity;
+            if (_useMouseInput)
+            {
+                mouseTranslation = Matrix.CreateTranslation(new Vector3(-Mouse.GetState().X - Bounds.Width / 2, -Mouse.GetState().Y - Bounds.Height / 2, 0));
+            }
             Transform = Matrix.CreateTranslation(new Vector3(-Pos.X, -Pos.Y, 0)) * 
-                    Matrix.CreateTranslation(new Vector3(-Mouse.GetState().X - Bounds.Width / 2, -Mouse.GetState().Y - Bounds.Height / 2, 0)) * //Mouse Translation Matrix
+                    mouseTranslation *
                     Matrix.CreateScale(Zoom) *
                     Matrix.CreateTranslation(new Vector3(Bounds.Width * 0.5f, Bounds.Height * 0.5f, 0));
             UpdateVisibleArea();
@@ -64,7 +73,6 @@ namespace Thru
                 Console.WriteLine("Old Camera Position: " +  Pos);
                 Pos += movePosition;
                 Console.WriteLine("New Camera Position: " + Pos);
-
             }
         }
 
@@ -81,11 +89,13 @@ namespace Thru
             }
         }
 
+        public void ResetZoom()
+        {
+            Zoom = _defaultZoom;
+        }
+
         public void UpdateCamera(Viewport bounds)
         {
-            Bounds = bounds.Bounds;
-            UpdateMatrix();
-
             Vector2 cameraMovement = Vector2.Zero;
             int moveSpeed;
 
@@ -161,6 +171,9 @@ namespace Thru
                 Console.WriteLine("Camera Zoom Adjusted from "+ previousZoom + " to "+ zoom );
 
             }
+
+            Bounds = bounds.Bounds;
+            UpdateMatrix();
 
             MoveCamera(cameraMovement);
         }
