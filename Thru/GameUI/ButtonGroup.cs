@@ -11,7 +11,8 @@ namespace Thru
 		Vertical
 	}
 	public class ButtonGroup
-		{
+	{
+
 		public ArrayList ButtonList;
 		private ButtonArrangement _arrangement;
 		private Vector2 _origin;
@@ -30,9 +31,10 @@ namespace Thru
 			}
 			updatePositions();
 		}
+
 		public void updatePositions()
-        {
-			if (_arrangement == ButtonArrangement.Vertical) 
+		{
+			if (_arrangement == ButtonArrangement.Vertical)
 			{
 				int heightTracker = (int)_origin.Y;
 				foreach (Button button in ButtonList)
@@ -45,8 +47,8 @@ namespace Thru
 
 				}
 			}
-			else if(_arrangement == ButtonArrangement.Horizontal)
-            {
+			else if (_arrangement == ButtonArrangement.Horizontal)
+			{
 				int widthTracker = (int)_origin.X;
 				foreach (Button button in ButtonList)
 				{
@@ -57,28 +59,29 @@ namespace Thru
 				}
 			}
 			else
-            {
+			{
 				// big error
-            }
-		
+			}
 		}
+
 		public void Update(GameTime gameTime)
 		{
 			updatePositions();
-			foreach(Button button in ButtonList)
-			{ 
-				button.Update(gameTime); 
+			foreach (Button button in ButtonList)
+			{
+				button.Update(gameTime);
 			}
 
 		}
 
 		public void Draw(SpriteBatch spriteBatch)
-			{
-		
-				foreach (Button button in ButtonList){
-					button.Draw(spriteBatch);
-				}
+		{
 
+			foreach (Button button in ButtonList)
+			{
+				button.Draw(spriteBatch);
 			}
+
+		}
 	}
 }

@@ -22,27 +22,25 @@ namespace Thru
 		public MapView mapView;
 		public TrailMap gameMap;
 		public SpriteBatch spriteBatch, hudBatch;
-		public bool ShowMap;
 		public Camera cam;
 		public GraphicsDeviceManager Graphics;
+		private SpriteFont font;
 		public MapView( IServiceProvider services, int width, int height, GraphicsDeviceManager graphics)
 {
 			Graphics = graphics;
 			cam = new Camera(graphics.GraphicsDevice.Viewport);
-			cam.Pos = new Vector2(width / 2, height / 2);
-
 
 			mapHandler = new MapDataHandler(width, height, services);
 			gameMap = mapHandler.getGameMap();
 			
-			currentLocation = (Location)gameMap.Locations.ToArray()[0];
+			currentLocation = (Location)gameMap.Locations[0];
+			cam.Pos = currentLocation.Coords;
 
-			
 			Content = new ContentManager(services, "Content");
-			mapMenu = new MapMenu(services, currentLocation, graphics);
+			font = Content.Load<SpriteFont>("Score");
+			mapMenu = new MapMenu(services, graphics, currentLocation, new Vector2(200,850));
 			spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
 			hudBatch = new SpriteBatch(graphics.GraphicsDevice);
-			ShowMap = true;
 
 		}
 		public  State Update(GameTime gameTime)
@@ -53,18 +51,13 @@ namespace Thru
 			currentLocation = mapMenu.Update(gameTime);
 			if( lastLocation != currentLocation)
             {
-				cam.Zoom =1f;
+				cam.ResetZoom();
 				cam.Pos = currentLocation.Coords;
 			}
 			cam.UpdateCamera(Graphics.GraphicsDevice.Viewport);
 			State returnState = State.Map;
-			if (ShowMap) {
-				
-				returnState = State.Map;
-			}
 			if (mapMenu.menuButton.State == BState.JUST_RELEASED)
 			{
-				Console.Write("Menu Button Press" );
 				returnState = State.Menu;
 			}
 			
@@ -73,9 +66,6 @@ namespace Thru
 				returnState = State.Game;
             }
 			
-		
-			
-
 			return returnState;
         }
 		public  void Draw( GraphicsDeviceManager _graphics)
@@ -87,18 +77,14 @@ namespace Thru
 					null,
 					null,
 					cam.Transform);
-			if (ShowMap)
-			{
-				mapHandler.Draw(spriteBatch);
-				gameMap.Draw(spriteBatch);
-			}
+			mapHandler.Draw(spriteBatch);
+			gameMap.Draw(spriteBatch);
 			spriteBatch.End();
 
 			hudBatch.Begin();
+			hudBatch.DrawString(font, $"Current Location: [{currentLocation.ID}] {currentLocation.Name}", new Vector2(400, 20), Color.Black);
 			mapMenu.Draw(hudBatch);
 			hudBatch.End();
-
-
 		}
 
 	}
