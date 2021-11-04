@@ -9,7 +9,7 @@ using System.Collections;
 namespace Thru
 {
 
-	public class MainSettingsView : IGameView
+	public class MainSettingsView : IView
 	{
 		Button returnButton;
 		private ContentManager Content;

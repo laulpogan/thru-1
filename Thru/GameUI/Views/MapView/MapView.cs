@@ -45,7 +45,7 @@ namespace Thru
 			ShowMap = true;
 
 		}
-		public  State Update(GameTime gameTime)
+		public  GameState Update(GameTime gameTime)
         {
 			mapHandler.Update(gameTime);
 			gameMap.Update(gameTime);
@@ -57,20 +57,20 @@ namespace Thru
 				cam.Pos = currentLocation.Coords;
 			}
 			cam.UpdateCamera(Graphics.GraphicsDevice.Viewport);
-			State returnState = State.Map;
+			GameState returnState = GameState.Map;
 			if (ShowMap) {
 				
-				returnState = State.Map;
+				returnState = GameState.Map;
 			}
 			if (mapMenu.menuButton.State == BState.JUST_RELEASED)
 			{
 				Console.Write("Menu Button Press" );
-				returnState = State.Menu;
+				returnState = GameState.Pause;
 			}
 			
 			if(mapMenu.gameButton.State == BState.JUST_RELEASED)
             {
-				returnState = State.Game;
+				returnState = GameState.Play;
             }
 			
 		

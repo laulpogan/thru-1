@@ -6,14 +6,14 @@ using static Thru.GameViewStateMachine;
 
 namespace Thru
 {
-	public interface IGameView
+	public interface IView
 	{
-		public abstract GameState Update(GameTime gameTime);
+		public  abstract State Update(GameTime gameTime);
 
-		public abstract void Draw(GraphicsDeviceManager _graphics);
+		public abstract void Draw( GraphicsDeviceManager _graphics);
 	}
 
 
-
-}
+	
+	}
 

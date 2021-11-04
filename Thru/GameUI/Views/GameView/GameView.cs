@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace Thru
 {
-	public class GameView : IGameView
+	public class GameView : IView
 	{
 
 
@@ -19,6 +19,9 @@ namespace Thru
 		public DesignGrid grid;
 		public Player player;
 		public Location currentLocation;
+		public MapView mapView;
+		GameViewStateMachine stateMachine;
+		public GameTime gameTime;
 		public GameView(int clientWidth, int clientHeight, IServiceProvider services, GraphicsDeviceManager graphics)
 		{
 			Content = new ContentManager(services, "Content");
@@ -27,10 +30,12 @@ namespace Thru
 			spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
 			Encounter = setupTestEncounter(services, graphics);
 			hud = new HUD(services, graphics, player);
-			grid = new DesignGrid( services, graphics);
+			grid = new DesignGrid( services, graphics);	
+			mapView = new MapView(services, clientWidth, clientHeight, graphics);
+			stateMachine = new GameViewStateMachine(services, graphics, mapView);
 		}
 
-        public Encounter setupTestEncounter(IServiceProvider services, GraphicsDeviceManager graphics)
+		public Encounter setupTestEncounter(IServiceProvider services, GraphicsDeviceManager graphics)
         {
 
 			CharacterBuilder CharacterBuilder = new CharacterBuilder(services, graphics);
@@ -60,13 +65,21 @@ namespace Thru
 
 		public State Update(GameTime gameTime)
 		{
-
+			stateMachine.Update(gameTime);
 			Encounter.Update(gameTime);
 			hud.Update(gameTime);
 			if (hud.mainMenuButton.State == BState.JUST_RELEASED)
 				return State.Menu;
 			if (hud.mapButton.State == BState.JUST_RELEASED)
-				return State.Map;
+            {
+				if (stateMachine.currentState != GameState.Map)
+					stateMachine.currentState = GameState.Map;
+				else
+					stateMachine.currentState = GameState.Play;
+				return State.Game;
+			}
+
+				
 			
 
 			return State.Game;
@@ -77,11 +90,14 @@ namespace Thru
 
 		public void Draw(GraphicsDeviceManager _graphics)
 		{
+
 			spriteBatch.Begin();
 			spriteBatch.Draw(background, new Vector2(0,0), Color.White);
 			Encounter.Draw(spriteBatch);
 			hud.Draw(spriteBatch);
 			grid.Draw(spriteBatch);
+			stateMachine.Draw(gameTime);
+
 			spriteBatch.End();
 
 		}

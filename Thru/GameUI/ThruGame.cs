@@ -39,7 +39,7 @@ namespace Thru
         private State state;
         private MainMenuView menu;
         private MainSettingsView mainSettings;
-        public MapView mapView;
+        
         public CharacterCreationView characterCreationView;
         public GameView gameView;
         public Texture2D background;
@@ -67,7 +67,6 @@ namespace Thru
             _graphics.PreferredBackBufferWidth = background.Width;  // set this value to the desired width of your window
             _graphics.PreferredBackBufferHeight = background.Height;   // set this value to the desired height of your window
             _graphics.ApplyChanges();
-            mapView = new MapView( Services, windowWidth, windowHeight, _graphics);
             Texture2D texture = Content.Load<Texture2D>("buttonsheet");
             characterCreationView = new CharacterCreationView(Services, windowWidth, windowHeight, _graphics);
             base.Initialize();
@@ -108,9 +107,6 @@ namespace Thru
 				case State.Game:
                     currentState = runState(gameView, stateMode, gameTime) ?? currentState;
                     break;
-                case State.Map:
-                    currentState = runState(mapView, stateMode, gameTime) ?? currentState;
-                    break;
                 case State.CharacterCreation:
                     currentState = runState(characterCreationView, stateMode, gameTime) ?? currentState;
                     break;
@@ -131,7 +127,7 @@ namespace Thru
             }
         }
 
-        private State? runState(IGameView gameView, StateMode stateMode, GameTime gameTime) 
+        private State? runState(IView gameView, StateMode stateMode, GameTime gameTime) 
         {
             switch (stateMode)
             {

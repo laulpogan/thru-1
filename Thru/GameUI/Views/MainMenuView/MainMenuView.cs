@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace Thru
 { 
-	public class MainMenuView : IGameView
+	public class MainMenuView : IView
 	{
 		Button newGameButton, mainSettingsButton, loadGameButton, characterCreationButton;
 		
@@ -49,7 +49,7 @@ namespace Thru
 				return State.MainSettings;
 			} else if (loadGameButton.State == BState.JUST_RELEASED)
 			{
-				return State.Map;
+				return State.Game;
 			} else if (newGameButton.State == BState.JUST_RELEASED)
             {
 				return State.Game;

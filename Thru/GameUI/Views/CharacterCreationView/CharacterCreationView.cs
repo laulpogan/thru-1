@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace Thru
 {
-	public class CharacterCreationView : IGameView
+	public class CharacterCreationView : IView
 	{
 		public State State = State.CharacterCreation;
 		public Button menuButton, shuffleButton;

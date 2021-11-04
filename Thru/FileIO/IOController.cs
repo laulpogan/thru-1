@@ -8,7 +8,6 @@ using GeoJSON;
 
 namespace Thru
 {
-    //public GameState Gamestate;
     public class IOController
     {/*
 		JsonSerializerOptions options = new JsonSerializerOptions()

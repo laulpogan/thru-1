@@ -7,14 +7,25 @@
         NewGame,
         Game,
         Final,
+        PlayerDesign,
+        MainSettings,
+        Options,
+        CharacterCreation
+    }
+
+
+    public enum GameState
+    {
+        Play,
+        Pause,
+        Encounter,
+        Map,
+        Inventory,
+        Dialogue,
+        Cutscene,
+        Settings,
         Road,
         Town,
         Trailhead,
-        PlayerDesign,
-        Pause,
-        MainSettings,
-        Options,
-        Map,
-        CharacterCreation
-    }
+    };
 }
