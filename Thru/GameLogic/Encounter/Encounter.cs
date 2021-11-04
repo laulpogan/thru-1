@@ -62,10 +62,6 @@ namespace Thru
 				case ResolutionType.Random:
 					break;
 				case ResolutionType.SimpleMajority:
-					foreach(ICharacter character in location.Characters)
-                    {
-
-                    }
 					break;
 				case ResolutionType.Tramily:
 					break;

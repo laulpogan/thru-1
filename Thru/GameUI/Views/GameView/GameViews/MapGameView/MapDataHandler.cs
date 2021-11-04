@@ -32,26 +32,19 @@ namespace Thru
             [JsonProperty(PropertyName = "sym")]
             public string  sym;
         }
-        StandardBasicEffect basicEffect;
         List<VertexPositionColorTexture> vert;
         List<List<VertexPositionColorTexture>> allShapes;
-        short[] ind;
         List<Feature> features;
-        double radius = 6371;
         TrailMap gameMap;
-
-        Dictionary<string, double> p0;
-        Dictionary<string, double> p1;
-        Dictionary<string, double> pos0;
-        Dictionary<string, double> pos1;
-        PolygonShape tempShape;
-        List<PolygonShape> shapeList;        int baseLat= 33, baseLng =-116;
         public ContentManager Content;
-
         int ClientWidth, ClientHeight;
         Trail tempEdge;
         Location oldLoc, newLoc;
-public  MapDataHandler(int clientWidth, int clientHeight, IServiceProvider services)
+        Dictionary<string, double> p0;
+        Dictionary<string, double> p1;
+        int baseLat = 33, baseLng = -116;
+        double radius = 6371;
+        public MapDataHandler(int clientWidth, int clientHeight, IServiceProvider services)
         {
 
             Content = new ContentManager(services, "Content");
@@ -59,25 +52,26 @@ public  MapDataHandler(int clientWidth, int clientHeight, IServiceProvider servi
             ClientWidth = clientWidth;
             ClientHeight = clientHeight;
       
-            List<FeatureCollection> mapDataTotal =   new List<FeatureCollection>();
+            List<FeatureCollection> mapDataTotal = new List<FeatureCollection>();
 
             // TODO config for map source data
-            foreach (var file in Directory.GetFiles("Content\\pct_map", "*.geojson"))
+            const string mapDataPath = "Content\\pct_map";
+            Console.WriteLine("Loading maps data from: " + mapDataPath);
+            foreach (var file in Directory.GetFiles(mapDataPath, "*.geojson"))
             {
                 var data = loadMapDataFile(file);
                 if (data.Features.Count > 0)
                 {
-                    Console.WriteLine(data);
                     mapDataTotal.Add(data);
-
                 }
             }
+            Console.WriteLine("Maps loaded");
             vert = new List<VertexPositionColorTexture>();
             allShapes = new List<List<VertexPositionColorTexture>>();
-            gameMap = new TrailMap(new ArrayList(), new ArrayList(), "Game Map", null, new Vector2(0, 0));
+            gameMap = new TrailMap(new ArrayList(), new ArrayList(), "Game Map");
 
-            newLoc = new Location(null, null, null, new Vector2(0, 0));
-            oldLoc = new Location(null, null, null, new Vector2(0, 0));
+            newLoc = new Location(null, null, null, null, new Vector2(0, 0));
+            oldLoc = new Location(null, null, null, null, new Vector2(0, 0));
             tempEdge = new Trail(null, null, 0, "", null);
 
             foreach (FeatureCollection mapDataIndividual in mapDataTotal)
@@ -85,7 +79,7 @@ public  MapDataHandler(int clientWidth, int clientHeight, IServiceProvider servi
                     Console.WriteLine("vertices list size: " + vert.Count);
                     features = mapDataIndividual.Features;
                     //features.RemoveAll(item => item == null);
-                    shapeList = new List<PolygonShape>();
+                    var shapeList = new List<PolygonShape>();
                     List<VertexPositionColorTexture> tempVerts = new List<VertexPositionColorTexture>();
                     foreach (Feature feature in features ?? Enumerable.Empty<Feature>())
                     {
@@ -103,8 +97,6 @@ public  MapDataHandler(int clientWidth, int clientHeight, IServiceProvider servi
                                     newLoc.Trails.Add(tempEdge);
                                     gameMap.Trails.Add(tempEdge);
                                 }
-
-
                                 gameMap.Locations.Add(newLoc);
                             }
 
@@ -112,15 +104,13 @@ public  MapDataHandler(int clientWidth, int clientHeight, IServiceProvider servi
                         geoTypeParser(feature.Geometry);
                     }
                 }
-
-           
-           
         }
 
         public TrailMap getGameMap()
         {
             return gameMap;
         }
+
         public Vector2 geoTypeParser(IGeometryObject geometry)
         {
             
@@ -180,7 +170,7 @@ public  MapDataHandler(int clientWidth, int clientHeight, IServiceProvider servi
         {
             var geometry = geoTypeParser(feature.Geometry);
             Console.WriteLine("Creating Location: " + feature.Properties["name"].ToString() + " at " + geometry);
-            Location location = new Location(new ArrayList(), feature.Properties["desc"].ToString(), Content.Load<Texture2D>("buttonSheet"),(Vector2)geometry) ;
+            Location location = new Location(feature.Properties["name"].ToString(), feature.Properties["desc"].ToString(), new ArrayList(), Content.Load<Texture2D>("buttonSheet"), geometry);
             return location;
         }
 
@@ -235,7 +225,7 @@ public  MapDataHandler(int clientWidth, int clientHeight, IServiceProvider servi
         public FeatureCollection loadMapDataFile(string fileName)
         {
             StringBuilder jsonString = new StringBuilder("");
-            Console.WriteLine("Reading from file " + fileName);
+            //Console.WriteLine("Reading from file " + fileName);
 
             // Open the file to read from.
             using (StreamReader sr = File.OpenText(fileName))
@@ -247,50 +237,23 @@ public  MapDataHandler(int clientWidth, int clientHeight, IServiceProvider servi
                     jsonString.Append(s);
                 }
                 sr.Close();
-                Console.WriteLine(fileName + " closed");
+              //  Console.WriteLine(fileName + " closed");
             }
             return JsonConvert.DeserializeObject<FeatureCollection>(jsonString.ToString());
         }
 
-        public List<FeatureCollection> loadMapData(string directoryName)
-        {
-            List<FeatureCollection> mapList = new List<FeatureCollection>();
-            int count = 0;
-            int countFailed = 0;
-            foreach (string fileName in Directory.GetFiles(directoryName)) 
-            {
-                
-                try
-                {
-                    mapList.Add(loadMapDataFile(fileName) );
-                    Console.WriteLine("Successfully Loaded " + fileName);
-
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Failed to load "+ fileName);
-                    countFailed++;
-                }
-                count++;
-                Console.WriteLine($"Completed file {count} of {Directory.GetFiles(directoryName).Length}. {countFailed} of {count} files failed to load.");
-            }
-
-            return mapList;
-        }
-        protected  void LoadContent()
+        protected void LoadContent()
         {
         }
 
-        public  void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
 
            
         }
 
-        public  void Draw(SpriteBatch _spriteBatch)
+        public void Draw(SpriteBatch _spriteBatch)
         {
-
-          
             foreach(List<VertexPositionColorTexture> vertList in allShapes)
             {
                 for (int i = vertList.Count - 1; i > 0; i--)

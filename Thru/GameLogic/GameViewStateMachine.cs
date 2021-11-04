@@ -23,7 +23,9 @@ namespace Thru
     {
         private GraphicsDeviceManager Graphics;
         public IGameView currentView;
-        public MapView MapView;
+        public MapGameView MapView;
+        public PlayGameView PlayView;
+
 
         enum StateMode
         {
@@ -44,7 +46,7 @@ namespace Thru
         }
         private GameState state;
         
-        public GameViewStateMachine(IServiceProvider services, GraphicsDeviceManager graphics, MapView mapView)
+        public GameViewStateMachine(IServiceProvider services, GraphicsDeviceManager graphics, MapGameView mapView, PlayGameView playView)
         {
             Graphics = graphics;
             foreach (var i in Enum.GetValues(typeof(GameState)))
@@ -55,8 +57,9 @@ namespace Thru
                     State thing = new State();
                 };
             }
-            currentState = GameState.Pause;
+            currentState = GameState.Play;
             MapView = mapView;
+            PlayView = playView;
         }
 
         public void Update(GameTime gameTime)
@@ -80,7 +83,7 @@ namespace Thru
                   //  currentState = runState(mainSettings, stateMode, gameTime) ?? currentState;
                     break;
                 case GameState.Play:
-                  //  currentState = runState(gameView, stateMode, gameTime) ?? currentState;
+                    currentState = runState(PlayView, stateMode, gameTime) ?? currentState;
                     break;
                 case GameState.Map:
                     currentState = runState(MapView, stateMode, gameTime) ?? currentState;

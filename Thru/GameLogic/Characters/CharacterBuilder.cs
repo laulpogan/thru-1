@@ -19,15 +19,15 @@ namespace Thru
 	{
 		Dictionary<string, FirstName> nameDict;
 		public IOController IOController;
-
-		public CharacterBuilder(IServiceProvider services, GraphicsDeviceManager graphics)
+		public Location Location;
+		public CharacterBuilder(IServiceProvider services, GraphicsDeviceManager graphics, Location location)
         {
 			
 			// TODO config file or relative path
 			IOController = new IOController(services, "Content\\first_name_list.json");
 			var jsonText = IOController.deserializeFromFile<FirstName>();
 			nameDict = jsonText;
-
+			Location = location;
 			Player boo = createCharacter();
             Dictionary<string, Player> participants = new Dictionary<string, Player>();
             participants[boo.Name] = boo;
@@ -41,7 +41,7 @@ namespace Thru
 			Random rand = new Random();
 
 			List<string> names = new List<string>(nameDict.Keys);
-			Player character = new Player(names[rand.Next(names.Count)]);
+			Player character = new Player(names[rand.Next(names.Count)], Location);
 			Console.WriteLine(character.Name);
 
 			if (nameDict[character.Name].most_likely == "male")

@@ -28,7 +28,7 @@ namespace Thru
 			Content = new ContentManager(services, "Content");
 			spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
 			hudBatch = new SpriteBatch(graphics.GraphicsDevice);
-			characterBuilder = new CharacterBuilder(services, graphics);
+			characterBuilder = new CharacterBuilder(services, graphics, null);
 			buttonImage = Content.Load<Texture2D>("longbutton");
 			shuffleButton = new Button(buttonImage, "Shuffle", Content.Load<SpriteFont>("Score"));
 			menuButton = new Button(buttonImage, "Menu", Content.Load<SpriteFont>("Score"));

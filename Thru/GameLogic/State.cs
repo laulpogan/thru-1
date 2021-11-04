@@ -2,6 +2,8 @@
 {
     public enum State
     {
+        Loading,
+        Quit,
         Start,
         Menu,
         NewGame,

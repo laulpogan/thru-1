@@ -64,8 +64,8 @@ namespace Thru
 		public void Draw(SpriteBatch spriteBatch)
 		{
 			DrawLine(spriteBatch, Location1.Coords, Location2.Coords, Color.Red);
-
 		}
+
 		public void DrawLine(SpriteBatch spriteBatch, Vector2 begin, Vector2 end, Color color, int width = 1)
 		{
 			Rectangle r = new Rectangle((int)begin.X, (int)begin.Y, (int)(end - begin).Length() + width, width);

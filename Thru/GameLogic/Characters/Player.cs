@@ -17,6 +17,7 @@ namespace Thru
 		public DateTime Date;
 		public string locationID;
 		public string Perk;
+		public Location location;
 
 		public enum Genders
         {
@@ -26,9 +27,13 @@ namespace Thru
 		public Genders Gender;
 		public Dictionary<string, Item> Inventory;
 		public Dictionary<string, ICharacter> Tramily;
-		public Player(string name)
+		public Player(string name, Location Location = null)
 		{
-;
+
+			if(Location is not null)
+            {
+				location = Location;
+			}
 			Name = name;
 			stats = buildStats();
 		}

@@ -11,45 +11,40 @@ namespace Thru
 	public class TrailMap
 	{
 		public ArrayList Locations;
-		public AnimatedSprite sprite;
 		public ArrayList Characters;
 		public ArrayList Trails;
 		public String Name;
 		public Vector2 Origin;
-		public TrailMap(ArrayList nodes, ArrayList edges,   String name, Texture2D texture, Vector2 origin)
+		public TrailMap(ArrayList locations, ArrayList trails, String name)
 		{
-			Locations = nodes;
-			Trails = edges;
+			Locations = locations;
+			Trails = trails;
 			Name = name;
 			Origin = new Vector2(0,0);
-			sprite = new AnimatedSprite(texture, 2, 2);
-			
 		}
 
 		public void Update(GameTime gameTime)
 		{
-
-			foreach (Location node in Locations)
+			foreach (Location loc in Locations)
 			{
-				node.Update(gameTime);
+				loc.Update(gameTime);
 			}
-			foreach (Trail edge in Trails)
+			foreach (Trail tr in Trails)
 			{
-				edge.Update(gameTime);
+				tr.Update(gameTime);
 			}
 
 		}
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
-
-			foreach (Location node in Locations)
+			foreach (Location loc in Locations)
 			{
-				node.Draw(spriteBatch);
+				loc.Draw(spriteBatch);
 			}
-			foreach (Trail edge in Trails)
+			foreach (Trail tr in Trails)
 			{
-				edge.Draw(spriteBatch);
+				tr.Draw(spriteBatch);
 			}
 		}
 	}

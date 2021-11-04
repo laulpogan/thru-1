@@ -19,21 +19,19 @@ namespace Thru
         public Location currentLocation;
         public GraphicsDeviceManager Graphics;
         public Vector2 Coords;
-        public MapMenu(IServiceProvider services, Location location, GraphicsDeviceManager graphics)
+        public MapMenu(IServiceProvider services, GraphicsDeviceManager graphics, Location location, Vector2 drawCoords)
         {
            
             Content = new ContentManager(services, "Content");
-            buttonImage = Content.Load<Texture2D>("longbutton");
+            buttonImage = Content.Load<Texture2D>("short_button");
             font = Content.Load<SpriteFont>("Score");
             Graphics = graphics;
-            Coords = new Vector2(100, 100);
-            buttonGroup = new ButtonGroup(new ArrayList(), Coords);
+            Coords = drawCoords;
+            buttonGroup = new ButtonGroup(new ArrayList(), Coords, ButtonArrangement.Horizontal);
             currentLocation = location;
-            buttonImage = Content.Load<Texture2D>("longbutton");
 
             menuButton = new Button(buttonImage, "Menu", font);
             gameButton = new Button(buttonImage, "Game", font);
-
 
             buildMapButtons();
             foreach (Location location1 in currentLocation.AdjacentLocations())
@@ -43,33 +41,27 @@ namespace Thru
 
         public void Draw(SpriteBatch spriteBatch)
         {
-
-            
-                buttonGroup.Draw(spriteBatch);
-            
-
+            buttonGroup.Draw(spriteBatch);
         }
+
         public Location Update(GameTime gameTime)
         {
-
-
             buttonGroup.Update(gameTime);
 
+            // todo - extend Button with a LocationButton that holds corresponding location information (ID)
             foreach (Button button in buttonGroup.ButtonList)
             {
                 if (button.State == BState.JUST_RELEASED)
                 {
-                    Console.WriteLine("You just pressed "+button.Text);
+                    Console.WriteLine("You just pressed " + button.Text);
                     var adjacentLocations = currentLocation.AdjacentLocations();
                     foreach (Location location in adjacentLocations)
                     {
-                            Console.WriteLine("Adjacent Location: " + location.Name);
-
-                            if (location.Name == button.Text)
+                        Console.WriteLine("Adjacent Location: " + location.Name);
+                        if (location.ID == button.Text)
                         {
                             TravelTo(location);
                             buildMapButtons();
-             
                         }
                     }
                 }
@@ -83,25 +75,16 @@ namespace Thru
         }
         public void buildMapButtons()
         {
-            Dictionary<string, Button> buttons = new Dictionary<string, Button>();
-
+            ArrayList buttons = new ArrayList();
             foreach (Location location in currentLocation.AdjacentLocations())
             {
-                
-                Button button = new Button(buttonImage);
-                button.Text = location.Name;
-                button.Font = font;
-                buttons[button.Text] = button;
+                Button button = new Button(buttonImage, $"{location.ID}", font);
+                buttons.Add(button);
             }
-      /*      foreach (Button button in buttonGroup.ButtonList)
-            {
-                buttons[button.Text] = button;
-            }*/
 
-            ArrayList buttonFinal = new ArrayList(buttons.Values);
-            buttonFinal.Add(menuButton);
-            buttonFinal.Add(gameButton);
-            buttonGroup = new ButtonGroup(buttonFinal, Coords);
+            buttons.Add(menuButton);
+            buttons.Add(gameButton);
+            buttonGroup = new ButtonGroup(buttons, Coords, ButtonArrangement.Horizontal);
         }
      
 

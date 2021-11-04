@@ -16,12 +16,10 @@ namespace Thru
 	{
 		[JsonIgnore]
 		public AnimatedSprite sprite;
-		[JsonIgnore]
-		public ArrayList Characters;
+		[JsonProperty(PropertyName = "Id")]
+		public string ID;
 		[JsonProperty(PropertyName = "Trails")]
 		public ArrayList Trails;
-		[JsonIgnore]
-		public bool isCurrent;
 		[JsonProperty(PropertyName = "Coords")]
 		public Vector2 Coords;
 		[JsonProperty(PropertyName = "Name")]
@@ -30,30 +28,19 @@ namespace Thru
 		public Texture2D Background;
 		[JsonProperty(PropertyName = "Description")]
 		public string Description { get; set; }
-		[JsonProperty(PropertyName = "Id")]
-		public string ID;
-		//public ArrayList Characters;
-		public Location( ArrayList edges, String name,Texture2D texture, Vector2 coords)
+
+		public Location(String id, String name, ArrayList edges, Texture2D texture, Vector2 coords)
 		{
+			ID = id;
+			Name = name;
 			Coords = coords;
 			Trails = edges;
-			isCurrent = false;
-			Name = name;
-			ID = name;
-			//Characters = Characters;
 			sprite = new AnimatedSprite(texture, 2, 2);
 		}
 
 		public void Update(GameTime gameTime)
 		{
-           /* if (!isCurrent)
-            {
-				sprite.Texture = LocationTexture;
-            }*/
 			sprite.Update(gameTime);
-			
-			
-
 		}
 
 		public void Draw(SpriteBatch spriteBatch)
@@ -61,7 +48,6 @@ namespace Thru
 			float scale = .01f;
 			var widthAvg = (sprite.Texture.Width/sprite.Columns /2 )*scale;
 			var heightAvg = (sprite.Texture.Height / sprite.Rows /2 )*scale;
-			//Console.WriteLine("coordinates for location waypoint: " + Coords);
 			sprite.Draw(spriteBatch, new Vector2(Coords.X - (int)widthAvg, Coords.Y - (int)heightAvg), scale);
 
 		}
