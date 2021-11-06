@@ -37,7 +37,7 @@ namespace Thru
 			player = setupTestPlayer(services, graphics);
 			Encounter = setupTestEncounter(services, graphics);
 			hud = new HUD(services, graphics, player);
-			mapMenu = new MapMenu(services, graphics, currentLocation, new Vector2(200, 850));
+			mapMenu = new MapMenu(services, graphics, currentLocation, new Vector2(200, 850), player);
 			grid = new DesignGrid(services, graphics);
 
 		}

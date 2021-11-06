@@ -73,7 +73,7 @@ namespace Thru
             newLoc = new Location(null, null, null, null, new Vector2(0, 0));
             oldLoc = new Location(null, null, null, null, new Vector2(0, 0));
             Random rand = new Random();
-            tempEdge = new Trail(null, null,rand.Next(15),  "", null);
+            tempEdge = new Trail(null, null,0,  "", null);
 
             foreach (FeatureCollection mapDataIndividual in mapDataTotal)
                 {
@@ -93,7 +93,7 @@ namespace Thru
                                 newLoc = geojsonToLocation(feature);
                                 if (oldLoc.Trails != null)
                                 {
-                                    tempEdge = new Trail(oldLoc, newLoc, 0, "test", Content.Load<Texture2D>("southern_terminus"));
+                                    tempEdge = new Trail(oldLoc, newLoc, rand.Next(15), "test", Content.Load<Texture2D>("southern_terminus"));
                                     oldLoc.Trails.Add(tempEdge);
                                     newLoc.Trails.Add(tempEdge);
                                     gameMap.Trails.Add(tempEdge);

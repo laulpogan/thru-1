@@ -73,11 +73,13 @@ namespace Thru
 
         public void TravelTo(Location location, float Value)
         {
-            if(Player is not null)
+
+            if (Player is not null)
             {
                if(Player.stats.Snacks!> Value)
                 {
-                    Player.stats.Snacks -= (int)Value;
+                    Console.WriteLine($"Traveling to {location.Name} for {Value} Snacks. {Player.Name} now has {Player.stats.Snacks} snacks.");
+                    Player.stats.Snacks = Player.stats.Snacks- (int)Value;
                     currentLocation = location;
                 }
             }
@@ -91,8 +93,8 @@ namespace Thru
                 buttons.Add(button);
             }
 
-            buttons.Add(menuButton);
-            buttons.Add(gameButton);
+           // buttons.Add(menuButton);
+           // buttons.Add(gameButton);
             buttonGroup = new ButtonGroup(buttons, Coords, ButtonArrangement.Horizontal);
         }
      
