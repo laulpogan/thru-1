@@ -17,6 +17,8 @@ namespace Thru
 		GameViewStateMachine stateMachine;
 		public GameTime gameTime;
 		public PlayGameView playView;
+		public int Days;
+		public ArrayList localWeather;
 		public GlobalState(int clientWidth, int clientHeight, IServiceProvider services, GraphicsDeviceManager graphics)
 		{
 			mapView = new MapGameView(services, clientWidth, clientHeight, graphics);

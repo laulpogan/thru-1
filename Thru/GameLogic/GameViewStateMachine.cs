@@ -49,14 +49,6 @@ namespace Thru
         public GameViewStateMachine(IServiceProvider services, GraphicsDeviceManager graphics, MapGameView mapView, PlayGameView playView)
         {
             Graphics = graphics;
-            foreach (var i in Enum.GetValues(typeof(GameState)))
-            {
-                string name = Enum.GetName(typeof(State), i);
-                if (currentState.ToString() == name)
-                {
-                    State thing = new State();
-                };
-            }
             currentState = GameState.Play;
             MapView = mapView;
             PlayView = playView;
