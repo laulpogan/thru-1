@@ -61,38 +61,30 @@ namespace Thru
 		public string text;
 		[JsonProperty(PropertyName = "checkStat")]
 		public string checkStat;
-		[JsonProperty(PropertyName = "consequence")]
-		public EncounterConsequenceData consequence;
 		[JsonProperty(PropertyName = "diceCheck")]
 		public int diceCheck;
-		
-		public EncounterOptionData(string Text, string CheckStat, int DC, EncounterConsequenceData Consequence)
-        {
-			text = Text;
-			checkStat = CheckStat;
-			consequence = Consequence;
-			diceCheck = DC;
-        }
-	}
-	
-	public record EncounterConsequenceData
-    {
 		[JsonProperty(PropertyName = "success")]
 		public EncounterResolutionData success;
 		[JsonProperty(PropertyName = "failure")]
 		public EncounterResolutionData failure;
-		 public EncounterConsequenceData(EncounterResolutionData Success, EncounterResolutionData Failure)
-        {
+		public EncounterOptionData(string Text, string CheckStat, int DC, EncounterResolutionData Success, EncounterResolutionData Failure)
+
+		{
+			text = Text;
+			checkStat = CheckStat;
 			success = Success;
 			failure = Failure;
+			diceCheck = DC;
         }
-
 	}
+	
 
 	public record EncounterResolutionData
 	{
 		[JsonProperty(PropertyName = "effectedStat")]
 		public string effectedStat;
+		[JsonProperty(PropertyName = "text")]
+		public string text;
 		[JsonProperty(PropertyName = "effect")]
 		public int effect;
 		[JsonProperty(PropertyName = "rewardItem")]

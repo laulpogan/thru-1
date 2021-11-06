@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Content;
 using GeoJSON.Net.Feature;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Xml.Linq;
 
 namespace Thru
 {
@@ -67,7 +68,24 @@ namespace Thru
             }
 			return returnList;
         }
+
+		public Dictionary<Location, float> AdjacentLocationsWithWeight()
+		{
+			Dictionary<Location, float> returnList = new Dictionary<Location, float>();
+			foreach (Trail trail in Trails)
+			{
+				if (trail.Location1 is null || trail.Location2 is null)
+					continue;
+				else if (trail.Location1.ID == ID)
+					returnList[trail.Location2] = trail.Value;
+				else if (trail.Location2.ID == ID)
+					returnList[trail.Location1] = trail.Value ;
+				else
+					throw new Exception(Name + " " + ID + " This trail doesn't even go here");
+			}
+			return returnList;
+		}
 	}
-
-
+	
 }
+

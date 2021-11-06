@@ -21,35 +21,43 @@ namespace Thru
 		public Location currentLocation;
 		private ContentManager Content;
 		private SpriteFont font;
+		public MapMenu mapMenu;
 
-		public PlayGameView(IServiceProvider services, GraphicsDeviceManager graphics)
+
+		public PlayGameView(IServiceProvider services, GraphicsDeviceManager graphics, Location location)
 {
 			Graphics = graphics;
+			currentLocation = location;
 			Content = new ContentManager(services, "Content");
 			Content.RootDirectory = "Content";
 			font = Content.Load<SpriteFont>("Score");
 			background = Content.Load<Texture2D>("southern_terminus");
 			spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
 			hudBatch = new SpriteBatch(graphics.GraphicsDevice);
+			player = setupTestPlayer(services, graphics);
 			Encounter = setupTestEncounter(services, graphics);
 			hud = new HUD(services, graphics, player);
-
+			mapMenu = new MapMenu(services, graphics, currentLocation, new Vector2(200, 850));
 			grid = new DesignGrid(services, graphics);
 
+		}
+
+		public Player setupTestPlayer(IServiceProvider services, GraphicsDeviceManager graphics)
+        {
+			CharacterBuilder CharacterBuilder = new CharacterBuilder(services, graphics, currentLocation);
+			return  CharacterBuilder.createCharacter();
 		}
 		public Encounter setupTestEncounter(IServiceProvider services, GraphicsDeviceManager graphics)
 		{
 
-			CharacterBuilder CharacterBuilder = new CharacterBuilder(services, graphics, currentLocation);
-			player = CharacterBuilder.createCharacter();
+			
 			EncounterData data = new EncounterData();
-			EncounterResolutionData resolutionPos = new EncounterResolutionData("Morale", 1, null, null);
-			EncounterResolutionData resolutionNeg = new EncounterResolutionData("Morale", -1, null, null);
+			EncounterResolutionData success = new EncounterResolutionData("Morale", 1, null, null);
+			EncounterResolutionData failure = new EncounterResolutionData("Morale", -1, null, null);
 
-			EncounterConsequenceData consequence = new EncounterConsequenceData(resolutionPos, resolutionNeg);
-			EncounterOptionData option1 = new EncounterOptionData("option1", "Morale", 50, consequence);
-			EncounterOptionData option2 = new EncounterOptionData("option2", "Speed", 10, consequence);
-			EncounterOptionData option3 = new EncounterOptionData("option3", "Chillness", 15, consequence);
+			EncounterOptionData option1 = new EncounterOptionData("option1", "Morale", 50, success, failure);
+			EncounterOptionData option2 = new EncounterOptionData("option2", "Speed", 10, success, failure);
+			EncounterOptionData option3 = new EncounterOptionData("option3", "Chillness", 15, success, failure);
 			EncounterOptionData[] opts = new EncounterOptionData[] { option1, option2, option3 };
 			data.text = "Sampletext";
 			data.title = "SampleTitle";
@@ -67,6 +75,7 @@ namespace Thru
 		{
 			Encounter.Update(gameTime);
 			hud.Update(gameTime);
+			currentLocation = mapMenu.Update(gameTime);
 			GameState returnState = GameState.Play;
 			if (hud.mainMenuButton.State == BState.JUST_RELEASED)
 				returnState = GameState.Play;
@@ -86,6 +95,7 @@ namespace Thru
 
 			hudBatch.Begin();
 			hud.Draw(hudBatch);
+			mapMenu.Draw(hudBatch);
 			hudBatch.DrawString(font, $"Current Location: [{currentLocation.ID}] {currentLocation.Name}", new Vector2(400, 20), Color.Black);
 			hudBatch.End();
 		}

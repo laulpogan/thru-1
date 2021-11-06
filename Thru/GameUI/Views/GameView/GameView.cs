@@ -19,10 +19,9 @@ namespace Thru
 		public PlayGameView playView;
 		public GameView(int clientWidth, int clientHeight, IServiceProvider services, GraphicsDeviceManager graphics)
 		{
-			playView = new PlayGameView(services, graphics);
 			mapView = new MapGameView(services, clientWidth, clientHeight, graphics);
 			currentLocation = mapView.currentLocation;
-			playView.currentLocation = currentLocation;
+			playView = new PlayGameView(services, graphics, currentLocation);
 			playView.player.location = currentLocation;
 			stateMachine = new GameViewStateMachine(services, graphics, mapView, playView);
 			stateMachine.currentState = GameState.Play;

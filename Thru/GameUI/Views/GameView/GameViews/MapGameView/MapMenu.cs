@@ -19,9 +19,11 @@ namespace Thru
         public Location currentLocation;
         public GraphicsDeviceManager Graphics;
         public Vector2 Coords;
-        public MapMenu(IServiceProvider services, GraphicsDeviceManager graphics, Location location, Vector2 drawCoords)
+        public Player Player;
+        public MapMenu(IServiceProvider services, GraphicsDeviceManager graphics, Location location, Vector2 drawCoords, Player player = null)
         {
-           
+            if(player is not null)
+                Player = player;
             Content = new ContentManager(services, "Content");
             buttonImage = Content.Load<Texture2D>("short_button");
             font = Content.Load<SpriteFont>("Score");
@@ -54,13 +56,13 @@ namespace Thru
                 if (button.State == BState.JUST_RELEASED)
                 {
                     Console.WriteLine("You just pressed " + button.Text);
-                    var adjacentLocations = currentLocation.AdjacentLocations();
-                    foreach (Location location in adjacentLocations)
+                    Dictionary<Location, float> adjacentLocations = currentLocation.AdjacentLocationsWithWeight();
+                    foreach (Location location in adjacentLocations.Keys)
                     {
                         Console.WriteLine("Adjacent Location: " + location.Name);
                         if (location.ID == button.Text)
                         {
-                            TravelTo(location);
+                            TravelTo(location, adjacentLocations[location]);
                             buildMapButtons();
                         }
                     }
@@ -69,9 +71,16 @@ namespace Thru
             return currentLocation;
         }
 
-        public void TravelTo(Location location)
+        public void TravelTo(Location location, float Value)
         {
-            currentLocation = location;
+            if(Player is not null)
+            {
+               if(Player.stats.Snacks!> Value)
+                {
+                    Player.stats.Snacks -= (int)Value;
+                    currentLocation = location;
+                }
+            }
         }
         public void buildMapButtons()
         {

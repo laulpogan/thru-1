@@ -128,10 +128,10 @@ namespace Thru
 
             if (success)
             {
-				resolveEncounter(option.consequence.success);
+				resolveEncounter(option.success);
             } else
             {
-				resolveEncounter(option.consequence.failure);
+				resolveEncounter(option.failure);
 
 			}
 			return success;

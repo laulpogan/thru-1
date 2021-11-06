@@ -72,7 +72,8 @@ namespace Thru
 
             newLoc = new Location(null, null, null, null, new Vector2(0, 0));
             oldLoc = new Location(null, null, null, null, new Vector2(0, 0));
-            tempEdge = new Trail(null, null, 0, "", null);
+            Random rand = new Random();
+            tempEdge = new Trail(null, null,rand.Next(15),  "", null);
 
             foreach (FeatureCollection mapDataIndividual in mapDataTotal)
                 {
