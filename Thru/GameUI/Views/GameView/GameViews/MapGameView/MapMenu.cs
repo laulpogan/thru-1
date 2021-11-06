@@ -62,7 +62,14 @@ namespace Thru
                         Console.WriteLine("Adjacent Location: " + location.Name);
                         if (location.ID == button.Text)
                         {
-                            TravelTo(location, adjacentLocations[location]);
+                            if (Player is not null)
+                            {
+                                TravelTo(location, adjacentLocations[location]);
+                            }
+                            else
+                            {
+                                currentLocation = location;
+                            }
                             buildMapButtons();
                         }
                     }
@@ -76,7 +83,7 @@ namespace Thru
 
             if (Player is not null)
             {
-               if(Player.stats.Snacks!> Value)
+               if(Player.stats.Energy!> Value)
                 {
                     Console.WriteLine($"Traveling to {location.Name} for {Value} Snacks. {Player.Name} now has {Player.stats.Snacks} snacks.");
                     Player.stats.Snacks = Player.stats.Snacks- (int)Value;

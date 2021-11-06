@@ -81,7 +81,9 @@ namespace Thru
 				returnState = GameState.Play;
 			if (hud.mapButton.State == BState.JUST_RELEASED)
 				returnState = GameState.Map;
-			
+			if (hud.snackButton.State == BState.JUST_RELEASED)
+				player.stats.Energy += 5;
+			player.stats.Snacks = player.stats.Snacks - 1;
 			return returnState;
 		}
 		public void Draw(GraphicsDeviceManager _graphics)

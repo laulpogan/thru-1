@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 
 namespace Thru
 {
@@ -12,6 +13,8 @@ namespace Thru
         public int Chillness;
         [JsonProperty(PropertyName = "Cleverness")]
         public int Cleverness;
+        [JsonProperty(PropertyName = "Energy")]
+        public int Energy;
         [JsonProperty(PropertyName = "Fitness")]
         public int Fitness;
         [JsonProperty(PropertyName = "Luck")]
@@ -45,6 +48,9 @@ namespace Thru
                     break;
                 case "Cleverness":
                     statValue = Cleverness;
+                    break;
+                case "Energy":
+                    statValue = Energy;
                     break;
                 case "Fitness":
                     statValue = Fitness;
@@ -90,6 +96,9 @@ namespace Thru
                 case "Cleverness":
                     Cleverness = statValue;
                     break;
+                case "Energy":
+                    Energy = statValue;
+                    break;
                 case "Fitness":
                     Fitness = statValue;
                     break;
@@ -116,6 +125,24 @@ namespace Thru
                     break;
 
             }
+        }
+
+        public Stats()
+        {
+            Random rand = new Random();
+            Age = rand.Next(20) + 15;
+            Charisma = rand.Next(20);
+            Chillness = rand.Next(20);
+            Cleverness = rand.Next(20);
+            Energy = rand.Next(100);
+            Fitness = rand.Next(20);
+            Luck = rand.Next(20);
+            Miles = rand.Next(20);
+            Money = rand.Next(20000) + 10000;
+            Morale = rand.Next(20);
+            Outdoorsyness = rand.Next(20);
+            Snacks = rand.Next(100) + 25;
+            Speed = rand.Next(20);
         }
 
     }
