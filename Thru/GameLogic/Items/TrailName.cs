@@ -9,15 +9,15 @@ namespace Thru
         public string Name;
         [JsonProperty(PropertyName = "ID")]
         public string ID;
-        public StatModifier StatModifier;
+        public IModifier Modifier;
 
 
 
 
-        public TrailName(string name, StatModifier statModifier)
+        public TrailName(string name, IModifier modifier)
         {
             Name = name;
-            StatModifier = statModifier;
+            Modifier = modifier;
         }
 
     }

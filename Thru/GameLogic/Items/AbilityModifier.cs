@@ -3,7 +3,7 @@ using System;
 
 namespace Thru
 {
-    public class StatModifier: IModifier
+    public class AbilityModifier : IModifier
     {
         [JsonProperty(PropertyName = "Name")]
         public string Name;
@@ -14,7 +14,7 @@ namespace Thru
 
 
 
-        public StatModifier()
+        public AbilityModifier()
         {
 
         }
