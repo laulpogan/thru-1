@@ -22,13 +22,13 @@ namespace Thru
 
 
 
-        public CharacterModel(IServiceProvider services, GraphicsDeviceManager graphics, Player player)
+        public CharacterModel(IServiceProvider services, GraphicsDeviceManager graphics)
 {
             spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
             Content = new ContentManager(services, "Content");
             Texture2D spriteSheet = Content.Load<Texture2D>("mannequin-skin-tone-1");
             spriteModel = new AnimatedSprite(spriteSheet, 2, 2);
-            ScreenXY = new Vector2(500, 500);
+            ScreenXY = new Vector2(600, 400);
         }
 
         public void Update(GameTime gameTime)

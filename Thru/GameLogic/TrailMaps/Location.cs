@@ -29,7 +29,7 @@ namespace Thru
 		public Texture2D Background;
 		[JsonProperty(PropertyName = "Description")]
 		public string Description { get; set; }
-
+		public Tags[] Tags;
 		public Location(String id, String name, ArrayList edges, Texture2D texture, Vector2 coords)
 		{
 			ID = id;
@@ -37,6 +37,7 @@ namespace Thru
 			Coords = coords;
 			Trails = edges;
 			sprite = new AnimatedSprite(texture, 2, 2);
+			Tags = new Tags[1];
 		}
 
 		public void Update(GameTime gameTime)

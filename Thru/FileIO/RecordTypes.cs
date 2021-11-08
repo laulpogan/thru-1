@@ -36,7 +36,7 @@ namespace Thru
 		[JsonProperty(PropertyName = "dropRate")]
 		public float dropRate;
 		[JsonProperty(PropertyName = "locationType")]
-		public LocationType locationType;
+		public Tags[] encounterTags;
 		[JsonProperty(PropertyName = "resolutionType")]
 		public ResolutionType resolutionType;
 	}

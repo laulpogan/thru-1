@@ -1,6 +1,6 @@
 ﻿namespace Thru
 {
-    public enum LocationType
+    public enum Tags
     {
         Desert,
         Urban,

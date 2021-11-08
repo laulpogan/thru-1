@@ -87,7 +87,8 @@ namespace Thru
                         //only waypoints have names in geoJSON
                         if (feature.Properties.ContainsKey("name") && feature.Properties.ContainsKey("sym"))
                         {
-                            if (String.Equals(feature.Properties["sym"].ToString(), "Campground"))
+                        string symbol = feature.Properties["sym"].ToString();
+                            if (String.Equals(symbol, "Campground") || String.Equals(symbol, "Flag, Blue") || String.Equals(symbol, "Post Office"))
                             {
                                 oldLoc = newLoc;
                                 newLoc = geojsonToLocation(feature);
@@ -169,9 +170,21 @@ namespace Thru
         }
         public Location geojsonToLocation(Feature feature)
         {
+            string symbol = feature.Properties["sym"].ToString();
+
+           
             var geometry = geoTypeParser(feature.Geometry);
             Console.WriteLine("Creating Location: " + feature.Properties["name"].ToString() + " at " + geometry);
             Location location = new Location(feature.Properties["name"].ToString(), feature.Properties["desc"].ToString(), new ArrayList(), Content.Load<Texture2D>("buttonSheet"), geometry);
+            if (String.Equals(symbol, "Flag, Blue") || String.Equals(symbol, "Post Office"))
+            {
+                location.Tags[0] = Tags.Town;
+            }   else
+            {
+                location.Tags[0] = Tags.Desert;
+            }
+
+
             return location;
         }
 

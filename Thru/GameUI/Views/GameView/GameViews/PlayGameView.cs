@@ -63,7 +63,7 @@ namespace Thru
 			data.title = "SampleTitle";
 			data.options = opts;
 			data.dropRate = 4;
-			data.locationType = LocationType.Desert;
+			data.encounterTags = new Tags[] { Tags.Desert };
 
 
 
@@ -76,6 +76,10 @@ namespace Thru
 			Encounter.Update(gameTime);
 			hud.Update(gameTime);
 			currentLocation = mapMenu.Update(gameTime);
+			if(currentLocation.Tags[0] == Tags.Town)
+            {
+
+            }
 			GameState returnState = GameState.Play;
 			if (hud.mainMenuButton.State == BState.JUST_RELEASED)
 				returnState = GameState.Play;
@@ -86,7 +90,7 @@ namespace Thru
 				player.stats.Energy += 5;
 				player.stats.Snacks = player.stats.Snacks - 1;
 			}
-				
+			player.Update(gameTime);	
 			return returnState;
 		}
 		public void Draw(GraphicsDeviceManager _graphics)
@@ -95,9 +99,10 @@ namespace Thru
 			spriteBatch.Draw(background, new Vector2(0, 0), Color.White);
 			Encounter.Draw(spriteBatch);
 			grid.Draw(spriteBatch);
-			player.Draw(_graphics);
 			spriteBatch.End();
-			
+
+			player.Draw(_graphics);
+
 
 			hudBatch.Begin();
 			hud.Draw(hudBatch);

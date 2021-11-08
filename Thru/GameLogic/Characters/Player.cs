@@ -36,7 +36,7 @@ namespace Thru
 			}
 			Name = name;
 			stats = new Stats();
-			model = new CharacterModel(services, graphics, this);
+			model = new CharacterModel(services, graphics);
 		}
 
 
