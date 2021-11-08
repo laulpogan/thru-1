@@ -11,7 +11,6 @@ namespace Thru
 	{
 
 
-		public SpriteBatch spriteBatch;
 		public Location currentLocation;
 		public MapGameView mapView;
 		GameViewStateMachine stateMachine;

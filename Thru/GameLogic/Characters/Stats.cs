@@ -138,10 +138,10 @@ namespace Thru
             Fitness = rand.Next(20);
             Luck = rand.Next(20);
             Miles = rand.Next(20);
-            Money = rand.Next(20000) + 10000;
+            Money = rand.Next(2000) + 1000;
             Morale = rand.Next(20);
             Outdoorsyness = rand.Next(20);
-            Snacks = rand.Next(100) + 25;
+            Snacks = rand.Next(10) + 15;
             Speed = rand.Next(20);
         }
 

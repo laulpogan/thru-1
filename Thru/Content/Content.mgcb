@@ -148,6 +148,18 @@
 /processorParam:TextureFormat=Color
 /build:longbutton.png
 
+#begin mannequin-skin-tone-1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mannequin-skin-tone-1.png
+
 #begin Moms_Diner.png
 /importer:TextureImporter
 /processor:TextureProcessor

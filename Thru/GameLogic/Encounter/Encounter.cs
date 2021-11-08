@@ -22,6 +22,9 @@ namespace Thru
 		public ButtonGroup ButtonGroup;
 		public bool selectionMade;
 		public Player character;
+		public bool isResolved;
+		Button okButton;
+		ButtonGroup okButtonGroup;
 		public Encounter(Player player, EncounterData data, Location location, IServiceProvider services, GraphicsDeviceManager graphics)
 		{
 			character = player;
@@ -43,9 +46,12 @@ namespace Thru
 				Options.Add(option.text, option);
 			}
 			ButtonGroup = new ButtonGroup(buttonList, new Vector2(500, 850), ButtonArrangement.Horizontal);
+			okButton = new Button(buttonImage, "OK", font);
+			buttonList.Clear();
+			buttonList.Add(okButton);
+			okButtonGroup = new ButtonGroup(buttonList, new Vector2(500, 850), ButtonArrangement.Horizontal);
 
-
-            switch (data.resolutionType)
+			switch (data.resolutionType)
             {
 				case ResolutionType.Cutscene:
 					break;
@@ -74,11 +80,6 @@ namespace Thru
 		}
 
 
-		/*public Encounter buildSampleEncounter()
-		{
-			Encounter encounter = new Encounter();
-			return encounter;
-		}*/
 		public State Update(GameTime gameTime)
 		{
 			foreach (Button button in ButtonGroup.ButtonList)
@@ -87,24 +88,29 @@ namespace Thru
 				{
 					Message = button.Text;
 					rollEncounter(Options[button.Text]);
-
+					ButtonGroup = okButtonGroup;
 				}
 			}
 			DisplayWindow.Title = Title;
 			DisplayWindow.Message = Message;
 			DisplayWindow.Update();
 			ButtonGroup.Update(gameTime);
-			
+			if (okButton.State == BState.JUST_RELEASED && selectionMade)
+            {
+				isResolved = true;
+            }
 			return State.Game;
 		}
 
 		public void Draw(SpriteBatch spriteBatch)
-		{
-            if (!selectionMade)
-			{
+		{  
+			if (!isResolved)
+            {
+				
 				ButtonGroup.Draw(spriteBatch);
+				DisplayWindow.Draw(spriteBatch);
 			}
-			DisplayWindow.Draw(spriteBatch);
+            
 		}
 
 		public bool rollEncounter(EncounterOptionData option)
@@ -141,8 +147,7 @@ namespace Thru
         {
             int stat = character.stats.get(resolution.effectedStat);
 			character.stats.set(resolution.effectedStat, stat + resolution.effect);
-
-        }
+         }
 
     }
 

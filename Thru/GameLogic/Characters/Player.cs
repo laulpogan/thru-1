@@ -18,7 +18,7 @@ namespace Thru
 		public string locationID;
 		public string Perk;
 		public Location location;
-
+		public CharacterModel model;
 		public enum Genders
         {
 			male,
@@ -27,21 +27,27 @@ namespace Thru
 		public Genders Gender;
 		public Dictionary<string, Item> Inventory;
 		public Dictionary<string, ICharacter> Tramily;
-		public Player(string name, Location Location = null)
+		public Player(IServiceProvider services, GraphicsDeviceManager graphics, string name, Location Location = null)
 		{
-
+			
 			if(Location is not null)
             {
 				location = Location;
 			}
 			Name = name;
 			stats = new Stats();
+			model = new CharacterModel(services, graphics, this);
 		}
 
 
 		
-		public State Update(GameTime gameTime) { return State.MainSettings; }
-		public void Draw(SpriteBatch _spriteBatch, GraphicsDeviceManager _graphics) { }
+		public State Update(GameTime gameTime) {
+			model.Update(gameTime);
+			return State.MainSettings; }
+		public void Draw( GraphicsDeviceManager _graphics) {
+
+			model.Draw(_graphics);
+		}
 
 	}
 }

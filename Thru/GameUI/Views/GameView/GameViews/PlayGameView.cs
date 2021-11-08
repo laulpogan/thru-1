@@ -95,6 +95,7 @@ namespace Thru
 			spriteBatch.Draw(background, new Vector2(0, 0), Color.White);
 			Encounter.Draw(spriteBatch);
 			grid.Draw(spriteBatch);
+			player.Draw(_graphics);
 			spriteBatch.End();
 			
 

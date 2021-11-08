@@ -20,6 +20,8 @@ namespace Thru
 		Dictionary<string, FirstName> nameDict;
 		public IOController IOController;
 		public Location Location;
+		IServiceProvider Services;
+		GraphicsDeviceManager Graphics;
 		public CharacterBuilder(IServiceProvider services, GraphicsDeviceManager graphics, Location location)
         {
 			
@@ -28,6 +30,8 @@ namespace Thru
 			var jsonText = IOController.deserializeFromFile<FirstName>();
 			nameDict = jsonText;
 			Location = location;
+			Services = services;
+			Graphics = graphics;
 			Player boo = createCharacter();
             Dictionary<string, Player> participants = new Dictionary<string, Player>();
             participants[boo.Name] = boo;
@@ -41,7 +45,7 @@ namespace Thru
 			Random rand = new Random();
 
 			List<string> names = new List<string>(nameDict.Keys);
-			Player character = new Player(names[rand.Next(names.Count)], Location);
+			Player character = new Player(Services, Graphics, names[rand.Next(names.Count)], Location);
 			Console.WriteLine(character.Name);
 
 			if (nameDict[character.Name].most_likely == "male")

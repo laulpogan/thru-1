@@ -26,7 +26,7 @@ namespace Thru
             Content.RootDirectory = "Content";
             mainMenuButton = new Button(buttonImage, "Main Menu", font);
             mapButton = new Button(buttonImage, "Map", font);
-            snackButton = new Button(buttonImage, "Eat 1 Snack for 5 Energy");
+            snackButton = new Button(buttonImage, "Eat 1 Snack for 5 Energy", font);
             buttonList.Add(mainMenuButton);
             buttonList.Add(mapButton);
             buttonList.Add(snackButton);
