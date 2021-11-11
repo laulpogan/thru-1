@@ -7,7 +7,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon></ApplicationIcon>
-    <StartupObject></StartupObject>
+    <StartupObject>Thru.Program</StartupObject>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Win32Resource />
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -19,6 +19,9 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <WarningLevel>5</WarningLevel>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="GameUI\Models\StoreMenu.cs" />
+  </ItemGroup>
   <ItemGroup>
     <None Remove="Icon.ico" />
     <None Remove="Icon.bmp" />

@@ -55,7 +55,7 @@ namespace Thru
             List<FeatureCollection> mapDataTotal = new List<FeatureCollection>();
 
             // TODO config for map source data
-            const string mapDataPath = "Content\\pct_map";
+            const string mapDataPath = "..\\..\\..\\Content\\DataLists\\pct_map";
             Console.WriteLine("Loading maps data from: " + mapDataPath);
             foreach (var file in Directory.GetFiles(mapDataPath, "*.geojson"))
             {
@@ -94,7 +94,7 @@ namespace Thru
                                 newLoc = geojsonToLocation(feature);
                                 if (oldLoc.Trails != null)
                                 {
-                                    tempEdge = new Trail(oldLoc, newLoc, rand.Next(15), "test", Content.Load<Texture2D>("southern_terminus"));
+                                    tempEdge = new Trail(oldLoc, newLoc, rand.Next(15), "test", Content.Load<Texture2D>("Backgrounds/southern_terminus"));
                                     oldLoc.Trails.Add(tempEdge);
                                     newLoc.Trails.Add(tempEdge);
                                     gameMap.Trails.Add(tempEdge);
@@ -175,7 +175,7 @@ namespace Thru
            
             var geometry = geoTypeParser(feature.Geometry);
             Console.WriteLine("Creating Location: " + feature.Properties["name"].ToString() + " at " + geometry);
-            Location location = new Location(feature.Properties["name"].ToString(), feature.Properties["desc"].ToString(), new ArrayList(), Content.Load<Texture2D>("buttonSheet"), geometry);
+            Location location = new Location(feature.Properties["name"].ToString(), feature.Properties["desc"].ToString(), new ArrayList(), Content.Load<Texture2D>("MapAssets/buttonSheet"), geometry);
             if (String.Equals(symbol, "Flag, Blue") || String.Equals(symbol, "Post Office"))
             {
                 location.Tags[0] = Tags.Town;

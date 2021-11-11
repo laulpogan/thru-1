@@ -32,11 +32,11 @@ namespace Thru
 			Options = new Dictionary<string,EncounterOptionData>();
 			ArrayList buttonList = new ArrayList();
 			ContentManager Content = new ContentManager(services, "Content");
-			Texture2D buttonImage = Content.Load<Texture2D>("short_button");
+			Texture2D buttonImage = Content.Load<Texture2D>("InterfaceTextures/short_button");
 			SpriteFont font = Content.Load<SpriteFont>("Score");
 			Title = data.title;
 			Message = data.text;
-			DisplayWindow = new InteractionMessageBox(Message,Title,services,graphics);
+			DisplayWindow = new InteractionMessageBox(Message,Title,services,graphics, 1000, 250);
 			foreach (EncounterOptionData option in data.options)
 			{
 				Button tempButton = new Button(buttonImage);
@@ -45,11 +45,11 @@ namespace Thru
 				buttonList.Add(tempButton);
 				Options.Add(option.text, option);
 			}
-			ButtonGroup = new ButtonGroup(buttonList, new Vector2(500, 850), ButtonArrangement.Horizontal);
+			ButtonGroup = new ButtonGroup(buttonList, new Vector2(800, 850), ButtonArrangement.Horizontal);
 			okButton = new Button(buttonImage, "OK", font);
 			buttonList.Clear();
 			buttonList.Add(okButton);
-			okButtonGroup = new ButtonGroup(buttonList, new Vector2(500, 850), ButtonArrangement.Horizontal);
+			okButtonGroup = new ButtonGroup(buttonList, new Vector2(800, 850), ButtonArrangement.Horizontal);
 
 			switch (data.resolutionType)
             {

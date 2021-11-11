@@ -25,7 +25,7 @@ namespace Thru
             if(player is not null)
                 Player = player;
             Content = new ContentManager(services, "Content");
-            buttonImage = Content.Load<Texture2D>("short_button");
+            buttonImage = Content.Load<Texture2D>("InterfaceTextures/short_button");
             font = Content.Load<SpriteFont>("Score");
             Graphics = graphics;
             Coords = drawCoords;
@@ -96,7 +96,7 @@ namespace Thru
             ArrayList buttons = new ArrayList();
             foreach (Location location in currentLocation.AdjacentLocations())
             {
-                Button button = new Button(buttonImage, $"{location.ID}", font);
+                Button button = new Button(buttonImage, $"Travel to {location.ID}", font);
                 buttons.Add(button);
             }
 

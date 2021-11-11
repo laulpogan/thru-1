@@ -13,7 +13,7 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin 58afdad6829958a978a4a693.png
+#begin Backgrounds/Moms_Diner.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -23,9 +23,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:58afdad6829958a978a4a693.png
+/build:Backgrounds/Moms_Diner.png
 
-#begin ball.png
+#begin Backgrounds/southern_terminus.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -35,7 +35,19 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:ball.png
+/build:Backgrounds/southern_terminus.png
+
+#begin Backgrounds/westcoast.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Backgrounds/westcoast.png
 
 #begin Blurp_Scooter.png
 /importer:TextureImporter
@@ -49,7 +61,7 @@
 /processorParam:TextureFormat=Color
 /build:Blurp_Scooter.png
 
-#begin buttonsheet.png
+#begin CharacterModels/body-tone-1.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -59,9 +71,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:buttonsheet.png
+/build:CharacterModels/body-tone-1.png
 
-#begin download.png
+#begin CharacterModels/eyes-blue.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -71,12 +83,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:download.png
+/build:CharacterModels/eyes-blue.png
 
-#begin first_name_list.json
-/copy:first_name_list.json
-
-#begin HIKER.png
+#begin CharacterModels/eyes-brown.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -86,9 +95,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:HIKER.png
+/build:CharacterModels/eyes-brown.png
 
-#begin hiker1sprite.tif
+#begin CharacterModels/eyes-white.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -98,9 +107,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:hiker1sprite.tif
+/build:CharacterModels/eyes-white.png
 
-#begin images/easy.png
+#begin CharacterModels/hair-orange.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -110,9 +119,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:images/easy.png
+/build:CharacterModels/hair-orange.png
 
-#begin images/hard.png
+#begin CharacterModels/HIKER.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -122,9 +131,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:images/hard.png
+/build:CharacterModels/HIKER.png
 
-#begin images/medium.png
+#begin CharacterModels/HIKER.tif
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -134,9 +143,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:images/medium.png
+/build:CharacterModels/HIKER.tif
 
-#begin longbutton.png
+#begin CharacterModels/hiker1sprite.tif
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -146,9 +155,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:longbutton.png
+/build:CharacterModels/hiker1sprite.tif
 
-#begin mannequin-skin-tone-1.png
+#begin CharacterModels/mannequin-skin-tone-1.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -158,9 +167,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:mannequin-skin-tone-1.png
+/build:CharacterModels/mannequin-skin-tone-1.png
 
-#begin Moms_Diner.png
+#begin InterfaceTextures/longbutton.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -170,183 +179,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Moms_Diner.png
+/build:InterfaceTextures/longbutton.png
 
-#begin pct_map/CA_Sec_A_tracks (1).gpx.geojson
-/copy:pct_map/CA_Sec_A_tracks (1).gpx.geojson
-
-#begin pct_map/CA_Sec_A_waypoints (1).gpx.geojson
-/copy:pct_map/CA_Sec_A_waypoints (1).gpx.geojson
-
-#begin pct_map/CA_Sec_B_tracks.gpx.geojson
-/copy:pct_map/CA_Sec_B_tracks.gpx.geojson
-
-#begin pct_map/CA_Sec_B_waypoints.gpx.geojson
-/copy:pct_map/CA_Sec_B_waypoints.gpx.geojson
-
-#begin pct_map/CA_Sec_C_tracks.gpx.geojson
-/copy:pct_map/CA_Sec_C_tracks.gpx.geojson
-
-#begin pct_map/CA_Sec_C_waypoints.gpx.geojson
-/copy:pct_map/CA_Sec_C_waypoints.gpx.geojson
-
-#begin pct_map/CA_Sec_D_tracks.gpx.geojson
-/copy:pct_map/CA_Sec_D_tracks.gpx.geojson
-
-#begin pct_map/CA_Sec_D_waypoints.gpx.geojson
-/copy:pct_map/CA_Sec_D_waypoints.gpx.geojson
-
-#begin pct_map/CA_Sec_E_tracks.gpx.geojson
-/copy:pct_map/CA_Sec_E_tracks.gpx.geojson
-
-#begin pct_map/CA_Sec_E_waypoints.gpx.geojson
-/copy:pct_map/CA_Sec_E_waypoints.gpx.geojson
-
-#begin pct_map/CA_Sec_F_tracks.gpx.geojson
-/copy:pct_map/CA_Sec_F_tracks.gpx.geojson
-
-#begin pct_map/CA_Sec_F_waypoints.gpx.geojson
-/copy:pct_map/CA_Sec_F_waypoints.gpx.geojson
-
-#begin pct_map/CA_Sec_G_tracks.gpx.geojson
-/copy:pct_map/CA_Sec_G_tracks.gpx.geojson
-
-#begin pct_map/CA_Sec_G_waypoints.gpx.geojson
-/copy:pct_map/CA_Sec_G_waypoints.gpx.geojson
-
-#begin pct_map/CA_Sec_H_tracks.gpx.geojson
-/copy:pct_map/CA_Sec_H_tracks.gpx.geojson
-
-#begin pct_map/CA_Sec_H_waypoints.gpx.geojson
-/copy:pct_map/CA_Sec_H_waypoints.gpx.geojson
-
-#begin pct_map/CA_Sec_I_tracks.gpx.geojson
-/copy:pct_map/CA_Sec_I_tracks.gpx.geojson
-
-#begin pct_map/CA_Sec_I_waypoints.gpx.geojson
-/copy:pct_map/CA_Sec_I_waypoints.gpx.geojson
-
-#begin pct_map/CA_Sec_J_tracks.gpx.geojson
-/copy:pct_map/CA_Sec_J_tracks.gpx.geojson
-
-#begin pct_map/CA_Sec_J_waypoints.gpx.geojson
-/copy:pct_map/CA_Sec_J_waypoints.gpx.geojson
-
-#begin pct_map/CA_Sec_K_tracks.gpx.geojson
-/copy:pct_map/CA_Sec_K_tracks.gpx.geojson
-
-#begin pct_map/CA_Sec_K_waypoints.gpx.geojson
-/copy:pct_map/CA_Sec_K_waypoints.gpx.geojson
-
-#begin pct_map/CA_Sec_L_tracks.gpx.geojson
-/copy:pct_map/CA_Sec_L_tracks.gpx.geojson
-
-#begin pct_map/CA_Sec_L_waypoints.gpx.geojson
-/copy:pct_map/CA_Sec_L_waypoints.gpx.geojson
-
-#begin pct_map/CA_Sec_M_tracks.gpx.geojson
-/copy:pct_map/CA_Sec_M_tracks.gpx.geojson
-
-#begin pct_map/CA_Sec_M_waypoints.gpx.geojson
-/copy:pct_map/CA_Sec_M_waypoints.gpx.geojson
-
-#begin pct_map/CA_Sec_N_tracks.gpx.geojson
-/copy:pct_map/CA_Sec_N_tracks.gpx.geojson
-
-#begin pct_map/CA_Sec_N_waypoints.gpx.geojson
-/copy:pct_map/CA_Sec_N_waypoints.gpx.geojson
-
-#begin pct_map/CA_Sec_O_tracks.gpx.geojson
-/copy:pct_map/CA_Sec_O_tracks.gpx.geojson
-
-#begin pct_map/CA_Sec_O_waypoints.gpx.geojson
-/copy:pct_map/CA_Sec_O_waypoints.gpx.geojson
-
-#begin pct_map/CA_Sec_P_tracks.gpx.geojson
-/copy:pct_map/CA_Sec_P_tracks.gpx.geojson
-
-#begin pct_map/CA_Sec_P_waypoints.gpx.geojson
-/copy:pct_map/CA_Sec_P_waypoints.gpx.geojson
-
-#begin pct_map/CA_Sec_Q_tracks.gpx.geojson
-/copy:pct_map/CA_Sec_Q_tracks.gpx.geojson
-
-#begin pct_map/CA_Sec_Q_waypoints.gpx.geojson
-/copy:pct_map/CA_Sec_Q_waypoints.gpx.geojson
-
-#begin pct_map/CA_Sec_R_tracks.gpx.geojson
-/copy:pct_map/CA_Sec_R_tracks.gpx.geojson
-
-#begin pct_map/CA_Sec_R_waypoints.gpx.geojson
-/copy:pct_map/CA_Sec_R_waypoints.gpx.geojson
-
-#begin pct_map/OR_Sec_B_tracks.gpx.geojson
-/copy:pct_map/OR_Sec_B_tracks.gpx.geojson
-
-#begin pct_map/OR_Sec_B_waypoints.gpx.geojson
-/copy:pct_map/OR_Sec_B_waypoints.gpx.geojson
-
-#begin pct_map/OR_Sec_C_tracks.gpx.geojson
-/copy:pct_map/OR_Sec_C_tracks.gpx.geojson
-
-#begin pct_map/OR_Sec_C_waypoints.gpx.geojson
-/copy:pct_map/OR_Sec_C_waypoints.gpx.geojson
-
-#begin pct_map/OR_Sec_D_tracks.gpx.geojson
-/copy:pct_map/OR_Sec_D_tracks.gpx.geojson
-
-#begin pct_map/OR_Sec_D_waypoints.gpx.geojson
-/copy:pct_map/OR_Sec_D_waypoints.gpx.geojson
-
-#begin pct_map/OR_Sec_E_tracks.gpx.geojson
-/copy:pct_map/OR_Sec_E_tracks.gpx.geojson
-
-#begin pct_map/OR_Sec_E_waypoints.gpx.geojson
-/copy:pct_map/OR_Sec_E_waypoints.gpx.geojson
-
-#begin pct_map/OR_Sec_F_tracks.gpx.geojson
-/copy:pct_map/OR_Sec_F_tracks.gpx.geojson
-
-#begin pct_map/OR_Sec_F_waypoints.gpx.geojson
-/copy:pct_map/OR_Sec_F_waypoints.gpx.geojson
-
-#begin pct_map/OR_Sec_G_tracks.gpx.geojson
-/copy:pct_map/OR_Sec_G_tracks.gpx.geojson
-
-#begin pct_map/OR_Sec_G_waypoints.gpx.geojson
-/copy:pct_map/OR_Sec_G_waypoints.gpx.geojson
-
-#begin pct_map/WA_Sec_H_tracks.gpx.geojson
-/copy:pct_map/WA_Sec_H_tracks.gpx.geojson
-
-#begin pct_map/WA_Sec_H_waypoints.gpx.geojson
-/copy:pct_map/WA_Sec_H_waypoints.gpx.geojson
-
-#begin pct_map/WA_Sec_I_tracks.gpx.geojson
-/copy:pct_map/WA_Sec_I_tracks.gpx.geojson
-
-#begin pct_map/WA_Sec_I_waypoints.gpx.geojson
-/copy:pct_map/WA_Sec_I_waypoints.gpx.geojson
-
-#begin pct_map/WA_Sec_J_tracks.gpx.geojson
-/copy:pct_map/WA_Sec_J_tracks.gpx.geojson
-
-#begin pct_map/WA_Sec_J_waypoints.gpx.geojson
-/copy:pct_map/WA_Sec_J_waypoints.gpx.geojson
-
-#begin pct_map/WA_Sec_K_tracks.gpx.geojson
-/copy:pct_map/WA_Sec_K_tracks.gpx.geojson
-
-#begin pct_map/WA_Sec_K_waypoints.gpx.geojson
-/copy:pct_map/WA_Sec_K_waypoints.gpx.geojson
-
-#begin pct_map/WA_Sec_L_tracks.gpx.geojson
-/copy:pct_map/WA_Sec_L_tracks.gpx.geojson
-
-#begin pct_map/WA_Sec_L_waypoints.gpx.geojson
-/copy:pct_map/WA_Sec_L_waypoints.gpx.geojson
-
-#begin roughbutton.png
+#begin InterfaceTextures/roughbutton.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -356,9 +191,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:roughbutton.png
+/build:InterfaceTextures/roughbutton.png
 
-#begin roundbutton.png
+#begin InterfaceTextures/roundbutton.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -368,7 +203,127 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:roundbutton.png
+/build:InterfaceTextures/roundbutton.png
+
+#begin InterfaceTextures/short_button.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:InterfaceTextures/short_button.png
+
+#begin InterfaceTextures/square_button.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:InterfaceTextures/square_button.png
+
+#begin InterfaceTextures/stats_bar.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:InterfaceTextures/stats_bar.png
+
+#begin ItemModels/pants-olive.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ItemModels/pants-olive.png
+
+#begin ItemModels/shirt-blue.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ItemModels/shirt-blue.png
+
+#begin ItemModels/shoes-green.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ItemModels/shoes-green.png
+
+#begin MapAssets/buttonsheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:MapAssets/buttonsheet.png
+
+#begin MenuAssets/download (1).png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:MenuAssets/download (1).png
+
+#begin MenuAssets/thru-switch.gif
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:MenuAssets/thru-switch.gif
+
+#begin MenuAssets/thru-switch-sheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:MenuAssets/thru-switch-sheet.png
 
 #begin Score.spritefont
 /importer:FontDescriptionImporter
@@ -376,157 +331,4 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:Score.spritefont
-
-#begin short_button.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:short_button.png
-
-#begin SmileyWalk.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:SmileyWalk.png
-
-#begin social icon.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:social icon.png;icon.png
-
-#begin southern_terminus.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:southern_terminus.png
-
-#begin spritesheet.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:spritesheet.png
-
-#begin square_button.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:square_button.png
-
-#begin stats_bar.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:stats_bar.png
-
-#begin thru-switch.gif
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:thru-switch.gif
-
-#begin thru-switch-sheet.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:thru-switch-sheet.png
-
-#begin track_points.geojson
-/copy:track_points.geojson
-
-#begin tracks.geojson
-/copy:tracks.geojson
-
-#begin triangle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:triangle.png
-
-#begin unknown.jpg
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:unknown.jpg
-
-#begin waypoints.geojson
-/copy:waypoints.geojson
-
-#begin westcoast.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:westcoast.png
 

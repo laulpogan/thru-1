@@ -19,7 +19,7 @@ namespace Thru
 		{
 			Content = new ContentManager(services, "Content");
 			spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
-			Texture2D buttonImage = Content.Load<Texture2D>("longbutton");
+			Texture2D buttonImage = Content.Load<Texture2D>("InterfaceTextures/longbutton");
             returnButton = new Button(buttonImage);
 			ArrayList returnList = new ArrayList();
 			returnList.Add(returnButton);

@@ -20,13 +20,13 @@ namespace Thru
         private ContentManager Content;
         Vector2 textOffset;
 
-        public InteractionMessageBox( string message, string title, IServiceProvider services, GraphicsDeviceManager graphics)
+        public InteractionMessageBox( string message, string title, IServiceProvider services, GraphicsDeviceManager graphics, int x, int y)
         {
 
 
             Content = new ContentManager(services, "Content");
 
-            Texture2D rect = new Texture2D(graphics.GraphicsDevice, 1000, 250);
+            Texture2D rect = new Texture2D(graphics.GraphicsDevice, x, y);
             Picture = Content.Load<Texture2D>("Blurp_Scooter");
             textOffset = new Vector2(Picture.Width, 25) + new Vector2(50,25);
             font = Content.Load<SpriteFont>("Score"); 

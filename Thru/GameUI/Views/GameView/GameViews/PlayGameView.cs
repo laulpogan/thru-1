@@ -31,13 +31,13 @@ namespace Thru
 			Content = new ContentManager(services, "Content");
 			Content.RootDirectory = "Content";
 			font = Content.Load<SpriteFont>("Score");
-			background = Content.Load<Texture2D>("southern_terminus");
+			background = Content.Load<Texture2D>("Backgrounds/southern_terminus");
 			spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
 			hudBatch = new SpriteBatch(graphics.GraphicsDevice);
 			player = setupTestPlayer(services, graphics);
 			Encounter = setupTestEncounter(services, graphics);
 			hud = new HUD(services, graphics, player);
-			mapMenu = new MapMenu(services, graphics, currentLocation, new Vector2(200, 850), player);
+			mapMenu = new MapMenu(services, graphics, currentLocation, new Vector2(250, 850), player);
 			grid = new DesignGrid(services, graphics);
 
 		}
@@ -98,7 +98,7 @@ namespace Thru
 			spriteBatch.Begin();
 			spriteBatch.Draw(background, new Vector2(0, 0), Color.White);
 			Encounter.Draw(spriteBatch);
-			grid.Draw(spriteBatch);
+			//grid.Draw(spriteBatch);
 			spriteBatch.End();
 
 			player.Draw(_graphics);

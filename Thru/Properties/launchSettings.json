@@ -1,7 +1,9 @@
 {
   "profiles": {
     "Thru": {
-      "commandName": "Project",
+      "commandName": "Executable",
+      "executablePath": "G:\\Users\\thein\\source\\repos\\thru\\Thru\\bin\\Release\\net5.0\\Thru.exe",
+      "workingDirectory": "G:\\Users\\thein\\source\\repos\\thru",
       "nativeDebugging": true
     }
   }
