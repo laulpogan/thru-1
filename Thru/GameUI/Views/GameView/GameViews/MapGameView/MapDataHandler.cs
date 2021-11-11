@@ -14,6 +14,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame;
+using MSDASC;
 using Newtonsoft.Json;
 
 namespace Thru
@@ -54,8 +55,8 @@ namespace Thru
       
             List<FeatureCollection> mapDataTotal = new List<FeatureCollection>();
 
-            // TODO config for map source data
-            const string mapDataPath = "..\\..\\..\\Content\\DataLists\\pct_map";
+// TODO config for map source data
+            const string mapDataPath = "Content\\DataLists\\pct_map";
             Console.WriteLine("Loading maps data from: " + mapDataPath);
             foreach (var file in Directory.GetFiles(mapDataPath, "*.geojson"))
             {

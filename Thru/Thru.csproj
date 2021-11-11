@@ -20,6 +20,11 @@
     <WarningLevel>5</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="DesktopGL\**" />
+    <EmbeddedResource Remove="DesktopGL\**" />
+    <None Remove="DesktopGL\**" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Remove="GameUI\Models\StoreMenu.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -239,8 +244,9 @@
       <HintPath>G:\Windows\Microsoft.NET\assembly\GAC_32\Microsoft.Xna.Framework.Xact\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Xact.dll</HintPath>
     </Reference>
     <Reference Include="MonoGame.Framework">
-      <HintPath>bin\Debug\netcoreapp3.1\MonoGame.Framework.dll</HintPath>
+      <HintPath>bin\Debug\netcoreapp5.0\MonoGame.Framework.dll</HintPath>
     </Reference>
+   
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
