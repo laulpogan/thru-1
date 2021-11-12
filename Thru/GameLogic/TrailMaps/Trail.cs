@@ -43,7 +43,7 @@ namespace Thru
 			Name = name;
 			Texture = texture;
 			//Characters = Characters;
-			sprite = new AnimatedSprite(texture, 2, 2);
+			sprite = new AnimatedSprite(texture, 2, 2, Color.White);
 			Location1 = node1;
 			Location2 = node2;
 			Value = value;

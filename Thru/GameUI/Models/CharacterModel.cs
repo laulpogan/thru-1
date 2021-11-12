@@ -15,7 +15,8 @@ namespace Thru
         public string ID;
         public string effectedStat;
         public int effect;
-        public AnimatedSprite spriteModel;
+        public AnimatedSprite spriteBody, spriteEyes, spriteHair, spriteShirt, spritePants, spriteShoes;
+        public Color bodyColor, eyeColor, hairColor, shirtColor, pantsColor, shoeColor;
         private ContentManager Content;
         public SpriteBatch spriteBatch;
         public Vector2 ScreenXY;
@@ -26,19 +27,49 @@ namespace Thru
 {
             spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
             Content = new ContentManager(services, "Content");
-            Texture2D spriteSheet = Content.Load<Texture2D>("CharacterModels/body-tone-1");
-            spriteModel = new AnimatedSprite(spriteSheet, 1, 2);
+            //work your way down the body from the top
+            Texture2D body = Content.Load<Texture2D>("CharacterModels/body-tone-1");
+            Texture2D hair = Content.Load<Texture2D>("CharacterModels/hair-orange");
+            Texture2D eyes = Content.Load<Texture2D>("CharacterModels/eyes-white");
+            Texture2D shirt = Content.Load<Texture2D>("ItemModels/shirt-blue");
+            Texture2D pants = Content.Load<Texture2D>("ItemModels/pants-olive");
+            Texture2D shoes = Content.Load<Texture2D>("ItemModels/shoes-green");
+
+
+            spriteBody = new AnimatedSprite(body, 1, 2, bodyColor);
+            spriteHair = new AnimatedSprite(hair, 1, 2, hairColor);
+            spriteEyes = new AnimatedSprite(eyes, 1, 2, eyeColor);
+            spriteShirt = new AnimatedSprite(shirt, 1, 2, shirtColor);
+            spritePants = new AnimatedSprite(pants, 1, 2, pantsColor);
+            spriteShoes = new AnimatedSprite(shoes, 1, 2, shoeColor);
+
             ScreenXY = new Vector2(x, y);
         }
 
         public void Update(GameTime gameTime)
         {
-            spriteModel.Update(gameTime);
+            spriteBody.Color = bodyColor;
+            spriteBody.Update(gameTime);
+            spriteHair.Color = hairColor;
+            spriteHair.Update(gameTime);
+            spriteEyes.Color = eyeColor;
+            spriteEyes.Update(gameTime);
+            spriteShirt.Color = shirtColor;
+            spriteShirt.Update(gameTime);
+            spritePants.Color = pantsColor;
+            spritePants.Update(gameTime);
+            spriteShoes.Color = shoeColor;
+            spriteShoes.Update(gameTime);
         }
         public void Draw(GraphicsDeviceManager graphics)
         {
             spriteBatch.Begin();
-            spriteModel.Draw(spriteBatch, ScreenXY, 1f);
+            spriteBody.Draw(spriteBatch, ScreenXY, 1f);
+            spriteHair.Draw(spriteBatch, ScreenXY, 1f);
+            spriteEyes.Draw(spriteBatch, ScreenXY, 1f);
+            spriteShirt.Draw(spriteBatch, ScreenXY, 1f);
+            spritePants.Draw(spriteBatch, ScreenXY, 1f);
+            spriteShoes.Draw(spriteBatch, ScreenXY, 1f);
             spriteBatch.End();
 
         }

@@ -6,6 +6,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using System.Linq;
+using XColor = Microsoft.Xna.Framework.Color;
+using CColor = System.Drawing.Color;
+using KColor = System.Drawing.KnownColor;
 
 namespace Thru {
 	public static class ThruLib
@@ -45,7 +48,33 @@ namespace Thru {
 				y <= ty + tex.Height);
 		}
 		
+		public static XColor colorFromString(string color)
+        {
+			CColor clrColor = CColor.FromName(color);
+			XColor xColor = XNAColor(clrColor);
+			return xColor;
+		}
 
+		public static XColor fromKColor(KColor color)
+        {
+			return colorFromString(color.ToString());
+        }
+		public static XColor[] allColors()
+		{
+			KColor[] colors = (KColor[])Enum.GetValues(typeof(KColor));
+			XColor[] XNAcolors = new XColor[colors.Length];
+			for (int i = 0; i < colors.Length; i++)
+            {
+				XNAcolors[i] = fromKColor(colors[i]);
+            }
+
+			return XNAcolors; 
+		}
+
+		public static XColor XNAColor(CColor color)
+		{
+			return new XColor(color.R, color.G, color.B, color.A);
+}
 	}
 
 

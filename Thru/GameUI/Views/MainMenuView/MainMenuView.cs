@@ -35,7 +35,7 @@ namespace Thru
 			buttonGroup = new ButtonGroup(buttonList, new Vector2(100,100));
 
 			spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
-			background = new AnimatedSprite(Content.Load<Texture2D>("thru-switch-sheet"), 2, 2);
+			background = new AnimatedSprite(Content.Load<Texture2D>("thru-switch-sheet"), 2, 2, Color.White);
 
 
 

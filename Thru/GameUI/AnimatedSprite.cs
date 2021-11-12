@@ -30,10 +30,12 @@ namespace Thru
         private int totalFrames;
         int timeSinceLastFrame = 0;
         int millisecondsPerFrame = 500;
+        public Color Color;
 
-        public AnimatedSprite(Texture2D texture, int rows, int columns)
+        public AnimatedSprite(Texture2D texture, int rows, int columns, Color color)
         {
             Texture = texture;
+            Color = color;
             Rows = rows;
             Columns = columns;
             currentFrame = 0;
@@ -65,7 +67,7 @@ namespace Thru
             Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
             Rectangle destinationRectangle = new Rectangle((int)location.X, (int)location.Y, width, height);
 
-            spriteBatch.Draw(Texture,location, sourceRectangle, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+            spriteBatch.Draw(Texture,location, sourceRectangle, Color, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
         }
     }
 }

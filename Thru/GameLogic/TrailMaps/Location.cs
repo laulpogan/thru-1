@@ -36,7 +36,7 @@ namespace Thru
 			Name = name;
 			Coords = coords;
 			Trails = edges;
-			sprite = new AnimatedSprite(texture, 2, 2);
+			sprite = new AnimatedSprite(texture, 2, 2, Color.White);
 			Tags = new Tags[1];
 		}
 

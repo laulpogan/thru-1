@@ -4,7 +4,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
-
+using System.Linq;
+using System.Reflection;
+using XColor = Microsoft.Xna.Framework.Color;
+using CColor = System.Drawing.Color;
 
 namespace Thru
 {
@@ -17,12 +20,15 @@ namespace Thru
 		public MapMenu mapMenu;
 		public ButtonGroup buttonGroup;
 		public SpriteBatch spriteBatch, hudBatch;
-		public Camera cam;
 		public GraphicsDeviceManager Graphics;
 		public CharacterBuilder characterBuilder;
+		public CharacterModel characterModel;
 		public Vector2 Coords;
+		public Color[] Colors;
+		public int x;
 
-		public CharacterCreationView(IServiceProvider services, int width, int height, GraphicsDeviceManager graphics)
+
+        public CharacterCreationView(IServiceProvider services, int width, int height, GraphicsDeviceManager graphics)
 		{
 			Graphics = graphics;
 			Content = new ContentManager(services, "Content");
@@ -31,7 +37,7 @@ namespace Thru
 			characterBuilder = new CharacterBuilder(services, graphics, null);
 			buttonImage = Content.Load<Texture2D>("longbutton");
 			shuffleButton = new Button(buttonImage, "Shuffle", Content.Load<SpriteFont>("Score"));
-			menuButton = new Button(buttonImage, "Menu", Content.Load<SpriteFont>("Score"));
+			menuButton = new Button(buttonImage, "Main Menu", Content.Load<SpriteFont>("Score"));
 			shuffleButton.stateMachineState = State.CharacterCreation;
 			menuButton.stateMachineState = State.Menu;
 			ArrayList buttons = new ArrayList();
@@ -39,13 +45,25 @@ namespace Thru
 			buttons.Add(menuButton);
 			Coords = new Vector2(100, 100);
 			buttonGroup = new ButtonGroup(buttons, Coords);
-
-		}
+			characterModel  = new CharacterModel(services, graphics, 600, 400);
+			Colors = ThruLib.allColors();
+			x =0 ;
+	}
 
 
 		public State Update(GameTime gameTime)
 		{
 			buttonGroup.Update(gameTime);
+			if( x% 12 == 0)
+				Shuffle();
+
+			x++;
+			if (shuffleButton.State == BState.JUST_RELEASED)
+            {
+				Shuffle();
+            }
+			characterModel.Update(gameTime);
+
 			foreach (Button button in buttonGroup.ButtonList)
 			{
 				if (button.State == BState.JUST_RELEASED)
@@ -61,6 +79,7 @@ namespace Thru
 		{
 			spriteBatch.Begin();
 			buttonGroup.Draw(spriteBatch);
+			characterModel.Draw(_graphics);
 			spriteBatch.End();
 			/*hudBatch.Begin();
 			hudBatch.End();*/
@@ -68,5 +87,16 @@ namespace Thru
 
 		}
 
+		public void Shuffle()
+		{
+			Random rand = new Random();
+			characterModel.bodyColor = Colors[rand.Next(0, Colors.Length)];
+			characterModel.hairColor = Colors[rand.Next(0, Colors.Length)];
+			characterModel.eyeColor = Colors[rand.Next(0, Colors.Length)];
+			characterModel.shirtColor = Colors[rand.Next(0, Colors.Length)];
+			characterModel.pantsColor = Colors[rand.Next(0, Colors.Length)];
+			characterModel.shoeColor = Colors[rand.Next(0, Colors.Length)];
+			Console.WriteLine(characterModel.hairColor);
+		}
 	}
 }
