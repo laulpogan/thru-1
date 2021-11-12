@@ -6,8 +6,6 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using System.Linq;
 using System.Reflection;
-using XColor = Microsoft.Xna.Framework.Color;
-using CColor = System.Drawing.Color;
 
 namespace Thru
 {
@@ -54,7 +52,7 @@ namespace Thru
 		public State Update(GameTime gameTime)
 		{
 			buttonGroup.Update(gameTime);
-			if( x% 12 == 0)
+			if( x% 2 == 0)
 				Shuffle();
 
 			x++;
@@ -90,13 +88,18 @@ namespace Thru
 		public void Shuffle()
 		{
 			Random rand = new Random();
-			characterModel.bodyColor = Colors[rand.Next(0, Colors.Length)];
-			characterModel.hairColor = Colors[rand.Next(0, Colors.Length)];
-			characterModel.eyeColor = Colors[rand.Next(0, Colors.Length)];
-			characterModel.shirtColor = Colors[rand.Next(0, Colors.Length)];
-			characterModel.pantsColor = Colors[rand.Next(0, Colors.Length)];
-			characterModel.shoeColor = Colors[rand.Next(0, Colors.Length)];
-			Console.WriteLine(characterModel.hairColor);
+/*characterModel.bodyColor = Colors[rand.Next(0, Colors.Length)];
+characterModel.hairColor = Colors[rand.Next(0, Colors.Length)];
+characterModel.eyeColor = Colors[rand.Next(0, Colors.Length)];
+characterModel.shirtColor = Colors[rand.Next(0, Colors.Length)];
+characterModel.pantsColor = Colors[rand.Next(0, Colors.Length)];
+characterModel.shoeColor = Colors[rand.Next(0, Colors.Length)];*/
+            characterModel.bodyColor = new Color(rand.Next(0,255), rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255));
+			characterModel.hairColor = new Color(rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255));
+			characterModel.eyeColor = new Color(rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255));
+			characterModel.shirtColor = new Color(rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255));
+			characterModel.pantsColor = new Color(rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255));
+			characterModel.shoeColor = new Color(rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255));
 		}
 	}
 }

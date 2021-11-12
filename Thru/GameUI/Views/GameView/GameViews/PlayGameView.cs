@@ -13,7 +13,7 @@ namespace Thru
 	{
 		public GraphicsDeviceManager Graphics;
 		public SpriteBatch spriteBatch, hudBatch;
-		public Texture2D background;
+		public BackgroundModel background;
 		public Encounter Encounter;
 		public HUD hud;
 		public DesignGrid grid;
@@ -31,7 +31,7 @@ namespace Thru
 			Content = new ContentManager(services, "Content");
 			Content.RootDirectory = "Content";
 			font = Content.Load<SpriteFont>("Score");
-			background = Content.Load<Texture2D>("Backgrounds/southern_terminus");
+			background = new BackgroundModel(services,graphics,0,0);
 			spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
 			hudBatch = new SpriteBatch(graphics.GraphicsDevice);
 			player = setupTestPlayer(services, graphics);
@@ -75,6 +75,7 @@ namespace Thru
 		{
 			Encounter.Update(gameTime);
 			hud.Update(gameTime);
+			background.Update(gameTime);
 			currentLocation = mapMenu.Update(gameTime);
 			if(currentLocation.Tags[0] == Tags.Town)
             {
@@ -96,7 +97,7 @@ namespace Thru
 		public void Draw(GraphicsDeviceManager _graphics)
 		{
 			spriteBatch.Begin();
-			spriteBatch.Draw(background, new Vector2(0, 0), Color.White);
+			background.Draw(_graphics);
 			Encounter.Draw(spriteBatch);
 			//grid.Draw(spriteBatch);
 			spriteBatch.End();

@@ -35,6 +35,13 @@ namespace Thru
             Texture2D pants = Content.Load<Texture2D>("ItemModels/pants-olive");
             Texture2D shoes = Content.Load<Texture2D>("ItemModels/shoes-green");
 
+            bodyColor = Color.White;
+            hairColor = Color.White;
+            eyeColor = Color.White;
+            shirtColor = Color.White;
+            pantsColor = Color.White;
+            shoeColor = Color.White;
+
 
             spriteBody = new AnimatedSprite(body, 1, 2, bodyColor);
             spriteHair = new AnimatedSprite(hair, 1, 2, hairColor);
