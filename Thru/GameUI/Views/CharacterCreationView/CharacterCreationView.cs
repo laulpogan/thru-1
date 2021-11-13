@@ -43,7 +43,7 @@ namespace Thru
 			buttons.Add(menuButton);
 			Coords = new Vector2(100, 100);
 			buttonGroup = new ButtonGroup(buttons, Coords);
-			characterModel  = new CharacterModel(services, graphics, 600, 400);
+			characterModel  = new CharacterModel(services, graphics, new Vector2(600, 400));
 			Colors = ThruLib.allColors();
 			x =0 ;
 	}

@@ -14,13 +14,13 @@ namespace Thru
 		public ArrayList Characters;
 		public ArrayList Trails;
 		public String Name;
-		public Vector2 Origin;
+		public Vector3 Origin;
 		public TrailMap(ArrayList locations, ArrayList trails, String name)
 		{
 			Locations = locations;
 			Trails = trails;
 			Name = name;
-			Origin = new Vector2(0,0);
+			Origin = new Vector3(0,0,0);
 		}
 
 		public void Update(GameTime gameTime)

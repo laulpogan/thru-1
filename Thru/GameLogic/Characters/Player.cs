@@ -17,8 +17,10 @@ namespace Thru
 		public DateTime Date;
 		public string locationID;
 		public string Perk;
-		public Location location;
+		public Location location, trailLocation;
 		public CharacterModel model;
+		public Vector3 MapCoords;
+		public Vector2 ScreenXY;
 		public enum Genders
         {
 			male,
@@ -36,12 +38,16 @@ namespace Thru
 			}
 			Name = name;
 			stats = new Stats();
-			model = new CharacterModel(services, graphics, 300,850);
+			ScreenXY = new Vector2(0,0);
+			model = new CharacterModel(services, graphics, ScreenXY);
 		}
 
 
 		
 		public State Update(GameTime gameTime) {
+			/*ScreenXY.X = trailLocation.Coords.X;
+			ScreenXY.Y = trailLocation.Coords.Y;*/
+			model.ScreenXY = ScreenXY;
 			model.Update(gameTime);
 			return State.MainSettings; }
 		public void Draw( GraphicsDeviceManager _graphics) {

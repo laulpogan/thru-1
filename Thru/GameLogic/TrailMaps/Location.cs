@@ -22,7 +22,9 @@ namespace Thru
 		[JsonProperty(PropertyName = "Trails")]
 		public ArrayList Trails;
 		[JsonProperty(PropertyName = "Coords")]
-		public Vector2 Coords;
+		public Vector3 Coords;
+		[JsonProperty(PropertyName = "CoordsXY")]
+		public Vector2 CoordsXY;
 		[JsonProperty(PropertyName = "Name")]
 		public string Name;
 		[JsonIgnore]
@@ -30,11 +32,12 @@ namespace Thru
 		[JsonProperty(PropertyName = "Description")]
 		public string Description { get; set; }
 		public Tags[] Tags;
-		public Location(String id, String name, ArrayList edges, Texture2D texture, Vector2 coords)
+		public Location(String id, String name, ArrayList edges, Texture2D texture, Vector3 coords)
 		{
 			ID = id;
 			Name = name;
 			Coords = coords;
+			CoordsXY = new Vector2(coords.X, coords.Y);
 			Trails = edges;
 			sprite = new AnimatedSprite(texture, 2, 2, Color.White);
 			Tags = new Tags[1];

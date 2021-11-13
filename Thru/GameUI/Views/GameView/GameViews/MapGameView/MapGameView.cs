@@ -4,14 +4,15 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
-
+using System.Collections.Generic;
 
 namespace Thru
 {
 	public class MapGameView : IGameView
 	{
-		public Location currentLocation;
-		public Location lastLocation;
+		public Location currentLocation, currentTrailLocation;
+		public Location lastLocation, lastTrailLocation;
+		public Location destinationTrailLocation;
 		public State State = State.Game;
 		public Button menuButton, mapButton;
 		public Texture2D buttonImage;
@@ -20,11 +21,15 @@ namespace Thru
 		public ButtonGroup buttonGroup;
 		MapDataHandler mapHandler;
 		public MapGameView mapView;
-		public TrailMap gameMap;
+		public TrailMap gameMap, TrailMap;
 		public SpriteBatch spriteBatch, hudBatch;
 		public Camera cam;
 		public GraphicsDeviceManager Graphics;
 		private SpriteFont font;
+		public Player Player;
+		int mileCounter;
+		int Value;
+		
 		public MapGameView( IServiceProvider services, int width, int height, GraphicsDeviceManager graphics)
 {
 			Graphics = graphics;
@@ -32,27 +37,79 @@ namespace Thru
 
 			mapHandler = new MapDataHandler(width, height, services);
 			gameMap = mapHandler.getGameMap();
-			
+			TrailMap = mapHandler.getTrailMap();
 			currentLocation = (Location)gameMap.Locations[0];
-			cam.Pos = currentLocation.Coords;
+			destinationTrailLocation = (Location)TrailMap.Locations[1];
+			currentTrailLocation = (Location)TrailMap.Locations[0];
+			cam.Pos = currentLocation.CoordsXY;
 
 			Content = new ContentManager(services, "Content");
 			font = Content.Load<SpriteFont>("Score");
 			mapMenu = new MapMenu(services, graphics, currentLocation, new Vector2(200,850));
+			List<Vector3> trailCoords = mapHandler.getTrailPoints();
+			//Player.MapCoords = trailCoords[0];
 			spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
 			hudBatch = new SpriteBatch(graphics.GraphicsDevice);
+			mileCounter = 0;
+			Value =3;
 
 		}
+
+
+
+		public Location chooseRoute()
+		{
+			var locs = Player.trailLocation.AdjacentLocationsWithWeight();
+			//choose where to go
+			foreach (Location loc in locs.Keys)
+			{
+				if (true)
+				{
+					Console.WriteLine(loc.Name);
+					Value = (int)locs[loc];
+					return loc;
+				}
+			}
+			return null;
+		}
+		public void step()
+        {
+				if (destinationTrailLocation.Coords.X > currentTrailLocation.Coords.X)
+					Player.ScreenXY.X += 1;
+				else if (destinationTrailLocation.Coords.X < currentTrailLocation.Coords.X)
+					Player.ScreenXY.X -= 1;
+				if (destinationTrailLocation.Coords.Y > currentTrailLocation.Coords.Y)
+					Player.ScreenXY.Y += 1;
+				else if (destinationTrailLocation.Coords.Y < currentTrailLocation.Coords.Y)
+					Player.ScreenXY.Y -= 1;
+        }
+
+
 		public  GameState Update(GameTime gameTime)
         {
+			
+
+            if (mileCounter > Value)
+            {
+				lastLocation = currentLocation;
+				lastTrailLocation = currentTrailLocation;
+				currentTrailLocation = destinationTrailLocation;
+				destinationTrailLocation = chooseRoute();
+				mileCounter = 0;
+			}
+			step();
+			
+			mileCounter++;
+			currentLocation = mapMenu.Update(gameTime);
+
 			mapHandler.Update(gameTime);
 			gameMap.Update(gameTime);
-			lastLocation = currentLocation;
-			currentLocation = mapMenu.Update(gameTime);
-			if( lastLocation != currentLocation)
+			Player.Update(gameTime);
+
+			if ( lastLocation != currentLocation)
             {
 				cam.ResetZoom();
-				cam.Pos = currentLocation.Coords;
+				cam.Pos = currentLocation.CoordsXY;
 			}
 			cam.UpdateCamera(Graphics.GraphicsDevice.Viewport);
 			GameState returnState = GameState.Map;
@@ -80,6 +137,7 @@ namespace Thru
 					cam.Transform);
 			mapHandler.Draw(spriteBatch);
 			gameMap.Draw(spriteBatch);
+			Player.Draw(_graphics);
 			spriteBatch.End();
 
 			hudBatch.Begin();

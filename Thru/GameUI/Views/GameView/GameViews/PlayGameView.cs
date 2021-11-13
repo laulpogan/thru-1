@@ -18,16 +18,17 @@ namespace Thru
 		public HUD hud;
 		public DesignGrid grid;
 		public Player player;
-		public Location currentLocation;
+		public Location currentLocation, TrailLocation;
 		private ContentManager Content;
 		private SpriteFont font;
 		public MapMenu mapMenu;
 
 
-		public PlayGameView(IServiceProvider services, GraphicsDeviceManager graphics, Location location)
+		public PlayGameView(IServiceProvider services, GraphicsDeviceManager graphics, Location location, Location trailLocation)
 {
 			Graphics = graphics;
 			currentLocation = location;
+			TrailLocation = trailLocation;
 			Content = new ContentManager(services, "Content");
 			Content.RootDirectory = "Content";
 			font = Content.Load<SpriteFont>("Score");

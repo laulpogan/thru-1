@@ -23,7 +23,7 @@ namespace Thru
 
 
 
-        public CharacterModel(IServiceProvider services, GraphicsDeviceManager graphics, int x, int y)
+        public CharacterModel(IServiceProvider services, GraphicsDeviceManager graphics,Vector2 screenXY)
 {
             spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
             Content = new ContentManager(services, "Content");
@@ -50,7 +50,7 @@ namespace Thru
             spritePants = new AnimatedSprite(pants, 1, 2, pantsColor);
             spriteShoes = new AnimatedSprite(shoes, 1, 2, shoeColor);
 
-            ScreenXY = new Vector2(x, y);
+            ScreenXY = screenXY;
         }
 
         public void Update(GameTime gameTime)

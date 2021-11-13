@@ -11,7 +11,7 @@ namespace Thru
 	{
 
 
-		public Location currentLocation;
+		public Location currentLocation, trailLocation;
 		public MapGameView mapView;
 		GameViewStateMachine stateMachine;
 		public GameTime gameTime;
@@ -20,8 +20,11 @@ namespace Thru
 		{
 			mapView = new MapGameView(services, clientWidth, clientHeight, graphics);
 			currentLocation = mapView.currentLocation;
-			playView = new PlayGameView(services, graphics, currentLocation);
+			trailLocation = mapView.currentTrailLocation;
+			playView = new PlayGameView(services, graphics, currentLocation, trailLocation);
+			mapView.Player = playView.player;
 			playView.player.location = currentLocation;
+			playView.player.trailLocation = trailLocation;
 			stateMachine = new GameViewStateMachine(services, graphics, mapView, playView);
 			stateMachine.currentState = GameState.Play;
 		}

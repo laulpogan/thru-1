@@ -39,12 +39,11 @@ namespace Thru
         TrailMap gameMap;
         public ContentManager Content;
         int ClientWidth, ClientHeight;
-        Trail tempEdge;
-        Location oldLoc, newLoc;
         Dictionary<string, double> p0;
         Dictionary<string, double> p1;
         int baseLat = 33, baseLng = -116;
         double radius = 6371;
+        Texture2D standardBackground;
         public MapDataHandler(int clientWidth, int clientHeight, IServiceProvider services)
         {
 
@@ -52,7 +51,7 @@ namespace Thru
 
             ClientWidth = clientWidth;
             ClientHeight = clientHeight;
-      
+            standardBackground = Content.Load<Texture2D>("Backgrounds/southern_terminus");
             List<FeatureCollection> mapDataTotal = new List<FeatureCollection>();
 
 // TODO config for map source data
@@ -71,10 +70,10 @@ namespace Thru
             allShapes = new List<List<VertexPositionColorTexture>>();
             gameMap = new TrailMap(new ArrayList(), new ArrayList(), "Game Map");
 
-            newLoc = new Location(null, null, null, null, new Vector2(0, 0));
-            oldLoc = new Location(null, null, null, null, new Vector2(0, 0));
+            Location newLoc = new Location(null, null, null, null, new Vector3(0, 0,0));
+            Location oldLoc;
             Random rand = new Random();
-            tempEdge = new Trail(null, null,0,  "", null);
+            Trail tempEdge = new Trail(null, null,0,  "", null);
 
             foreach (FeatureCollection mapDataIndividual in mapDataTotal)
                 {
@@ -95,7 +94,7 @@ namespace Thru
                                 newLoc = geojsonToLocation(feature);
                                 if (oldLoc.Trails != null)
                                 {
-                                    tempEdge = new Trail(oldLoc, newLoc, rand.Next(15), "test", Content.Load<Texture2D>("Backgrounds/southern_terminus"));
+                                tempEdge = new Trail(oldLoc, newLoc, rand.Next(15), "test", standardBackground);
                                     oldLoc.Trails.Add(tempEdge);
                                     newLoc.Trails.Add(tempEdge);
                                     gameMap.Trails.Add(tempEdge);
@@ -114,7 +113,7 @@ namespace Thru
             return gameMap;
         }
 
-        public Vector2 geoTypeParser(IGeometryObject geometry)
+        public Vector3 geoTypeParser(IGeometryObject geometry)
         {
             
             switch (geometry.Type)
@@ -163,7 +162,7 @@ namespace Thru
                     break;
             }
 
-            Vector2 returnVec = new Vector2(0, 0);
+            Vector3 returnVec = new Vector3(0,0,0);
             returnVec.X = vert[vert.Count-1].Position.X;
             returnVec.Y = vert[vert.Count-1].Position.Y * -1;
             
@@ -197,13 +196,13 @@ namespace Thru
             return returnPos;
         }
 
-        public Vector2 coordConvert(Vector2 coords)
+        public Vector3 coordConvert(Vector3 coords)
         {
            float lat = coords.X;
             float lng = coords.Y;
             float x = ClientWidth * floorCeil(lat, baseLat);
             float y = ClientHeight * floorCeil(lng, baseLng);
-            return new Vector2(x,y);
+            return new Vector3(x,y,coords.Z);
         }
 
         public float floorCeil(float measure, int baseMeasure){
@@ -228,9 +227,9 @@ namespace Thru
         {
 
             VertexPositionColorTexture tempVPT = new VertexPositionColorTexture();
-            Vector2 pos = new Vector2(0,0);
+            Vector3 pos = new Vector3(0,0,0);
             double altitude = coord.Altitude ?? 0;
-            pos = coordConvert(new Vector2((float)coord.Latitude,(float) coord.Longitude));
+            pos = coordConvert(new Vector3((float)coord.Latitude,(float) coord.Longitude, (float)(coord.Altitude ?? 0)));
             tempVPT.Position = new Vector3((float)pos.X, (float)pos.Y, (float)altitude);
             tempVPT.TextureCoordinate = new Vector2(0, 0);
             tempVPT.Color = Color.FloralWhite;
@@ -261,7 +260,51 @@ namespace Thru
         {
         }
 
-        public void Update(GameTime gameTime)
+        public List<Vector3> getTrailPoints()
+        {
+            List<Vector3> vectors = new List<Vector3>();
+            foreach (List<VertexPositionColorTexture> vertList in allShapes)
+            {
+                for (int i = vertList.Count - 1; i > 0; i--)
+                {
+                    vectors.Add(vertList[i].Position);
+                }
+            }
+            return vectors;
+        }
+
+        public TrailMap getTrailMap()
+        {
+
+            TrailMap trailMap = new TrailMap(new ArrayList(), new ArrayList(), "Trail Map"); ;
+            
+
+
+            Location newLoc = new Location(null, null, null, null, new Vector3(0,0, 0));
+            Location oldLoc;
+            Trail tempEdge = new Trail(null, null, 0, "", null);
+            foreach (Vector3 vec in getTrailPoints())
+            {
+
+                oldLoc = newLoc;
+                newLoc = new Location(vec.GetHashCode().ToString(), vec.GetHashCode().ToString(), new ArrayList(), standardBackground, (Vector3)vec);
+                if (oldLoc.Trails != null)
+                {
+                    float distance = Vector3.Distance(oldLoc.Coords, newLoc.Coords);
+                    Console.WriteLine(distance);
+                    tempEdge = new Trail(oldLoc, newLoc, distance, "test", Content.Load<Texture2D>("Backgrounds/southern_terminus"));
+                    oldLoc.Trails.Add(tempEdge);
+                    newLoc.Trails.Add(tempEdge);
+                    trailMap.Trails.Add(tempEdge);
+                }
+                trailMap.Locations.Add(newLoc);
+            }
+            return trailMap;
+        }
+
+
+
+public void Update(GameTime gameTime)
         {
 
            

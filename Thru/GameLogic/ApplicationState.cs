@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -19,9 +19,9 @@ namespace Thru
 		public PlayGameView playView;
 		public ApplicationState(int clientWidth, int clientHeight, IServiceProvider services, GraphicsDeviceManager graphics)
 		{
-			mapView = new MapGameView(services, clientWidth, clientHeight, graphics);
+			//mapView = new MapGameView(services, clientWidth, clientHeight, graphics);
 			currentLocation = mapView.currentLocation;
-			playView = new PlayGameView(services, graphics, currentLocation);
+			//playView = new PlayGameView(services, graphics, currentLocation);
 			playView.player.location = currentLocation;
 			stateMachine = new GameViewStateMachine(services, graphics, mapView, playView);
 			stateMachine.currentState = GameState.Play;
@@ -50,4 +50,4 @@ namespace Thru
 
 	}
 
-}
+}*/

@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -21,7 +21,7 @@ namespace Thru
 		public ArrayList localWeather;
 		public GlobalState(int clientWidth, int clientHeight, IServiceProvider services, GraphicsDeviceManager graphics)
 		{
-			mapView = new MapGameView(services, clientWidth, clientHeight, graphics);
+			//mapView = new MapGameView(services, clientWidth, clientHeight, graphics);
 			currentLocation = mapView.currentLocation;
 			playView = new PlayGameView(services, graphics, currentLocation);
 			playView.player.location = currentLocation;
@@ -52,4 +52,4 @@ namespace Thru
 
 	}
 
-}
+}*/
