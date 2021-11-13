@@ -30,6 +30,7 @@ namespace Thru
 		int mileCounter;
 		int Value;
 		public ArrayList Visited;
+		Queue<Vector3> vertList;
 		
 		public MapGameView( IServiceProvider services, int width, int height, GraphicsDeviceManager graphics, Player player)
 {
@@ -41,11 +42,13 @@ namespace Thru
 			gameMap = mapHandler.getGameMap();
 			//todo: getTrailMap is FUBAR right now. Need to fix so our boi has a path
 			TrailMap = mapHandler.getGameMap();
+			vertList = mapHandler.getTrailPoints();
 			currentLocation = (Location)gameMap.Locations[0];
             currentTrailLocation = (Location)TrailMap.Locations[0];
 			
 			Player.Location = currentLocation;
 			Player.TrailLocation = currentTrailLocation;
+			
 			destinationTrailLocation = chooseRoute();
 			Visited.Add(currentTrailLocation.ID);
 			cam.Pos = currentLocation.CoordsXY;
@@ -53,7 +56,7 @@ namespace Thru
 			Content = new ContentManager(services, "Content");
 			font = Content.Load<SpriteFont>("Score");
 			mapMenu = new MapMenu(services, graphics, currentLocation, new Vector2(200,850));
-			List<Vector3> trailCoords = mapHandler.getTrailPoints();
+			Queue<Vector3> trailCoords = mapHandler.getTrailPoints();
 			//Player.MapCoords = trailCoords[0];
 			spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
 			hudBatch = new SpriteBatch(graphics.GraphicsDevice);
@@ -66,6 +69,9 @@ namespace Thru
 
 		public Location chooseRoute()
 		{
+
+			
+			//Player.ScreenXY = ;
 			var locs = Player.TrailLocation.AdjacentLocationsWithWeight();
 			//choose where to go
 			Console.WriteLine($"Number of Adjacent Locations: {locs.Count}");
@@ -73,8 +79,9 @@ namespace Thru
 			{
 				if (lastTrailLocation is null || (loc.ID != lastTrailLocation.ID && !Visited.Contains(loc.ID)))
 				{
-					Console.WriteLine($"Current Location: {currentTrailLocation.Name}\nDestination:{loc.Name}");
+					Console.WriteLine($"Current Location: {currentTrailLocation.Coords}\nDestination:{loc.Coords}");
 					Value = (int)locs[loc];
+					//loc.Coords = vertList.Dequeue();
 					return loc;
 				}
 			}
@@ -82,15 +89,26 @@ namespace Thru
 		}
 		public void step()
         {
-				if (destinationTrailLocation.Coords.X > currentTrailLocation.Coords.X)
-					Player.ScreenXY.X += 1;
-				else if (destinationTrailLocation.Coords.X < currentTrailLocation.Coords.X)
-					Player.ScreenXY.X -= 1;
-				if (destinationTrailLocation.Coords.Y > currentTrailLocation.Coords.Y)
-					Player.ScreenXY.Y += 1;
-				else if (destinationTrailLocation.Coords.Y < currentTrailLocation.Coords.Y)
-					Player.ScreenXY.Y -= 1;
-        }
+
+			var tempVec = vertList.Dequeue();
+			Player.ScreenXY = new Vector2(tempVec.X, tempVec.Y);
+			/*if (destinationTrailLocation.Coords.X > currentTrailLocation.Coords.X)
+				Player.ScreenXY.X += 1;
+			else if (destinationTrailLocation.Coords.X < currentTrailLocation.Coords.X)
+				Player.ScreenXY.X -= 1;
+			if (destinationTrailLocation.Coords.Y > currentTrailLocation.Coords.Y)
+				Player.ScreenXY.Y += 1;
+			else if (destinationTrailLocation.Coords.Y < currentTrailLocation.Coords.Y)
+				Player.ScreenXY.Y -= 1;
+		if (destinationTrailLocation.Coords == currentTrailLocation.Coords)
+		{
+			Console.WriteLine("Huzzah, inflection point at " + currentTrailLocation.Coords);
+			lastTrailLocation = currentTrailLocation;
+			currentTrailLocation = destinationTrailLocation;
+			destinationTrailLocation = chooseRoute();
+		}*/
+
+		}
 
 
 		public  GameState Update(GameTime gameTime)
@@ -98,7 +116,7 @@ namespace Thru
 			
 		   if(destinationTrailLocation is not null)
             {
-				if (mileCounter > Value)
+				/*if (mileCounter > Value)
 				{
 					lastLocation = currentLocation;
 					lastTrailLocation = currentTrailLocation;
@@ -106,7 +124,7 @@ namespace Thru
 					Visited.Add(currentTrailLocation.ID);
 					destinationTrailLocation = chooseRoute();
 					mileCounter = 0;
-				}
+				}*/
 				step();
 
 				mileCounter++;

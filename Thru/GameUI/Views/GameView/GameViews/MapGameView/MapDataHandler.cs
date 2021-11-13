@@ -262,16 +262,18 @@ namespace Thru
         {
         }
 
-        public List<Vector3> getTrailPoints()
+         
+
+        public Queue<Vector3> getTrailPoints()
         {
-            List<Vector3> vectors = new List<Vector3>();
+            Queue<Vector3> vectors = new Queue<Vector3>();
             foreach (List<VertexPositionColorTexture> vertList in allShapes)
             {
                 for (int i = vertList.Count - 1; i > 0; i--)
                 {
                     var newVec = vertList[i].Position;
                     newVec.Y *= -1;
-                    vectors.Add(newVec);
+                    vectors.Enqueue(newVec);
                 }
             }
             return vectors;
