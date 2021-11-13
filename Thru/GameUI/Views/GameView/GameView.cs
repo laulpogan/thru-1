@@ -16,15 +16,16 @@ namespace Thru
 		GameViewStateMachine stateMachine;
 		public GameTime gameTime;
 		public PlayGameView playView;
+		public Player Player;
 		public GameView(int clientWidth, int clientHeight, IServiceProvider services, GraphicsDeviceManager graphics)
 		{
-			mapView = new MapGameView(services, clientWidth, clientHeight, graphics);
+
+			Player = PlayGameView.setupTestPlayer(services,graphics);
+			mapView = new MapGameView(services, clientWidth, clientHeight, graphics, Player);
 			currentLocation = mapView.currentLocation;
 			trailLocation = mapView.currentTrailLocation;
-			playView = new PlayGameView(services, graphics, currentLocation, trailLocation);
-			mapView.Player = playView.player;
-			playView.player.location = currentLocation;
-			playView.player.trailLocation = trailLocation;
+			
+			playView = new PlayGameView(services, graphics, currentLocation, trailLocation, Player);
 			stateMachine = new GameViewStateMachine(services, graphics, mapView, playView);
 			stateMachine.currentState = GameState.Play;
 		}
@@ -36,7 +37,9 @@ namespace Thru
 
 			currentLocation = mapView.currentLocation;
 			playView.currentLocation = currentLocation;
-			playView.player.location = currentLocation;
+			trailLocation = mapView.currentTrailLocation;
+			Player.Location = currentLocation;
+			Player.TrailLocation = trailLocation;
 			stateMachine.Update(gameTime);
 
 

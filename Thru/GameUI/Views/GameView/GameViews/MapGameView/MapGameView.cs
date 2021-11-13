@@ -29,18 +29,25 @@ namespace Thru
 		public Player Player;
 		int mileCounter;
 		int Value;
+		public ArrayList Visited;
 		
-		public MapGameView( IServiceProvider services, int width, int height, GraphicsDeviceManager graphics)
+		public MapGameView( IServiceProvider services, int width, int height, GraphicsDeviceManager graphics, Player player)
 {
 			Graphics = graphics;
 			cam = new Camera(graphics.GraphicsDevice.Viewport);
-
+			Player = player;
+			Visited = new ArrayList();
 			mapHandler = new MapDataHandler(width, height, services);
 			gameMap = mapHandler.getGameMap();
-			TrailMap = mapHandler.getTrailMap();
+			//todo: getTrailMap is FUBAR right now. Need to fix so our boi has a path
+			TrailMap = mapHandler.getGameMap();
 			currentLocation = (Location)gameMap.Locations[0];
-			destinationTrailLocation = (Location)TrailMap.Locations[1];
-			currentTrailLocation = (Location)TrailMap.Locations[0];
+            currentTrailLocation = (Location)TrailMap.Locations[0];
+			
+			Player.Location = currentLocation;
+			Player.TrailLocation = currentTrailLocation;
+			destinationTrailLocation = chooseRoute();
+			Visited.Add(currentTrailLocation.ID);
 			cam.Pos = currentLocation.CoordsXY;
 
 			Content = new ContentManager(services, "Content");
@@ -59,13 +66,14 @@ namespace Thru
 
 		public Location chooseRoute()
 		{
-			var locs = Player.trailLocation.AdjacentLocationsWithWeight();
+			var locs = Player.TrailLocation.AdjacentLocationsWithWeight();
 			//choose where to go
+			Console.WriteLine($"Number of Adjacent Locations: {locs.Count}");
 			foreach (Location loc in locs.Keys)
 			{
-				if (true)
+				if (lastTrailLocation is null || (loc.ID != lastTrailLocation.ID && !Visited.Contains(loc.ID)))
 				{
-					Console.WriteLine(loc.Name);
+					Console.WriteLine($"Current Location: {currentTrailLocation.Name}\nDestination:{loc.Name}");
 					Value = (int)locs[loc];
 					return loc;
 				}
@@ -88,24 +96,28 @@ namespace Thru
 		public  GameState Update(GameTime gameTime)
         {
 			
-
-            if (mileCounter > Value)
+		   if(destinationTrailLocation is not null)
             {
-				lastLocation = currentLocation;
-				lastTrailLocation = currentTrailLocation;
-				currentTrailLocation = destinationTrailLocation;
-				destinationTrailLocation = chooseRoute();
-				mileCounter = 0;
+				if (mileCounter > Value)
+				{
+					lastLocation = currentLocation;
+					lastTrailLocation = currentTrailLocation;
+					currentTrailLocation = destinationTrailLocation;
+					Visited.Add(currentTrailLocation.ID);
+					destinationTrailLocation = chooseRoute();
+					mileCounter = 0;
+				}
+				step();
+
+				mileCounter++;
 			}
-			step();
-			
-			mileCounter++;
+           
 			currentLocation = mapMenu.Update(gameTime);
 
 			mapHandler.Update(gameTime);
 			gameMap.Update(gameTime);
 			Player.Update(gameTime);
-
+			destinationTrailLocation = mapMenu.Update(gameTime);
 			if ( lastLocation != currentLocation)
             {
 				cam.ResetZoom();
@@ -137,7 +149,7 @@ namespace Thru
 					cam.Transform);
 			mapHandler.Draw(spriteBatch);
 			gameMap.Draw(spriteBatch);
-			Player.Draw(_graphics);
+			Player.Draw(spriteBatch);
 			spriteBatch.End();
 
 			hudBatch.Begin();

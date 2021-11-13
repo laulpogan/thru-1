@@ -72,9 +72,8 @@ namespace Thru
 
             Location newLoc = new Location(null, null, null, null, new Vector3(0, 0,0));
             Location oldLoc;
-            Random rand = new Random();
             Trail tempEdge = new Trail(null, null,0,  "", null);
-
+            float distance;
             foreach (FeatureCollection mapDataIndividual in mapDataTotal)
                 {
                     Console.WriteLine("vertices list size: " + vert.Count);
@@ -87,6 +86,7 @@ namespace Thru
                         //only waypoints have names in geoJSON
                         if (feature.Properties.ContainsKey("name") && feature.Properties.ContainsKey("sym"))
                         {
+
                         string symbol = feature.Properties["sym"].ToString();
                             if (String.Equals(symbol, "Campground") || String.Equals(symbol, "Flag, Blue") || String.Equals(symbol, "Post Office"))
                             {
@@ -94,7 +94,9 @@ namespace Thru
                                 newLoc = geojsonToLocation(feature);
                                 if (oldLoc.Trails != null)
                                 {
-                                tempEdge = new Trail(oldLoc, newLoc, rand.Next(15), "test", standardBackground);
+                                distance = Vector3.Distance(oldLoc.Coords, newLoc.Coords);
+
+                                tempEdge = new Trail(oldLoc, newLoc, distance, "test", standardBackground);
                                     oldLoc.Trails.Add(tempEdge);
                                     newLoc.Trails.Add(tempEdge);
                                     gameMap.Trails.Add(tempEdge);
@@ -267,7 +269,9 @@ namespace Thru
             {
                 for (int i = vertList.Count - 1; i > 0; i--)
                 {
-                    vectors.Add(vertList[i].Position);
+                    var newVec = vertList[i].Position;
+                    newVec.Y *= -1;
+                    vectors.Add(newVec);
                 }
             }
             return vectors;
@@ -281,17 +285,16 @@ namespace Thru
 
 
             Location newLoc = new Location(null, null, null, null, new Vector3(0,0, 0));
-            Location oldLoc;
+            Location oldLoc = new Location(null, null, null, null, new Vector3(0, 0, 0)) ;
             Trail tempEdge = new Trail(null, null, 0, "", null);
             foreach (Vector3 vec in getTrailPoints())
             {
 
                 oldLoc = newLoc;
-                newLoc = new Location(vec.GetHashCode().ToString(), vec.GetHashCode().ToString(), new ArrayList(), standardBackground, (Vector3)vec);
+                newLoc = new Location(vec.GetHashCode().ToString(), vec.GetHashCode().ToString(), new ArrayList(), standardBackground,vec);
                 if (oldLoc.Trails != null)
                 {
                     float distance = Vector3.Distance(oldLoc.Coords, newLoc.Coords);
-                    Console.WriteLine(distance);
                     tempEdge = new Trail(oldLoc, newLoc, distance, "test", Content.Load<Texture2D>("Backgrounds/southern_terminus"));
                     oldLoc.Trails.Add(tempEdge);
                     newLoc.Trails.Add(tempEdge);

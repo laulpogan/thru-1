@@ -17,14 +17,14 @@ namespace Thru
 		public Encounter Encounter;
 		public HUD hud;
 		public DesignGrid grid;
-		public Player player;
+		public Player Player;
 		public Location currentLocation, TrailLocation;
 		private ContentManager Content;
 		private SpriteFont font;
 		public MapMenu mapMenu;
 
 
-		public PlayGameView(IServiceProvider services, GraphicsDeviceManager graphics, Location location, Location trailLocation)
+		public PlayGameView(IServiceProvider services, GraphicsDeviceManager graphics, Location location, Location trailLocation, Player player )
 {
 			Graphics = graphics;
 			currentLocation = location;
@@ -35,17 +35,17 @@ namespace Thru
 			background = new BackgroundModel(services,graphics,0,0);
 			spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
 			hudBatch = new SpriteBatch(graphics.GraphicsDevice);
-			player = setupTestPlayer(services, graphics);
+			Player = player;
 			Encounter = setupTestEncounter(services, graphics);
-			hud = new HUD(services, graphics, player);
-			mapMenu = new MapMenu(services, graphics, currentLocation, new Vector2(250, 850), player);
+			hud = new HUD(services, graphics, Player);
+			mapMenu = new MapMenu(services, graphics, currentLocation, new Vector2(250, 850), Player);
 			grid = new DesignGrid(services, graphics);
 
 		}
 
-		public Player setupTestPlayer(IServiceProvider services, GraphicsDeviceManager graphics)
+		public  static Player  setupTestPlayer(IServiceProvider services, GraphicsDeviceManager graphics)
         {
-			CharacterBuilder CharacterBuilder = new CharacterBuilder(services, graphics, currentLocation);
+			CharacterBuilder CharacterBuilder = new CharacterBuilder(services, graphics);
 			return  CharacterBuilder.createCharacter();
 		}
 		public Encounter setupTestEncounter(IServiceProvider services, GraphicsDeviceManager graphics)
@@ -68,7 +68,7 @@ namespace Thru
 
 
 
-			return new Encounter(player, data, null, services, graphics);
+			return new Encounter(Player, data, null, services, graphics);
 
 		}
 
@@ -89,10 +89,10 @@ namespace Thru
 				returnState = GameState.Map;
 			if (hud.snackButton.State == BState.JUST_RELEASED)
             {
-				player.stats.Energy += 5;
-				player.stats.Snacks = player.stats.Snacks - 1;
+				Player.stats.Energy += 5;
+				Player.stats.Snacks = Player.stats.Snacks - 1;
 			}
-			player.Update(gameTime);	
+			Player.Update(gameTime);	
 			return returnState;
 		}
 		public void Draw(GraphicsDeviceManager _graphics)
@@ -101,9 +101,9 @@ namespace Thru
 			background.Draw(_graphics);
 			Encounter.Draw(spriteBatch);
 			//grid.Draw(spriteBatch);
+			Player.Draw(spriteBatch);
 			spriteBatch.End();
 
-			player.Draw(_graphics);
 
 
 			hudBatch.Begin();

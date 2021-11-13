@@ -13,7 +13,7 @@ namespace Thru
 		{
 		}
 		public State Update(GameTime gameTime) { return State.MainSettings; }
-		public void Draw( GraphicsDeviceManager _graphics) { }
+		public void Draw( SpriteBatch spriteBatch) { }
 	}
 }
 

@@ -18,14 +18,12 @@ namespace Thru
         public AnimatedSprite spriteBody, spriteEyes, spriteHair, spriteShirt, spritePants, spriteShoes;
         public Color bodyColor, eyeColor, hairColor, shirtColor, pantsColor, shoeColor;
         private ContentManager Content;
-        public SpriteBatch spriteBatch;
         public Vector2 ScreenXY;
 
 
 
         public CharacterModel(IServiceProvider services, GraphicsDeviceManager graphics,Vector2 screenXY)
 {
-            spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
             Content = new ContentManager(services, "Content");
             //work your way down the body from the top
             Texture2D body = Content.Load<Texture2D>("CharacterModels/body-tone-1");
@@ -68,16 +66,14 @@ namespace Thru
             spriteShoes.Color = shoeColor;
             spriteShoes.Update(gameTime);
         }
-        public void Draw(GraphicsDeviceManager graphics)
+        public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin();
-            spriteBody.Draw(spriteBatch, ScreenXY, 1f);
-            spriteHair.Draw(spriteBatch, ScreenXY, 1f);
-            spriteEyes.Draw(spriteBatch, ScreenXY, 1f);
-            spriteShirt.Draw(spriteBatch, ScreenXY, 1f);
-            spritePants.Draw(spriteBatch, ScreenXY, 1f);
-            spriteShoes.Draw(spriteBatch, ScreenXY, 1f);
-            spriteBatch.End();
+            spriteBody.Draw(spriteBatch, ScreenXY, .1f);
+            spriteHair.Draw(spriteBatch, ScreenXY, .1f);
+            spriteEyes.Draw(spriteBatch, ScreenXY, .1f);
+            spriteShirt.Draw(spriteBatch, ScreenXY, .1f);
+            spritePants.Draw(spriteBatch, ScreenXY, .1f);
+            spriteShoes.Draw(spriteBatch, ScreenXY, .1f);
 
         }
 

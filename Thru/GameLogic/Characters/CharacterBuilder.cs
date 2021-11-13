@@ -22,14 +22,13 @@ namespace Thru
 		public Location Location;
 		IServiceProvider Services;
 		GraphicsDeviceManager Graphics;
-		public CharacterBuilder(IServiceProvider services, GraphicsDeviceManager graphics, Location location)
+		public CharacterBuilder(IServiceProvider services, GraphicsDeviceManager graphics)
         {
 			
 			// TODO config file or relative path
 			IOController = new IOController(services, "Content\\DataLists\\first_name_list.json");
 			var jsonText = IOController.deserializeFromFile<FirstName>();
 			nameDict = jsonText;
-			Location = location;
 			Services = services;
 			Graphics = graphics;
 			Player boo = createCharacter();
@@ -45,7 +44,7 @@ namespace Thru
 			Random rand = new Random();
 
 			List<string> names = new List<string>(nameDict.Keys);
-			Player character = new Player(Services, Graphics, names[rand.Next(names.Count)], Location);
+			Player character = new Player(Services, Graphics, names[rand.Next(names.Count)]);
 			Console.WriteLine(character.Name);
 
 			if (nameDict[character.Name].most_likely == "male")
