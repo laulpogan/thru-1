@@ -19,7 +19,7 @@ namespace Thru
 		public ContentManager Content;
 		public MapMenu mapMenu;
 		public ButtonGroup buttonGroup;
-		MapDataHandler mapHandler;
+		MapDataHandler trailOutline, mapOutline;
 		public MapGameView mapView;
 		public TrailMap gameMap, TrailMap;
 		public SpriteBatch spriteBatch, hudBatch;
@@ -38,11 +38,12 @@ namespace Thru
 			cam = new Camera(graphics.GraphicsDevice.Viewport);
 			Player = player;
 			Visited = new ArrayList();
-			mapHandler = new MapDataHandler(width, height, services);
-			gameMap = mapHandler.getGameMap();
+			trailOutline = new MapDataHandler(width, height, services,   "Content\\DataLists\\pct_map", Color.Black);
+			mapOutline = new MapDataHandler(width, height, services, "Content\\DataLists\\world_map", Color.Red);
+			gameMap = trailOutline.getGameMap();
 			//todo: getTrailMap is FUBAR right now. Need to fix so our boi has a path
-			TrailMap = mapHandler.getGameMap();
-			vertList = mapHandler.getTrailPoints();
+			TrailMap = trailOutline.getGameMap();
+			vertList = trailOutline.getTrailPoints();
 			currentLocation = (Location)gameMap.Locations[0];
             currentTrailLocation = (Location)TrailMap.Locations[0];
 			
@@ -56,7 +57,7 @@ namespace Thru
 			Content = new ContentManager(services, "Content");
 			font = Content.Load<SpriteFont>("Score");
 			mapMenu = new MapMenu(services, graphics, currentLocation, new Vector2(200,850));
-			Queue<Vector3> trailCoords = mapHandler.getTrailPoints();
+			Queue<Vector3> trailCoords = trailOutline.getTrailPoints();
 			//Player.MapCoords = trailCoords[0];
 			spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
 			hudBatch = new SpriteBatch(graphics.GraphicsDevice);
@@ -92,23 +93,23 @@ namespace Thru
 
 			var tempVec = vertList.Dequeue();
 			Player.ScreenXY = new Vector2(tempVec.X, tempVec.Y);
-			/*if (destinationTrailLocation.Coords.X > currentTrailLocation.Coords.X)
-				Player.ScreenXY.X += 1;
-			else if (destinationTrailLocation.Coords.X < currentTrailLocation.Coords.X)
-				Player.ScreenXY.X -= 1;
-			if (destinationTrailLocation.Coords.Y > currentTrailLocation.Coords.Y)
-				Player.ScreenXY.Y += 1;
-			else if (destinationTrailLocation.Coords.Y < currentTrailLocation.Coords.Y)
-				Player.ScreenXY.Y -= 1;
-		if (destinationTrailLocation.Coords == currentTrailLocation.Coords)
-		{
-			Console.WriteLine("Huzzah, inflection point at " + currentTrailLocation.Coords);
-			lastTrailLocation = currentTrailLocation;
-			currentTrailLocation = destinationTrailLocation;
-			destinationTrailLocation = chooseRoute();
-		}*/
+         /*   if (destinationTrailLocation.Coords.X > currentTrailLocation.Coords.X)
+                Player.ScreenXY.X += 1;
+            else if (destinationTrailLocation.Coords.X < currentTrailLocation.Coords.X)
+                Player.ScreenXY.X -= 1;
+            if (destinationTrailLocation.Coords.Y > currentTrailLocation.Coords.Y)
+                Player.ScreenXY.Y += 1;
+            else if (destinationTrailLocation.Coords.Y < currentTrailLocation.Coords.Y)
+                Player.ScreenXY.Y -= 1;*/
+            if (destinationTrailLocation.Coords == currentTrailLocation.Coords)
+            {
+                Console.WriteLine("Huzzah, inflection point at " + currentTrailLocation.Coords);
+               /* lastTrailLocation = currentTrailLocation;
+                currentTrailLocation = destinationTrailLocation;
+                destinationTrailLocation = chooseRoute();*/
+            }
 
-		}
+        }
 
 
 		public  GameState Update(GameTime gameTime)
@@ -116,15 +117,15 @@ namespace Thru
 			
 		   if(destinationTrailLocation is not null)
             {
-				/*if (mileCounter > Value)
+				if (mileCounter > Value)
 				{
 					lastLocation = currentLocation;
-					lastTrailLocation = currentTrailLocation;
-					currentTrailLocation = destinationTrailLocation;
-					Visited.Add(currentTrailLocation.ID);
-					destinationTrailLocation = chooseRoute();
+					//lastTrailLocation = currentTrailLocation;
+					//currentTrailLocation = destinationTrailLocation;
+					//Visited.Add(currentTrailLocation.ID);
+					//destinationTrailLocation = chooseRoute();
 					mileCounter = 0;
-				}*/
+				}
 				step();
 
 				mileCounter++;
@@ -132,7 +133,8 @@ namespace Thru
            
 			currentLocation = mapMenu.Update(gameTime);
 
-			mapHandler.Update(gameTime);
+			trailOutline.Update(gameTime);
+			mapOutline.Update(gameTime);
 			gameMap.Update(gameTime);
 			Player.Update(gameTime);
 			destinationTrailLocation = mapMenu.Update(gameTime);
@@ -165,7 +167,8 @@ namespace Thru
 					null,
 					null,
 					cam.Transform);
-			mapHandler.Draw(spriteBatch);
+			trailOutline.Draw(spriteBatch);
+			mapOutline.Draw(spriteBatch);
 			gameMap.Draw(spriteBatch);
 			Player.Draw(spriteBatch);
 			spriteBatch.End();

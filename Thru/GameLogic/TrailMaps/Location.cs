@@ -32,15 +32,18 @@ namespace Thru
 		[JsonProperty(PropertyName = "Description")]
 		public string Description { get; set; }
 		public Tags[] Tags;
-		public Location(String id, String name, ArrayList edges, Texture2D texture, Vector3 coords)
+		SpriteFont Font;
+		public Location(String id, String name, ArrayList edges, Texture2D texture, Vector3 coords, SpriteFont font)
 		{
 			ID = id;
 			Name = name;
+			Font = font;
 			Coords = coords;
 			CoordsXY = new Vector2(coords.X, coords.Y);
 			Trails = edges;
 			sprite = new AnimatedSprite(texture, 2, 2, Color.White);
 			Tags = new Tags[1];
+
 		}
 
 		public void Update(GameTime gameTime)
@@ -53,7 +56,11 @@ namespace Thru
 			float scale = .01f;
 			var widthAvg = (sprite.Texture.Width/sprite.Columns /2 )*scale;
 			var heightAvg = (sprite.Texture.Height / sprite.Rows /2 )*scale;
-			sprite.Draw(spriteBatch, new Vector2(Coords.X - (int)widthAvg, Coords.Y - (int)heightAvg), scale);
+			Vector2 pos = new Vector2(Coords.X - (int)widthAvg, Coords.Y - (int)heightAvg);
+			sprite.Draw(spriteBatch,pos, scale);
+			pos.Y -= 4;
+			pos.X -= 10;
+			spriteBatch.DrawString(Font, Name, pos, Color.Black,0,Vector2.Zero, .2f, new SpriteEffects(), 0);
 
 		}
 		public ArrayList AdjacentLocations()

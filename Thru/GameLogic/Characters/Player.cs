@@ -53,7 +53,7 @@ namespace Thru
 			return State.MainSettings; }
 		public void Draw(SpriteBatch spriteBatch) {
 
-			model.Draw(spriteBatch);
+			model.Draw(spriteBatch, 1);
 		}
 
 	}

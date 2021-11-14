@@ -100,8 +100,8 @@ namespace Thru
                 buttons.Add(button);
             }
 
-           // buttons.Add(menuButton);
-           // buttons.Add(gameButton);
+            buttons.Add(menuButton);
+            buttons.Add(gameButton);
             buttonGroup = new ButtonGroup(buttons, Coords, ButtonArrangement.Horizontal);
         }
      

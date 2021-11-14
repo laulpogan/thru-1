@@ -74,7 +74,13 @@ namespace Thru {
 		public static XColor XNAColor(CColor color)
 		{
 			return new XColor(color.R, color.G, color.B, color.A);
-}
+		}
+
+
+
+
+
+
 	}
 
 

@@ -77,7 +77,7 @@ namespace Thru
 		{
 			spriteBatch.Begin();
 			buttonGroup.Draw(spriteBatch);
-			characterModel.Draw(spriteBatch);
+			characterModel.Draw(spriteBatch,1);
 			spriteBatch.End();
 			/*hudBatch.Begin();
 			hudBatch.End();*/

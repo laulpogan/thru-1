@@ -44,20 +44,22 @@ namespace Thru
         int baseLat = 33, baseLng = -116;
         double radius = 6371;
         Texture2D standardBackground;
-        public MapDataHandler(int clientWidth, int clientHeight, IServiceProvider services)
+        SpriteFont Font;
+        Texture2D blinkingButton;
+        Color color;
+        public MapDataHandler(int clientWidth, int clientHeight, IServiceProvider services, string mapDataPath, Color colorInput )
         {
-
+            color = colorInput;
             Content = new ContentManager(services, "Content");
-
+            blinkingButton = Content.Load<Texture2D>("MapAssets/buttonSheet");
             ClientWidth = clientWidth;
             ClientHeight = clientHeight;
             standardBackground = Content.Load<Texture2D>("Backgrounds/southern_terminus");
             List<FeatureCollection> mapDataTotal = new List<FeatureCollection>();
-
+            Font = Content.Load<SpriteFont>("Score");
 // TODO config for map source data
-            const string mapDataPath = "Content\\DataLists\\pct_map";
             Console.WriteLine("Loading maps data from: " + mapDataPath);
-            foreach (var file in Directory.GetFiles(mapDataPath, "*.geojson"))
+            foreach (var file in Directory.GetFiles(mapDataPath))
             {
                 var data = loadMapDataFile(file);
                 if (data.Features.Count > 0)
@@ -70,7 +72,7 @@ namespace Thru
             allShapes = new List<List<VertexPositionColorTexture>>();
             gameMap = new TrailMap(new ArrayList(), new ArrayList(), "Game Map");
 
-            Location newLoc = new Location(null, null, null, null, new Vector3(0, 0,0));
+            Location newLoc = new Location(null, null, null, null, new Vector3(0, 0,0), Content.Load<SpriteFont>("Score"));
             Location oldLoc;
             Trail tempEdge = new Trail(null, null,0,  "", null);
             float distance;
@@ -166,7 +168,7 @@ namespace Thru
 
             Vector3 returnVec = new Vector3(0,0,0);
             returnVec.X = vert[vert.Count-1].Position.X;
-            returnVec.Y = vert[vert.Count-1].Position.Y * -1;
+            returnVec.Y = vert[vert.Count-1].Position.Y;
             
             return returnVec;
         }
@@ -175,9 +177,9 @@ namespace Thru
             string symbol = feature.Properties["sym"].ToString();
 
            
-            var geometry = geoTypeParser(feature.Geometry);
-            Console.WriteLine("Creating Location: " + feature.Properties["name"].ToString() + " at " + geometry);
-            Location location = new Location(feature.Properties["name"].ToString(), feature.Properties["desc"].ToString(), new ArrayList(), Content.Load<Texture2D>("MapAssets/buttonSheet"), geometry);
+            Vector3 point = geoTypeParser(feature.Geometry);
+            Console.WriteLine("Creating Location: " + feature.Properties["name"].ToString() + " at " + point);
+            Location location = new Location(feature.Properties["name"].ToString(), feature.Properties["desc"].ToString(), new ArrayList(), blinkingButton, point, Font);
             if (String.Equals(symbol, "Flag, Blue") || String.Equals(symbol, "Post Office"))
             {
                 location.Tags[0] = Tags.Town;
@@ -190,21 +192,15 @@ namespace Thru
             return location;
         }
 
-        public Dictionary<string, double> latlngToGlobalXY(double lat, double lng)
-        {
-            double x = radius * lng * Math.Cos((p0["lat"] + p1["lat"]) / 2);
-            double y = radius * lat;
-            Dictionary<string, double> returnPos = new Dictionary<string, double>() { { "x", x }, { "y", y } };
-            return returnPos;
-        }
+       
 
         public Vector3 coordConvert(Vector3 coords)
         {
-           float lat = coords.X;
-            float lng = coords.Y;
-            float x = ClientWidth * floorCeil(lat, baseLat);
+            float lng = coords.X;
+            float lat = coords.Y;
+            float x= ClientWidth * floorCeil(lat, baseLat);
             float y = ClientHeight * floorCeil(lng, baseLng);
-            return new Vector3(x,y,coords.Z);
+            return new Vector3(x,-y,coords.Z);
         }
 
         public float floorCeil(float measure, int baseMeasure){
@@ -229,12 +225,10 @@ namespace Thru
         {
 
             VertexPositionColorTexture tempVPT = new VertexPositionColorTexture();
-            Vector3 pos = new Vector3(0,0,0);
-            double altitude = coord.Altitude ?? 0;
-            pos = coordConvert(new Vector3((float)coord.Latitude,(float) coord.Longitude, (float)(coord.Altitude ?? 0)));
-            tempVPT.Position = new Vector3((float)pos.X, (float)pos.Y, (float)altitude);
+            Vector3 pos = coordConvert(new Vector3((float)coord.Latitude,(float) coord.Longitude, (float)(coord.Altitude ?? 0)));
+            tempVPT.Position = pos;
             tempVPT.TextureCoordinate = new Vector2(0, 0);
-            tempVPT.Color = Color.FloralWhite;
+            tempVPT.Color = Color.Black;
             return tempVPT;
         }
 
@@ -286,14 +280,14 @@ namespace Thru
             
 
 
-            Location newLoc = new Location(null, null, null, null, new Vector3(0,0, 0));
-            Location oldLoc = new Location(null, null, null, null, new Vector3(0, 0, 0)) ;
+            Location newLoc = new Location(null, null, null, null, new Vector3(0,0, 0), Font);
+            Location oldLoc = new Location(null, null, null, null, new Vector3(0, 0, 0), Font) ;
             Trail tempEdge = new Trail(null, null, 0, "", null);
             foreach (Vector3 vec in getTrailPoints())
             {
 
                 oldLoc = newLoc;
-                newLoc = new Location(vec.GetHashCode().ToString(), vec.GetHashCode().ToString(), new ArrayList(), standardBackground,vec);
+                newLoc = new Location(vec.GetHashCode().ToString(), vec.GetHashCode().ToString(), new ArrayList(), standardBackground,vec, Font);
                 if (oldLoc.Trails != null)
                 {
                     float distance = Vector3.Distance(oldLoc.Coords, newLoc.Coords);
@@ -327,7 +321,7 @@ public void Update(GameTime gameTime)
                     float y1 = vertList[i].Position.Y;
                     float y2 = vertList[i - 1].Position.Y;
 
-                    _spriteBatch.DrawLine(new Vector2(scaleToX(x1), scaleToY(y1)), new Vector2(scaleToX(x2), scaleToY(y2)), Color.SeaGreen);
+                    _spriteBatch.DrawLine(new Vector2(scaleToX(x1), scaleToY(y1)), new Vector2(scaleToX(x2), scaleToY(y2)), color);
       
                 }
             }
@@ -337,7 +331,7 @@ public void Update(GameTime gameTime)
         public float scaleToY(float y)
         {
            // y =   y/1074;
-            return y* -1;
+            return y;
 
         }
         public float scaleToX(float x)

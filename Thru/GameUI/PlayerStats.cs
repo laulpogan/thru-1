@@ -41,7 +41,12 @@ namespace Thru
             spriteBatch.DrawString(font, "Stats", drawCoords + textOffset, Color.White);
             var lineY = drawCoords + textOffset + new Vector2(0, 30);
             spriteBatch.DrawLine(lineY, lineY + new Vector2(bgTexture.Width * 0.8f, 0), Color.White);
-            spriteBatch.DrawString(font, _stats, drawCoords + textOffset + new Vector2(0, 50), Color.White);
+            try
+            {
+                spriteBatch.DrawString(font, _stats, drawCoords + textOffset + new Vector2(0, 50), Color.White);
+            }
+            catch { } ;
+            
         }
     }
 }

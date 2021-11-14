@@ -66,14 +66,14 @@ namespace Thru
             spriteShoes.Color = shoeColor;
             spriteShoes.Update(gameTime);
         }
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, float scale )
         {
-            spriteBody.Draw(spriteBatch, ScreenXY, .1f);
-            spriteHair.Draw(spriteBatch, ScreenXY, .1f);
-            spriteEyes.Draw(spriteBatch, ScreenXY, .1f);
-            spriteShirt.Draw(spriteBatch, ScreenXY, .1f);
-            spritePants.Draw(spriteBatch, ScreenXY, .1f);
-            spriteShoes.Draw(spriteBatch, ScreenXY, .1f);
+            spriteBody.Draw(spriteBatch, ScreenXY, scale);
+            spriteHair.Draw(spriteBatch, ScreenXY, scale);
+            spriteEyes.Draw(spriteBatch, ScreenXY, scale);
+            spriteShirt.Draw(spriteBatch, ScreenXY, scale);
+            spritePants.Draw(spriteBatch, ScreenXY, scale);
+            spriteShoes.Draw(spriteBatch, ScreenXY, scale);
 
         }
 
