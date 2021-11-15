@@ -19,7 +19,7 @@ namespace Thru
 		public ContentManager Content;
 		public MapMenu mapMenu;
 		public ButtonGroup buttonGroup;
-		MapDataHandler trailOutline, mapOutline;
+		MapDataHandler trailOutline, mapOutline, mapFeatures;
 		public MapGameView mapView;
 		public TrailMap gameMap, TrailMap;
 		public SpriteBatch spriteBatch, hudBatch;
@@ -40,6 +40,7 @@ namespace Thru
 			Visited = new ArrayList();
 			trailOutline = new MapDataHandler(width, height, services,   "Content\\DataLists\\pct_map", Color.Black);
 			mapOutline = new MapDataHandler(width, height, services, "Content\\DataLists\\world_map", Color.Red);
+			//mapFeatures  = new MapDataHandler(width, height, services, "Content\\DataLists\\map_features", Color.Orange);
 			gameMap = trailOutline.getGameMap();
 			//todo: getTrailMap is FUBAR right now. Need to fix so our boi has a path
 			TrailMap = trailOutline.getGameMap();

@@ -47,7 +47,7 @@ namespace Thru
             spriteShirt = new AnimatedSprite(shirt, 1, 2, shirtColor);
             spritePants = new AnimatedSprite(pants, 1, 2, pantsColor);
             spriteShoes = new AnimatedSprite(shoes, 1, 2, shoeColor);
-
+            
             ScreenXY = screenXY;
         }
 
@@ -68,6 +68,7 @@ namespace Thru
         }
         public void Draw(SpriteBatch spriteBatch, float scale )
         {
+            ScreenXY = new Vector2(ScreenXY.X - spriteBody.Texture.Bounds.X / 2, ScreenXY.Y - spriteBody.Texture.Bounds.Y / 2);
             spriteBody.Draw(spriteBatch, ScreenXY, scale);
             spriteHair.Draw(spriteBatch, ScreenXY, scale);
             spriteEyes.Draw(spriteBatch, ScreenXY, scale);

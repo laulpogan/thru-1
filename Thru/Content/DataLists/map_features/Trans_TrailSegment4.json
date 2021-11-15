@@ -1,0 +1,3 @@
+{"type":"FeatureCollection", "features": [
+{"type":"Feature","geometry":{"type":"LineString","coordinates":[[-116.46682692341022,32.58958471191448],[-116.50000000044207,32.607095056678986]]},"properties":{"OBJECTID":1,"PERMANENT_":"{8C7E5053-2B8C-4FFD-B076-1B280AB952F7}","SOURCE_FEA":"","SOURCE_DAT":"{83D25C0D-3917-41A1-8CD2-0550F698DB61}","SOURCE_D_1":"Trails in National Forests for edits","SOURCE_ORI":"U.S. Forest Service","LOADDATE":"2017-05-10T00:00:00.000Z","NAME":"Pacific Crest National Scenic Trail","TRAILNUMBE":"","FTYPE":206,"FCODE":20602,"LENGTH":0,"GNIS_ID":"","SHAPE_Leng":0.0659247871706}}
+]}

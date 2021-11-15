@@ -1,0 +1,6 @@
+{"type":"FeatureCollection", "features": [
+{"type":"Feature","geometry":{"type":"Point","coordinates":[-116.4324103963803,32.62058681603304,0,-1.7976931348623157e+308]},"properties":{"OBJECTID":1,"Permanent_":"27055555","FDate":"2001-08-13T00:00:00.000Z","Resolution":2,"GNIS_ID":"","GNIS_Name":"","ReachCode":"","FType":488,"FCode":48800}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[-116.41932252973396,32.599051816066435,0,-1.7976931348623157e+308]},"properties":{"OBJECTID":2,"Permanent_":"27055595","FDate":"2001-08-13T00:00:00.000Z","Resolution":2,"GNIS_ID":"","GNIS_Name":"","ReachCode":"","FType":458,"FCode":45800}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[-116.4729513296507,32.609590016050106,0,-1.7976931348623157e+308]},"properties":{"OBJECTID":3,"Permanent_":"27055567","FDate":"2001-08-13T00:00:00.000Z","Resolution":2,"GNIS_ID":"","GNIS_Name":"","ReachCode":"","FType":488,"FCode":48800}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[-116.39947512976477,32.61857921603615,0,-1.7976931348623157e+308]},"properties":{"OBJECTID":4,"Permanent_":"27055563","FDate":"2001-08-13T00:00:00.000Z","Resolution":2,"GNIS_ID":"","GNIS_Name":"","ReachCode":"","FType":458,"FCode":45800}}
+]}

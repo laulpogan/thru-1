@@ -61,11 +61,18 @@ namespace Thru
             Console.WriteLine("Loading maps data from: " + mapDataPath);
             foreach (var file in Directory.GetFiles(mapDataPath))
             {
-                var data = loadMapDataFile(file);
-                if (data.Features.Count > 0)
+                try
                 {
-                    mapDataTotal.Add(data);
+                    var data = loadMapDataFile(file);
+                    if (data.Features.Count > 0)
+                    {
+                        mapDataTotal.Add(data);
+                    }
+                } catch
+                {
+                 
                 }
+                
             }
             Console.WriteLine("Maps loaded");
             vert = new List<VertexPositionColorTexture>();

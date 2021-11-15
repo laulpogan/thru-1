@@ -145,6 +145,15 @@ namespace Thru
             Speed = rand.Next(20);
         }
 
+     public Stats baseStats()
+        {
+            return this;
+        }
+
+     public Stats withModifiers(Player player)
+        {
+            return this;
+        }
     }
 
 
