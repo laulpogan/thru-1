@@ -13,6 +13,12 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Audio/MunchMunch.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/MunchMunch.wav
+
 #begin Backgrounds/fog.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -109,6 +115,18 @@
 /processorParam:TextureFormat=Color
 /build:Blurp_Scooter.png
 
+#begin CharacterModels/beard.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:CharacterModels/beard.png
+
 #begin CharacterModels/body-tone-1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -156,6 +174,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:CharacterModels/eyes-white.png
+
+#begin CharacterModels/front-hair.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:CharacterModels/front-hair.png
+
+#begin CharacterModels/hair-back.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:CharacterModels/hair-back.png
 
 #begin CharacterModels/hair-orange.png
 /importer:TextureImporter
@@ -205,6 +247,18 @@
 /processorParam:TextureFormat=Color
 /build:CharacterModels/hiker1sprite.tif
 
+#begin CharacterModels/mannequin-short.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:CharacterModels/mannequin-short.png
+
 #begin CharacterModels/mannequin-skin-tone-1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -216,6 +270,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:CharacterModels/mannequin-skin-tone-1.png
+
+#begin CharacterModels/short-backpack-straps.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:CharacterModels/short-backpack-straps.png
+
+#begin CharacterModels/short-shirt.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:CharacterModels/short-shirt.png
 
 #begin InterfaceTextures/longbutton.png
 /importer:TextureImporter

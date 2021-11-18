@@ -5,7 +5,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using System.Reflection.Metadata;
-
+using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Thru
 {
@@ -22,6 +23,7 @@ namespace Thru
 		private ContentManager Content;
 		private SpriteFont font;
 		public MapMenu mapMenu;
+		public SoundEffect eatingSoundEffect;
 
 
 		public PlayGameView(IServiceProvider services, GraphicsDeviceManager graphics, Location location, Location trailLocation, Player player )
@@ -40,7 +42,7 @@ namespace Thru
 			hud = new HUD(services, graphics, Player);
 			mapMenu = new MapMenu(services, graphics, currentLocation, new Vector2(250, 850), Player);
 			grid = new DesignGrid(services, graphics);
-
+			eatingSoundEffect = Content.Load<SoundEffect>("Audio/MunchMunch");
 		}
 
 		public  static Player  setupTestPlayer(IServiceProvider services, GraphicsDeviceManager graphics)
@@ -89,6 +91,7 @@ namespace Thru
 				returnState = GameState.Map;
 			if (hud.snackButton.State == BState.JUST_RELEASED)
             {
+				eatingSoundEffect.Play();
 				Player.stats.Energy += 5;
 				Player.stats.Snacks = Player.stats.Snacks - 1;
 			}
