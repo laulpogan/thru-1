@@ -63,30 +63,12 @@ namespace Thru
 		{
 			if (mpressed)
 			{
-				onClick();
 			}
 
 			if (ThruLib.hit_image_alpha(
 					Bounds, Texture, mx, my))
 				{
-					if (mpressed)
-					{
-						// mouse is currently down
-						State = BState.DOWN;
-					}
-					else if (!mpressed && prev_mpressed)
-					{
-						// mouse was just released
-						if (State == BState.DOWN)
-						{
-							// button i was just down
-							State = BState.JUST_RELEASED;
-						}
-					}
-					else
-					{
-						State = BState.HOVER;
-					}
+					State = ThruLib.getMouseState(mpressed, prev_mpressed);
 				}
 				else
 				{
@@ -95,13 +77,10 @@ namespace Thru
 
 				if (State == BState.JUST_RELEASED)
 				{
-					onClick();
+
 				}
 			}
-		protected void onClick() {
-			//Console.WriteLine(mx + " " + my);
-		}
-
+		
 	}
 
 }

@@ -5,19 +5,21 @@ using System;
 
 namespace Thru
 {
-    public class ButtonDraggable : IButton
+    public class DraggableReceiver
     {
 
         public Vector2 ScreenXY;
-        public bool isClicked;
+        public Rectangle Bounds;
 
-        public ButtonDraggable()
+        public DraggableReceiver()
         {
 
         }
 
         public GameState Update(GameTime gameTime)
         {
+
+            if
             return GameState.Inventory;
         }
 
