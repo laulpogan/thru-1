@@ -22,7 +22,8 @@ namespace Thru
 		public string ID;
 		private Color _textColor;
 		public State stateMachineState { get; set; }
-
+		public delegate void ButtonEventHandler(object sender, EventArgs e);
+		public event ButtonEventHandler onClick;
 		public Button(Texture2D texture, string text = "", SpriteFont font = null,Color? textColor=null)
 		{
 			Texture = texture;
@@ -61,14 +62,34 @@ namespace Thru
 		// determine state and color of button
 		void update_button()
 		{
-			if (mpressed)
-			{
-			}
+			
+		
 
 			if (ThruLib.hit_image_alpha(
 					Bounds, Texture, mx, my))
 				{
-					State = ThruLib.getMouseState(mpressed, prev_mpressed);
+					if (mpressed)
+					{
+						// mouse is currently down
+						State = BState.DOWN;
+					}
+					else if (!mpressed && prev_mpressed)
+					{
+						// mouse was just released
+						if (State == BState.DOWN)
+						{
+							// button i was just down
+							State = BState.JUST_RELEASED;
+						if (onClick != null && onClick.GetInvocationList().Length > 0)
+						{
+							onClick(new EventArgs(), null);
+						}
+					}
+					}
+					else
+					{
+						State = BState.HOVER;
+					}
 				}
 				else
 				{
@@ -77,7 +98,6 @@ namespace Thru
 
 				if (State == BState.JUST_RELEASED)
 				{
-
 				}
 			}
 		

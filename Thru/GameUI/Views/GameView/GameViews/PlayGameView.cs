@@ -43,6 +43,14 @@ namespace Thru
 			mapMenu = new MapMenu(services, graphics, currentLocation, new Vector2(250, 850), Player);
 			grid = new DesignGrid(services, graphics);
 			eatingSoundEffect = Content.Load<SoundEffect>("Audio/MunchMunch");
+			hud.snackButton.onClick += playMunch;
+
+		}
+
+
+		public void playMunch(object sender, EventArgs e) 
+        {
+			eatingSoundEffect.Play();
 		}
 
 		public  static Player  setupTestPlayer(IServiceProvider services, GraphicsDeviceManager graphics)
@@ -91,7 +99,7 @@ namespace Thru
 				returnState = GameState.Map;
 			if (hud.snackButton.State == BState.JUST_RELEASED)
             {
-				eatingSoundEffect.Play();
+			//	eatingSoundEffect.Play();
 				Player.stats.Energy += 5;
 				Player.stats.Snacks = Player.stats.Snacks - 1;
 			}

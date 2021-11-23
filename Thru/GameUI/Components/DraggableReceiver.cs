@@ -19,7 +19,7 @@ namespace Thru
         public GameState Update(GameTime gameTime)
         {
 
-            if
+           // if
             return GameState.Inventory;
         }
 

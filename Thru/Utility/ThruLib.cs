@@ -78,6 +78,31 @@ namespace Thru {
 
 
 
+		 public static BState getMouseState(bool mpressed, bool prev)
+        {
+			BState State = new BState();
+			State = BState.UP;
+			if (mpressed)
+			{
+				// mouse is currently down
+				State = BState.DOWN;
+			}
+			else if (!mpressed && prev)
+			{
+				// mouse was just released
+				if (State == BState.DOWN)
+				{
+					// button i was just down
+					State = BState.JUST_RELEASED;
+				}
+			}
+			else
+			{
+				State = BState.HOVER;
+			}
+
+			return State;
+		}
 
 }
 
@@ -86,5 +111,4 @@ namespace Thru {
 
 
 
-}
 
