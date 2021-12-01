@@ -33,8 +33,8 @@ namespace Thru
 			hudBatch = new SpriteBatch(graphics.GraphicsDevice);
 			characterBuilder = new CharacterBuilder(services, graphics);
 			buttonImage = Content.Load<Texture2D>("longbutton");
-			shuffleButton = new Button(buttonImage, "Shuffle", Content.Load<SpriteFont>("Score"),null, Shuffle);
-			menuButton = new Button(buttonImage, "Main Menu", Content.Load<SpriteFont>("Score"));
+			shuffleButton = new Button(globalState.MouseHandler,buttonImage, "Shuffle", Content.Load<SpriteFont>("Score"),null, Shuffle);
+			menuButton = new Button(globalState.MouseHandler, buttonImage, "Main Menu", Content.Load<SpriteFont>("Score"));
 			shuffleButton.stateMachineState = State.CharacterCreation;
 			menuButton.stateMachineState = State.Menu;
 			//menuButton.

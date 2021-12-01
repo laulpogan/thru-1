@@ -46,8 +46,10 @@ namespace Thru
         public IOController IOController;
         public MouseState mouseState;
         public int windowWidth, windowHeight;
+        public MouseHandler MouseHandler;
         public GlobalState(int clientWidth, int clientHeight, IServiceProvider services, GraphicsDeviceManager graphics)
         {
+            MouseHandler = new MouseHandler();
             Content = new ContentManager(services, "Content");
             Content.RootDirectory = "Content"; currentState = State.Menu;
             windowWidth = clientWidth;
@@ -56,8 +58,8 @@ namespace Thru
             Texture2D rect = new Texture2D(graphics.GraphicsDevice, 1000, 250);
             IOController = new IOController(services, "TestPlaces4.json");
             menu = new MainMenuView(services, graphics, this);
-            mainSettings = new MainSettingsView(windowWidth, windowHeight, services, graphics);
-            gameView = new GameView(windowWidth, windowHeight, services, graphics);
+            mainSettings = new MainSettingsView(windowWidth, windowHeight, services, graphics, this);
+            gameView = new GameView(windowWidth, windowHeight, services, graphics, this);
             background = Content.Load<Texture2D>("southern_terminus");
             graphics.PreferredBackBufferWidth = background.Width;  // set this value to the desired width of your window
             graphics.PreferredBackBufferHeight = background.Height;   // set this value to the desired height of your window
@@ -145,7 +147,7 @@ namespace Thru
         {
 
             stateMachine(gameTime, StateMode.Update);
-
+            MouseHandler.Update(gameTime);
 
 
             return State.Game;

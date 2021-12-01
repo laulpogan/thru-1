@@ -32,7 +32,7 @@ namespace Thru
 		public ArrayList Visited;
 		Queue<Vector3> vertList;
 		
-		public MapGameView( IServiceProvider services, int width, int height, GraphicsDeviceManager graphics, Player player)
+		public MapGameView( IServiceProvider services, int width, int height, GraphicsDeviceManager graphics, Player player, GlobalState globalState)
 {
 			Graphics = graphics;
 			cam = new Camera(graphics.GraphicsDevice.Viewport);
@@ -57,7 +57,7 @@ namespace Thru
 
 			Content = new ContentManager(services, "Content");
 			font = Content.Load<SpriteFont>("Score");
-			mapMenu = new MapMenu(services, graphics, currentLocation, new Vector2(200,850));
+			mapMenu = new MapMenu(services, graphics, currentLocation, new Vector2(200,850), globalState);
 			Queue<Vector3> trailCoords = trailOutline.getTrailPoints();
 			//Player.MapCoords = trailCoords[0];
 			spriteBatch = new SpriteBatch(graphics.GraphicsDevice);

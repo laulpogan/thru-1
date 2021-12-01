@@ -13,19 +13,29 @@ namespace Thru
 
 		public MouseState mouseState;
 		bool mpressed, prev_mpressed = false;
+		public IDraggable dragged;
+		public int mx, my;
+		BState State;
 
 		public MouseHandler()
 		{
-			mpressed = mouseState.LeftButton == ButtonState.Pressed;
-
+			State = new BState();
+			mouseState = Mouse.GetState();
 		}
 
 
+		public void Update(GameTime gameTime)
+        {
+			mouseState = Mouse.GetState();
+			mx = mouseState.X;
+			my = mouseState.Y;
+			prev_mpressed = mpressed;
+			mpressed = mouseState.LeftButton == ButtonState.Pressed;
+
+		}
 		public  BState getMouseState()
 		{
-			BState State = new BState();
-			State = BState.UP;
-			if (mpressed)
+            if (mpressed)
 			{
 				// mouse is currently down
 				State = BState.DOWN;
@@ -43,6 +53,7 @@ namespace Thru
 			{
 				State = BState.HOVER;
 			}
+			Console.WriteLine("The Mouse State is: "+State);
 
 			return State;
 		}

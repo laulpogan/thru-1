@@ -25,7 +25,7 @@ namespace Thru
 		public bool isResolved;
 		Button okButton;
 		ButtonGroup okButtonGroup;
-		public Encounter(Player player, EncounterData data, Location location, IServiceProvider services, GraphicsDeviceManager graphics)
+		public Encounter(Player player, EncounterData data, Location location, IServiceProvider services, GraphicsDeviceManager graphics, GlobalState globalState)
 		{
 			character = player;
 			selectionMade = false;
@@ -39,14 +39,14 @@ namespace Thru
 			DisplayWindow = new InteractionMessageBox(Message,Title,services,graphics, 1000, 250);
 			foreach (EncounterOptionData option in data.options)
 			{
-				Button tempButton = new Button(buttonImage);
+				Button tempButton = new Button(globalState.MouseHandler, buttonImage);
 				tempButton.Text = option.text;
 				tempButton.Font = font;
 				buttonList.Add(tempButton);
 				Options.Add(option.text, option);
 			}
 			ButtonGroup = new ButtonGroup(buttonList, new Vector2(800, 850), ButtonArrangement.Horizontal);
-			okButton = new Button(buttonImage, "OK", font);
+			okButton = new Button(globalState.MouseHandler, buttonImage, "OK", font);
 			buttonList.Clear();
 			buttonList.Add(okButton);
 			okButtonGroup = new ButtonGroup(buttonList, new Vector2(800, 850), ButtonArrangement.Horizontal);

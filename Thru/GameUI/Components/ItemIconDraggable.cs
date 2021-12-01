@@ -14,11 +14,12 @@ namespace Thru
         public Point ButtonHome;
         public Item item;
         public Rectangle Bounds;
-
-        public ItemIconDraggable(Texture2D icon)
+        public MouseHandler MouseHandler;
+                                                                    
+        public ItemIconDraggable(Texture2D icon, MouseHandler mouseHandler)
         {
-
-            Button = new Button(icon);
+            MouseHandler = mouseHandler;
+            Button = new Button(mouseHandler, icon);
             ScreenXY = Button.Bounds.Location;
         }
 
@@ -30,7 +31,7 @@ namespace Thru
             {
 
                 case BState.DOWN:
-                    Button.Bounds.Location = new Point(Button.mx, Button.my);
+                    Button.Bounds.Location = new Point(MouseHandler.mx, MouseHandler.my);
                     break;
                 case BState.UP:
                     break;

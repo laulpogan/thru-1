@@ -14,18 +14,18 @@ namespace Thru
 		public BState State { get; set; }
 		public MouseState mouse_state;
 		public string Text;
-		public int mx, my;
 		public Rectangle Bounds;
 		bool mpressed, prev_mpressed = false;
-		public double timer = 0;
 		public SpriteFont Font;
 		public string ID;
 		private Color _textColor;
 		public State stateMachineState { get; set; }
 		public delegate void ButtonEventHandler(object sender, EventArgs e);
 		public event ButtonEventHandler onClick;
-		public Button(Texture2D texture, string text = "", SpriteFont font = null,Color? textColor=null, ButtonEventHandler onclick = null)
+		MouseHandler mouseHandler;
+		public Button(MouseHandler mousehandler,  Texture2D texture, string text = "", SpriteFont font = null,Color? textColor=null, ButtonEventHandler onclick = null)
 		{
+			mouseHandler = mousehandler;
 			Texture = texture;
 			Bounds = texture.Bounds;
 			Text = text;
@@ -45,11 +45,7 @@ namespace Thru
 		public void Update(GameTime gameTime)
 		{
 			// update mouse variables
-			MouseState mouse_state = Mouse.GetState();
-			mx = mouse_state.X;
-			my = mouse_state.Y;
-			prev_mpressed = mpressed;
-			mpressed = mouse_state.LeftButton == ButtonState.Pressed;
+			
 			update_button();
 		}
 
@@ -59,7 +55,7 @@ namespace Thru
 			if(Font != null)
             {
 				// todo - smarter buttons (text falls off edge)
-				spriteBatch.DrawString(Font, Text, new Vector2((Bounds.Width * 0.1f) + Bounds.X, (Bounds.Height * 0.4f)+Bounds.Y), _textColor);
+				spriteBatch.DrawString(Font, Text, new Vector2((Bounds.Width * 0.05f) + Bounds.X, (Bounds.Height * 0.4f)+Bounds.Y), _textColor);
 			}
 		}
 
@@ -70,30 +66,9 @@ namespace Thru
 		
 
 			if (ThruLib.hit_image_alpha(
-					Bounds, Texture, mx, my))
+					Bounds, Texture, mouseHandler.mx, mouseHandler.my))
 				{
-					if (mpressed)
-					{
-						// mouse is currently down
-						State = BState.DOWN;
-					}
-					else if (!mpressed && prev_mpressed)
-					{
-						// mouse was just released
-						if (State == BState.DOWN)
-						{
-							// button i was just down
-							State = BState.JUST_RELEASED;
-						if (onClick != null && onClick.GetInvocationList().Length > 0)
-						{
-							onClick(new EventArgs(), null);
-						}
-					}
-					}
-					else
-					{
-						State = BState.HOVER;
-					}
+					State = mouseHandler.getMouseState(); 
 				}
 				else
 				{

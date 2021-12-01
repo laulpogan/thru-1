@@ -15,12 +15,12 @@ namespace Thru
 		private ContentManager Content;
 		public ButtonGroup buttonGroup;
 		public SpriteBatch spriteBatch;
-		public MainSettingsView(int clientWidth, int clientHeight, IServiceProvider services, GraphicsDeviceManager graphics)
+		public MainSettingsView(int clientWidth, int clientHeight, IServiceProvider services, GraphicsDeviceManager graphics, GlobalState globalState)
 		{
 			Content = new ContentManager(services, "Content");
 			spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
 			Texture2D buttonImage = Content.Load<Texture2D>("InterfaceTextures/longbutton");
-            returnButton = new Button(buttonImage);
+            returnButton = new Button(globalState.MouseHandler, buttonImage);
 			ArrayList returnList = new ArrayList();
 			returnList.Add(returnButton);
 			buttonGroup = new ButtonGroup(returnList, new Vector2(100, 100));

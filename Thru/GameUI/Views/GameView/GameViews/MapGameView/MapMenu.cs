@@ -20,8 +20,10 @@ namespace Thru
         public GraphicsDeviceManager Graphics;
         public Vector2 Coords;
         public Player Player;
-        public MapMenu(IServiceProvider services, GraphicsDeviceManager graphics, Location location, Vector2 drawCoords, Player player = null)
+        public GlobalState GlobalState;
+        public MapMenu(IServiceProvider services, GraphicsDeviceManager graphics, Location location, Vector2 drawCoords,GlobalState globalState, Player player = null)
         {
+            GlobalState = globalState;
             if(player is not null)
                 Player = player;
             Content = new ContentManager(services, "Content");
@@ -32,8 +34,8 @@ namespace Thru
             buttonGroup = new ButtonGroup(new ArrayList(), Coords, ButtonArrangement.Horizontal);
             currentLocation = location;
 
-            menuButton = new Button(buttonImage, "Menu", font);
-            gameButton = new Button(buttonImage, "Game", font);
+            menuButton = new Button(globalState.MouseHandler, buttonImage, "Menu", font);
+            gameButton = new Button(globalState.MouseHandler, buttonImage, "Game", font);
 
             buildMapButtons();
             foreach (Location location1 in currentLocation.AdjacentLocations())
@@ -96,7 +98,7 @@ namespace Thru
             ArrayList buttons = new ArrayList();
             foreach (Location location in currentLocation.AdjacentLocations())
             {
-                Button button = new Button(buttonImage, $"Travel to {location.ID}", font);
+                Button button = new Button(GlobalState.MouseHandler,buttonImage, $"Travel to {location.ID}", font);
                 buttons.Add(button);
             }
 

@@ -16,7 +16,7 @@ namespace Thru
         private PlayerStats _playerStats;
         Player Player;
 
-        public HUD(IServiceProvider services, GraphicsDeviceManager graphics, Player player)
+        public HUD(IServiceProvider services, GraphicsDeviceManager graphics, Player player, GlobalState globalState)
         {
             Content = new ContentManager(services, "Content");
             Player = player;
@@ -24,9 +24,9 @@ namespace Thru
             SpriteFont font = Content.Load<SpriteFont>("Score");
             ArrayList buttonList = new ArrayList();
             Content.RootDirectory = "Content";
-            mainMenuButton = new Button(buttonImage, "Main Menu", font);
-            mapButton = new Button(buttonImage, "Map", font);
-            snackButton = new Button(buttonImage, "Eat 1 Snack for 5 Energy", font);
+            mainMenuButton = new Button(globalState.MouseHandler, buttonImage, "Main Menu", font);
+            mapButton = new Button(globalState.MouseHandler, buttonImage, "Map", font);
+            snackButton = new Button(globalState.MouseHandler, buttonImage, "Eat 1 Snack for 5 Energy", font);
             buttonList.Add(mainMenuButton);
             buttonList.Add(mapButton);
             buttonList.Add(snackButton);

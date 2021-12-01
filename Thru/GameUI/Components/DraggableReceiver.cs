@@ -10,6 +10,7 @@ namespace Thru
 
         public Vector2 ScreenXY;
         public Rectangle Bounds;
+        public Texture2D icon;
 
         public DraggableReceiver()
         {
@@ -19,7 +20,8 @@ namespace Thru
         public GameState Update(GameTime gameTime)
         {
 
-           // if
+
+            //if(mx)
             return GameState.Inventory;
         }
 

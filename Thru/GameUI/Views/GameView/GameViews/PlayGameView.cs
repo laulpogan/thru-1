@@ -24,10 +24,12 @@ namespace Thru
 		private SpriteFont font;
 		public MapMenu mapMenu;
 		public SoundEffect eatingSoundEffect;
+		public GlobalState GlobalState;
 
 
-		public PlayGameView(IServiceProvider services, GraphicsDeviceManager graphics, Location location, Location trailLocation, Player player )
+		public PlayGameView(IServiceProvider services, GraphicsDeviceManager graphics, Location location, Location trailLocation, Player player, GlobalState globalState )
 {
+			GlobalState = globalState;
 			Graphics = graphics;
 			currentLocation = location;
 			TrailLocation = trailLocation;
@@ -39,8 +41,8 @@ namespace Thru
 			hudBatch = new SpriteBatch(graphics.GraphicsDevice);
 			Player = player;
 			Encounter = setupTestEncounter(services, graphics);
-			hud = new HUD(services, graphics, Player);
-			mapMenu = new MapMenu(services, graphics, currentLocation, new Vector2(250, 850), Player);
+			hud = new HUD(services, graphics, Player, globalState);
+			mapMenu = new MapMenu(services, graphics, currentLocation, new Vector2(250, 850),globalState, Player);
 			grid = new DesignGrid(services, graphics);
 			eatingSoundEffect = Content.Load<SoundEffect>("Audio/MunchMunch");
 			hud.snackButton.onClick += playMunch;
@@ -78,7 +80,7 @@ namespace Thru
 
 
 
-			return new Encounter(Player, data, null, services, graphics);
+			return new Encounter(Player, data, null, services, graphics, GlobalState) ;
 
 		}
 
