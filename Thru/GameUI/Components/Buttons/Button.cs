@@ -24,7 +24,7 @@ namespace Thru
 		public State stateMachineState { get; set; }
 		public delegate void ButtonEventHandler(object sender, EventArgs e);
 		public event ButtonEventHandler onClick;
-		public Button(Texture2D texture, string text = "", SpriteFont font = null,Color? textColor=null)
+		public Button(Texture2D texture, string text = "", SpriteFont font = null,Color? textColor=null, ButtonEventHandler onclick = null)
 		{
 			Texture = texture;
 			Bounds = texture.Bounds;
@@ -35,6 +35,10 @@ namespace Thru
             {
 				_textColor = (Color)textColor;
 			}
+			if (onclick is not null)
+            {
+				onClick += onclick;
+            }
 			State = BState.UP;
 		}
 

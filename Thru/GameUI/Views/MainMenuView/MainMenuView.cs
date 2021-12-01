@@ -16,7 +16,7 @@ namespace Thru
 		private ContentManager Content;
 		public SpriteBatch spriteBatch;
 		public AnimatedSprite background;
-		public MainMenuView(IServiceProvider services, GraphicsDeviceManager graphics)
+		public MainMenuView(IServiceProvider services, GraphicsDeviceManager graphics, GlobalState globalState)
 		{
 
 			Content = new ContentManager(services, "Content");
@@ -24,10 +24,10 @@ namespace Thru
 			Texture2D buttonImage = Content.Load<Texture2D>("InterfaceTextures/short_button");
 			SpriteFont font = Content.Load<SpriteFont>("Score");
 			ArrayList buttonList = new ArrayList();
-			newGameButton = new Button(buttonImage, "New Game", font);
-			mainSettingsButton = new Button(buttonImage, "Main Settings", font);
-			loadGameButton = new Button(buttonImage, "Load Game", font);
-			characterCreationButton = new Button(buttonImage, "Character Creation", font);
+			newGameButton = new Button(buttonImage, "New Game", font, null, globalState.Game);
+			mainSettingsButton = new Button(buttonImage, "Main Settings", font,null,  globalState.MainSettings);
+			loadGameButton = new Button(buttonImage, "Load Game", font, null, globalState.Game);
+			characterCreationButton = new Button(buttonImage, "Character Creation", font, null, globalState.CharacterCreation);
 			buttonList.Add(newGameButton);
 			buttonList.Add(mainSettingsButton);
 			buttonList.Add(loadGameButton);

@@ -23,10 +23,9 @@ namespace Thru
 		public CharacterModel characterModel;
 		public Vector2 Coords;
 		public Color[] Colors;
-		public int x;
 
 
-        public CharacterCreationView(IServiceProvider services, int width, int height, GraphicsDeviceManager graphics)
+        public CharacterCreationView(IServiceProvider services, int width, int height, GraphicsDeviceManager graphics, GlobalState globalState)
 		{
 			Graphics = graphics;
 			Content = new ContentManager(services, "Content");
@@ -34,10 +33,11 @@ namespace Thru
 			hudBatch = new SpriteBatch(graphics.GraphicsDevice);
 			characterBuilder = new CharacterBuilder(services, graphics);
 			buttonImage = Content.Load<Texture2D>("longbutton");
-			shuffleButton = new Button(buttonImage, "Shuffle", Content.Load<SpriteFont>("Score"));
+			shuffleButton = new Button(buttonImage, "Shuffle", Content.Load<SpriteFont>("Score"),null, Shuffle);
 			menuButton = new Button(buttonImage, "Main Menu", Content.Load<SpriteFont>("Score"));
 			shuffleButton.stateMachineState = State.CharacterCreation;
 			menuButton.stateMachineState = State.Menu;
+			//menuButton.
 			ArrayList buttons = new ArrayList();
 			buttons.Add(shuffleButton);
 			buttons.Add(menuButton);
@@ -45,21 +45,12 @@ namespace Thru
 			buttonGroup = new ButtonGroup(buttons, Coords);
 			characterModel  = new CharacterModel(services, graphics, new Vector2(600, 400));
 			Colors = ThruLib.allColors();
-			x =0 ;
 	}
 
 
 		public State Update(GameTime gameTime)
 		{
 			buttonGroup.Update(gameTime);
-			if( x% 2 == 0)
-				Shuffle();
-
-			x++;
-			if (shuffleButton.State == BState.JUST_RELEASED)
-            {
-				Shuffle();
-            }
 			characterModel.Update(gameTime);
 
 			foreach (Button button in buttonGroup.ButtonList)
@@ -85,7 +76,7 @@ namespace Thru
 
 		}
 
-		public void Shuffle()
+		public void Shuffle(object sender, EventArgs e)
 		{
 			Random rand = new Random();
 /*characterModel.bodyColor = Colors[rand.Next(0, Colors.Length)];

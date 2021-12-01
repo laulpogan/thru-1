@@ -55,7 +55,7 @@ namespace Thru
             Graphics = graphics;
             Texture2D rect = new Texture2D(graphics.GraphicsDevice, 1000, 250);
             IOController = new IOController(services, "TestPlaces4.json");
-            menu = new MainMenuView(services, graphics);
+            menu = new MainMenuView(services, graphics, this);
             mainSettings = new MainSettingsView(windowWidth, windowHeight, services, graphics);
             gameView = new GameView(windowWidth, windowHeight, services, graphics);
             background = Content.Load<Texture2D>("southern_terminus");
@@ -116,11 +116,30 @@ namespace Thru
             return null;
         }
 
-
-        protected void setState(State newState)
+        //this shit doesn't work right now but it isn't the end of the world- right now the only way to end up in a state is if the machine returned it
+        // which is pretty great in terms of knowing how you get errors, as opposed to any button being able to shunt your state machine anywhere.
+        protected void setState(State newState, object sender, EventArgs e)
         {
             currentState = newState;
         }
+
+        public void Menu(object sender, EventArgs e)
+        {
+            currentState = State.Menu;
+        }
+        public void Game(object sender, EventArgs e)
+        {
+            currentState = State.Game;
+        }
+        public void CharacterCreation(object sender, EventArgs e)
+        {
+            currentState = State.CharacterCreation;
+        }
+        public void MainSettings(object sender, EventArgs e)
+        {
+            currentState = State.MainSettings;
+        }
+
 
         public State Update(GameTime gameTime)
         {
@@ -138,6 +157,8 @@ namespace Thru
             Graphics.GraphicsDevice.Clear(Color.White);
             stateMachine(gameTime, StateMode.Draw);
         }
+
+
 
 
     }
