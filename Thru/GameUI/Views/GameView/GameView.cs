@@ -17,16 +17,18 @@ namespace Thru
 		public GameTime gameTime;
 		public PlayGameView playView;
 		public Player Player;
+		public InventoryGameView inventoryView;
 		public GameView(int clientWidth, int clientHeight, IServiceProvider services, GraphicsDeviceManager graphics, GlobalState globalState)
 		{
 
 			Player = PlayGameView.setupTestPlayer(services,graphics);
 			mapView = new MapGameView(services, clientWidth, clientHeight, graphics, Player, globalState);
+			inventoryView = new InventoryGameView(services, graphics, Player, globalState);
 			currentLocation = mapView.currentLocation;
 			trailLocation = mapView.currentTrailLocation;
 			
 			playView = new PlayGameView(services, graphics, currentLocation, trailLocation, Player, globalState);
-			stateMachine = new GameViewStateMachine(services, graphics, mapView, playView);
+			stateMachine = new GameViewStateMachine(services, graphics, mapView, playView, inventoryView);
 			stateMachine.currentState = GameState.Play;
 		}
 

@@ -99,12 +99,15 @@ namespace Thru
 				returnState = GameState.Play;
 			if (hud.mapButton.State == BState.JUST_RELEASED)
 				returnState = GameState.Map;
+			if (hud.inventoryButton.State == BState.JUST_RELEASED)
+				returnState = GameState.Inventory;
 			if (hud.snackButton.State == BState.JUST_RELEASED)
             {
 			//	eatingSoundEffect.Play();
 				Player.stats.Energy += 5;
 				Player.stats.Snacks = Player.stats.Snacks - 1;
 			}
+			
 			Player.Update(gameTime);	
 			return returnState;
 		}

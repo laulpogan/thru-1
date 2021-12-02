@@ -25,6 +25,7 @@ namespace Thru
         public IGameView currentView;
         public MapGameView MapView;
         public PlayGameView PlayView;
+        public InventoryGameView InventoryView;
 
 
         enum StateMode
@@ -46,12 +47,14 @@ namespace Thru
         }
         private GameState state;
         
-        public GameViewStateMachine(IServiceProvider services, GraphicsDeviceManager graphics, MapGameView mapView, PlayGameView playView)
+        public GameViewStateMachine(IServiceProvider services, GraphicsDeviceManager graphics, MapGameView mapView, PlayGameView playView, InventoryGameView inventoryView)
         {
             Graphics = graphics;
             currentState = GameState.Play;
             MapView = mapView;
             PlayView = playView;
+            InventoryView = inventoryView;
+            
         }
 
         public void Update(GameTime gameTime)
@@ -82,6 +85,9 @@ namespace Thru
                     break;
                 case GameState.Encounter:
                  //   currentState = runState(characterCreationView, stateMode, gameTime) ?? currentState;
+                    break;
+                case GameState.Inventory:
+                     currentState = runState(InventoryView, stateMode, gameTime) ?? currentState;
                     break;
                 /*case State.Final:
 					break;

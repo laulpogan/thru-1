@@ -15,11 +15,15 @@ namespace Thru
         public Item item;
         public Rectangle Bounds;
         public MouseHandler MouseHandler;
+        public Texture2D icon;
                                                                     
-        public ItemIconDraggable(Texture2D icon, MouseHandler mouseHandler)
+        public ItemIconDraggable( MouseHandler mouseHandler, Texture2D Icon, Point home)
         {
+            icon = Icon;
             MouseHandler = mouseHandler;
-            Button = new Button(mouseHandler, icon);
+            ButtonHome = home;
+            Button = new Button(mouseHandler, icon, "Drag Me");
+            Button.Bounds.Location = ButtonHome;
             ScreenXY = Button.Bounds.Location;
         }
 
@@ -31,11 +35,13 @@ namespace Thru
             {
 
                 case BState.DOWN:
+                    MouseHandler.dragged = this;
                     Button.Bounds.Location = new Point(MouseHandler.mx, MouseHandler.my);
                     break;
                 case BState.UP:
                     break;
                 case BState.JUST_RELEASED:
+                    MouseHandler.dragged = null;
                     Button.Bounds.Location = ButtonHome;
                     break;
                 case BState.HOVER:
@@ -48,8 +54,24 @@ namespace Thru
 
         public void Draw(SpriteBatch spriteBatch)
         {
-
+            Button.Draw(spriteBatch);
         }
+
+        public void checkCollision(object sender, EventArgs e)
+        {
+            if (ThruLib.hit_image_alpha(
+              Bounds, icon, MouseHandler.mx, MouseHandler.my))
+            {
+                if (MouseHandler.dragged != null)
+                {
+                    if (MouseHandler.State == BState.JUST_RELEASED)
+                    {
+
+                    }
+                }
+            }
+        }
+
     }
 
 

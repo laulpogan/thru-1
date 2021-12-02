@@ -13,9 +13,9 @@ namespace Thru
 
 		public MouseState mouseState;
 		bool mpressed, prev_mpressed = false;
-		public IDraggable dragged;
+		public ItemIconDraggable dragged;
 		public int mx, my;
-		BState State;
+		public BState State;
 
 		public MouseHandler()
 		{

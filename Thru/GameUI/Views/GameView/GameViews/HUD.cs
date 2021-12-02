@@ -10,7 +10,7 @@ namespace Thru
 {
     public class HUD
     {
-        public Button mainMenuButton, mapButton, snackButton;
+        public Button mainMenuButton, mapButton, snackButton, inventoryButton;
         private ContentManager Content;
         ButtonGroup buttonGroup;
         private PlayerStats _playerStats;
@@ -27,9 +27,11 @@ namespace Thru
             mainMenuButton = new Button(globalState.MouseHandler, buttonImage, "Main Menu", font);
             mapButton = new Button(globalState.MouseHandler, buttonImage, "Map", font);
             snackButton = new Button(globalState.MouseHandler, buttonImage, "Eat 1 Snack for 5 Energy", font);
+            inventoryButton = new Button(globalState.MouseHandler, buttonImage, "Inventory");
             buttonList.Add(mainMenuButton);
             buttonList.Add(mapButton);
             buttonList.Add(snackButton);
+            buttonList.Add(inventoryButton);
             buttonGroup = new ButtonGroup(buttonList, new Vector2(1700, 10));
             _playerStats = new PlayerStats(services, player);
         }
