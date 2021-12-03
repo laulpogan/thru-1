@@ -25,6 +25,7 @@
     <None Remove="DesktopGL\**" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="GameLogic\Characters\HikerMemory.cs" />
     <Compile Remove="GameUI\Models\StoreMenu.cs" />
   </ItemGroup>
   <ItemGroup>

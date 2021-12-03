@@ -17,7 +17,7 @@ namespace Thru
         public DraggableReceiver(MouseHandler mouseHandler, GraphicsDeviceManager graphics, Point home)
         {
 
-            icon = ThruLib.makeBlankRect(graphics, 100, 100);
+            icon = ThruLib.makeBlankRect(graphics, 32, 32);
             MouseHandler = mouseHandler;
             Bounds = icon.Bounds;
             receiverHome = home;

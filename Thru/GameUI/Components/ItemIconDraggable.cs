@@ -23,7 +23,7 @@ namespace Thru
             icon = Icon;
             MouseHandler = mouseHandler;
             ButtonHome = home;
-            Button = new Button(mouseHandler, icon, "Drag Me", font);
+            Button = new Button(mouseHandler, icon);
             Button.Bounds.Location = ButtonHome;
         }
 

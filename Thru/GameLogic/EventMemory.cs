@@ -14,6 +14,7 @@ namespace Thru
         public Location location;
         public ICharacter[] characters;
         public Encounter encounter;
+        public string ID;
 
         public EventMemory()
         {
