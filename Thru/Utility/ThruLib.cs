@@ -9,6 +9,7 @@ using System.Linq;
 using XColor = Microsoft.Xna.Framework.Color;
 using CColor = System.Drawing.Color;
 using KColor = System.Drawing.KnownColor;
+using System.Text;
 
 namespace Thru {
 	public static class ThruLib
@@ -76,9 +77,43 @@ namespace Thru {
 			return new XColor(color.R, color.G, color.B, color.A);
 		}
 
+		//todo:fix this
+		public static string WrapText(SpriteFont spriteFont, string text, float maxLineWidth)
+		{
+			string[] words = text.Split(' ');
+			StringBuilder sb = new StringBuilder();
+			float lineWidth = 0f;
+			float spaceWidth = spriteFont.MeasureString(" ").X;
+
+			foreach (string word in words)
+			{
+				Vector2 size = spriteFont.MeasureString(word);
+
+				if (lineWidth + size.X < maxLineWidth)
+				{
+					sb.Append(word + " ");
+					lineWidth += size.X + spaceWidth;
+				}
+				else
+				{
+					sb.Append("\n" + word + " ");
+					lineWidth = size.X + spaceWidth;
+				}
+			}
+
+			return sb.ToString();
+		}
 
 
-		 public static BState getMouseState(bool mpressed, bool prev)
+		public static Texture2D makeBlankRect(GraphicsDeviceManager graphics, int x, int y)
+        {
+			Texture2D rect = new Texture2D(graphics.GraphicsDevice, x, y);
+			Color[] data = new Color[rect.Bounds.Width * rect.Bounds.Height];
+			for (int i = 0; i < data.Length; ++i) data[i] = Color.Chocolate;
+			rect.SetData(data);
+			return  rect;
+		}
+		public static BState getMouseState(bool mpressed, bool prev)
         {
 			BState State = new BState();
 			State = BState.UP;

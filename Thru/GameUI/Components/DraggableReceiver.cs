@@ -14,12 +14,14 @@ namespace Thru
         public MouseHandler MouseHandler;
         public Point receiverHome;
 
-        public DraggableReceiver(MouseHandler mouseHandler, Texture2D Icon, Point home)
+        public DraggableReceiver(MouseHandler mouseHandler, GraphicsDeviceManager graphics, Point home)
         {
+
+            icon = ThruLib.makeBlankRect(graphics, 100, 100);
             MouseHandler = mouseHandler;
-            icon = Icon;
             Bounds = icon.Bounds;
             receiverHome = home;
+            Bounds.Location = receiverHome;
 
         }
 
@@ -44,7 +46,7 @@ namespace Thru
 
         public void Draw(SpriteBatch spriteBatch)
         {
-
+            spriteBatch.Draw(icon,Bounds , Color.Black);
         }
 
 
