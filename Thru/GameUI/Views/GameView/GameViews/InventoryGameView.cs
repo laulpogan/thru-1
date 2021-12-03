@@ -22,8 +22,9 @@ namespace Thru
 
             Content = new ContentManager(services, "Content");
             buttonImage = Content.Load<Texture2D>("InterfaceTextures/short_button");
+            SpriteFont font = Content.Load<SpriteFont>("Score");
             receiver = new DraggableReceiver(globalState.MouseHandler, buttonImage, new Point(250,500));
-            draggable = new ItemIconDraggable(globalState.MouseHandler, buttonImage, new Point(500, 250));
+            draggable = new ItemIconDraggable(globalState.MouseHandler, buttonImage, new Point(500, 250), font);
             spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
 
         }

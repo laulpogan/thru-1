@@ -16,6 +16,8 @@ namespace Thru
 		public ItemIconDraggable dragged;
 		public int mx, my;
 		public BState State;
+		public bool isDragging;
+
 
 		public MouseHandler()
 		{
@@ -29,6 +31,7 @@ namespace Thru
 			mouseState = Mouse.GetState();
 			mx = mouseState.X;
 			my = mouseState.Y;
+			State = getMouseState();
 			prev_mpressed = mpressed;
 			mpressed = mouseState.LeftButton == ButtonState.Pressed;
 
@@ -53,7 +56,6 @@ namespace Thru
 			{
 				State = BState.HOVER;
 			}
-			Console.WriteLine("The Mouse State is: "+State);
 
 			return State;
 		}
