@@ -21,7 +21,7 @@ namespace Thru
 
     public class StateMachine
     {
-        private GraphicsDeviceManager _graphics;
+        private GraphicsDeviceManager graphics;
     
         enum StateMode
         {
@@ -44,7 +44,7 @@ namespace Thru
         public enum States { };
         public StateMachine(Enum states, GraphicsDeviceManager graphics)
         {
-            _graphics = graphics;
+            graphics = graphics;
             States = states;
             foreach (var i in Enum.GetValues(typeof(States)))
             {
@@ -90,7 +90,7 @@ namespace Thru
                 case StateMode.Update:
                     return gameView.Update(gameTime);
                 case StateMode.Draw:
-                    gameView.Draw(_graphics);
+                    gameView.Draw(graphics);
                     return null;
                 default:
                     break;

@@ -51,7 +51,7 @@ namespace Thru
 
 
 
-		public void Draw(GraphicsDeviceManager _graphics)
+		public void Draw(GraphicsDeviceManager graphics)
 		{
 
 			

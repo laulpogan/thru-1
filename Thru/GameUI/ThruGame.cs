@@ -21,12 +21,12 @@ namespace Thru
     {
        
         private SpriteFont font;
-        private GraphicsDeviceManager _graphics;
+        private GraphicsDeviceManager graphics;
         private GlobalState state;
       
         public ThruGame()
         {
-            _graphics = new GraphicsDeviceManager(this);
+            graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
@@ -34,7 +34,7 @@ namespace Thru
        
         protected override void Initialize()
         {
-            state = new(Window.ClientBounds.Width, Window.ClientBounds.Height, Services, _graphics);
+            state = new(Window.ClientBounds.Width, Window.ClientBounds.Height, Services, graphics);
             base.Initialize();
         }
 
@@ -57,7 +57,7 @@ namespace Thru
 
         protected override void Draw(GameTime gameTime)
         {
-            _graphics.GraphicsDevice.Clear(Color.White);
+            graphics.GraphicsDevice.Clear(Color.White);
             state.Draw(gameTime);
             base.Draw(gameTime);
         }

@@ -19,7 +19,6 @@ namespace Thru
         public InventoryController()
         {
             mpressed = mouseState.LeftButton == ButtonState.Pressed;
-
         }
 
         public void checkMenu()

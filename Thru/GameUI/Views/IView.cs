@@ -10,7 +10,7 @@ namespace Thru
 	{
 		public  abstract State Update(GameTime gameTime);
 
-		public abstract void Draw( GraphicsDeviceManager _graphics);
+		public abstract void Draw( GraphicsDeviceManager graphics);
 	}
 
 

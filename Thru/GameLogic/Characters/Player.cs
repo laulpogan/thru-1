@@ -21,6 +21,7 @@ namespace Thru
 		public CharacterModel model;
 		public Vector3 MapCoords;
 		public Vector2 ScreenXY;
+		public List<Item> equipped, inventory;
 		public enum Genders
         {
 			male,

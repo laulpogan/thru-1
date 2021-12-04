@@ -26,7 +26,7 @@ namespace Thru
 			buttonGroup = new ButtonGroup(returnList, new Vector2(100, 100));
 		}
 
-		public void Draw( GraphicsDeviceManager _graphics) {
+		public void Draw( GraphicsDeviceManager graphics) {
 			spriteBatch.Begin();
 			buttonGroup.Draw(spriteBatch);
 			spriteBatch.End();

@@ -64,7 +64,7 @@ namespace Thru
 			}
 			return State.CharacterCreation;
 		}
-		public void Draw(GraphicsDeviceManager _graphics)
+		public void Draw(GraphicsDeviceManager graphics)
 		{
 			spriteBatch.Begin();
 			buttonGroup.Draw(spriteBatch);

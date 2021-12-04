@@ -21,11 +21,12 @@ namespace Thru
             RawologyCorkballImage, SawyerBugRepellentImage, SawyerFilterImage, SleepingBagImage, SpoonImage, SporkImage, StoveImage,
             TentImage, ToiletPaperImage, TrekkingPolesImage, WaterbottleCleanImage, WaterbottleDirtyImage;
         public SpriteBatch spriteBatch;
-        
+        public Player Player;
+        public Item Backpack;
 
         public InventoryGameView(IServiceProvider services, GraphicsDeviceManager graphics, Player player, GlobalState globalState)
 {
-
+            Player = player;
             Content = new ContentManager(services, "Content");
             BearCanImage = Content.Load<Texture2D>("ItemIcons/Bearcan32x32");
             ColdSoakJarImage = Content.Load<Texture2D>("ItemIcons/ColdSoakJar32x32");
@@ -46,6 +47,8 @@ namespace Thru
             WaterbottleCleanImage = Content.Load<Texture2D>("ItemIcons/Waterbottle-CLEAN32x32");
             WaterbottleDirtyImage = Content.Load<Texture2D>("ItemIcons/Waterbottle-DIRTY32x32");
 
+
+            Backpack = new Item(Content.Load<Texture2D>("ItemIcons/Backpack-Raptor1-32x32"), new Point(250,250));
             SpriteFont font = Content.Load<SpriteFont>("Score");
             receivers = new ArrayList();
             for(int x = 1050; x<= 1800; x += 50)
@@ -84,7 +87,7 @@ namespace Thru
 
         public  GameState Update(GameTime gameTime)
         {
-
+            Player.Update(gameTime);
             foreach(DraggableReceiver receiver in receivers)
             {
                 receiver.Update(gameTime);
@@ -93,12 +96,14 @@ namespace Thru
             {
                 draggable.Update(gameTime);
             }
+            Backpack.Update(gameTime);
             return GameState.Inventory;
         }
 
-        public  void Draw(GraphicsDeviceManager _graphics)
+        public  void Draw(GraphicsDeviceManager graphics)
         {
             spriteBatch.Begin();
+            Backpack.Draw(spriteBatch);
             foreach (DraggableReceiver receiver in receivers)
             {
                 receiver.Draw(spriteBatch);
@@ -107,6 +112,7 @@ namespace Thru
             {
                 draggable.Draw(spriteBatch);
             }
+            Player.Draw(spriteBatch);
             spriteBatch.End();
 
         }

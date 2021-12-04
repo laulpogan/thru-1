@@ -316,7 +316,7 @@ public void Update(GameTime gameTime)
            
         }
 
-        public void Draw(SpriteBatch _spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             foreach(List<VertexPositionColorTexture> vertList in allShapes)
             {
@@ -328,7 +328,7 @@ public void Update(GameTime gameTime)
                     float y1 = vertList[i].Position.Y;
                     float y2 = vertList[i - 1].Position.Y;
 
-                    _spriteBatch.DrawLine(new Vector2(scaleToX(x1), scaleToY(y1)), new Vector2(scaleToX(x2), scaleToY(y2)), color);
+                    spriteBatch.DrawLine(new Vector2(scaleToX(x1), scaleToY(y1)), new Vector2(scaleToX(x2), scaleToY(y2)), color);
       
                 }
             }

@@ -111,10 +111,10 @@ namespace Thru
 			Player.Update(gameTime);	
 			return returnState;
 		}
-		public void Draw(GraphicsDeviceManager _graphics)
+		public void Draw(GraphicsDeviceManager graphics)
 		{
 			spriteBatch.Begin();
-			background.Draw(_graphics);
+			background.Draw(graphics);
 			Encounter.Draw(spriteBatch);
 			//grid.Draw(spriteBatch);
 			Player.Draw(spriteBatch);

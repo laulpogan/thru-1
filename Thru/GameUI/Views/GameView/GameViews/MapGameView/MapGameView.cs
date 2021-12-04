@@ -159,7 +159,7 @@ namespace Thru
 			
 			return returnState;
         }
-		public  void Draw( GraphicsDeviceManager _graphics)
+		public  void Draw( GraphicsDeviceManager graphics)
         {
 
 			spriteBatch.Begin(SpriteSortMode.BackToFront,null,
