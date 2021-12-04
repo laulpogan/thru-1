@@ -10,23 +10,32 @@ namespace Thru
 	public class Item
 	{
 
-		Texture2D Image;
-		Rectangle Rect;
-		public Item(Texture2D image, Point point)
+		public Texture2D Icon;
+		public Point Home;
+		public float Bulk, Weight, renderScale;
+		public bool isFlexible;
+		public ItemIconDraggable Draggable;
+		public Item(MouseHandler mouseHandler, Texture2D icon, Point point, bool isflexible, float bulk, float weight, float scale)
 		{
-			Image = image;
-			Rect = Image.Bounds;
-			Rect.Location = point;
+			Icon = icon;
+			Home = point;
+			renderScale = scale;
+			Bulk = bulk;
+			Weight = weight;
+			isFlexible = isflexible;
+			Draggable = new ItemIconDraggable(mouseHandler, Icon,Home, this);
+
 		}
 
 		public void Update(GameTime gameTime)
 		{
-
+			Draggable.Update(gameTime);
 		}
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
-			spriteBatch.Draw(Image, new Vector2(Rect.Location.X, Rect.Location.Y),Rect, Color.Black, 0f, Vector2.Zero, 2f , SpriteEffects.None, 0f);
+			Draggable.Draw(spriteBatch);
+			spriteBatch.Draw(Icon, new Vector2( Home.X, Home.Y), null,Color.White,0f, Vector2.Zero,renderScale,SpriteEffects.None,0f) ;
 		}
 	}
 

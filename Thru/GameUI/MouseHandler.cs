@@ -13,7 +13,7 @@ namespace Thru
 
 		public MouseState mouseState;
 		bool mpressed, prev_mpressed = false;
-		public ItemIconDraggable dragged;
+		public Item dragged;
 		public int mx, my;
 		public BState State;
 		public bool isDragging;
