@@ -12,7 +12,7 @@ namespace Thru
         public Point ScreenXY;
         public bool IsClicked;
         public Button Button;
-        public Point ButtonHome;
+        public Point ButtonHome, PreviousHome;
         public Item Item;
         public MouseHandler MouseHandler;
         public Texture2D icon;
@@ -24,6 +24,7 @@ namespace Thru
             icon = Icon;
             MouseHandler = mouseHandler;
             ButtonHome = home;
+            PreviousHome = home;
             Button = new Button(mouseHandler, icon);
             Button.Bounds.Location = ButtonHome;
             Item = item;
@@ -54,7 +55,8 @@ namespace Thru
                     isBeingDragged = false;
                     if(receiver is not null && receiver != oldReceiver)
                     {
-                        ButtonHome = receiver.receiverHome;
+                        PreviousHome = ButtonHome;
+                        ButtonHome = receiver.screenHome;
                         receiver.item = Item;
                         if (oldReceiver is not null)
                             oldReceiver.item = null;
