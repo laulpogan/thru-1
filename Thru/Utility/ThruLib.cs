@@ -10,6 +10,7 @@ using XColor = Microsoft.Xna.Framework.Color;
 using CColor = System.Drawing.Color;
 using KColor = System.Drawing.KnownColor;
 using System.Text;
+using System.Reflection.Metadata;
 
 namespace Thru {
 	public static class ThruLib
@@ -139,10 +140,70 @@ namespace Thru {
 			return State;
 		}
 
-}
+		public static Point getInventoryScreenXY(int row, int col, Point Home, int marginStep)
+		{
+			return new Point(Home.X + row * marginStep, Home.Y + col * marginStep);
+		}
 
+		public static int[,] matrixMultiply(int[,] matrix1, int[,] matrix2)
+		{
+			int matrix1Rows = matrix1.GetLength(0);
+			int matrix1Cols = matrix1.GetLength(1);
+			int matrix2Rows = matrix2.GetLength(0);
+			int matrix2Cols = matrix2.GetLength(1);
+			int[,] product = new int[matrix1Rows, matrix2Cols];
+			for (int i = 0; i < matrix1Rows; i++)
+			{
+
+				for (int x = 0; x < matrix2Cols; x++)
+				{
+					int[] matrix1Elems = new int[matrix1Rows];
+					int[] matrix2Elems = new int[matrix2Cols];
+					for (int p = 0; p < matrix1Cols; p++)
+					{
+						matrix1Elems[p] = matrix1[p, i];
+					}
+					for (int q = 0; q < matrix2Rows; q++)
+					{
+						matrix2Elems[q] = matrix2[q, x];
+					}
+					product[i, x] = dotProduct(matrix1Elems, matrix2Elems);
+				}
+			}
+			return product;
+		}
+		public static T[,] rotate90DegClockwise<T>(T[,] a)
+		{
+			int N = a.GetLength(0);
+			// It will traverse the each cycle
+			for (int i = 0; i < N / 2; i++)
+			{
+				for (int j = i; j < N - i - 1; j++)
+				{
+
+					// It will swap elements of each cycle in clock-wise direction
+					T temp = a[i, j];
+					a[i, j] = a[N - 1 - j, i];
+					a[N - 1 - j, i] = a[N - 1 - i, N - 1 - j];
+					a[N - 1 - i, N - 1 - j] = a[j, N - 1 - i];
+					a[j, N - 1 - i] = temp;
+				}
+			}
+			return a;
+		}
+		public static int dotProduct(int[] list1, int[] list2)
+		{
+			int size = list1.Length;
+			int product = 0;
+			for (int i = 0; i < size; i++)
+			{
+				product += list1[i] * list2[i];
+			}
+			return product;
+		}
 
 	}
+}
 
 
 

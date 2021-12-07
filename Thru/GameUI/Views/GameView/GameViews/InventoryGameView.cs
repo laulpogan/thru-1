@@ -46,27 +46,32 @@ namespace Thru
             TrekkingPolesImage = Content.Load<Texture2D>("ItemIcons/TrekkingPoles32x32");
             WaterbottleCleanImage = Content.Load<Texture2D>("ItemIcons/Waterbottle-CLEAN32x32");
             WaterbottleDirtyImage = Content.Load<Texture2D>("ItemIcons/Waterbottle-DIRTY32x32");
-
+            int[,] itemShape = new int[,]{
+                { 0, 0, 0, 0},
+                { 0, 1, 0, 0},
+                { 0, 1,1, 0},
+                { 0, 1, 0, 0},
+            };
             SpriteFont font = Content.Load<SpriteFont>("Score");
             Backpack = new Backpack(services, graphics, Player, globalState);
-            BearCan = new Item(globalState.MouseHandler, BearCanImage, new Point(500, 250),false, 1, 1.7f, 0);
-            ColdSoakJar = new Item(globalState.MouseHandler, ColdSoakJarImage, new Point(550, 250), false, 2, 1.7f, 0);
-            CookPot = new Item(globalState.MouseHandler, CookPotImage, new Point(600, 250), false, 3, 1.7f, 0);
-            IceAxe = new Item(globalState.MouseHandler, IceAxeImage, new Point(650, 250), false, 4, 1.7f, 0);
-            Knife = new Item(globalState.MouseHandler, KnifeImage, new Point(700, 250), false, 4, 1.7f, 0);
-            MountainHouse = new Item(globalState.MouseHandler, MountainHouseImage, new Point(500, 300), false, 1, 1.7f,0);
-            RawologyCorkball = new Item(globalState.MouseHandler, RawologyCorkballImage, new Point(500, 350), false,1, 1.7f, 0);
-            SawyerBugRepellent = new Item(globalState.MouseHandler, SawyerBugRepellentImage, new Point(500, 400), false, 1, 1.7f, 0);
-            SawyerFilter = new Item(globalState.MouseHandler, SawyerFilterImage, new Point(550, 300), false, 1, 1.7f, 0);
-            SleepingBag = new Item(globalState.MouseHandler, SleepingBagImage, new Point(600, 300), false, 1, 1.7f, 0);
-            Spoon = new Item(globalState.MouseHandler, SpoonImage, new Point(650, 300), false, 1, 1.7f, 0);
-            Spork = new Item(globalState.MouseHandler, SporkImage, new Point(700, 300), false, 1, 1.7f, 0);
-            Stove = new Item(globalState.MouseHandler, StoveImage, new Point(550, 350), false, 1, 1.7f, 0);
-            Tent = new Item(globalState.MouseHandler, TentImage, new Point(600, 350), false, 1, 1.7f, 0);
-            ToiletPaper = new Item(globalState.MouseHandler, ToiletPaperImage, new Point(650, 350), false, 1, 1.7f, 0);
-            TrekkingPoles = new Item(globalState.MouseHandler, TrekkingPolesImage, new Point(700, 350), false, 1, 1.7f, 0);
-            WaterbottleClean = new Item(globalState.MouseHandler, WaterbottleCleanImage, new Point(550, 400), false,1, 1.7f, 0);
-            WaterbottleDirty = new Item(globalState.MouseHandler, WaterbottleDirtyImage, new Point(600, 400), false, 1, 1.7f, 0);
+            BearCan = new Item(globalState.MouseHandler, BearCanImage, new Point(500, 250),false,4, 1.7f, 0, itemShape);
+            ColdSoakJar = new Item(globalState.MouseHandler, ColdSoakJarImage, new Point(550, 250), false, 4, 1.7f, 0, itemShape);
+            CookPot = new Item(globalState.MouseHandler, CookPotImage, new Point(600, 250), false, 4, 1.7f, 0, itemShape);
+            IceAxe = new Item(globalState.MouseHandler, IceAxeImage, new Point(650, 250), false, 4, 1.7f, 0, itemShape);
+            Knife = new Item(globalState.MouseHandler, KnifeImage, new Point(700, 250), false, 4, 1.7f, 0, itemShape);
+            MountainHouse = new Item(globalState.MouseHandler, MountainHouseImage, new Point(500, 300), false, 4, 1.7f,0, itemShape);
+            RawologyCorkball = new Item(globalState.MouseHandler, RawologyCorkballImage, new Point(500, 350), false,4, 1.7f, 0, itemShape);
+            SawyerBugRepellent = new Item(globalState.MouseHandler, SawyerBugRepellentImage, new Point(500, 400), false, 4, 1.7f, 0, itemShape);
+            SawyerFilter = new Item(globalState.MouseHandler, SawyerFilterImage, new Point(550, 300), false, 4, 1.7f, 0, itemShape);
+            SleepingBag = new Item(globalState.MouseHandler, SleepingBagImage, new Point(600, 300), false, 4, 1.7f, 0, itemShape);
+            Spoon = new Item(globalState.MouseHandler, SpoonImage, new Point(650, 300), false, 4, 1.7f, 0, itemShape);
+            Spork = new Item(globalState.MouseHandler, SporkImage, new Point(700, 300), false, 4, 1.7f, 0, itemShape);
+            Stove = new Item(globalState.MouseHandler, StoveImage, new Point(550, 350), false, 4, 1.7f, 0, itemShape);
+            Tent = new Item(globalState.MouseHandler, TentImage, new Point(600, 350), false, 4, 1.7f, 0, itemShape);
+            ToiletPaper = new Item(globalState.MouseHandler, ToiletPaperImage, new Point(650, 350), false, 4, 1.7f, 0, itemShape);
+            TrekkingPoles = new Item(globalState.MouseHandler, TrekkingPolesImage, new Point(700, 350), false, 4, 1.7f, 0, itemShape);
+            WaterbottleClean = new Item(globalState.MouseHandler, WaterbottleCleanImage, new Point(550, 400), false,4, 1.7f, 0, itemShape);
+            WaterbottleDirty = new Item(globalState.MouseHandler, WaterbottleDirtyImage, new Point(600, 400), false, 4, 1.7f, 0, itemShape);
             spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
             draggables = new ArrayList(){
                 BearCan, ColdSoakJar, CookPot, IceAxe, Knife, MountainHouse, RawologyCorkball,

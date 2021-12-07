@@ -15,7 +15,8 @@ namespace Thru
 		public float Bulk, Weight, renderScale;
 		public bool isFlexible;
 		public DraggableGroup Draggable;
-		public Item(MouseHandler mouseHandler, Texture2D icon, Point point, bool isflexible, float bulk, float weight, float scale)
+		public int[,] ItemShape;
+		public Item(MouseHandler mouseHandler, Texture2D icon, Point point, bool isflexible, float bulk, float weight, float scale, int[,] itemShape)
 		{
 			Icon = icon;
 			Home = point;
@@ -23,6 +24,7 @@ namespace Thru
 			Bulk = bulk;
 			Weight = weight;
 			isFlexible = isflexible;
+			ItemShape = itemShape;
 			Draggable = new DraggableGroup(mouseHandler, Icon,Home, this);
 
 		}
