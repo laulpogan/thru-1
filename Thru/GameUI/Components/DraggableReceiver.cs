@@ -31,7 +31,6 @@ namespace Thru
 
         public GameState Update(GameTime gameTime)
         {
-
             if (ThruLib.hit_image_alpha(
                     Bounds, icon, MouseHandler.mx, MouseHandler.my))
             {
@@ -43,13 +42,21 @@ namespace Thru
                         {
                             MouseHandler.dragged.Draggable.receiver = this;
                             GameBoard.board[boardHome.X, boardHome.Y] = 1;
+                            for (int f = 0; f < GameBoard.board.GetLength(0); f++)
+                                for (int l = 0; l < item.Bulk; l++)
+                                 //todo: loop over board?? I need to match the
+                            for (int i = 0; i < item.Bulk; i++)
+                                for (int j = 0; j < item.Bulk; j++)
+                                    if (item.ItemShape[i, j] == 1)
+                                    {
+                                        //todo: change the board state of the spots where the other icons were
+
+                                    }
 
                         }
                             
                         
-                        for (int i = 0; i < item.Bulk; i++)
-                                for (int j = 0; j < item.Bulk; j++)
-                                    if (item.ItemShape[i, j] == 1)
+                        
                     }
                 }
             }
