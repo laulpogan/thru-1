@@ -12,11 +12,12 @@ namespace Thru
         public Rectangle Bounds;
         public Texture2D icon;
         public MouseHandler MouseHandler;
-        public Point screenHome, boardHome;
+        public Point screenHome, boardHome, boardOrigin;
         public bool isOccupied;
         public Item item;
+        public InventoryGameBoard GameBoard;
 
-        public DraggableReceiver(MouseHandler mouseHandler, GraphicsDeviceManager graphics, Point home, Point BoardHome)
+        public DraggableReceiver(MouseHandler mouseHandler, GraphicsDeviceManager graphics, Point home, Point BoardHome, InventoryGameBoard gameBoard)
         {
 
             icon = ThruLib.makeBlankRect(graphics, 32, 32);
@@ -25,6 +26,7 @@ namespace Thru
             screenHome = home;
             Bounds.Location = screenHome;
             item = null;
+            GameBoard = gameBoard;
         }
 
         public GameState Update(GameTime gameTime)
@@ -37,7 +39,17 @@ namespace Thru
                 {
                    if(MouseHandler.State == BState.JUST_RELEASED)
                     {
-                        MouseHandler.dragged.Draggable.receiver = this;
+                        if(GameBoard.isValidMove(MouseHandler.dragged.ItemShape, boardHome))
+                        {
+                            MouseHandler.dragged.Draggable.receiver = this;
+                            GameBoard.board[boardHome.X, boardHome.Y] = 1;
+
+                        }
+                            
+                        
+                        for (int i = 0; i < item.Bulk; i++)
+                                for (int j = 0; j < item.Bulk; j++)
+                                    if (item.ItemShape[i, j] == 1)
                     }
                 }
             }

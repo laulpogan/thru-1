@@ -25,7 +25,7 @@ namespace Thru
             {
                 for (int col = 0; col < columns; col ++)
                 {
-                    receivers[row,col] = new DraggableReceiver(mouseHandler, graphics, ThruLib.getInventoryScreenXY(row, col, Home, bloc), new Point(row,col));
+                    receivers[row,col] = new DraggableReceiver(mouseHandler, graphics, ThruLib.getInventoryScreenXY(row, col, Home, bloc), new Point(row,col), this);
                     board[row, col] = 0;
                 }
             }
@@ -123,6 +123,36 @@ namespace Thru
                 receiver.Draw(spriteBatch);
             }
         }
+
+ 
+
+        public void checkCollision()
+        {
+            for (int row = 0; row < rows; row++)
+                for (int col = 0; col < columns; col++)
+                    if (receivers[row, col] is not null)
+                    {
+                        if (receivers[row, col].isOccupied)
+                        {
+
+                        }
+                    }
+        }
+
+        public bool isValidMove(int[,] iShape, Point point)
+        {
+            bool isValid = true;
+            for (int row = point.X; row < rows; row++)
+                for (int col = point.Y; col < columns; col++)
+                    for (int x = 0; x < iShape.GetLength(0); x++)
+                        for (int y = 0; y < iShape.GetLength(1); y++)
+                            if (board[row, col] == 1 && iShape[x,y] == 1)
+                            {
+                                isValid = false;
+                            }
+                    return isValid;
+        }
+
     }
 
 

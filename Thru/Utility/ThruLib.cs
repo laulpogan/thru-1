@@ -142,9 +142,27 @@ namespace Thru {
 
 		public static Point getInventoryScreenXY(int row, int col, Point Home, int marginStep)
 		{
-			return new Point(Home.X + row * marginStep, Home.Y + col * marginStep);
+			return new Point(Home.X + (row * marginStep), Home.Y + (col * marginStep));
 		}
+		public static T[,] rotate90DegClockwise<T>(T[,] a)
+		{
+			int N = a.GetLength(0);
+			// It will traverse the each cycle
+			for (int i = 0; i < N / 2; i++)
+			{
+				for (int j = i; j < N - i - 1; j++)
+				{
 
+					// It will swap elements of each cycle in clock-wise direction
+					T temp = a[i, j];
+					a[i, j] = a[N - 1 - j, i];
+					a[N - 1 - j, i] = a[N - 1 - i, N - 1 - j];
+					a[N - 1 - i, N - 1 - j] = a[j, N - 1 - i];
+					a[j, N - 1 - i] = temp;
+				}
+			}
+			return a;
+		}
 		public static int[,] matrixMultiply(int[,] matrix1, int[,] matrix2)
 		{
 			int matrix1Rows = matrix1.GetLength(0);
@@ -172,25 +190,7 @@ namespace Thru {
 			}
 			return product;
 		}
-		public static T[,] rotate90DegClockwise<T>(T[,] a)
-		{
-			int N = a.GetLength(0);
-			// It will traverse the each cycle
-			for (int i = 0; i < N / 2; i++)
-			{
-				for (int j = i; j < N - i - 1; j++)
-				{
-
-					// It will swap elements of each cycle in clock-wise direction
-					T temp = a[i, j];
-					a[i, j] = a[N - 1 - j, i];
-					a[N - 1 - j, i] = a[N - 1 - i, N - 1 - j];
-					a[N - 1 - i, N - 1 - j] = a[j, N - 1 - i];
-					a[j, N - 1 - i] = temp;
-				}
-			}
-			return a;
-		}
+	
 		public static int dotProduct(int[] list1, int[] list2)
 		{
 			int size = list1.Length;

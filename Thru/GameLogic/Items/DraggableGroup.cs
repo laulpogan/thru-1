@@ -25,16 +25,16 @@ namespace Thru
         {
             MouseHandler = mouseHandler;
             Item = item;
-            ButtonHome = home;
+            Bulk = Item.ItemShape.GetLength(0);
+            ButtonHome = home;                             
             currentPoint = home;
             gridMarginX = 18 + icon.Bounds.Width;
             gridMarginY = gridMarginX;
-            Bulk = item.Bulk;
-            Draggables = new ItemIconDraggable[(int)Bulk, (int)Bulk];
+            Draggables = new ItemIconDraggable[Item.ItemShape.GetLength(0), Item.ItemShape.GetLength(1)];
             Point tempPoint = Point.Zero;
 
-            for (int i = 0; i < Item.ItemShape.GetLength(0); i++)
-                for (int j = 0; j < Item.ItemShape.GetLength(1); j++)
+            for (int i = 0; i < Bulk; i++)
+                for (int j = 0; j < Bulk; j++)
                     if (item.ItemShape[i,j] == 1)
                     {
                         tempPoint = ThruLib.getInventoryScreenXY(i, j, ButtonHome, gridMarginX);
@@ -47,8 +47,8 @@ namespace Thru
         {
            
 
-            for (int i = 0; i < Item.ItemShape.GetLength(0); i++)
-                for (int j = 0; j < Item.ItemShape.GetLength(1); j++)
+            for (int i = 0; i < Bulk; i++)
+                for (int j = 0; j < Bulk; j++)
                     if (Draggables[i, j] is not null && Draggables[i,j].isBeingDragged)
                     {
                         currentPoint = Draggables[i,j].Button.Bounds.Location;
@@ -72,8 +72,8 @@ namespace Thru
                     oldReceiver.item = null;
                 oldReceiver = receiver;
                 receiver = null;
-                for (int i = 0; i < Bulk; i++)
-                    for (int j = 0; j < Bulk; j++)
+                for (int i = 0; i < Item.ItemShape.GetLength(0); i++)
+                    for (int j = 0; j < Item.ItemShape.GetLength(1); j++)
                         if (Draggables[i, j] is not null)
                         {
                             Draggables[i, j].ButtonHome = ButtonHome;
@@ -99,8 +99,8 @@ namespace Thru
 
             }
 
-            for (int i = 0; i < Bulk; i++)
-                for (int j = 0; j < Bulk; j++)
+            for (int i = 0; i < Item.ItemShape.GetLength(0); i++)
+                for (int j = 0; j < Item.ItemShape.GetLength(1); j++)
                     if (Draggables[i, j] is not null)
                         Draggables[i, j].Update(gameTime);
 
@@ -112,8 +112,8 @@ namespace Thru
         public void Draw(SpriteBatch spriteBatch)
         {
 
-            for (int i = 0; i < Bulk; i++)
-                for (int j = 0; j < Bulk; j++)
+            for (int i = 0; i < Item.ItemShape.GetLength(0); i++)
+                for (int j = 0; j < Item.ItemShape.GetLength(1); j++)
                     if (Draggables[i, j] is not null)
                         Draggables[i, j].Draw(spriteBatch);
             
@@ -136,10 +136,9 @@ namespace Thru
 
         public void adjustGroupPosition(Point point)
         {
-            //ThruLib.getInventoryScreenXY(0,0, ButtonHome,gridMarginX) Draggables[0].Button.Bounds.Location = currentPoint;
 
-            for(int i = 1; i < Bulk; i++)
-                for (int j = 0; j < Bulk; j++)
+            for(int i = 0; i < Item.ItemShape.GetLength(0); i++)
+                for (int j = 0; j < Item.ItemShape.GetLength(1); j++)
                     if (Draggables[i, j] is not null)
                     {
                         Point tempPoint = currentPoint;
