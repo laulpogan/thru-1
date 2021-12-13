@@ -36,7 +36,7 @@ namespace Thru
 			SpriteFont font = Content.Load<SpriteFont>("Score");
 			Title = data.title;
 			Message = data.text;
-			DisplayWindow = new InteractionMessageBox(Message,Title,services,graphics, 1000, 250);
+			DisplayWindow = new InteractionMessageBox(Message,Title,services,graphics, 1000, 150);
 			foreach (EncounterOptionData option in data.options)
 			{
 				Button tempButton = new Button(globalState.MouseHandler, buttonImage);
@@ -45,7 +45,7 @@ namespace Thru
 				buttonList.Add(tempButton);
 				Options.Add(option.text, option);
 			}
-			ButtonGroup = new ButtonGroup(buttonList, new Vector2(800, 850), ButtonArrangement.Horizontal);
+			ButtonGroup = new ButtonGroup(buttonList, new Vector2(800, 650), ButtonArrangement.Horizontal);
 			okButton = new Button(globalState.MouseHandler, buttonImage, "OK", font);
 			buttonList.Clear();
 			buttonList.Add(okButton);

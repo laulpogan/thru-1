@@ -12,26 +12,34 @@ namespace Thru
         public Point ScreenXY;
         public bool IsClicked;
         public Button Button;
-        public Point ButtonHome, PreviousHome;
+        public Point ScreenHome, PreviousHome, ShapeHome, BoardHome;
         public Item Item;
         public MouseHandler MouseHandler;
         public Texture2D icon;
         public bool isBeingDragged;
         public DraggableReceiver receiver, oldReceiver;
+        public ItemIconDraggableGroup Group;
                                                                     
-        public ItemIconDraggable( MouseHandler mouseHandler, Texture2D Icon, Point home, Item item, SpriteFont font = null)
+        public ItemIconDraggable( MouseHandler mouseHandler, Texture2D Icon, Point home,  Point shapeHome, Item item, ItemIconDraggableGroup group, SpriteFont font = null)
         {
             icon = Icon;
+            Group = group;
             MouseHandler = mouseHandler;
-            ButtonHome = home;
+            ScreenHome = home;
             PreviousHome = home;
             Button = new Button(mouseHandler, icon);
-            Button.Bounds.Location = ButtonHome;
+            Button.Bounds.Location = ScreenHome;
+            ShapeHome = shapeHome;
+            isBeingDragged = false;
             Item = item;
         }
+        
+        //todo make this mouse checking occur a level up in the group? Or even just on the board
 
         public GameState Update(GameTime gameTime)
         {
+
+           
             switch (MouseHandler.State)
             {
                 case BState.DOWN:
@@ -39,6 +47,7 @@ namespace Thru
                     Button.Bounds, icon, MouseHandler.mx, MouseHandler.my))
                     {
                         MouseHandler.dragged =Item;
+                        MouseHandler.iconDragged = this;
                         MouseHandler.isDragging = true;
                         isBeingDragged = true;
                         Button.Bounds.Location = new Point(MouseHandler.mx, MouseHandler.my);
@@ -55,15 +64,15 @@ namespace Thru
                     isBeingDragged = false;
                     if(receiver is not null && receiver != oldReceiver)
                     {
-                        PreviousHome = ButtonHome;
-                        ButtonHome = receiver.screenHome;
-                        receiver.item = Item;
+                        PreviousHome = ScreenHome;
+                        ScreenHome = receiver.ScreenHome;
+                        receiver.Item = Item;
                         if (oldReceiver is not null)
-                            oldReceiver.item = null;
+                            oldReceiver.Item = null;
                         oldReceiver = receiver;
                         receiver = null;
                     }
-                    Button.Bounds.Location = ButtonHome;
+                    Button.Bounds.Location = ScreenHome;
                     break;
                 case BState.HOVER:
                     break;

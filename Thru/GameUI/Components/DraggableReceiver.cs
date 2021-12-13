@@ -10,48 +10,61 @@ namespace Thru
 
         public Vector2 ScreenXY;
         public Rectangle Bounds;
-        public Texture2D icon;
+        public Texture2D Icon;
         public MouseHandler MouseHandler;
-        public Point screenHome, boardHome, boardOrigin;
+        public Point ScreenHome, BoardHome;
         public bool isOccupied;
-        public Item item;
+        public Item Item;
         public InventoryGameBoard GameBoard;
+        public ItemIconDraggable IconDraggable;
 
-        public DraggableReceiver(MouseHandler mouseHandler, GraphicsDeviceManager graphics, Point home, Point BoardHome, InventoryGameBoard gameBoard)
+
+        public DraggableReceiver(MouseHandler mouseHandler, GraphicsDeviceManager graphics, Point screenHome, Point boardHome, InventoryGameBoard gameBoard)
         {
 
-            icon = ThruLib.makeBlankRect(graphics, 32, 32);
+            Icon = ThruLib.makeBlankRect(graphics, 32, 32);
             MouseHandler = mouseHandler;
-            Bounds = icon.Bounds;
-            screenHome = home;
-            Bounds.Location = screenHome;
-            item = null;
+            Bounds = Icon.Bounds;
+            this.ScreenHome = screenHome;
+            BoardHome = boardHome;
+            Bounds.Location = this.ScreenHome;
+            Item = null;
             GameBoard = gameBoard;
         }
 
+        public Point getBoardShapeOrigin()
+        {
+
+            Point point = BoardHome;
+            Point point2 = MouseHandler.iconDragged.ShapeHome;
+
+
+            return point - point2 ;
+        }
         public GameState Update(GameTime gameTime)
         {
             if (ThruLib.hit_image_alpha(
-                    Bounds, icon, MouseHandler.mx, MouseHandler.my))
+                    Bounds, Icon, MouseHandler.mx, MouseHandler.my))
             {
-                if(MouseHandler.dragged != null && item == null)
+                if(MouseHandler.dragged != null && Item == null)
                 {
                    if(MouseHandler.State == BState.JUST_RELEASED)
                     {
-                        if(GameBoard.isValidMove(MouseHandler.dragged.ItemShape, boardHome))
+                        if(GameBoard.isValidMove(MouseHandler.dragged.ItemShape, getBoardShapeOrigin()))
                         {
-                            MouseHandler.dragged.Draggable.receiver = this;
-                            GameBoard.board[boardHome.X, boardHome.Y] = 1;
-                            for (int f = 0; f < GameBoard.board.GetLength(0); f++)
-                                for (int l = 0; l < item.Bulk; l++)
-                                 //todo: loop over board?? I need to match the
-                            for (int i = 0; i < item.Bulk; i++)
-                                for (int j = 0; j < item.Bulk; j++)
-                                    if (item.ItemShape[i, j] == 1)
-                                    {
-                                        //todo: change the board state of the spots where the other icons were
+                           MouseHandler.dragged.Draggable.receiver = this;
+                           IconDraggable = MouseHandler.iconDragged;
+                           MouseHandler.iconDragged.receiver = this;
+                           MouseHandler.iconDragged.BoardHome = BoardHome;
+                           GameBoard.updateBoardAndReceivers(MouseHandler.dragged, getBoardShapeOrigin());
 
-                                    }
+                           
+                                for (int i = 0; i < MouseHandler.dragged.ItemShape.GetLength(0); i++)
+                                    for (int j = 0; j < MouseHandler.dragged.ItemShape.GetLength(1); j++)
+                                        if (MouseHandler.dragged.ItemShape[i, j] == 1)
+                                        {
+                                          MouseHandler.iconDragged.BoardHome += new Point(i, j);
+                                        }
 
                         }
                             
@@ -65,8 +78,12 @@ namespace Thru
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(icon,Bounds , Color.Black);
+            spriteBatch.Draw(Icon,Bounds , Color.Black);
         }
+
+
+        //todo:reconsolidate to game board class, this fucking thing is a mess
+      
     }
 
 

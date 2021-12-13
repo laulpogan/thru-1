@@ -15,6 +15,7 @@ namespace Thru
 		public bool mpressed, prev_mpressed = false;
 		public bool rpressed, prev_rpressed = false;
 		public Item dragged;
+		public ItemIconDraggable iconDragged;
 		public int mx, my;
 		public BState State, RState;
 		public bool isDragging;

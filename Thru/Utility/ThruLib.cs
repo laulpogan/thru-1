@@ -114,6 +114,11 @@ namespace Thru {
 			rect.SetData(data);
 			return  rect;
 		}
+
+		public static Point pointTransform(Point point, int margin)
+        {
+			return new Point(point.X * margin, point.Y * margin);
+        }
 		public static BState getMouseState(bool mpressed, bool prev)
         {
 			BState State = new BState();
@@ -140,6 +145,8 @@ namespace Thru {
 			return State;
 		}
 
+
+		//todo this is broken and combining board and screen coords ugh
 		public static Point getInventoryScreenXY(int row, int col, Point Home, int marginStep)
 		{
 			return new Point(Home.X + (row * marginStep), Home.Y + (col * marginStep));

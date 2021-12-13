@@ -44,7 +44,7 @@ namespace Thru
                 foreach(ItemIconDraggable draggable in Draggables)
                 {
                     if(isOverReceiver(receiver,draggable)){
-                       draggable.ButtonHome = receiver.Bounds.Location;
+                       draggable.ScreenHome = receiver.Bounds.Location;
                     }
                 }
             }

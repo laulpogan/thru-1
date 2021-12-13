@@ -47,10 +47,9 @@ namespace Thru
             WaterbottleCleanImage = Content.Load<Texture2D>("ItemIcons/Waterbottle-CLEAN32x32");
             WaterbottleDirtyImage = Content.Load<Texture2D>("ItemIcons/Waterbottle-DIRTY32x32");
             int[,] itemShape = new int[,]{
-                { 0, 0, 0, 0},
-                { 0, 1, 0, 0},
-                { 0, 1,1, 0},
-                { 0, 1, 0, 0},
+               { 0, 1, 0},
+                { 1, 1, 0},
+                { 0, 1, 0}
             };
             SpriteFont font = Content.Load<SpriteFont>("Score");
             Backpack = new Backpack(services, graphics, Player, globalState);
