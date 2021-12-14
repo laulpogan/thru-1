@@ -62,16 +62,6 @@ namespace Thru
                     MouseHandler.dragged = null;
                     MouseHandler.isDragging = false;
                     isBeingDragged = false;
-                    if(receiver is not null && receiver != oldReceiver)
-                    {
-                        PreviousHome = ScreenHome;
-                        ScreenHome = receiver.ScreenHome;
-                        receiver.Item = Item;
-                        if (oldReceiver is not null)
-                            oldReceiver.Item = null;
-                        oldReceiver = receiver;
-                        receiver = null;
-                    }
                     Button.Bounds.Location = ScreenHome;
                     break;
                 case BState.HOVER:

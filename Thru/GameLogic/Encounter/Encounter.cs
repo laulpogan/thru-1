@@ -45,7 +45,7 @@ namespace Thru
 				buttonList.Add(tempButton);
 				Options.Add(option.text, option);
 			}
-			ButtonGroup = new ButtonGroup(buttonList, new Vector2(800, 650), ButtonArrangement.Horizontal);
+			ButtonGroup = new ButtonGroup(buttonList, new Vector2(800, 750), ButtonArrangement.Horizontal);
 			okButton = new Button(globalState.MouseHandler, buttonImage, "OK", font);
 			buttonList.Clear();
 			buttonList.Add(okButton);
