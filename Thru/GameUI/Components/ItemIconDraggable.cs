@@ -27,7 +27,6 @@ namespace Thru
             MouseHandler = mouseHandler;
             ScreenHome = home;
             Button = new Button(mouseHandler, icon);
-            Button.Bounds.Location = ScreenHome;
             ShapeHome = shapeHome;
             isBeingDragged = false;
             Item = item;
@@ -36,7 +35,7 @@ namespace Thru
 
         public GameState Update(GameTime gameTime)
         {
-
+            Button.Bounds.Location = ScreenHome;
             switch (MouseHandler.State)
             {
                 case BState.DOWN:

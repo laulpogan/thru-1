@@ -68,7 +68,11 @@ namespace Thru
             for (int i = 0; i < Item.ItemShape.GetLength(0); i++)
                 for (int j = 0; j < Item.ItemShape.GetLength(1); j++)
                     if (Draggables[i, j] is not null)
+                    {
+                       
                         Draggables[i, j].Button.Bounds.Location = getInventoryScreenXY(i,j, point, gridMargin);
+                        //Draggables[i, j].BoardHome = tempBoardPoint;
+                    }
 
         }
         public static Point getInventoryScreenXY(int row, int col, Point Home, int marginStep)
