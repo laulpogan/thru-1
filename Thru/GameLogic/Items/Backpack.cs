@@ -20,7 +20,7 @@ namespace Thru
 			ContentManager Content = new ContentManager(services, "Content");
 			int[,] itemShape = new int[0, 0];
 			pack = new Item(globalState.MouseHandler, Content.Load<Texture2D>("ItemIcons/Backpack-Raptor1-32x32"), new Point(1025, 250), false, 10, 1, 7.5f, itemShape);
-			receivers = new InventoryGameBoard(globalState.MouseHandler, graphics, 5, 4, 18, 32, pack.Home);
+			receivers = new InventoryGameBoard(globalState.MouseHandler, graphics, 4, 5, 18, 32, pack.Home);
 		}
 
 		public void Update(GameTime gameTime)

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Thru
 {
@@ -19,14 +20,13 @@ namespace Thru
             {
                 if (board != value)
                 {
-                    Console.WriteLine("Changed Board from " + board + " to " + value);
+                    ThruLib.printLn(board);
                 }
                 board =value;
             }
         }
         public int rows, columns, bloc;
         public Point Home;
-        public int[,] itemShape;
         public int gridMargin;
         public MouseHandler MouseHandler;
         ItemIconDraggableGroup tempDraggable;
@@ -43,84 +43,9 @@ namespace Thru
             for (int row = 0; row < rows; row ++)
                 for (int col = 0; col < columns; col ++)
                 {
-                    receivers[row,col] = new DraggableReceiver(mouseHandler, graphics, ThruLib.getInventoryScreenXY(row, col, Home, bloc), new Point(row,col), this);
+                    receivers[row,col] = new DraggableReceiver(mouseHandler, graphics, getInventoryScreenXY(row, col, Home, bloc), new Point(row,col), this);
                     board[row, col] = 0;
                 }
-
-
-            
-            
-            itemShape = new int[,]
-            {
-                {1}
-            };
-            itemShape = new int[,]
-            {
-                {1,1}
-            };
-            itemShape = new int[,]
-            {
-                {0,1},
-                {1,1}
-            };
-            itemShape = new int[,]{
-                { 0, 0, 0},
-                { 1, 1, 0},
-                { 0, 1, 0}
-            };
-            itemShape = new int[,]{
-                { 0, 0, 0, 0},
-                { 1, 1, 0, 0},
-                { 0, 1, 0, 0},
-                { 0, 1, 0, 0},
-            };
-            itemShape = new int[,]{
-                { 0, 0, 0, 0, 0},
-                { 1, 1, 0, 0, 0},
-                { 0, 1, 0, 0, 0},
-                { 0, 1, 0, 0, 0},
-                { 0, 1, 0, 0, 0}
-            };
-            itemShape = new int[,]{
-                { 0, 0, 0, 0, 0, 0},
-                { 1, 1, 0, 0, 0, 0},
-                { 0, 1, 0, 0, 0, 0},
-                { 0, 1, 0, 0, 0, 0},
-                { 0, 1, 0, 0, 0, 0},
-                { 0, 0, 0, 0, 0, 0}
-            };
-            itemShape = new int[,]{
-                { 0, 0, 0, 0, 0, 0, 0},
-                { 1, 1, 0, 0, 0, 0, 0},
-                { 0, 1, 0, 0, 0, 0, 0},
-                { 0, 1, 0, 0, 0, 0, 0},
-                { 0, 1, 0, 0, 0, 0, 0},
-                { 0, 0, 0, 0, 0, 0, 0},
-                { 0, 0, 0, 0, 0, 0, 0}
-            };
-            itemShape = new int[,]{
-                { 0, 0, 0, 0, 0, 0, 0, 0},
-                { 1, 1, 0, 0, 0, 0, 0, 0},
-                { 0, 1, 0, 0, 0, 0, 0, 0},
-                { 0, 1, 0, 0, 0, 0, 0, 0},
-                { 0, 1, 0, 0, 0, 0, 0, 0},
-                { 0, 0, 0, 0, 0, 0, 0, 0},
-                { 0, 0, 0, 0, 0, 0, 0, 0},
-                { 0, 0, 0, 0, 0, 0, 0, 0}
-            };
-
-            itemShape = new int[,]{
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                { 1, 1, 0, 0, 0, 0, 0, 0, 0},
-                { 0, 1, 0, 0, 0, 0, 0, 0, 0},
-                { 0, 1, 0, 0, 0, 0, 0, 0, 0},
-                { 0, 1, 0, 0, 0, 0, 0, 0, 0},
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0}
-            };
-
         }
        
         public GameState Update(GameTime gameTime)
@@ -141,19 +66,15 @@ namespace Thru
                 tempDraggable.adjustGroupPosition(tempDraggable.currentPoint, tempDraggable.currentBoardPoint);
             }
 
-            if (MouseHandler.RState == BState.JUST_RELEASED && MouseHandler.dragged.Draggable == tempDraggable)
+            if (MouseHandler.RState == BState.JUST_RELEASED && MouseHandler.isDragging)
             {
-                Console.WriteLine("Before");
-                printLn(tempDraggable.Item.ItemShape);
-                ThruLib.rotate90DegClockwise<int>(tempDraggable.Item.ItemShape);
-                ThruLib.rotate90DegClockwise<ItemIconDraggable>(tempDraggable.Draggables);
-                Console.WriteLine("After");
-                printLn(tempDraggable.Item.ItemShape);
+                rotate90DegClockwise<int>(tempDraggable.Item.ItemShape);
+                rotate90DegClockwise<ItemIconDraggable>(tempDraggable.Draggables);
                 for (int i = 0; i < tempItem.ItemShape.GetLength(0); i++)
                     for (int j = 0; j < tempItem.ItemShape.GetLength(1); j++)
                         if (tempItem.ItemShape[i, j] == 1 && tempDraggable.Draggables[i, j] is not null)
                         {
-                            tempDraggable.Draggables[i, j].ScreenHome = ThruLib.getInventoryScreenXY(i, j, tempDraggable.BoardHome, gridMargin);
+                            tempDraggable.Draggables[i, j].ScreenHome = getInventoryScreenXY(i, j, tempDraggable.BoardHome, gridMargin);
                             Point newBoardPosition = new Point(tempDraggable.Draggables[i, j].ShapeHome.X, tempDraggable.Draggables[i, j].ShapeHome.Y);
                             tempDraggable.Draggables[i, j].BoardHome = newBoardPosition;
                         }
@@ -161,6 +82,10 @@ namespace Thru
 
             foreach (DraggableReceiver receiver in receivers)
             {
+                if (receiver.isOccupied)
+                    board[receiver.BoardHome.X, receiver.BoardHome.Y] = 1;
+                else
+                    board[receiver.BoardHome.X, receiver.BoardHome.Y] = 0;
                 receiver.Update(gameTime);
             }
 
@@ -175,7 +100,30 @@ namespace Thru
             }
         }
 
- 
+        //todo this is broken and combining board and screen coords ugh
+        public static Point getInventoryScreenXY(int row, int col, Point Home, int marginStep)
+        {
+            return new Point(Home.X + (row * marginStep), Home.Y + (col * marginStep));
+        }
+        public static T[,] rotate90DegClockwise<T>(T[,] a)
+        {
+            int N = a.GetLength(0);
+            // It will traverse the each cycle
+            for (int i = 0; i < N / 2; i++)
+            {
+                for (int j = i; j < N - i - 1; j++)
+                {
+
+                    // It will swap elements of each cycle in clock-wise direction
+                    T temp = a[i, j];
+                    a[i, j] = a[N - 1 - j, i];
+                    a[N - 1 - j, i] = a[N - 1 - i, N - 1 - j];
+                    a[N - 1 - i, N - 1 - j] = a[j, N - 1 - i];
+                    a[j, N - 1 - i] = temp;
+                }
+            }
+            return a;
+        }
 
         public void checkCollision()
         {
@@ -193,19 +141,64 @@ namespace Thru
    
         public bool isValidMove(int[,] iShape, Point point)
         {
-            int newX = iShape.GetLength(0) + point.X;
-            int newY = iShape.GetLength(1) + point.Y;
-            if (newX > board.GetLength(0)-1 || newX <0)
+            Console.WriteLine("The Dimensions of the shape are: "+iShape.GetLength(0)+ " , " + iShape.GetLength(1));
+            int newX = getTrueLength(iShape)[0] + point.X;
+            int newY = getTrueLength(iShape)[1] + point.Y;
+            if (newX > board.GetLength(0) || point.X < 0)
+            {
+                Console.WriteLine("Failed to place piece at (" + point + "): going off top or bottom edge");
                 return false;
-            if (newY> board.GetLength(1) -1|| newY< 0)
+            }
+            if (newY > board.GetLength(1) || point.Y < 0)
+            {
+                Console.WriteLine("Failed to place piece at ("+ point +"): going off left or right edge");
                 return false;
+            }
 
-            for (int x = 0; x < newX; x++)
-                for (int y = 0; y < newY; y++)
+            for (int x = 0; x < getTrueLength(iShape)[0]; x++)
+                for (int y = 0; y < getTrueLength(iShape)[1]; y++)
                     if (iShape[x, y] == 1)
                         if (board[x + point.X, y + point.Y] == 1)
-                            return false;   
+                        {
+                            Console.WriteLine("Y + point.y = "+ y +point.Y);
+                            Console.WriteLine("X + point.x = " + x + point.X);
+                            Console.WriteLine("Failed to place piece at (" + point + "): collision at (" + x + point.X + "," + y + point.Y +")");
+                            ThruLib.printLn(iShape);
+                            ThruLib.printLn(board); 
+                            return false;
+                        }
+                     
+                    
+
+                        
             return true;
+        }
+
+        //getting the length of the shape arrays to where they have blocks, not their whole.
+        public int[] getTrueLength(int[,] iShape)
+        {
+            int isRowsEmpty, isColsEmpty;
+            int rowsISawNumbers = 0;
+            int colsISawNumbers = 0;
+            for (int x = 0; x < iShape.GetLength(0); x++)
+            {
+                isRowsEmpty = 0;
+                isColsEmpty = 0;
+                for (int y = 0; y < iShape.GetLength(1); y++)
+                {
+                    isRowsEmpty += iShape[x, y];
+                    isColsEmpty += iShape[y, x];
+                }
+                if (isRowsEmpty > 0)
+                    rowsISawNumbers = x;
+                if (isColsEmpty > 0)
+                    colsISawNumbers = x;
+            }
+            int[] trueLength = new int[2];
+            trueLength[0] = rowsISawNumbers;
+            trueLength[1] = colsISawNumbers;
+            return trueLength;
+                
         }
         public void updateBoardAndReceivers(Item Item, Point point)
         {
@@ -223,15 +216,16 @@ namespace Thru
                         tempReceiver.IconDraggable = Item.Draggable.Draggables[x, y];
                         tempReceiver.isOccupied = true;
                     }
-
+            ThruLib.printLn(Item.ItemShape);
+            ThruLib.printLn(board);
         }
 
         public void receiverShuffle()
         {
-            tempItem = MouseHandler.dragged == null ? null : MouseHandler.dragged;
+
+                    tempItem = MouseHandler.dragged == null ? null : MouseHandler.dragged;
             if (tempItem is not null)
                 tempDraggable = tempItem.Draggable;
-
 
             else
             {
@@ -239,7 +233,7 @@ namespace Thru
                 tempDraggable.currentBoardPoint = tempDraggable.BoardHome;
 
                 tempDraggable.isBeingDragged = false;
-
+                Point tempPoint;
 
                 if (tempDraggable.receiver is not null && tempDraggable.receiver != tempDraggable.oldReceiver)
                 {
@@ -254,6 +248,7 @@ namespace Thru
                         for (int j = 0; j < tempDraggable.Item.ItemShape.GetLength(1); j++)
                             if (tempDraggable.Draggables[i, j] is not null)
                             {
+                                tempPoint = new Point(tempDraggable.BoardHome.X + i, tempDraggable.BoardHome.Y + j);
                                 tempDraggable.Draggables[i, j].receiver = receivers[tempDraggable.BoardHome.X + i, tempDraggable.BoardHome.Y + j];
                                 if (tempDraggable.Draggables[i, j].receiver != tempDraggable.Draggables[i, j].oldReceiver)
                                 {
@@ -261,6 +256,8 @@ namespace Thru
                                     tempDraggable.Draggables[i, j].receiver.Item = tempDraggable.Item;
                                     if (tempDraggable.Draggables[i, j].oldReceiver is not null)
                                     {
+
+                                        board[tempDraggable.Draggables[i, j].oldReceiver.BoardHome.X, tempDraggable.Draggables[i, j].oldReceiver.BoardHome.Y] = 0;
                                         tempDraggable.Draggables[i, j].oldReceiver.Item = null;
                                         tempDraggable.Draggables[i, j].oldReceiver.isOccupied = false;
                                     }
@@ -283,21 +280,7 @@ namespace Thru
 
             }
         }
-        public void printLn(int[,] input)
-        {
-
-            Console.WriteLine("------------------");
-            for (int i = 0; i < input.GetLength(0); i++)
-            {
-                string duh = "";
-                for (int j = 0; j < input.GetLength(1); j++)
-                    duh += " " + input[i, j].ToString();
-                Console.WriteLine(duh);
-            }
-
-            Console.WriteLine("------------------");
-
-        }
+       
 
         
         public Point getBoardXY(Point point, int row, int col)

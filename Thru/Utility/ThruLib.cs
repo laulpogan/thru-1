@@ -149,7 +149,7 @@ namespace Thru {
 		//todo this is broken and combining board and screen coords ugh
 		public static Point getInventoryScreenXY(int row, int col, Point Home, int marginStep)
 		{
-			return new Point(Home.X + (row * marginStep), Home.Y + (col * marginStep));
+			return new Point(Home.X + (col * marginStep), Home.Y + (row * marginStep));
 		}
 		public static T[,] rotate90DegClockwise<T>(T[,] a)
 		{
@@ -169,6 +169,22 @@ namespace Thru {
 				}
 			}
 			return a;
+		}
+
+		public static void printLn(int[,] input)
+		{
+
+			Console.WriteLine("------------------");
+			for (int i = 0; i < input.GetLength(0); i++)
+			{
+				string duh = "";
+				for (int j = 0; j < input.GetLength(1); j++)
+					duh += " " + input[i, j].ToString();
+				Console.WriteLine(duh);
+			}
+
+			Console.WriteLine("------------------");
+
 		}
 		public static int[,] matrixMultiply(int[,] matrix1, int[,] matrix2)
 		{

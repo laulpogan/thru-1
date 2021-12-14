@@ -34,7 +34,6 @@ namespace Thru
             Item = item;
         }
         
-        //todo make this mouse checking occur a level up in the group? Or even just on the board
 
         public GameState Update(GameTime gameTime)
         {
