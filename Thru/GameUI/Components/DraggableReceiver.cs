@@ -32,47 +32,12 @@ namespace Thru
             GameBoard = gameBoard;
         }
 
-        public Point getBoardShapeOrigin()
-        {
-
-            Point point = BoardHome;
-            Point point2 = MouseHandler.iconDragged.ShapeHome;
-
-
-            return point - point2 ;
-        }
         public GameState Update(GameTime gameTime)
         {
-            if (ThruLib.hit_image_alpha(
-                    Bounds, Icon, MouseHandler.mx, MouseHandler.my))
-            {
-                if(MouseHandler.dragged != null && Item == null)
-                {
-                   if(MouseHandler.State == BState.JUST_RELEASED)
-                    {
-                        if(GameBoard.isValidMove(MouseHandler.dragged.ItemShape, getBoardShapeOrigin()))
-                        {
-                           MouseHandler.dragged.Draggable.receiver = this;
-                           IconDraggable = MouseHandler.iconDragged;
-                           MouseHandler.iconDragged.receiver = this;
-                           MouseHandler.iconDragged.BoardHome = BoardHome;
-                           GameBoard.updateBoardAndReceivers(MouseHandler.dragged, getBoardShapeOrigin());
-
-                           
-                                for (int i = 0; i < MouseHandler.dragged.ItemShape.GetLength(0); i++)
-                                    for (int j = 0; j < MouseHandler.dragged.ItemShape.GetLength(1); j++)
-                                        if (MouseHandler.dragged.ItemShape[i, j] == 1)
-                                        {
-                                          MouseHandler.iconDragged.BoardHome += new Point(i, j);
-                                        }
-
-                        }
-                            
-                        
-                        
-                    }
-                }
-            }
+            if (Item is not null)
+                isOccupied = true;
+            else
+                isOccupied = false;
                 return GameState.Inventory;
         }
 
@@ -82,7 +47,6 @@ namespace Thru
         }
 
 
-        //todo:reconsolidate to game board class, this fucking thing is a mess
       
     }
 

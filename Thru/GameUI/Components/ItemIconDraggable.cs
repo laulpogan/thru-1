@@ -12,7 +12,7 @@ namespace Thru
         public Point ScreenXY;
         public bool IsClicked;
         public Button Button;
-        public Point ScreenHome, PreviousHome, ShapeHome, BoardHome;
+        public Point ScreenHome, ShapeHome, BoardHome;
         public Item Item;
         public MouseHandler MouseHandler;
         public Texture2D icon;
@@ -26,7 +26,6 @@ namespace Thru
             Group = group;
             MouseHandler = mouseHandler;
             ScreenHome = home;
-            PreviousHome = home;
             Button = new Button(mouseHandler, icon);
             Button.Bounds.Location = ScreenHome;
             ShapeHome = shapeHome;
@@ -38,7 +37,6 @@ namespace Thru
         public GameState Update(GameTime gameTime)
         {
 
-           
             switch (MouseHandler.State)
             {
                 case BState.DOWN:

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Reflection.Metadata;
 
 namespace Thru
@@ -11,7 +12,8 @@ namespace Thru
     public class InventoryGameView : IGameView
     {
 
-        public ArrayList receivers, draggables;
+        public ArrayList receivers;
+        public List<Item> draggables;
         public Item  BearCan, ColdSoakJar, CookPot, IceAxe, Knife, MountainHouse, RawologyCorkball,
             SawyerBugRepellent, SawyerFilter, SleepingBag, Spoon, Spork, Stove, Tent, ToiletPaper, TrekkingPoles,
             WaterbottleClean, WaterbottleDirty;
@@ -72,11 +74,12 @@ namespace Thru
             WaterbottleClean = new Item(globalState.MouseHandler, WaterbottleCleanImage, new Point(550, 400), false,4, 1.7f, 0, itemShape);
             WaterbottleDirty = new Item(globalState.MouseHandler, WaterbottleDirtyImage, new Point(600, 400), false, 4, 1.7f, 0, itemShape);
             spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
-            draggables = new ArrayList(){
+            draggables = new List<Item>(){
                 BearCan, ColdSoakJar, CookPot, IceAxe, Knife, MountainHouse, RawologyCorkball,
                 SawyerBugRepellent, SawyerFilter, SleepingBag, Spoon, Spork, Stove, Tent, ToiletPaper, TrekkingPoles,
                 WaterbottleClean, WaterbottleDirty
         };
+            Backpack.GameBoard.draggables = draggables;
         }
 
         public  GameState Update(GameTime gameTime)
@@ -84,10 +87,7 @@ namespace Thru
             Player.Update(gameTime);
             Backpack.Update(gameTime);
 
-            foreach (Item draggable in draggables)
-            {
-                draggable.Update(gameTime);
-            }
+            
             return GameState.Inventory;
         }
 
@@ -96,10 +96,6 @@ namespace Thru
             spriteBatch.Begin();
             Backpack.Draw(spriteBatch);
           
-            foreach (Item draggable in draggables)
-            {
-                draggable.Draw(spriteBatch);
-            }
             Player.Draw(spriteBatch);
             spriteBatch.End();
 
