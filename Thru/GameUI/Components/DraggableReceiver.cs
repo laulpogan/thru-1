@@ -13,8 +13,21 @@ namespace Thru
         public Texture2D Icon;
         public MouseHandler MouseHandler;
         public Point ScreenHome, BoardHome;
-        public bool isOccupied;
-        public Item Item;
+        public bool isOccupied
+        {
+            get
+            {
+                return Item is not null;
+            }
+        }
+        public Item Item
+        {
+            get
+            {
+                return IconDraggable is not null ? IconDraggable.Item : null;
+            }
+
+        }
         public InventoryGameBoard GameBoard;
         public ItemIconDraggable IconDraggable;
 
@@ -28,16 +41,12 @@ namespace Thru
             this.ScreenHome = screenHome;
             BoardHome = boardHome;
             Bounds.Location = this.ScreenHome;
-            Item = null;
+            IconDraggable = null;
             GameBoard = gameBoard;
         }
 
         public GameState Update(GameTime gameTime)
         {
-            if (Item is not null)
-                isOccupied = true;
-            else
-                isOccupied = false;
                 return GameState.Inventory;
         }
 

@@ -34,7 +34,7 @@ namespace Thru
         }
         public bool isOverReceiver(DraggableReceiver receiver, ItemIconDraggable draggable)
         {
-            return receiver.Bounds.Contains(draggable.ScreenXY);
+            return receiver.Bounds.Contains(draggable.CurrentPoint);
         }
 
         public void DragAndDrop()

@@ -12,171 +12,109 @@ namespace Thru
 
         public Rectangle Bounds;
         public DraggableReceiver[,] receivers;
-        public int[,] board;
-        public int[,] currentBoard
+        public int[,] trueBoard;
+        public int[,] board
         {
-            get { return board; }
-            set
-            {
-                if (board != value)
-                {
-                    ThruLib.printLn(board);
-                }
-                board =value;
-            }
+            get {
+                foreach (DraggableReceiver receiver in receivers)
+                    if (receiver is not null && receiver.isOccupied)
+                        trueBoard[receiver.BoardHome.X, receiver.BoardHome.Y] = 1;
+                
+                return trueBoard;}
+            set {}
         }
+        public int[,] EmptyBoard;
         public int rows, columns, bloc;
         public Point BoardOrigin;
         public int gridMargin;
         public MouseHandler MouseHandler;
-        public ItemIconDraggableGroup draggedIconGroup;
-        public Item tempItem;
+        public ItemIconDraggableGroup draggedIconGroup {
+            get
+            {
+               return MouseHandler.dragged is not null ? MouseHandler.dragged.Draggable : null;
+            }
+        }
+        
         public List<Item> draggables;
         public InventoryGameBoard(MouseHandler mouseHandler, GraphicsDeviceManager graphics, int rows, int columns, int margin, int iconSize, Point boardOrigin)
         {
+            trueBoard = ThruLib.emptyBoard(rows, columns);
             receivers = new DraggableReceiver[rows,columns];
-            board = new int[rows, columns];
             bloc = margin + iconSize;
             BoardOrigin = boardOrigin;
             gridMargin = margin + iconSize;
             MouseHandler = mouseHandler;
-            draggedIconGroup = null;
             for (int row = 0; row < rows; row ++)
                 for (int col = 0; col < columns; col ++)
                 {
                     receivers[row,col] = new DraggableReceiver(mouseHandler, graphics, getInventoryScreenXY(new Point(row, col)), new Point(row,col), this);
-                    board[row, col] = 0;
                 }
         }
        
+       
         public GameState Update(GameTime gameTime)
         {
-
+            
             if (MouseHandler.isDragging)
-            {
-                receiverShuffle();
-                for (int i = 0; i < MouseHandler.dragged.ItemShape.GetLength(0); i++)
-                    for (int j = 0; j < MouseHandler.dragged.ItemShape.GetLength(1); j++)
-                        if (MouseHandler.dragged.Draggable.Draggables[i, j] is not null && MouseHandler.dragged.Draggable.Draggables[i, j].isBeingDragged)
-                        {
-                            draggedIconGroup.currentPoint = draggedIconGroup.Draggables[i, j].Button.Bounds.Location;
-                            draggedIconGroup.currentPoint.X -= i * gridMargin;
-                            draggedIconGroup.currentPoint.Y -= j * gridMargin;
-                            draggedIconGroup.isBeingDragged = true;
-                        }
-                draggedIconGroup.adjustGroupPosition(draggedIconGroup.currentPoint);
-            }
-            else
-                draggedIconGroup = null;
+                draggedIconGroup.adjustGroupPosition(draggedIconGroup.CurrentPoint);
+
 
             if (MouseHandler.RState == BState.JUST_RELEASED && MouseHandler.isDragging)
-            {
-                rotate90DegClockwise<int>(draggedIconGroup.Item.ItemShape);
                 rotate90DegClockwise<ItemIconDraggable>(draggedIconGroup.Draggables);
-                for (int i = 0; i < tempItem.ItemShape.GetLength(0); i++)
-                    for (int j = 0; j < tempItem.ItemShape.GetLength(1); j++)
-                        if (tempItem.ItemShape[i, j] == 1 && draggedIconGroup.Draggables[i, j] is not null)
-                        {
-                            draggedIconGroup.Draggables[i, j].ScreenHome = getInventoryScreenXY(new Point(i, j));
-                            Point newBoardPosition = new Point(draggedIconGroup.Draggables[i, j].ShapeHome.X, draggedIconGroup.Draggables[i, j].ShapeHome.Y);
-                            draggedIconGroup.Draggables[i, j].BoardHome = newBoardPosition;
-                        }
-            }
 
-            foreach (DraggableReceiver receiver in receivers)
-            {
-                if (ThruLib.hit_image_alpha(
-                    receiver.Bounds, receiver.Icon, MouseHandler.mx, MouseHandler.my))
-                {
+            foreach (DraggableReceiver receiver in receivers) {
+                if (ThruLib.hit_image_alpha(receiver.Bounds, receiver.Icon, MouseHandler.mx, MouseHandler.my))
                     if (MouseHandler.dragged != null && receiver.Item == null)
-                    {
                         if (MouseHandler.State == BState.JUST_RELEASED)
                         {
                             if (isValidMove(MouseHandler.dragged.ItemShape, getBoardShapeOrigin(receiver)))
-                            {
-                                MouseHandler.dragged.Draggable.receiver = receiver;
-                                MouseHandler.iconDragged.receiver = receiver;
-                                updateBoardAndReceivers(MouseHandler.dragged, getBoardShapeOrigin(receiver));
-                            }
-
-
-
+                                parseIconGroup(draggedIconGroup, receiver);
+                            MouseHandler.iconDragged = null;
                         }
-                    }
-                }
-                if (receiver.Item is not null)
-                    board[receiver.BoardHome.X, receiver.BoardHome.Y] = 1;
-                else
-                    board[receiver.BoardHome.X, receiver.BoardHome.Y] = 0;
                 receiver.Update(gameTime);
-            }
+             }
+     
             foreach (Item draggable in draggables)
-            {
-                if (draggable.Draggable.receiver is not null)
-                    board[draggable.Draggable.receiver.BoardHome.X, draggable.Draggable.receiver.BoardHome.Y] = 1;
                 draggable.Update(gameTime);
-            }
             return GameState.Inventory;
         }
-        public void receiverShuffle()
+
+
+        public void parseSingleIcon(ItemIconDraggable draggable)
         {
-
-            tempItem = MouseHandler.dragged == null ? null : MouseHandler.dragged;
-            if (tempItem is not null)
-                draggedIconGroup = tempItem.Draggable;
-           
-            draggedIconGroup.currentPoint = draggedIconGroup.ScreenHome;
-            draggedIconGroup.currentBoardPoint = draggedIconGroup.BoardHome;
-
-            draggedIconGroup.isBeingDragged = false;
-            Point tempPoint;
-
-            if (draggedIconGroup.receiver is not null && draggedIconGroup.receiver != draggedIconGroup.oldReceiver)
-            {
-                draggedIconGroup.BoardHome = draggedIconGroup.receiver.BoardHome - draggedIconGroup.receiver.IconDraggable.ShapeHome;
-                draggedIconGroup.ScreenHome = getInventoryScreenXY(draggedIconGroup.BoardHome);
-                draggedIconGroup.receiver.Item = draggedIconGroup.Item;
-                if (draggedIconGroup.oldReceiver is not null)
-                {
-                    draggedIconGroup.oldReceiver.Item = null;
-                    draggedIconGroup.oldReceiver.isOccupied = false;
-                    board[draggedIconGroup.oldReceiver.BoardHome.X, draggedIconGroup.oldReceiver.BoardHome.Y] = 0;
-                }
-                draggedIconGroup.oldReceiver = draggedIconGroup.receiver;
-                draggedIconGroup.receiver = null;
-                for (int i = 0; i < getTrueLength(draggedIconGroup.Item.ItemShape)[0]; i++)
-                    for (int j = 0; j < getTrueLength(draggedIconGroup.Item.ItemShape)[1]; j++)
-                        if (draggedIconGroup.Draggables[i, j] is not null)
-                        {
-                            tempPoint = new Point(draggedIconGroup.BoardHome.X + i, draggedIconGroup.BoardHome.Y + j);
-                            draggedIconGroup.Draggables[i, j].receiver = receivers[draggedIconGroup.BoardHome.X + i, draggedIconGroup.BoardHome.Y + j];
-                            if (draggedIconGroup.Draggables[i, j].receiver != draggedIconGroup.Draggables[i, j].oldReceiver)
-                            {
-                                draggedIconGroup.Draggables[i, j].ScreenHome = draggedIconGroup.Draggables[i, j].receiver.ScreenHome;
-                                draggedIconGroup.Draggables[i, j].receiver.Item = draggedIconGroup.Item;
-                                if (draggedIconGroup.Draggables[i, j].oldReceiver is not null)
-                                {
-
-                                    board[draggedIconGroup.Draggables[i, j].oldReceiver.BoardHome.X, draggedIconGroup.Draggables[i, j].oldReceiver.BoardHome.Y] = 0;
-                                    draggedIconGroup.Draggables[i, j].oldReceiver.Item = null;
-                                    draggedIconGroup.Draggables[i, j].oldReceiver.isOccupied = false;
-                                }
-
-
-                                draggedIconGroup.Draggables[i, j].oldReceiver = draggedIconGroup.Draggables[i, j].receiver;
-                                draggedIconGroup.Draggables[i, j].receiver = null;
-                            }
-
-                            //draggedIconGroup.Draggables[i, j].receiver.isOccupied = false;
-                            draggedIconGroup.Draggables[i, j].BoardHome = draggedIconGroup.BoardHome + new Point(i, j);
-                        }
-                
-            }
+            draggable.oldReceiver = draggable.receiver;
+            draggable.receiver = null;
+            if (draggable.oldReceiver is not null)
+                draggable.oldReceiver.IconDraggable = null;
+            Console.WriteLine("Adding Shape Coordinates " + draggable.ShapeHome + "and Board coordinates" + draggable.Group.BoardHome);
+            Point newPoint = draggable.ShapeHome + draggable.Group.BoardHome;
+            Console.WriteLine("New Point at " + newPoint);
+            draggable.receiver = receivers[newPoint.X, newPoint.Y];
+            draggable.receiver.IconDraggable = draggable;
         }
-                
+
+        public void parseIconGroup(ItemIconDraggableGroup draggableGroup, DraggableReceiver receiver)
+        {
+            draggableGroup.oldReceiver = draggableGroup.receiver;
+            draggableGroup.receiver = receiver;
+            MouseHandler.iconDragged.receiver = receiver;
+            foreach (ItemIconDraggable draggable in draggableGroup.Draggables)
+                if (draggable is not null)
+                    parseSingleIcon(draggable);
+        }
+        public void matchIconsToReceivers(ItemIconDraggableGroup group, Point point)
+        {
+            foreach(ItemIconDraggable draggable in group.Draggables)
+                if(draggable is not null)
+                {
+
+                }
+        }
+
+                    
 
 
-                public Point getBoardShapeOrigin(DraggableReceiver receiver)
+    public Point getBoardShapeOrigin(DraggableReceiver receiver)
         {
 
             Point point = receiver.BoardHome;
@@ -190,6 +128,8 @@ namespace Thru
         {
             foreach (DraggableReceiver receiver in receivers)
             {
+                if (receiver.isOccupied)
+                    receiver.Item.Draw(spriteBatch);
                 receiver.Draw(spriteBatch);
             }
             foreach (Item draggable in draggables)
@@ -225,8 +165,9 @@ namespace Thru
 
         public bool isValidMove(int[,] iShape, Point point)
         {
-            int newX = getTrueLength(iShape)[0] + point.X;
-            int newY = getTrueLength(iShape)[1] + point.Y;
+            ThruLib.printLn(board);
+            int newX = iShape.GetLength(0) + point.X;
+            int newY = iShape.GetLength(1) + point.Y;
             if (newX > board.GetLength(0) || point.X < 0)
             {
                 Console.WriteLine("Failed to place piece at (" + point + "): going off top or bottom edge");
@@ -238,8 +179,8 @@ namespace Thru
                 return false;
             }
 
-            for (int x = 0; x < getTrueLength(iShape)[0]; x++)
-                for (int y = 0; y < getTrueLength(iShape)[1]; y++)
+            for (int x = 0; x < iShape.GetLength(0); x++)
+                for (int y = 0; y < iShape.GetLength(1); y++)
                     if (iShape[x, y] == 1)
                         if (board[x + point.X, y + point.Y] == 1)
                         {
@@ -283,32 +224,8 @@ namespace Thru
             return trueLength;
                 
         }
-        public void updateBoardAndReceivers(Item Item, Point point)
-        {
-            DraggableReceiver tempReceiver;
-            for (int x = 0; x < Item.ItemShape.GetLength(0); x++)
-                for (int y = 0; y < Item.ItemShape.GetLength(1); y++)
-                    if (Item.ItemShape[x, y] == 1 && Item.Draggable.Draggables is not null)
-                    {
-                        int newX = x + point.X;
-                        int newY = y + point.Y;
-                        board[newX, newY] = 1;
-                        if(x! > Item.Draggable.Draggables.GetLength(0) && y! > Item.Draggable.Draggables.GetLength(1))
-                            if(Item.Draggable.Draggables[x, y] is not null)
-                            {
-                                Item.Draggable.Draggables[x, y].BoardHome = new Point(newX, newY);
-                                Item.Draggable.Draggables[x, y].ScreenHome = getInventoryScreenXY(Item.Draggable.Draggables[x, y].BoardHome);
-                            }
-                            
-                        tempReceiver = receivers[newX, newY];
-                        tempReceiver.IconDraggable = Item.Draggable.Draggables[x, y];
-                        tempReceiver.isOccupied = true;
-                    }
-            ThruLib.printLn(Item.ItemShape);
-            ThruLib.printLn(board);
-        }
+     
 
-        //formerly the receiver update method
         
 
 

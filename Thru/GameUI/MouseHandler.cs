@@ -14,15 +14,44 @@ namespace Thru
 		public MouseState mouseState;
 		public bool mpressed, prev_mpressed = false;
 		public bool rpressed, prev_rpressed = false;
-		public Item dragged;
 		public ItemIconDraggable iconDragged;
+		public Item dragged
+        {
+			get
+            {
+				return iconDragged is not null ? iconDragged.Item : null;
+            }
+
+			//todo: set assigned item to dragging with its first icon?
+			/*set
+            {
+				iconDragged = value.Draggable.Draggables[0,0]
+            }*/
+        }
+		
 		public int mx, my;
+		public Point mXY
+		{
+			get { return new Point(mx,my); }
+			set
+			{
+				mx = value.X;
+				my = value.Y;
+			}
+		}
 		public BState State, RState;
-		public bool isDragging;
+		public bool isDragging
+        {
+			get
+            {
+				return dragged is not null;
+            }
+        }
 
 
 		public MouseHandler()
 		{
+			iconDragged = null;
 			State = new BState();
 			mouseState = Mouse.GetState();
 		}
@@ -39,7 +68,17 @@ namespace Thru
 			prev_rpressed = rpressed;
 			mpressed = mouseState.LeftButton == ButtonState.Pressed;
 			rpressed = mouseState.RightButton == ButtonState.Pressed;
+            switch (State)
+            {
+				case BState.JUST_RELEASED:
+					break;
+				case BState.DOWN:
+					break;
+				case BState.HOVER:
+					break;
 
+            }
+			
 		}
 		public  BState getMouseState()
 		{

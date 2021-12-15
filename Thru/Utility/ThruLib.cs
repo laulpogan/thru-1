@@ -114,8 +114,16 @@ namespace Thru {
 			rect.SetData(data);
 			return  rect;
 		}
+		public static int[,] emptyBoard(int x, int y)
+		{
+			int[,] temp = new int[x, y];
+			for (int i = 0; i < x; i++)
+				for (int j = 0; j < y; j++)
+					temp[i, j] = 0;
+			return temp;
+		}
 
-		public static Point pointTransform(Point point, int margin)
+		public static Point multiplyPointByInt(Point point, int margin)
         {
 			return new Point(point.X * margin, point.Y * margin);
         }
@@ -175,11 +183,11 @@ namespace Thru {
 		{
 
 			Console.WriteLine("------------------");
-			for (int i = 0; i < input.GetLength(0); i++)
+			for (int i = 0; i < input.GetLength(1); i++)
 			{
 				string duh = "";
-				for (int j = 0; j < input.GetLength(1); j++)
-					duh += " " + input[i, j].ToString();
+				for (int j = 0; j < input.GetLength(0); j++)
+					duh += " " + input[j,i].ToString();
 				Console.WriteLine(duh);
 			}
 
