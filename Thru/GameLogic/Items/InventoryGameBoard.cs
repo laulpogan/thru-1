@@ -31,7 +31,7 @@ namespace Thru
         public ItemIconDraggableGroup draggedIconGroup {
             get
             {
-               return MouseHandler.dragged is not null ? MouseHandler.dragged.Draggable : null;
+               return MouseHandler.dragged is not null ? MouseHandler.dragged.DraggableGroup : null;
             }
         }
         
@@ -67,9 +67,9 @@ namespace Thru
                     if (MouseHandler.dragged != null && receiver.Item == null)
                         if (MouseHandler.State == BState.JUST_RELEASED)
                         {
-                            if (isValidMove(MouseHandler.dragged.ItemShape, getBoardShapeOrigin(receiver)))
-                                parseIconGroup(draggedIconGroup, receiver);
-                            MouseHandler.iconDragged = null;
+                            if (isValidMove(MouseHandler.dragged.DraggableGroup, getBoardShapeOrigin(receiver)))
+                                handOffIconGroup(draggedIconGroup, receiver.BoardHome);
+                            MouseHandler.iconHeld = null;
                         }
                 receiver.Update(gameTime);
              }
@@ -85,19 +85,19 @@ namespace Thru
             draggable.oldReceiver = draggable.receiver;
             draggable.receiver = null;
             if (draggable.oldReceiver is not null)
-                draggable.oldReceiver.IconDraggable = null;
+                draggable.oldReceiver.iconHeld = null;
             Console.WriteLine("Adding Shape Coordinates " + draggable.ShapeHome + "and Board coordinates" + draggable.Group.BoardHome);
             Point newPoint = draggable.ShapeHome + draggable.Group.BoardHome;
             Console.WriteLine("New Point at " + newPoint);
             draggable.receiver = receivers[newPoint.X, newPoint.Y];
-            draggable.receiver.IconDraggable = draggable;
+            draggable.receiver.iconHeld = draggable;
         }
 
         public void parseIconGroup(ItemIconDraggableGroup draggableGroup, DraggableReceiver receiver)
         {
             draggableGroup.oldReceiver = draggableGroup.receiver;
             draggableGroup.receiver = receiver;
-            MouseHandler.iconDragged.receiver = receiver;
+            MouseHandler.iconHeld.receiver = receiver;
             foreach (ItemIconDraggable draggable in draggableGroup.Draggables)
                 if (draggable is not null)
                     parseSingleIcon(draggable);
@@ -111,14 +111,28 @@ namespace Thru
                 }
         }
 
-                    
+        public void handOffIcon(ItemIconDraggable draggable, IDraggableContainer container)
+        {
+            draggable.oldReceiver = draggable.receiver;
+            if(draggable.receiver is not null)
+                draggable.receiver.iconHeld = null;
+            container.iconHeld = draggable;
+            draggable.receiver = container;
+        }
+        
+        public void handOffIconGroup(ItemIconDraggableGroup group, Point point)
+        {
+            foreach (ItemIconDraggable draggable in group.Draggables)
+                if (draggable is not null)
+                    handOffIcon(draggable, receivers[point.X + draggable.ShapeHome.X, point.Y + draggable.ShapeHome.Y]);
+        }
 
 
     public Point getBoardShapeOrigin(DraggableReceiver receiver)
         {
 
             Point point = receiver.BoardHome;
-            Point point2 = MouseHandler.iconDragged.ShapeHome;
+            Point point2 = MouseHandler.iconHeld.ShapeHome;
 
 
             return point - point2;
@@ -128,8 +142,6 @@ namespace Thru
         {
             foreach (DraggableReceiver receiver in receivers)
             {
-                if (receiver.isOccupied)
-                    receiver.Item.Draw(spriteBatch);
                 receiver.Draw(spriteBatch);
             }
             foreach (Item draggable in draggables)
@@ -163,24 +175,49 @@ namespace Thru
             return a;
         }
 
-        public bool isValidMove(int[,] iShape, Point point)
+        public bool isValidMove(ItemIconDraggableGroup group, Point point)
         {
             ThruLib.printLn(board);
-            int newX = iShape.GetLength(0) + point.X;
-            int newY = iShape.GetLength(1) + point.Y;
-            if (newX > board.GetLength(0) || point.X < 0)
+            int shapeWidth = getTrueLength(group.Item.ItemShape)[0];
+            int shapeHeight = getTrueLength(group.Item.ItemShape)[1];
+            int newX = shapeWidth + point.X;
+            int newY = shapeHeight + point.Y;
+            if (newX > rows)
             {
                 Console.WriteLine("Failed to place piece at (" + point + "): going off top or bottom edge");
                 return false;
             }
-            if (newY > board.GetLength(1) || point.Y < 0)
+            if (newY > columns)
             {
-                Console.WriteLine("Failed to place piece at ("+ point +"): going off left or right edge");
+                Console.WriteLine("Failed to place piece at (" + point + "): going off left or right edge");
                 return false;
             }
 
-            for (int x = 0; x < iShape.GetLength(0); x++)
-                for (int y = 0; y < iShape.GetLength(1); y++)
+            foreach (ItemIconDraggable draggable in group.Draggables)
+            {
+                try
+                {
+                    if(receivers[point.X + draggable.ShapeHome.X, point.Y + draggable.ShapeHome.Y].isOccupied)
+                    {
+                        return false;
+                    }
+                } catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    return false;
+                } 
+            }
+            return true;
+        }
+       /* public bool isValidMove(int[,] iShape, Point point)
+        {
+           
+
+
+            
+
+            for (int x = 0; x < shapeWidth; x++)
+                for (int y = 0; y < shapeHeight; y++)
                     if (iShape[x, y] == 1)
                         if (board[x + point.X, y + point.Y] == 1)
                         {
@@ -189,14 +226,14 @@ namespace Thru
                             Console.WriteLine("Failed to place piece at (" + point + "): collision at (" + x + point.X + "," + y + point.Y +")");
                             ThruLib.printLn(iShape);
                             ThruLib.printLn(board); 
-                            return false;
-                        }
+      
+        }
                      
                     
 
                         
             return true;
-        }
+        }*/
 
         //getting the length of the shape arrays to where they have blocks, not their whole.
         public int[] getTrueLength(int[,] iShape)
@@ -204,6 +241,9 @@ namespace Thru
             int isRowsEmpty, isColsEmpty;
             int rowsISawNumbers = iShape.GetLength(0);
             int colsISawNumbers = iShape.GetLength(1);
+            int sizeTrackerRows = 0;
+            int sizeTrackerCols = 0;
+
             for (int x = 0; x < iShape.GetLength(0); x++)
             {
                 isRowsEmpty = 0;
@@ -214,13 +254,13 @@ namespace Thru
                     isColsEmpty += iShape[y, x];
                 }
                 if (isRowsEmpty > 0)
-                    rowsISawNumbers = x;
+                    sizeTrackerRows ++;
                 if (isColsEmpty > 0)
-                    colsISawNumbers = x;
+                    sizeTrackerCols ++;
             }
             int[] trueLength = new int[2];
-            trueLength[0] = rowsISawNumbers;
-            trueLength[1] = colsISawNumbers;
+            trueLength[0] = sizeTrackerRows;
+            trueLength[1] = sizeTrackerCols;
             return trueLength;
                 
         }

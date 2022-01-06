@@ -14,14 +14,14 @@ namespace Thru
 		public Point Home;
 		public float Bulk, Weight, renderScale;
 		public bool isFlexible;
-		public ItemIconDraggableGroup Draggable;
+		public ItemIconDraggableGroup DraggableGroup;
 		public int[,] trueShape;
 
 		public int[,] ItemShape
 		{
 			get
 			{
-				foreach (ItemIconDraggable draggable in Draggable.Draggables)
+				foreach (ItemIconDraggable draggable in DraggableGroup.Draggables)
 					if (draggable is not null)
 						trueShape[draggable.ShapeHome.X, draggable.ShapeHome.Y] = 1;
 
@@ -38,17 +38,17 @@ namespace Thru
 			Bulk = bulk;
 			Weight = weight;
 			isFlexible = isflexible;
-			Draggable = new ItemIconDraggableGroup(mouseHandler, Icon,itemShape,Home, this);
+			DraggableGroup = new ItemIconDraggableGroup(mouseHandler, Icon,itemShape,Home, this);
 		}
 
 		public void Update(GameTime gameTime)
 		{
-			Draggable.Update(gameTime);
+			DraggableGroup.Update(gameTime);
 		}
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
-			Draggable.Draw(spriteBatch);
+			DraggableGroup.Draw(spriteBatch);
 			spriteBatch.Draw(Icon, new Vector2( Home.X, Home.Y), null,Color.White,0f, Vector2.Zero,renderScale,SpriteEffects.None,0f) ;
 		}
 	}

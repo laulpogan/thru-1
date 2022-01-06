@@ -7,26 +7,25 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Thru
 {
-	public class MouseHandler
+	public class MouseHandler : IDraggableContainer
 	{
 
 
 		public MouseState mouseState;
 		public bool mpressed, prev_mpressed = false;
 		public bool rpressed, prev_rpressed = false;
-		public ItemIconDraggable iconDragged;
+		public ItemIconDraggable iconHeld { get; set; }
+		public Point BoardHome { get; set; }
+
+
 		public Item dragged
         {
 			get
             {
-				return iconDragged is not null ? iconDragged.Item : null;
+				return iconHeld is not null ? iconHeld.Item : null;
             }
 
-			//todo: set assigned item to dragging with its first icon?
-			/*set
-            {
-				iconDragged = value.Draggable.Draggables[0,0]
-            }*/
+			set { }
         }
 		
 		public int mx, my;
@@ -51,7 +50,7 @@ namespace Thru
 
 		public MouseHandler()
 		{
-			iconDragged = null;
+			iconHeld = null;
 			State = new BState();
 			mouseState = Mouse.GetState();
 		}
@@ -70,8 +69,9 @@ namespace Thru
 			rpressed = mouseState.RightButton == ButtonState.Pressed;
             switch (State)
             {
-				case BState.JUST_RELEASED:
-					break;
+                case BState.JUST_RELEASED:
+					dragged = null;
+                    break;
 				case BState.DOWN:
 					break;
 				case BState.HOVER:

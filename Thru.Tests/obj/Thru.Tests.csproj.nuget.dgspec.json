@@ -1,0 +1,86 @@
+{
+  "format": 1,
+  "restore": {
+    "G:\\Users\\thein\\source\\repos\\thru\\Thru.Tests\\Thru.Tests.csproj": {}
+  },
+  "projects": {
+    "G:\\Users\\thein\\source\\repos\\thru\\Thru.Tests\\Thru.Tests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\Users\\thein\\source\\repos\\thru\\Thru.Tests\\Thru.Tests.csproj",
+        "projectName": "Thru.Tests",
+        "projectPath": "G:\\Users\\thein\\source\\repos\\thru\\Thru.Tests\\Thru.Tests.csproj",
+        "packagesPath": "C:\\Users\\thein\\.nuget\\packages\\",
+        "outputPath": "G:\\Users\\thein\\source\\repos\\thru\\Thru.Tests\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\thein\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "netcoreapp5.0",
+            "projectReferences": {
+              "G:\\Users\\thein\\source\\repos\\thru\\MyProject\\MyProject.csproj": {
+                "projectPath": "G:\\Users\\thein\\source\\repos\\thru\\MyProject\\MyProject.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "netcoreapp5.0",
+          "dependencies": {
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[*, )"
+            },
+            "NUnit3TestAdapter": {
+              "target": "Package",
+              "version": "[*, )"
+            },
+            "nunit": {
+              "target": "Package",
+              "version": "[*, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

@@ -15,11 +15,11 @@ namespace Thru
         {
             get
             {
-                return MouseHandler.dragged is not null? MouseHandler.dragged.Draggable == this : false;
+                return MouseHandler.dragged is not null? MouseHandler.dragged.DraggableGroup == this : false;
             }
         }
 
-        public DraggableReceiver receiver, oldReceiver;
+        public IDraggableContainer receiver, oldReceiver;
         public int gridMargin;
         public float Bulk;
         public Item Item;

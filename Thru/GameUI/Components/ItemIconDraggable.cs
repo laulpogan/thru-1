@@ -16,7 +16,7 @@ namespace Thru
         public MouseHandler MouseHandler;
         public Texture2D icon;
         public int gridMargin;
-        public DraggableReceiver receiver, oldReceiver;
+        public IDraggableContainer receiver, oldReceiver;
         public ItemIconDraggableGroup Group;
         public Point BoardHome
         {
@@ -56,7 +56,7 @@ namespace Thru
         {
             get
             {
-                return MouseHandler.iconDragged == this;
+                return MouseHandler.iconHeld == this;
             }
         }
                              
@@ -84,7 +84,7 @@ namespace Thru
                     if (!isBeingDragged && !MouseHandler.isDragging && ThruLib.hit_image_alpha(
                     Button.Bounds, icon, MouseHandler.mx, MouseHandler.my))
                     {
-                        MouseHandler.iconDragged = this;
+                        MouseHandler.iconHeld = this;
                         Button.Bounds.Location = new Point(MouseHandler.mx, MouseHandler.my);
                     } else if (isBeingDragged && MouseHandler.isDragging)
                     {

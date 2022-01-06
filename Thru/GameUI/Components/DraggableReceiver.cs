@@ -5,14 +5,15 @@ using System;
 
 namespace Thru
 {
-    public class DraggableReceiver
+    public class DraggableReceiver  : IDraggableContainer
     {
 
         public Vector2 ScreenXY;
         public Rectangle Bounds;
         public Texture2D Icon;
         public MouseHandler MouseHandler;
-        public Point ScreenHome, BoardHome;
+        public Point ScreenHome; 
+            public Point BoardHome { get; set; }
         public bool isOccupied
         {
             get
@@ -24,12 +25,12 @@ namespace Thru
         {
             get
             {
-                return IconDraggable is not null ? IconDraggable.Item : null;
+                return iconHeld is not null ? iconHeld.Item : null;
             }
 
         }
         public InventoryGameBoard GameBoard;
-        public ItemIconDraggable IconDraggable;
+        public ItemIconDraggable iconHeld { get; set; }
 
 
         public DraggableReceiver(MouseHandler mouseHandler, GraphicsDeviceManager graphics, Point screenHome, Point boardHome, InventoryGameBoard gameBoard)
@@ -41,7 +42,7 @@ namespace Thru
             this.ScreenHome = screenHome;
             BoardHome = boardHome;
             Bounds.Location = this.ScreenHome;
-            IconDraggable = null;
+            iconHeld = null;
             GameBoard = gameBoard;
         }
 
