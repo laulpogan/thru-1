@@ -16,7 +16,7 @@ namespace Thru
 		public bool isFlexible;
 		public ItemIconDraggableGroup DraggableGroup;
 		public int[,] trueShape;
-
+		public string Name, Description;
 		public int[,] ItemShape
 		{
 			get

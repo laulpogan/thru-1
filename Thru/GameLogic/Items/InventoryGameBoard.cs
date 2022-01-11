@@ -54,7 +54,6 @@ namespace Thru
        
         public GameState Update(GameTime gameTime)
         {
-            
             if (MouseHandler.isDragging)
                 draggedIconGroup.adjustGroupPosition(draggedIconGroup.CurrentPoint);
 
@@ -178,21 +177,9 @@ namespace Thru
         public bool isValidMove(ItemIconDraggableGroup group, Point point)
         {
             ThruLib.printLn(board);
-            int shapeWidth = getTrueLength(group.Item.ItemShape)[0];
-            int shapeHeight = getTrueLength(group.Item.ItemShape)[1];
-            int newX = shapeWidth + point.X;
-            int newY = shapeHeight + point.Y;
-            if (newX > rows)
-            {
-                Console.WriteLine("Failed to place piece at (" + point + "): going off top or bottom edge");
-                return false;
-            }
-            if (newY > columns)
-            {
-                Console.WriteLine("Failed to place piece at (" + point + "): going off left or right edge");
-                return false;
-            }
 
+            if (!ThruLib.isInBounds(group.Item.ItemShape, point, rows, columns))
+                return false;
             foreach (ItemIconDraggable draggable in group.Draggables)
             {
                 try
@@ -209,6 +196,9 @@ namespace Thru
             }
             return true;
         }
+
+
+       
        /* public bool isValidMove(int[,] iShape, Point point)
         {
            
@@ -236,34 +226,7 @@ namespace Thru
         }*/
 
         //getting the length of the shape arrays to where they have blocks, not their whole.
-        public int[] getTrueLength(int[,] iShape)
-        {
-            int isRowsEmpty, isColsEmpty;
-            int rowsISawNumbers = iShape.GetLength(0);
-            int colsISawNumbers = iShape.GetLength(1);
-            int sizeTrackerRows = 0;
-            int sizeTrackerCols = 0;
-
-            for (int x = 0; x < iShape.GetLength(0); x++)
-            {
-                isRowsEmpty = 0;
-                isColsEmpty = 0;
-                for (int y = 0; y < iShape.GetLength(1); y++)
-                {
-                    isRowsEmpty += iShape[x, y];
-                    isColsEmpty += iShape[y, x];
-                }
-                if (isRowsEmpty > 0)
-                    sizeTrackerRows ++;
-                if (isColsEmpty > 0)
-                    sizeTrackerCols ++;
-            }
-            int[] trueLength = new int[2];
-            trueLength[0] = sizeTrackerRows;
-            trueLength[1] = sizeTrackerCols;
-            return trueLength;
-                
-        }
+        
      
 
         

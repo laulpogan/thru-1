@@ -4,6 +4,11 @@
       "commandName": "Project",
       "workingDirectory": "G:\\Users\\thein\\source\\repos\\thru\\Thru",
       "nativeDebugging": true
+    },
+    "WSL": {
+      "commandName": "WSL2",
+      "environmentVariables": {},
+      "distributionName": ""
     }
   }
 }

@@ -220,12 +220,13 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="GeoJSON.Net" Version="1.2.22-rc" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.13" />
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="5.0.0" />
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.0.1641" />
     <PackageReference Include="MonoGame.Primitives2D" Version="1.1.1" />
     <PackageReference Include="MonoGame.Spritesheet" Version="1.2.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="NUnit.Console" Version="3.13.2" />
     <PackageReference Include="System.Text.Json" Version="6.0.0-preview.7.21377.19" />
   </ItemGroup>
   <ItemGroup>

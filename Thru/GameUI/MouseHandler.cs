@@ -22,11 +22,21 @@ namespace Thru
         {
 			get
             {
-				return iconHeld is not null ? iconHeld.Item : null;
+				return iconHeld is not null ? iconHeld.Item : lastDragged;
             }
 
-			set { }
+			set
+			{
+				if (lastDragged != value)
+				{
+					lastDragged = dragged;
+					dragged = value;
+					Console.WriteLine("Changed dragging from " + lastDragged.Name + " to " + value.Name);
+				}
+			}
         }
+
+		public Item lastDragged;
 		
 		public int mx, my;
 		public Point mXY

@@ -179,6 +179,51 @@ namespace Thru {
 			return a;
 		}
 
+		public static int[] getTrueLength(int[,] iShape)
+		{
+			int isRowsEmpty, isColsEmpty;
+			int sizeTrackerRows = 0;
+			int sizeTrackerCols = 0;
+
+			for (int x = 0; x < iShape.GetLength(0); x++)
+			{
+				isRowsEmpty = 0;
+				isColsEmpty = 0;
+				for (int y = 0; y < iShape.GetLength(1); y++)
+				{
+					isRowsEmpty += iShape[y, x];
+					isColsEmpty += iShape[x, y];
+				}
+				if (isRowsEmpty > 0)
+					sizeTrackerRows++;
+				if (isColsEmpty > 0)
+					sizeTrackerCols++;
+			}
+			int[] trueLength = new int[2];
+			trueLength[0] = sizeTrackerRows;
+			trueLength[1] = sizeTrackerCols;
+			return trueLength;
+
+		}
+		public static bool isInBounds(int[,] itemShape, Point point, int rows, int columns)
+		{
+			int shapeWidth = ThruLib.getTrueLength(itemShape)[0];
+			int shapeHeight = ThruLib.getTrueLength(itemShape)[1];
+			int newX = shapeWidth + point.X;
+			int newY = shapeHeight + point.Y;
+			if (newX > rows)
+			{
+				Console.WriteLine("Failed to place piece at (" + point + "): going off top or bottom edge");
+				return false;
+			}
+			if (newY > columns)
+			{
+				Console.WriteLine("Failed to place piece at (" + point + "): going off left or right edge");
+				return false;
+			}
+			return true;
+		}
+
 		public static void printLn(int[,] input)
 		{
 

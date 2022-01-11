@@ -20,9 +20,9 @@ namespace Thru
     public class ThruGame : Game
     {
        
-        private SpriteFont font;
-        private GraphicsDeviceManager graphics;
-        private GlobalState state;
+        public SpriteFont font;
+        public GraphicsDeviceManager graphics;
+        public GlobalState state;
       
         public ThruGame()
         {

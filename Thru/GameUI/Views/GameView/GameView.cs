@@ -13,7 +13,7 @@ namespace Thru
 
 		public Location currentLocation, trailLocation;
 		public MapGameView mapView;
-		GameViewStateMachine stateMachine;
+		public GameViewStateMachine stateMachine;
 		public GameTime gameTime;
 		public PlayGameView playView;
 		public Player Player;
