@@ -178,6 +178,32 @@ namespace Thru {
 			}
 			return a;
 		}
+		public static bool isValidMove(int[,] itemShape, int[,] board, Point point, int rows, int columns)
+		{
+			int shapeWidth = itemShape.GetLength(0);
+			int shapeHeight = itemShape.GetLength(1);
+
+            /*if (!isInBounds(itemShape, point, rows, columns))
+				return false;*/
+            try
+            {
+				for (int x = 0; x < shapeWidth; x++)
+					for (int y = 0; y < shapeHeight; y++)
+						if (itemShape[x, y] == 1)
+							if (board[x + point.X, y + point.Y] == 1)
+							{
+								Console.WriteLine("Failed to place piece at (" + point + "): collision at (" + x + point.X + "," + y + point.Y + ")");
+								ThruLib.printLn(board);
+								return false;
+
+							}
+			}  catch (Exception e)
+            {
+				return false;
+            }
+			
+			return true;
+		}
 
 		public static int[] getTrueLength(int[,] iShape)
 		{

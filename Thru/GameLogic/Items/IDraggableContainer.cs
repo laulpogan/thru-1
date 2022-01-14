@@ -8,7 +8,7 @@ namespace Thru
     {
         public ItemIconDraggable iconHeld { get; set; }
         public Point BoardHome { get; set; }
-
+        public Point ScreenHome { get; set; }
 
 
 

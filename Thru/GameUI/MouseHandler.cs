@@ -16,27 +16,24 @@ namespace Thru
 		public bool rpressed, prev_rpressed = false;
 		public ItemIconDraggable iconHeld { get; set; }
 		public Point BoardHome { get; set; }
+		public Point ScreenHome
+        {
+            get
+            {
+				return mXY;
+            }
+			set { }
+        }
 
-
-		public Item dragged
+		public Item ItemDragged
         {
 			get
             {
-				return iconHeld is not null ? iconHeld.Item : lastDragged;
+				return iconHeld is not null ? iconHeld.Group.Item : null;
             }
-
-			set
-			{
-				if (lastDragged != value)
-				{
-					lastDragged = dragged;
-					dragged = value;
-					Console.WriteLine("Changed dragging from " + lastDragged.Name + " to " + value.Name);
-				}
-			}
+			set { }
         }
 
-		public Item lastDragged;
 		
 		public int mx, my;
 		public Point mXY
@@ -53,7 +50,7 @@ namespace Thru
         {
 			get
             {
-				return dragged is not null;
+				return ItemDragged is not null;
             }
         }
 
@@ -80,7 +77,6 @@ namespace Thru
             switch (State)
             {
                 case BState.JUST_RELEASED:
-					dragged = null;
                     break;
 				case BState.DOWN:
 					break;

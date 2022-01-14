@@ -15,73 +15,35 @@ namespace Thru
         {
             get
             {
-                return MouseHandler.dragged is not null? MouseHandler.dragged.DraggableGroup == this : false;
+                return MouseHandler.ItemDragged == Item;
             }
         }
 
-        public IDraggableContainer receiver, oldReceiver;
+        public Dictionary<ItemIconDraggable, IDraggableContainer> iconsWithReceivers;
+        
         public int gridMargin;
         public float Bulk;
         public Item Item;
         public ItemIconDraggable[,] Draggables;
         public Point  BoardOrigin;
-        public Point BoardHome
-        {
-            get
-            {
-                return receiver is not null ? receiver.BoardHome : Point.Zero;
-            }
-            set
-            {
+        public Point ScreenHome;
 
-            }
-        }
-        public Point ScreenHome
-        {
-            get
-            {
-                if (isOnBoard)
-                    return ThruLib.getInventoryScreenXY(BoardHome.X, BoardHome.Y, BoardOrigin, gridMargin);
-                else
-                    return BoardOrigin;
-            }
-            set { }
-        }
+        public Point CurrentPoint;
+        private int[,] trueShape;
 
-        public Point truePoint;
-        public Point CurrentPoint
-        {
-            get
-            {
-                if (isBeingDragged)
-                    return MouseHandler.mXY;
-                else
-                    return truePoint;
-            }
-            set { truePoint = value; }
-        }
-        public bool isOnBoard
-        {
-            get
-            {
-                return receiver is not null;    
-            }
-        }
-        
-        
-        
+        public int[,] ItemShape;
+
 
         public ItemIconDraggableGroup(MouseHandler mouseHandler, Texture2D icon, int[,] itemShape, Point home, Item item, SpriteFont font = null)
         {
             MouseHandler = mouseHandler;
-            receiver = null;
-            Item = item;
-            Bulk = itemShape.GetLength(0);
-            BoardHome = home;
-            BoardOrigin = home;
+            CurrentPoint = home;
             ScreenHome = home;
+            Item = item;
+            ItemShape = itemShape;
+            Bulk = itemShape.GetLength(0);
+            BoardOrigin = home;
             gridMargin = 50;
-            ThruLib.printLn(itemShape);
             Draggables = new ItemIconDraggable[itemShape.GetLength(0), itemShape.GetLength(1)];
             Point tempPoint = Point.Zero;
 
@@ -91,7 +53,8 @@ namespace Thru
                     if (itemShape[i, j] == 1)
                     {
                         tempPoint = ThruLib.getInventoryScreenXY(i, j, BoardOrigin, gridMargin);
-                        Draggables[i, j] = new ItemIconDraggable(mouseHandler, icon, gridMargin,BoardOrigin, tempPoint, new Point(i,j), item, this);
+                        ItemIconDraggable newIcon = new ItemIconDraggable( icon, new Point(i, j), item, this);
+                        Draggables[i, j] = newIcon;
                     }
 
         }
@@ -99,9 +62,8 @@ namespace Thru
         public GameState Update(GameTime gameTime)
         {
             foreach (ItemIconDraggable draggable in Draggables)
-                if(draggable is not null) {
+                if(draggable is not null) 
                     draggable.Update(gameTime);
-                }
             return GameState.Inventory;
         }
 
@@ -111,21 +73,23 @@ namespace Thru
         {
             foreach (ItemIconDraggable draggable in Draggables)
                 if (draggable is not null)
-                {
                     draggable.Draw(spriteBatch);
-                }
         }
 
-        public void adjustGroupPosition(Point point)
+        public void Rotate()
         {
-            foreach (ItemIconDraggable draggable in Draggables)
-                if (draggable is not null)
-                {
-                    draggable.Button.Bounds.Location = ThruLib.getInventoryScreenXY(draggable.ShapeHome.X, draggable.ShapeHome.Y, BoardOrigin, gridMargin);
-                }
+            ThruLib.rotate90DegClockwise<ItemIconDraggable>(Draggables);
+            ThruLib.rotate90DegClockwise<int>(ItemShape);
+
+            for (int i = 0; i < ItemShape.GetLength(0); i++)
+                for (int j = 0; j < ItemShape.GetLength(1); j++)
+                    if (ItemShape[i, j] == 1)
+                        if(Draggables[i,j] is not null)
+                            Draggables[i,j].ShapeHome = new Point(i,j);
+
         }
 
-        
+
     }
 
 

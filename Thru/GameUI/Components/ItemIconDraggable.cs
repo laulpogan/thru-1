@@ -9,20 +9,16 @@ namespace Thru
     public class ItemIconDraggable : IDraggable
     {
 
-        public bool IsClicked;
         public Button Button;
-        public Point  ShapeHome, BoardOrigin;
-        public Item Item;
-        public MouseHandler MouseHandler;
+        public Point  ShapeHome;
         public Texture2D icon;
-        public int gridMargin;
-        public IDraggableContainer receiver, oldReceiver;
+        public IDraggableContainer receiver;
         public ItemIconDraggableGroup Group;
         public Point BoardHome
         {
             get
             {
-                return receiver is not null ? receiver.BoardHome : Point.Zero;
+                return receiver.BoardHome + ShapeHome;
             }
             set
             {
@@ -33,7 +29,7 @@ namespace Thru
         {
             get
             {
-                return Group.ScreenHome + ThruLib.multiplyPointByInt(ShapeHome, gridMargin);
+                return Group.ScreenHome + ThruLib.multiplyPointByInt(ShapeHome, Group.gridMargin);
             }
             set { }
         }
@@ -41,14 +37,14 @@ namespace Thru
         {
             get
             {
-                return receiver is not null;
+                return BoardHome.X > -1 && BoardHome.Y >-1;
             }
         }
         public Point CurrentPoint
         {
             get
             {
-              return Group.CurrentPoint + ThruLib.multiplyPointByInt(ShapeHome, gridMargin);
+              return Group.CurrentPoint + ThruLib.multiplyPointByInt(ShapeHome, Group.gridMargin);
             }
             set { }
         }
@@ -56,21 +52,16 @@ namespace Thru
         {
             get
             {
-                return MouseHandler.iconHeld == this;
+                return receiver == Group.MouseHandler;
             }
         }
                              
-        public ItemIconDraggable( MouseHandler mouseHandler, Texture2D Icon, int margin, Point boardOrigin, Point home,  Point shapeHome, Item item, ItemIconDraggableGroup group, SpriteFont font = null)
+        public ItemIconDraggable(Texture2D Icon,  Point shapeHome, Item item, ItemIconDraggableGroup group, SpriteFont font = null)
         {
             icon = Icon;
             Group = group;
-            MouseHandler = mouseHandler;
-            ScreenHome = home;
-            BoardOrigin = boardOrigin;
-            gridMargin = margin;
-            Button = new Button(mouseHandler, icon);
+            Button = new Button(group.MouseHandler, icon);
             ShapeHome = shapeHome;
-            Item = item;
             receiver = null;
         }
         
@@ -78,28 +69,8 @@ namespace Thru
         public GameState Update(GameTime gameTime)
         {
             Button.Bounds.Location = CurrentPoint;
-            switch (MouseHandler.State)
-            {
-                case BState.DOWN:
-                    if (!isBeingDragged && !MouseHandler.isDragging && ThruLib.hit_image_alpha(
-                    Button.Bounds, icon, MouseHandler.mx, MouseHandler.my))
-                    {
-                        MouseHandler.iconHeld = this;
-                        Button.Bounds.Location = new Point(MouseHandler.mx, MouseHandler.my);
-                    } else if (isBeingDragged && MouseHandler.isDragging)
-                    {
-                        Button.Bounds.Location = new Point(MouseHandler.mx, MouseHandler.my);
-                    }
-                    break;
-                case BState.UP:
-                    break;
-                case BState.JUST_RELEASED:
-                    Button.Bounds.Location = ScreenHome;
-                    break;
-                case BState.HOVER:
-                    break;
-            }
-             return GameState.Inventory;
+            Button.Update(gameTime);
+            return GameState.Inventory;
         }
 
         public void Draw(SpriteBatch spriteBatch)

@@ -78,14 +78,13 @@ namespace Thru.Tests.ThruPackage
         [Test]
         public void isValidMove_Success()
         {
-
-            int[,] itemShape = new int[,]{
-               { 0, 1, 0},
-                { 1, 1, 1},
-                { 0, 0, 0}
-            };
             int[,] trueBoard = ThruLib.emptyBoard(5, 5);
-            //Assert.IsTrue(GameBoard.isValidMove(SleepingBag.DraggableGroup, new Point(1,1)));
+           Assert.IsTrue(ThruLib.isValidMove(itemShape2, trueBoard, new Point(1,1), 5, 5));
+        }
+        [Test]
+        public void rotate_Success()
+        {
+            Assert.AreEqual(itemShape1, ThruLib.rotate90DegClockwise<int>(itemShape2));
         }
 
         [Test]

@@ -17,18 +17,7 @@ namespace Thru
 		public ItemIconDraggableGroup DraggableGroup;
 		public int[,] trueShape;
 		public string Name, Description;
-		public int[,] ItemShape
-		{
-			get
-			{
-				foreach (ItemIconDraggable draggable in DraggableGroup.Draggables)
-					if (draggable is not null)
-						trueShape[draggable.ShapeHome.X, draggable.ShapeHome.Y] = 1;
-
-				return trueShape;
-			}
-			set { trueShape = value; }
-		}
+		
 		public Item(MouseHandler mouseHandler, Texture2D icon, Point point, bool isflexible, float bulk, float weight, float scale, int[,] itemShape)
 		{
 			trueShape = ThruLib.emptyBoard(itemShape.GetLength(0), itemShape.GetLength(1));
