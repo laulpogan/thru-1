@@ -18,7 +18,7 @@ namespace Thru
         {
             get
             {
-                return receiver.BoardHome + ShapeHome;
+                return receiver.BoardHome;
             }
             set
             {
@@ -60,15 +60,17 @@ namespace Thru
         {
             icon = Icon;
             Group = group;
-            Button = new Button(group.MouseHandler, icon);
             ShapeHome = shapeHome;
             receiver = null;
+            Button = new Button(group.MouseHandler, icon, shapeHome.ToString(), font, Color.Black, null, .44f );
+            
         }
         
 
         public GameState Update(GameTime gameTime)
         {
             Button.Bounds.Location = CurrentPoint;
+            Button.Text = ShapeHome.ToString();
             Button.Update(gameTime);
             return GameState.Inventory;
         }

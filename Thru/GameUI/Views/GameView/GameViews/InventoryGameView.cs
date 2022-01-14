@@ -18,7 +18,7 @@ namespace Thru
 
         public InventoryGameView(IServiceProvider services, GraphicsDeviceManager graphics, Player player, GlobalState globalState)
 {
-            GameBoard = new InventoryGameBoard(services, globalState.MouseHandler, graphics, player, 4, 5, 18, 32, new Point(1025, 250));
+            GameBoard = new InventoryGameBoard(services, globalState.MouseHandler, graphics, player, 5, 5, 18, 32, new Point(1025, 250));
             spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
 
         }

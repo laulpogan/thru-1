@@ -114,11 +114,11 @@ namespace Thru {
 			rect.SetData(data);
 			return  rect;
 		}
-		public static int[,] emptyBoard(int x, int y)
+		public static int[,] emptyBoard(int rows, int columns)
 		{
-			int[,] temp = new int[x, y];
-			for (int i = 0; i < x; i++)
-				for (int j = 0; j < y; j++)
+			int[,] temp = new int[rows, columns];
+			for (int i = 0; i < rows; i++)
+				for (int j = 0; j < columns; j++)
 					temp[i, j] = 0;
 			return temp;
 		}
@@ -178,6 +178,101 @@ namespace Thru {
 			}
 			return a;
 		}
+
+		/*public static T CastObject<T>(object input)
+		{
+			return (T)input;
+		}
+
+		public static T ConvertObject<T>(object input)
+		{
+			return (T)Convert.ChangeType(input, typeof(T));
+		}*/
+		public static T[,] rotateMatrix<T>(T[,] matrix)
+        {
+			int size = matrix.GetLength(0);
+			int offset = 0;
+
+			
+			int layers = size / 2;
+			for(int i = 0; i<= layers; i++)
+            {
+				int first = i ;
+				int last = size - first - 1;
+				foreach (int elem in Enumerable.Range(first, last)){
+					offset = elem - first;
+					Point top = new Point(first, elem);
+					Point rightSide = new Point(elem, last);
+					Point bottom = new Point(last, last - offset);
+					Point leftSide = new Point(last - offset, first);
+
+
+					matrix[first, elem] = matrix[leftSide.X, leftSide.Y];
+					matrix[elem, last] = matrix[top.X, top.Y];
+					matrix[last, last - offset] = matrix[rightSide.X, rightSide.Y];
+					matrix[last - offset, first] = matrix[bottom.X, bottom.Y];
+				}
+
+				Point topLeft = new Point(first, first);
+				Point topRight = new Point(first, last);
+				Point bottomLeft = new Point(last, first);
+				Point bottomRight = new Point(last, last);
+			
+				matrix[first, first] = matrix[bottomLeft.X, bottomLeft.Y];
+				matrix[first, last] = matrix[topLeft.X, topLeft.Y];
+				matrix[last, last] = matrix[topRight.X, topRight.Y];
+				matrix[last, first] = matrix[bottomRight.X, bottomRight.Y];
+
+
+			}
+			return matrix;
+        }
+
+
+		public static int[,] getRotationMatrixAboutOrigin(int matrixSize)
+        {
+			int[,] rotationMatrix = new int[0, 0];
+
+            switch (matrixSize)
+            {
+				case 2:
+					  rotationMatrix = new int[,]
+			{
+				{0,-1},
+				{1,0}
+			};
+					break;
+				case 3:
+					rotationMatrix = new int[,]{
+				{ 0, 0, 0},
+				{ 1, 1, 0},
+				{ 0, 1, 0}
+			};
+					break;
+				case 4:
+					rotationMatrix = new int[,]{
+				{ 0, 0, 0, 0},
+				{ 1, 1, 0, 0},
+				{ 0, 1, 0, 0},
+				{ 0, 1, 0, 0},
+			};
+					break;
+				case 5:
+					rotationMatrix = new int[,]{
+				{ 0, 0, 0, 0, 0},
+				{ 1, 1, 0, 0, 0},
+				{ 0, 1, 0, 0, 0},
+				{ 0, 1, 0, 0, 0},
+				{ 0, 1, 0, 0, 0}
+			};
+					break;
+				case 6:
+					break;
+				default:
+					break;
+            }
+			return rotationMatrix;
+        }
 		public static bool isValidMove(int[,] itemShape, int[,] board, Point point, int rows, int columns)
 		{
 			int shapeWidth = itemShape.GetLength(0);
@@ -254,11 +349,11 @@ namespace Thru {
 		{
 
 			Console.WriteLine("------------------");
-			for (int i = 0; i < input.GetLength(1); i++)
+			for (int i = 0; i < input.GetLength(0); i++)
 			{
 				string duh = "";
-				for (int j = 0; j < input.GetLength(0); j++)
-					duh += " " + input[j,i].ToString();
+				for (int j = 0; j < input.GetLength(1); j++)
+					duh += " " + input[i,j].ToString();
 				Console.WriteLine(duh);
 			}
 

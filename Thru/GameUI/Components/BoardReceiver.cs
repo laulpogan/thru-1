@@ -12,6 +12,8 @@ namespace Thru
         public Rectangle Bounds;
         public Texture2D Icon;
         public MouseHandler MouseHandler;
+        public SpriteFont Font;
+        public string Name;
         public Point ScreenHome {
             get
             {
@@ -39,9 +41,10 @@ namespace Thru
         public ItemIconDraggable iconHeld { get; set; }
 
 
-        public BoardReceiver(MouseHandler mouseHandler, GraphicsDeviceManager graphics, Point boardHome, InventoryGameBoard gameBoard)
+        public BoardReceiver(MouseHandler mouseHandler, GraphicsDeviceManager graphics, Point boardHome, InventoryGameBoard gameBoard, SpriteFont font = null, string name = "")
         {
-
+            Font = font;
+            Name = name;
             Icon = ThruLib.makeBlankRect(graphics, 32, 32);
             MouseHandler = mouseHandler;
             Bounds = Icon.Bounds;
@@ -60,6 +63,7 @@ namespace Thru
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(Icon,Bounds , Color.Black);
+            spriteBatch.DrawString(Font, Name, Bounds.Location.ToVector2(), Color.White, 0f,Vector2.Zero,.5f,new SpriteEffects() ,0f);
         }
 
 

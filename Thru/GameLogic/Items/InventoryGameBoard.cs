@@ -26,16 +26,16 @@ namespace Thru
         public int[,] board
         {
             get {
-                for (int i = 0; i < trueBoard.GetLength(0); i++)
-                    for (int j = 0; j < trueBoard.GetLength(1); j++)
+                for (int i = 0; i < receivers.GetLength(0); i++)
+                    for (int j = 0; j < receivers.GetLength(1); j++)
                         if (receivers[i, j].isOccupied) 
-                            trueBoard[receivers[i, j].BoardHome.X, receivers[i, j].BoardHome.Y] = 1;
+                            trueBoard[i,j] = 1;
                         else
-                            trueBoard[receivers[i, j].BoardHome.X, receivers[i, j].BoardHome.Y] = 0;
+                            trueBoard[i,j]= 0;
 
 
                 return trueBoard;}
-            set {}
+            set { trueBoard = value; }
         }
         public int[,] EmptyBoard;
         public int rows, columns, bloc;
@@ -58,11 +58,11 @@ namespace Thru
             FreeSpace = new FreeSpace();
             spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
             Backpack = new Backpack(services, graphics, Player, MouseHandler);
-            loadImages();
-
+            loadImages();                   
+            SpriteFont font = Content.Load<SpriteFont>("score");
             for (int row = 0; row < rows; row ++)
                 for (int col = 0; col < columns; col ++)
-                    receivers[row,col] = new BoardReceiver(mouseHandler, graphics, new Point(row,col), this);
+                    receivers[row,col] = new BoardReceiver(mouseHandler, graphics, new Point(col-1,row-1), this, font,"("+row+","+col+")");
 
             foreach (Item draggable in draggables)
                 foreach(ItemIconDraggable icon in draggable.DraggableGroup.Draggables)
@@ -70,7 +70,24 @@ namespace Thru
                         icon.receiver = FreeSpace;
         }
 
+        public void printBoard()
+        {
 
+            Console.WriteLine("------------------");
+            for (int i = 0; i < receivers.GetLength(0); i++)
+            {
+                string duh = "";
+                for (int j = 0; j < receivers.GetLength(1); j++)
+                    if (receivers[i, j].isOccupied)
+                        duh += " " + receivers[i, j].Name + "O";
+                    else
+                        duh += " " + receivers[i, j].Name;
+                Console.WriteLine(duh);
+            }
+
+            Console.WriteLine("------------------");
+            ThruLib.printLn(board);
+        }
         public GameState Update(GameTime gameTime)
         {
 
@@ -101,20 +118,10 @@ namespace Thru
                         for (int i = 0; i < trueBoard.GetLength(0); i++)
                             for (int j = 0; j < trueBoard.GetLength(1); j++)
                                 if (ThruLib.hit_image_alpha(receivers[i, j].Bounds, receivers[i, j].Icon, MouseHandler.mx, MouseHandler.my))
-                                    if (!ThruLib.isValidMove(MouseHandler.iconHeld.Group.ItemShape, board, getBoardShapeOrigin(receivers[i, j].BoardHome, MouseHandler.iconHeld.ShapeHome), rows, columns))
+                                    if (!ThruLib.isValidMove(MouseHandler.iconHeld.Group.ItemShape, board, getBoardShapeOrigin(new Point(i,j), MouseHandler.iconHeld.ShapeHome), rows, columns))
                                         success = false;
-                                    else
-                                        if (firstReceiver is null)
-                                    {
-                                        firstReceiver = receivers[i, j];
-                                    }
-                        if (success && firstReceiver is not null)
-                        {
-                           Point temp = getBoardShapeOrigin(firstReceiver.BoardHome, MouseHandler.iconHeld.ShapeHome);
-
-                            handOffIconGroup(MouseHandler.ItemDragged.DraggableGroup, firstReceiver);
-
-                        }
+                        if (success)
+                            handOffIconGroup(MouseHandler.ItemDragged.DraggableGroup, findOriginReceiver(MouseHandler.ItemDragged.DraggableGroup));
                         else
                             returnIconGroupHome(MouseHandler.ItemDragged.DraggableGroup);
                     }
@@ -124,12 +131,12 @@ namespace Thru
                         break;
                 }
 
-
-            for (int i = 0; i < trueBoard.GetLength(0); i++)
-                for (int j = 0; j < trueBoard.GetLength(1); j++)
-                    receivers[i,j].Update(gameTime);
             foreach (Item item in draggables)
                 item.Update(gameTime);
+            for (int i = 0; i < receivers.GetLength(0); i++)
+                for (int j = 0; j < receivers.GetLength(1); j++)
+                    receivers[i,j].Update(gameTime);
+            
 
             
 
@@ -137,15 +144,34 @@ namespace Thru
             return GameState.Inventory;
         }
 
+
+        public BoardReceiver findOriginReceiver(ItemIconDraggableGroup group)
+        {
+            Point findMe = new Point(1000, 1000);
+            foreach (ItemIconDraggable draggable in group.Draggables)
+                if(draggable is not null)
+                    if (draggable.ShapeHome.X <= findMe.X && draggable.ShapeHome.Y <= findMe.Y)
+                        findMe = draggable.ShapeHome;
+
+            return receivers[findMe.X, findMe.Y];
+        }
+
         public void pickUpIconGroup(ItemIconDraggable draggable)
         {
-            draggable.receiver.iconHeld = null;
             MouseHandler.iconHeld = draggable;
-            draggable.receiver = MouseHandler;
+            ItemIconDraggableGroup group = draggable.Group;
+            foreach (ItemIconDraggable icon in group.Draggables)
+                if (icon is not null)
+                {
+                    icon.receiver.iconHeld = null;
+                    icon.receiver = MouseHandler;
+                }
+
+          
+            group.printShape();
         }
         public void handOffIcon(ItemIconDraggable draggable, IDraggableContainer destination)
         {
-
             if (draggable.receiver is not null)
                 draggable.receiver.iconHeld = null;
             destination.iconHeld = draggable;
@@ -155,12 +181,16 @@ namespace Thru
         
         public void handOffIconGroup(ItemIconDraggableGroup group, IDraggableContainer receiver)
         {
-            ThruLib.printLn(board);
-            group.ScreenHome = receiver.BoardHome;
+
+            Point boardShapeOrigin = getBoardShapeOrigin(receiver.BoardHome, MouseHandler.iconHeld.ShapeHome);
+            //boardShapeOrigin = new Point(boardShapeOrigin.X, boardShapeOrigin.Y - 1);
             group.iconsWithReceivers = new Dictionary<ItemIconDraggable, IDraggableContainer>();
-             for (int i = 0; i < group.GetLength(0); i++)
-                for (int j = 0; j < trueBoard.GetLength(1); j++)
-                    handOffIcon(draggable, receivers[receiver.BoardHome.X + draggable.ShapeHome.X, receiver.BoardHome.Y + draggable.ShapeHome.Y]);
+             for (int i = 0; i < group.ItemShape.GetLength(0); i++)
+                for (int j = 0; j < group.ItemShape.GetLength(1); j++)
+                    if(group.ItemShape[i,j]==1)
+                        if(group.Draggables[i,j] is not null)
+                    handOffIcon(group.Draggables[i, j], receivers[boardShapeOrigin.X + i, boardShapeOrigin.Y+ j]);
+            printBoard();
         }
 
 
@@ -180,7 +210,8 @@ namespace Thru
     public Point getBoardShapeOrigin(Point boardHome, Point shapeHome)
         {
 
-            Point point = boardHome - shapeHome;
+            Point point = shapeHome - boardHome;
+            point = new Point(Math.Abs(point.X), Math.Abs(point.Y));
             Console.WriteLine(point);
 
 
@@ -191,13 +222,9 @@ namespace Thru
         {
             Backpack.Draw(spriteBatch);
             foreach (BoardReceiver receiver in receivers)
-            {
                 receiver.Draw(spriteBatch);
-            }
             foreach (Item draggable in draggables)
-            {
                 draggable.Draw(spriteBatch);
-            }
         }
 public void loadImages()
         {
@@ -222,30 +249,30 @@ public void loadImages()
             WaterbottleCleanImage = Content.Load<Texture2D>("ItemIcons/Waterbottle-CLEAN32x32");
             WaterbottleDirtyImage = Content.Load<Texture2D>("ItemIcons/Waterbottle-DIRTY32x32");
             int[,] itemShape = new int[,]{
-               { 1, 1, 1},
-                { 0, 1, 0},
-{ 0, 0, 0}
+               { 0, 1, 0},
+                { 1, 1, 1},
+                { 0,0, 0}
 };
             SpriteFont font = Content.Load<SpriteFont>("Score");
             
-            BearCan = new Item(MouseHandler, BearCanImage, new Point(500, 250), false, 4, 1.7f, 0, itemShape);
-            ColdSoakJar = new Item(MouseHandler, ColdSoakJarImage, new Point(550, 250), false, 4, 1.7f, 0, itemShape);
-            CookPot = new Item(MouseHandler, CookPotImage, new Point(600, 250), false, 4, 1.7f, 0, itemShape);
-            IceAxe = new Item(MouseHandler, IceAxeImage, new Point(650, 250), false, 4, 1.7f, 0, itemShape);
-            Knife = new Item(MouseHandler, KnifeImage, new Point(700, 250), false, 4, 1.7f, 0, itemShape);
-            MountainHouse = new Item(MouseHandler, MountainHouseImage, new Point(500, 300), false, 4, 1.7f, 0, itemShape);
-            RawologyCorkball = new Item(MouseHandler, RawologyCorkballImage, new Point(500, 350), false, 4, 1.7f, 0, itemShape);
-            SawyerBugRepellent = new Item(MouseHandler, SawyerBugRepellentImage, new Point(500, 400), false, 4, 1.7f, 0, itemShape);
-            SawyerFilter = new Item(MouseHandler, SawyerFilterImage, new Point(550, 300), false, 4, 1.7f, 0, itemShape);
-            SleepingBag = new Item(MouseHandler, SleepingBagImage, new Point(600, 300), false, 4, 1.7f, 0, itemShape);
-            Spoon = new Item(MouseHandler, SpoonImage, new Point(650, 300), false, 4, 1.7f, 0, itemShape);
-            Spork = new Item(MouseHandler, SporkImage, new Point(700, 300), false, 4, 1.7f, 0, itemShape);
-            Stove = new Item(MouseHandler, StoveImage, new Point(550, 350), false, 4, 1.7f, 0, itemShape);
-            Tent = new Item(MouseHandler, TentImage, new Point(600, 350), false, 4, 1.7f, 0, itemShape);
-            ToiletPaper = new Item(MouseHandler, ToiletPaperImage, new Point(650, 350), false, 4, 1.7f, 0, itemShape);
-            TrekkingPoles = new Item(MouseHandler, TrekkingPolesImage, new Point(700, 350), false, 4, 1.7f, 0, itemShape);
-            WaterbottleClean = new Item(MouseHandler, WaterbottleCleanImage, new Point(550, 400), false, 4, 1.7f, 0, itemShape);
-            WaterbottleDirty = new Item(MouseHandler, WaterbottleDirtyImage, new Point(600, 400), false, 4, 1.7f, 0, itemShape);
+            BearCan = new Item(MouseHandler, BearCanImage, new Point(500, 250), false, 4, 1.7f, 0, itemShape, font);
+            ColdSoakJar = new Item(MouseHandler, ColdSoakJarImage, new Point(550, 250), false, 4, 1.7f, 0, itemShape, font);
+            CookPot = new Item(MouseHandler, CookPotImage, new Point(600, 250), false, 4, 1.7f, 0, itemShape, font);
+            IceAxe = new Item(MouseHandler, IceAxeImage, new Point(650, 250), false, 4, 1.7f, 0, itemShape, font);
+            Knife = new Item(MouseHandler, KnifeImage, new Point(700, 250), false, 4, 1.7f, 0, itemShape, font);
+            MountainHouse = new Item(MouseHandler, MountainHouseImage, new Point(500, 300), false, 4, 1.7f, 0, itemShape, font);
+            RawologyCorkball = new Item(MouseHandler, RawologyCorkballImage, new Point(500, 350), false, 4, 1.7f, 0, itemShape, font);
+            SawyerBugRepellent = new Item(MouseHandler, SawyerBugRepellentImage, new Point(500, 400), false, 4, 1.7f, 0, itemShape, font);
+            SawyerFilter = new Item(MouseHandler, SawyerFilterImage, new Point(550, 300), false, 4, 1.7f, 0, itemShape, font);
+            SleepingBag = new Item(MouseHandler, SleepingBagImage, new Point(600, 300), false, 4, 1.7f, 0, itemShape, font);
+            Spoon = new Item(MouseHandler, SpoonImage, new Point(650, 300), false, 4, 1.7f, 0, itemShape, font);
+            Spork = new Item(MouseHandler, SporkImage, new Point(700, 300), false, 4, 1.7f, 0, itemShape, font);
+            Stove = new Item(MouseHandler, StoveImage, new Point(550, 350), false, 4, 1.7f, 0, itemShape, font);
+            Tent = new Item(MouseHandler, TentImage, new Point(600, 350), false, 4, 1.7f, 0, itemShape, font);
+            ToiletPaper = new Item(MouseHandler, ToiletPaperImage, new Point(650, 350), false, 4, 1.7f, 0, itemShape, font);
+            TrekkingPoles = new Item(MouseHandler, TrekkingPolesImage, new Point(700, 350), false, 4, 1.7f, 0, itemShape, font);
+            WaterbottleClean = new Item(MouseHandler, WaterbottleCleanImage, new Point(550, 400), false, 4, 1.7f, 0, itemShape, font);
+            WaterbottleDirty = new Item(MouseHandler, WaterbottleDirtyImage, new Point(600, 400), false, 4, 1.7f, 0, itemShape, font);
             draggables = new List<Item>(){
                 BearCan, ColdSoakJar, CookPot, IceAxe, Knife, MountainHouse, RawologyCorkball,
                 SawyerBugRepellent, SawyerFilter, SleepingBag, Spoon, Spork, Stove, Tent, ToiletPaper, TrekkingPoles,

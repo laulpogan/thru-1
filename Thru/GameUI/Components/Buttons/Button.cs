@@ -18,18 +18,20 @@ namespace Thru
 		bool mpressed, prev_mpressed = false;
 		public SpriteFont Font;
 		public string ID;
+		public float Scale;
 		private Color _textColor;
 		public State stateMachineState { get; set; }
 		public delegate void ButtonEventHandler(object sender, EventArgs e);
 		public event ButtonEventHandler onClick;
 		MouseHandler mouseHandler;
-		public Button(MouseHandler mousehandler,  Texture2D texture, string text = "", SpriteFont font = null,Color? textColor=null, ButtonEventHandler onclick = null)
+		public Button(MouseHandler mousehandler,  Texture2D texture, string text = "", SpriteFont font = null,Color? textColor=null, ButtonEventHandler onclick = null, float scale = .5f)
 		{
 			mouseHandler = mousehandler;
 			Texture = texture;
 			Bounds = texture.Bounds;
 			Text = text;
 			Font = font;
+			Scale = scale;
 			_textColor = Color.White;
 			if (textColor is not null)
             {
@@ -55,7 +57,7 @@ namespace Thru
 			if(Font != null)
             {
 				// todo - smarter buttons (text falls off edge)
-				spriteBatch.DrawString(Font, Text, new Vector2((Bounds.Width * 0.05f) + Bounds.X, (Bounds.Height * 0.4f)+Bounds.Y), _textColor);
+				spriteBatch.DrawString(Font, Text, new Vector2((Bounds.Width * 0.05f) + Bounds.X, (Bounds.Height * 0.4f)+Bounds.Y), _textColor,0f,Vector2.Zero,Scale,  SpriteEffects.None, 0f);
 			}
 		}
 

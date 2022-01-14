@@ -88,6 +88,16 @@ namespace Thru.Tests.ThruPackage
         }
 
         [Test]
+        public void draggablesItemGroupTheSame()
+        {
+            MouseHandler mouseHandler = new MouseHandler();
+            Item item = new Item(mouseHandler, null, Point.Zero, false, 0f, 0f, 1f, itemShape2);
+            
+
+            Assert.AreEqual(itemShape2, item.DraggableGroup.ItemShape);
+        }
+
+        [Test]
         [Repeat(100)]
         public void FunctionBeingTested2_Condition_ExpectedResult()
         {

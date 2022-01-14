@@ -25,13 +25,24 @@ namespace Thru
         public float Bulk;
         public Item Item;
         public ItemIconDraggable[,] Draggables;
-        public Point  BoardOrigin;
         public Point ScreenHome;
 
         public Point CurrentPoint;
-        private int[,] trueShape;
-
-        public int[,] ItemShape;
+        public int[,] trueShape;
+        public int[,] ItemShape {
+            get
+            {
+                for (int i = 0; i < Draggables.GetLength(0); i++)
+                    for (int j = 0; j < Draggables.GetLength(1); j++)
+                        if (Draggables[i, j] is not null)
+                            trueShape[i, j] = 1;
+                        else
+                            trueShape[i, j] = 0;
+                return trueShape;
+            }
+            set { trueShape = value; }
+        
+        }
 
 
         public ItemIconDraggableGroup(MouseHandler mouseHandler, Texture2D icon, int[,] itemShape, Point home, Item item, SpriteFont font = null)
@@ -41,22 +52,18 @@ namespace Thru
             ScreenHome = home;
             Item = item;
             ItemShape = itemShape;
-            Bulk = itemShape.GetLength(0);
-            BoardOrigin = home;
             gridMargin = 50;
             Draggables = new ItemIconDraggable[itemShape.GetLength(0), itemShape.GetLength(1)];
-            Point tempPoint = Point.Zero;
-
-          
+            Bulk = itemShape.GetLength(0);
+            Console.WriteLine("In:");
+            ThruLib.printLn(itemShape);
             for (int i = 0; i < itemShape.GetLength(0); i++)
                 for (int j = 0; j < itemShape.GetLength(1); j++)
                     if (itemShape[i, j] == 1)
-                    {
-                        tempPoint = ThruLib.getInventoryScreenXY(i, j, BoardOrigin, gridMargin);
-                        ItemIconDraggable newIcon = new ItemIconDraggable( icon, new Point(i, j), item, this);
-                        Draggables[i, j] = newIcon;
-                    }
-
+                        Draggables[i, j] = new ItemIconDraggable(icon, new Point(j, i), item, this, font);
+            Console.WriteLine("Out:");
+                ThruLib.printLn(ItemShape);
+            printShape();
         }
 
         public GameState Update(GameTime gameTime)
@@ -71,6 +78,7 @@ namespace Thru
 
         public void Draw(SpriteBatch spriteBatch)
         {
+
             foreach (ItemIconDraggable draggable in Draggables)
                 if (draggable is not null)
                     draggable.Draw(spriteBatch);
@@ -88,7 +96,26 @@ namespace Thru
                             Draggables[i,j].ShapeHome = new Point(i,j);
 
         }
+        public void printShape()
+        {
 
+            Console.WriteLine("------------------");
+            for (int i = 0; i < Draggables.GetLength(0); i++)
+            {
+                string duh = "";
+                for (int j = 0; j < Draggables.GetLength(1); j++)
+                    if (ItemShape[i, j] == 1)
+                        duh += " " + new Point(i,j).ToString() + "O";
+                    else if(Draggables[i,j] is not null)
+                        duh += " " + Draggables[i, j].ShapeHome + "A";
+                    else
+                        duh += " " + new Point(i, j).ToString() + "Q";
+
+                Console.WriteLine(duh);
+            }
+
+            Console.WriteLine("------------------");
+        }
 
     }
 
