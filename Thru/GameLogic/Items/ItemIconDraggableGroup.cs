@@ -26,8 +26,31 @@ namespace Thru
         public Item Item;
         public ItemIconDraggable[,] Draggables;
         public Point ScreenHome;
+        public Point findMe;
+        public bool isOnBoard
+        {
+            get
+            {
+                foreach (ItemIconDraggable draggable in Draggables)
+                    if (draggable is not null && !draggable.isOnBoard)
+                        return false;
 
-        public Point CurrentPoint;
+               return true;
+            }
+        }
+        public Point CurrentPoint
+        {
+            get
+            {
+                if (isOnBoard)
+                    return shapeOrigin.ScreenHome;
+                else if(isBeingDragged)
+                    return MouseHandler.mXY - ThruLib.multiplyPointByInt(MouseHandler.iconHeld.ShapeHome,gridMargin);
+                else
+                    return ScreenHome;
+            }
+            set { }
+        }
         public int[,] trueShape;
         public int[,] ItemShape {
             get
@@ -44,6 +67,9 @@ namespace Thru
         
         }
 
+        public ItemIconDraggable shapeOrigin;
+      
+      
 
         public ItemIconDraggableGroup(MouseHandler mouseHandler, Texture2D icon, int[,] itemShape, Point home, Item item, SpriteFont font = null)
         {
@@ -53,24 +79,39 @@ namespace Thru
             Item = item;
             ItemShape = itemShape;
             gridMargin = 50;
+            Point findMe = new Point(1000, 1000);
             Draggables = new ItemIconDraggable[itemShape.GetLength(0), itemShape.GetLength(1)];
             Bulk = itemShape.GetLength(0);
-            Console.WriteLine("In:");
-            ThruLib.printLn(itemShape);
+            ItemIconDraggable draggable;
             for (int i = 0; i < itemShape.GetLength(0); i++)
                 for (int j = 0; j < itemShape.GetLength(1); j++)
                     if (itemShape[i, j] == 1)
-                        Draggables[i, j] = new ItemIconDraggable(icon, new Point(j, i), item, this, font);
-            Console.WriteLine("Out:");
-                ThruLib.printLn(ItemShape);
+                    {
+                        draggable = new ItemIconDraggable(icon, new Point(j, i), item, this, font);
+                        if (draggable.ShapeHome.X <= findMe.X && draggable.ShapeHome.Y <= findMe.Y)
+                        {
+                            shapeOrigin = draggable;
+                            findMe = draggable.ShapeHome;
+                        }
+                        Draggables[i, j] = draggable;
+                          
+                    }
+
             printShape();
         }
 
         public GameState Update(GameTime gameTime)
         {
             foreach (ItemIconDraggable draggable in Draggables)
-                if(draggable is not null) 
+                if(draggable is not null)
+                {
                     draggable.Update(gameTime);
+                    if (draggable.ShapeHome.X <= findMe.X && draggable.ShapeHome.Y <= findMe.Y)
+                    {
+                        shapeOrigin = draggable;
+                        findMe = draggable.ShapeHome;
+                    }
+                }
             return GameState.Inventory;
         }
 

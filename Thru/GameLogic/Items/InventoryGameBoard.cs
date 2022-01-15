@@ -62,12 +62,13 @@ namespace Thru
             SpriteFont font = Content.Load<SpriteFont>("score");
             for (int row = 0; row < rows; row ++)
                 for (int col = 0; col < columns; col ++)
-                    receivers[row,col] = new BoardReceiver(mouseHandler, graphics, new Point(col-1,row-1), this, font,"("+row+","+col+")");
+                    receivers[row,col] = new BoardReceiver(mouseHandler, graphics, new Point(row,col), this, font,"("+row+","+col+")");
 
             foreach (Item draggable in draggables)
                 foreach(ItemIconDraggable icon in draggable.DraggableGroup.Draggables)
                     if(icon is not null)
                         icon.receiver = FreeSpace;
+
         }
 
         public void printBoard()
@@ -90,45 +91,40 @@ namespace Thru
         }
         public GameState Update(GameTime gameTime)
         {
-
-            if (MouseHandler.RState == BState.JUST_RELEASED && MouseHandler.isDragging)
+             if (MouseHandler.RState == BState.JUST_RELEASED && MouseHandler.isDragging)
                 MouseHandler.ItemDragged.DraggableGroup.Rotate();
-            BoardReceiver firstReceiver = null;
             switch (MouseHandler.State)
                 {
                     case BState.DOWN:
                     if (!MouseHandler.isDragging)
-                    {
                         foreach (Item item in draggables)
                             foreach (ItemIconDraggable draggable in item.DraggableGroup.Draggables)
                                 if (draggable is not null)
                                     if (ThruLib.hit_image_alpha(draggable.Button.Bounds, draggable.icon, MouseHandler.mx, MouseHandler.my))
                                         pickUpIconGroup(draggable);
-                    }
-                    else
-                        MouseHandler.iconHeld.Group.CurrentPoint = MouseHandler.mXY -  ThruLib.multiplyPointByInt(MouseHandler.iconHeld.ShapeHome, gridMargin);
 
                         break;
                     case BState.UP:
                         break;
                     case BState.JUST_RELEASED:
                         if (MouseHandler.isDragging)
-                    {
-                        bool success = true;
-                        for (int i = 0; i < trueBoard.GetLength(0); i++)
-                            for (int j = 0; j < trueBoard.GetLength(1); j++)
-                                if (ThruLib.hit_image_alpha(receivers[i, j].Bounds, receivers[i, j].Icon, MouseHandler.mx, MouseHandler.my))
-                                    if (!ThruLib.isValidMove(MouseHandler.iconHeld.Group.ItemShape, board, getBoardShapeOrigin(new Point(i,j), MouseHandler.iconHeld.ShapeHome), rows, columns))
-                                        success = false;
-                        if (success)
-                            handOffIconGroup(MouseHandler.ItemDragged.DraggableGroup, findOriginReceiver(MouseHandler.ItemDragged.DraggableGroup));
-                        else
-                            returnIconGroupHome(MouseHandler.ItemDragged.DraggableGroup);
-                    }
+                            for (int i = 0; i < trueBoard.GetLength(0); i++)
+                                for (int j = 0; j < trueBoard.GetLength(1); j++)
+                                    if (ThruLib.hit_image_alpha(receivers[i, j].Bounds, receivers[i, j].Icon, MouseHandler.mx, MouseHandler.my))
+                                        if (ThruLib.isValidMove(MouseHandler.iconHeld.Group.ItemShape, board, getBoardShapeOrigin(new Point(i,j), MouseHandler.iconHeld.ShapeHome), rows, columns))
+                                            handOffIconGroup(MouseHandler.ItemDragged.DraggableGroup, findOriginReceiver(MouseHandler.ItemDragged.DraggableGroup));
+                                        else
+                                            returnIconGroupHome(MouseHandler.ItemDragged.DraggableGroup);
                             
                     break;
                     case BState.HOVER:
-                        break;
+                    for (int i = 0; i < trueBoard.GetLength(0); i++)
+                        for (int j = 0; j < trueBoard.GetLength(1); j++)
+                            if (ThruLib.hit_image_alpha(receivers[i, j].Bounds, receivers[i, j].Icon, MouseHandler.mx, MouseHandler.my))
+                                receivers[i, j].Color = Color.Red;
+                            else
+                                receivers[i, j].Color = Color.Black;
+                                break;
                 }
 
             foreach (Item item in draggables)
@@ -172,7 +168,7 @@ namespace Thru
         }
         public void handOffIcon(ItemIconDraggable draggable, IDraggableContainer destination)
         {
-            if (draggable.receiver is not null)
+            if (draggable is not null && draggable.receiver is not null)
                 draggable.receiver.iconHeld = null;
             destination.iconHeld = draggable;
             draggable.receiver = destination;
@@ -187,16 +183,21 @@ namespace Thru
             group.iconsWithReceivers = new Dictionary<ItemIconDraggable, IDraggableContainer>();
              for (int i = 0; i < group.ItemShape.GetLength(0); i++)
                 for (int j = 0; j < group.ItemShape.GetLength(1); j++)
-                    if(group.ItemShape[i,j]==1)
-                        if(group.Draggables[i,j] is not null)
-                    handOffIcon(group.Draggables[i, j], receivers[boardShapeOrigin.X + i, boardShapeOrigin.Y+ j]);
+                    if(group.ItemShape[j,i]==1)
+                        if(group.Draggables[j,i] is not null)
+                            handOffIcon(group.Draggables[j, i], fetchReceiver(i,j,boardShapeOrigin));
             printBoard();
         }
 
 
+        public BoardReceiver fetchReceiver(int X, int Y, Point boardShapeOrigin)
+        {
+            Console.WriteLine("Transforming " + X + ", " + Y + ", and " + boardShapeOrigin + "to get:(" + (boardShapeOrigin.X + X) + "," + (boardShapeOrigin.Y + Y) + ")");
+            return receivers[boardShapeOrigin.X + X, boardShapeOrigin.Y + Y];
+        }
+
         public void returnIconGroupHome(ItemIconDraggableGroup group)
         {
-            
             group.CurrentPoint = group.ScreenHome;
             foreach (ItemIconDraggable draggable in group.Draggables)
                 if (draggable is not null)

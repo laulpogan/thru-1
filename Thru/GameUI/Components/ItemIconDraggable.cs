@@ -28,8 +28,8 @@ namespace Thru
         public Point ScreenHome
         {
             get
-            {
-                return Group.ScreenHome + ThruLib.multiplyPointByInt(ShapeHome, Group.gridMargin);
+            {   
+                    return Group.ScreenHome + ThruLib.multiplyPointByInt(ShapeHome, Group.gridMargin);
             }
             set { }
         }
