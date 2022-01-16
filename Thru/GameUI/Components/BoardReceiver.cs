@@ -27,7 +27,7 @@ namespace Thru
         public Point ScreenHome {
             get
             {
-                return ThruLib.getInventoryScreenXY(BoardHome.X, BoardHome.Y, GameBoard.BoardOrigin, GameBoard.gridMargin);
+                return InventoryGameBoard.getInventoryScreenXY(BoardHome.X, BoardHome.Y, GameBoard.BoardOrigin, GameBoard.gridMargin);
             }
             set { } } 
         public Point BoardHome { get; set; }
@@ -75,7 +75,7 @@ namespace Thru
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(Icon,Bounds , Color);
-            spriteBatch.DrawString(Font, Name, Bounds.Location.ToVector2(), Color.White, 0f,Vector2.Zero,.5f,new SpriteEffects() ,0f);
+            spriteBatch.DrawString(Font, Name, Bounds.Location.ToVector2(), Color.White, 0f,Vector2.Zero,.25f,new SpriteEffects() ,0f);
         }
 
 

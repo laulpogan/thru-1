@@ -9,7 +9,13 @@ namespace Thru
         public ItemIconDraggable iconHeld { get; set; }
         public Point BoardHome { get; set; }
         public Point ScreenHome { get; set; }
-
+        public bool isOnBoard
+        {
+            get
+            {
+                return BoardHome.X > -1 && BoardHome.Y > -1;
+            }
+        }
 
 
 

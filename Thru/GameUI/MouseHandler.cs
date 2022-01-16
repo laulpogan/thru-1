@@ -66,6 +66,7 @@ namespace Thru
 		public void Update(GameTime gameTime)
         {
 			mouseState = Mouse.GetState();
+			BoardHome = new Point(-1, -1);
 			mx = mouseState.X;
 			my = mouseState.Y;
 			State = getMouseState();

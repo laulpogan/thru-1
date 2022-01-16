@@ -11,9 +11,11 @@ namespace Thru
 
         public Button Button;
         public Point  ShapeHome;
-        public Texture2D icon;
+        public Texture2D Icon;
         public IDraggableContainer receiver;
         public ItemIconDraggableGroup Group;
+        public 
+            Color Color;
         public Point BoardHome
         {
             get
@@ -28,8 +30,11 @@ namespace Thru
         public Point ScreenHome
         {
             get
-            {   
-                    return Group.ScreenHome + ThruLib.multiplyPointByInt(ShapeHome, Group.gridMargin);
+            {
+
+                if (isOnBoard)
+                    return receiver.ScreenHome;
+                return InventoryGameBoard.getInventoryScreenXY(ShapeHome.X, ShapeHome.Y, Group.ScreenHome, Group.gridMargin);
             }
             set { }
         }
@@ -44,7 +49,9 @@ namespace Thru
         {
             get
             {
-              return Group.CurrentPoint + ThruLib.multiplyPointByInt(ShapeHome, Group.gridMargin);
+                if (isOnBoard)
+                    return receiver.ScreenHome;
+                return InventoryGameBoard.getInventoryScreenXY(ShapeHome.X, ShapeHome.Y, Group.CurrentPoint, Group.gridMargin);
             }
             set { }
         }
@@ -56,13 +63,17 @@ namespace Thru
             }
         }
                              
-        public ItemIconDraggable(Texture2D Icon,  Point shapeHome, Item item, ItemIconDraggableGroup group, SpriteFont font = null)
+        public ItemIconDraggable(Texture2D Icon,  Point shapeHome, Item item, ItemIconDraggableGroup group, SpriteFont font = null, Color? color = null)
         {
-            icon = Icon;
+            this.Icon = Icon;
             Group = group;
             ShapeHome = shapeHome;
             receiver = null;
-            Button = new Button(group.MouseHandler, icon, shapeHome.ToString(), font, Color.Black, null, .44f );
+            if (color is not null)
+                Color = (Color)color;
+            else
+                Color = Color.White;
+            Button = new Button(group.MouseHandler, this.Icon, shapeHome.ToString(), font, color, Color.Black, null, .44f );
             
         }
         
@@ -71,6 +82,15 @@ namespace Thru
         {
             Button.Bounds.Location = CurrentPoint;
             Button.Text = ShapeHome.ToString();
+            if (isBeingDragged)
+                Color = Color.Red;
+            else if (isOnBoard)
+                Color = Color.Purple;
+            else
+                Color = Color.White;
+
+            Button.Color = Color;
+
             Button.Update(gameTime);
             return GameState.Inventory;
         }

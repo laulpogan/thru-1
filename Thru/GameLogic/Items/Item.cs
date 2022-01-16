@@ -18,7 +18,7 @@ namespace Thru
 		public int[,] trueShape;
 		public string Name, Description;
 		
-		public Item(MouseHandler mouseHandler, Texture2D icon, Point point, bool isflexible, float bulk, float weight, float scale, int[,] itemShape, SpriteFont font = null)
+		public Item(MouseHandler mouseHandler, Texture2D icon, Point point, Point boardOrigin, bool isflexible, float bulk, float weight, float scale, int[,] itemShape, SpriteFont font = null)
 		{
 			trueShape = ThruLib.emptyBoard(itemShape.GetLength(0), itemShape.GetLength(1));
 			Icon = icon;
@@ -27,7 +27,7 @@ namespace Thru
 			Bulk = bulk;
 			Weight = weight;
 			isFlexible = isflexible;
-			DraggableGroup = new ItemIconDraggableGroup(mouseHandler, Icon,itemShape,Home, this,  font );
+			DraggableGroup = new ItemIconDraggableGroup(mouseHandler, Icon,itemShape,Home, boardOrigin,this,  font);
 		}
 
 		public void Update(GameTime gameTime)

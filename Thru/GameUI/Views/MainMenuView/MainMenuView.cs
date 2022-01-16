@@ -24,10 +24,10 @@ namespace Thru
 			Texture2D buttonImage = Content.Load<Texture2D>("InterfaceTextures/short_button");
 			SpriteFont font = Content.Load<SpriteFont>("Score");
 			ArrayList buttonList = new ArrayList();
-			newGameButton = new Button(globalState.MouseHandler, buttonImage, "New Game", font, null, globalState.Game);
-			mainSettingsButton = new Button(globalState.MouseHandler, buttonImage, "Main Settings", font,null,  globalState.MainSettings);
-			loadGameButton = new Button(globalState.MouseHandler, buttonImage, "Load Game", font, null, globalState.Game);
-			characterCreationButton = new Button(globalState.MouseHandler, buttonImage, "Character Creation", font, null, globalState.CharacterCreation);
+			newGameButton = new Button(globalState.MouseHandler, buttonImage, "New Game", font, null,null, globalState.Game);
+			mainSettingsButton = new Button(globalState.MouseHandler, buttonImage, "Main Settings", font,null, null, globalState.MainSettings);
+			loadGameButton = new Button(globalState.MouseHandler, buttonImage, "Load Game", font, null, null, globalState.Game);
+			characterCreationButton = new Button(globalState.MouseHandler, buttonImage, "Character Creation", font, null, null, globalState.CharacterCreation);
 			buttonList.Add(newGameButton);
 			buttonList.Add(mainSettingsButton);
 			buttonList.Add(loadGameButton);
