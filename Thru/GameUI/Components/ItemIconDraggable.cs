@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json;
 using System;
+using static Thru.DraggableReceiver;
 
 namespace Thru
 {
@@ -27,31 +28,56 @@ namespace Thru
 
             }
         }
+
+
+        public InventoryState IconState
+        {
+            get
+            {
+                return receiver.receiverType;
+            }
+        }
         public Point ScreenHome
         {
             get
             {
 
-                if (isOnBoard)
+                if (IconState == InventoryState.InventoryBoard || IconState == InventoryState.Equipment)
                     return receiver.ScreenHome;
                 return InventoryGameBoard.getInventoryScreenXY(ShapeHome.X, ShapeHome.Y, Group.ScreenHome, Group.gridMargin);
             }
             set { }
         }
+        public bool isEquipped
+        {
+            get
+            {
+                return IconState == InventoryState.Equipment;
+            }
+        }
         public bool isOnBoard
         {
             get
             {
-                return BoardHome.X > -1 && BoardHome.Y >-1;
+                return IconState == InventoryState.InventoryBoard ;
             }
         }
         public Point CurrentPoint
         {
             get
             {
-                if (isOnBoard)
-                    return receiver.ScreenHome;
-                return InventoryGameBoard.getInventoryScreenXY(ShapeHome.X, ShapeHome.Y, Group.CurrentPoint, Group.gridMargin);
+                switch (IconState)
+                {
+                    case InventoryState.InventoryBoard:
+                        return receiver.ScreenHome;
+                        break;
+                    case InventoryState.Equipment:
+                        return receiver.ScreenHome;
+                    default:
+                        return InventoryGameBoard.getInventoryScreenXY(ShapeHome.X, ShapeHome.Y, Group.CurrentPoint, Group.gridMargin);
+                        break;
+                }
+
             }
             set { }
         }

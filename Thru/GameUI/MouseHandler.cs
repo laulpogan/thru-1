@@ -4,6 +4,7 @@ using System.Collections;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using static Thru.DraggableReceiver;
 
 namespace Thru
 {
@@ -16,6 +17,9 @@ namespace Thru
 		public bool rpressed, prev_rpressed = false;
 		public ItemIconDraggable iconHeld { get; set; }
 		public Point BoardHome { get; set; }
+		public InventoryState receiverType { get; set; }
+		public ItemSlot itemSlot { get; set; }
+
 		public Point ScreenHome
         {
             get
@@ -65,6 +69,7 @@ namespace Thru
 
 		public void Update(GameTime gameTime)
         {
+			receiverType = InventoryState.Mouse;
 			mouseState = Mouse.GetState();
 			BoardHome = new Point(-1, -1);
 			mx = mouseState.X;

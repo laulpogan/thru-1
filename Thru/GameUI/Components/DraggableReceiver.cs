@@ -5,7 +5,7 @@ using System;
 
 namespace Thru
 {
-    public class BoardReceiver  : IDraggableContainer
+    public class DraggableReceiver  : IDraggableContainer
     {
 
         public Vector2 ScreenXY;
@@ -14,6 +14,9 @@ namespace Thru
         public MouseHandler MouseHandler;
         public SpriteFont Font;
         public string Name;
+        public InventoryState receiverType { get; set; }
+        public ItemSlot itemSlot { get; set; }
+
         public Color Color {
             get
             {
@@ -51,8 +54,9 @@ namespace Thru
         public ItemIconDraggable iconHeld { get; set; }
 
 
-        public BoardReceiver(MouseHandler mouseHandler, GraphicsDeviceManager graphics, Point boardHome, InventoryGameBoard gameBoard, SpriteFont font = null, string name = "", Color? color = null)
+        public DraggableReceiver(MouseHandler mouseHandler, GraphicsDeviceManager graphics, Point boardHome, InventoryGameBoard gameBoard, SpriteFont font = null, string name = "", Color? color = null)
         {
+            receiverType = InventoryState.InventoryBoard;
             Font = font;
             Name = name;
             Color = (Color)(color is not null? color: Color.White);
@@ -68,7 +72,6 @@ namespace Thru
 
         public GameState Update(GameTime gameTime)
         {
-                
                 return GameState.Inventory;
         }
 

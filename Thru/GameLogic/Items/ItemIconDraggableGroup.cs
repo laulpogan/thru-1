@@ -19,34 +19,90 @@ namespace Thru
             }
         }
 
-        
+        public enum GroupState
+        {
+            isOnBoard,
+            isBeingDragged,
+            isAtHome,
+            isEquipped
+        };
         public int gridMargin;
         public float Bulk;
         public Item Item;
         public ItemIconDraggable[,] Draggables;
         public Point ScreenHome;
         public Point BoardHome, BoardOrigin;
-        public bool isOnBoard
+       
+        public GroupState groupState
+        {
+            get
+            {
+                switch (Icon.IconState)
+                {
+                    case InventoryState.InventoryBoard:
+                        return GroupState.isOnBoard;
+                        break;
+                    case InventoryState.Mouse:
+                        return GroupState.isBeingDragged;
+                        break;
+                    case InventoryState.FreeSpace:
+                        return GroupState.isAtHome;
+                        break;
+                    case InventoryState.Equipment:
+                        return GroupState.isEquipped;
+                        break;
+                    default:
+                        return GroupState.isAtHome;
+                }
+           
+            }
+        }
+
+        public ItemSlot ItemSlot
+        {
+            get
+            {
+                return Item.ItemSlot;
+            }
+        }
+        
+        public ItemIconDraggable Icon
         {
             get
             {
                 foreach (ItemIconDraggable draggable in Draggables)
-                    if (draggable is not null && !draggable.isOnBoard)
-                        return false;
-
-               return true;
-            }
+                    if (draggable is not null)
+                        return draggable;
+                return null;
+            }       
+                
         }
         public Point CurrentPoint
         {
             get
             {
-                if (isOnBoard)
-                    return InventoryGameBoard.getInventoryScreenXY(BoardHome.X, BoardHome.Y, BoardOrigin, gridMargin);
-                else if (isBeingDragged)
-                    return MouseHandler.mXY - new Point(MouseHandler.iconHeld.ShapeHome.Y * gridMargin, MouseHandler.iconHeld.ShapeHome.X * gridMargin) - new Point(gridMargin/2, gridMargin/2);
-                else
-                    return ScreenHome;
+                switch (groupState)
+                {
+                    case GroupState.isOnBoard:
+                        return InventoryGameBoard.getInventoryScreenXY(BoardHome.X, BoardHome.Y, BoardOrigin, gridMargin);
+                        break;
+                    case GroupState.isBeingDragged:
+                        if (MouseHandler.iconHeld is not null)
+                            return MouseHandler.mXY - new Point(MouseHandler.iconHeld.ShapeHome.X * gridMargin, MouseHandler.iconHeld.ShapeHome.Y * gridMargin) - new Point(gridMargin / 2, gridMargin / 2);
+                        else
+                            return ScreenHome;
+                        break;
+                    case GroupState.isEquipped:
+                        return Icon.receiver.ScreenHome;
+                            break;
+                    case GroupState.isAtHome:
+                        return ScreenHome;
+                        break;
+                    default:
+                        return ScreenHome;
+                            break;
+                }
+
             }
             set { }
         }
@@ -94,7 +150,6 @@ namespace Thru
             foreach (ItemIconDraggable draggable in Draggables)
                 if(draggable is not null)
                     draggable.Update(gameTime);
-                  
             return GameState.Inventory;
         }
 
@@ -102,7 +157,6 @@ namespace Thru
 
         public void Draw(SpriteBatch spriteBatch)
         {
-
             foreach (ItemIconDraggable draggable in Draggables)
                 if (draggable is not null)
                     draggable.Draw(spriteBatch);
@@ -118,7 +172,6 @@ namespace Thru
                     if (ItemShape[i, j] == 1)
                         if(Draggables[i,j] is not null)
                             Draggables[i, j].ShapeHome = new Point(i, j);
-
         }
         public void printShape()
         {

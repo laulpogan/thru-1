@@ -30,4 +30,12 @@
         Town,
         Trailhead,
     };
+
+    public enum InventoryState
+    {
+        Mouse,
+        FreeSpace,
+        Equipment,
+        InventoryBoard
+    }
 }

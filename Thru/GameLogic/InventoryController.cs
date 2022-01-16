@@ -32,14 +32,14 @@ namespace Thru
             }
            
         }
-        public bool isOverReceiver(BoardReceiver receiver, ItemIconDraggable draggable)
+        public bool isOverReceiver(DraggableReceiver receiver, ItemIconDraggable draggable)
         {
             return receiver.Bounds.Contains(draggable.CurrentPoint);
         }
 
         public void DragAndDrop()
         {
-            foreach (BoardReceiver receiver in Receivers)
+            foreach (DraggableReceiver receiver in Receivers)
             {
                 foreach(ItemIconDraggable draggable in Draggables)
                 {
