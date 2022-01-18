@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Reflection.Metadata;
 
 namespace Thru
@@ -19,6 +20,7 @@ namespace Thru
         public Color bodyColor, eyeColor, hairColor, shirtColor, pantsColor, shoeColor;
         private ContentManager Content;
         public Vector2 ScreenXY;
+        public List<Item> Equipped;
 
 
 

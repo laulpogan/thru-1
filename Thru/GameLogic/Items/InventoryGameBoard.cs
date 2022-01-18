@@ -11,11 +11,11 @@ namespace Thru
         public List<Item> draggables;
         public Item BearCan, ColdSoakJar, CookPot, IceAxe, Knife, MountainHouse, RawologyCorkball,
             SawyerBugRepellent, SawyerFilter, SleepingBag, Spoon, Spork, Stove, Tent, ToiletPaper, TrekkingPoles,
-            WaterbottleClean, WaterbottleDirty;
+            WaterbottleClean, WaterbottleDirty, Shorts, HawaiianShirt2, ClimbingShoes;
         private ContentManager Content;
         public Texture2D BearCanImage, ColdSoakJarImage, CookPotImage, IceAxeImage, KnifeImage, MountainHouseImage,
             RawologyCorkballImage, SawyerBugRepellentImage, SawyerFilterImage, SleepingBagImage, SpoonImage, SporkImage, StoveImage,
-            TentImage, ToiletPaperImage, TrekkingPolesImage, WaterbottleCleanImage, WaterbottleDirtyImage;
+            TentImage, ToiletPaperImage, TrekkingPolesImage, WaterbottleCleanImage, WaterbottleDirtyImage, ShortsImage, HawaiianShirt2Image, ClimbingShoesImage;
         public Player Player;
         public Backpack Backpack;
 
@@ -367,6 +367,11 @@ namespace Thru
             TrekkingPolesImage = Content.Load<Texture2D>("ItemIcons/TrekkingPoles32x32");
             WaterbottleCleanImage = Content.Load<Texture2D>("ItemIcons/Waterbottle-CLEAN32x32");
             WaterbottleDirtyImage = Content.Load<Texture2D>("ItemIcons/Waterbottle-DIRTY32x32");
+            ShortsImage = Content.Load<Texture2D>("ItemIcons/Pants-Shorts-32x32");
+            HawaiianShirt2Image = Content.Load<Texture2D>("ItemIcons/Shirt-Hawaiian2-32x32");
+            ClimbingShoesImage = Content.Load<Texture2D>("ItemIcons/Shoes-climbers-32x32");
+
+            
             int[,] itemShape = new int[,]{
                { 0, 1, 0},
                 { 1, 1, 1},
@@ -392,6 +397,9 @@ namespace Thru
             TrekkingPoles = new Item(MouseHandler, TrekkingPolesImage, new Point(700, 350), BoardOrigin, false, 4, 1.7f, 0, itemShape, ItemSlot.Misc, font);
             WaterbottleClean = new Item(MouseHandler, WaterbottleCleanImage, new Point(550, 400), BoardOrigin, false, 4, 1.7f, 0, itemShape, ItemSlot.Misc, font);
             WaterbottleDirty = new Item(MouseHandler, WaterbottleDirtyImage, new Point(600, 400), BoardOrigin, false, 4, 1.7f, 0, itemShape, ItemSlot.Misc, font);
+            Shorts = new Item(MouseHandler, ShortsImage, new Point(600, 400), BoardOrigin, false, 4, 1.7f, 0, itemShape, ItemSlot.Shirt, font);
+            HawaiianShirt2 = new Item(MouseHandler, HawaiianShirt2Image, new Point(600, 400), BoardOrigin, false, 4, 1.7f, 0, itemShape, ItemSlot.Pants, font);
+            ClimbingShoes = new Item(MouseHandler, ClimbingShoesImage, new Point(600, 400), BoardOrigin, false, 4, 1.7f, 0, itemShape, ItemSlot.Shoes, font);
             draggables = new List<Item>(){
                 BearCan, ColdSoakJar, CookPot, IceAxe, Knife, MountainHouse, RawologyCorkball,
                 SawyerBugRepellent, SawyerFilter, SleepingBag, Spoon, Spork, Stove, Tent, ToiletPaper, TrekkingPoles,

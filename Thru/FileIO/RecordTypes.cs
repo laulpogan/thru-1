@@ -101,7 +101,10 @@ namespace Thru
         }
 	}
 
-	
+	public record GlobalStateData
+    {
+
+    }
 	
 	public record ItemData
     {
@@ -109,11 +112,25 @@ namespace Thru
 		public string ID;
 		[JsonProperty(PropertyName = "name")]
 		public string name;
-		[JsonProperty(PropertyName = "buff")]
-		public buffData buff;
+        [JsonProperty(PropertyName = "buff")]
+        public buffData buff;
+		[JsonProperty(PropertyName = "itemShape")]
+		public int[,] itemShape;
+		[JsonProperty(PropertyName = "isFlexible")]
+		public bool isFlexible;
+		[JsonProperty(PropertyName = "iconPath")]
+		public string iconPath;
+		[JsonProperty(PropertyName = "spriteSheetPath")]
+		public string spriteSheetPath;
+		[JsonProperty(PropertyName = "bulk")]
+		public float bulk;
+		[JsonProperty(PropertyName = "weight")]
+		public float weight;
+		[JsonProperty(PropertyName = "boardHome")]
+		public Microsoft.Xna.Framework.Point boardHome;
     }
 
-	public record CharacterData
+    public record CharacterData
     {
 		[JsonProperty(PropertyName = "name")]
 		public string name;
