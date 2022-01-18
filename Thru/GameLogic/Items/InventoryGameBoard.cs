@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using static Thru.ItemIconDraggableGroup;
 
 namespace Thru
 {
@@ -213,7 +214,9 @@ namespace Thru
 
                     foreach (ItemIconDraggable drag in group.Draggables)
                         if(drag is not null)
-                                handOffIcon(drag, receiver);
+                        {
+                            handOffIcon(drag, receiver);
+                        }
                            
 
                     break;

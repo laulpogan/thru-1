@@ -21,10 +21,13 @@ namespace Thru
         private ContentManager Content;
         public Vector2 ScreenXY;
         public List<Item> Equipped;
+        Item shirt, shoes, pants;
+        public float Scale;
+        Player Player;
 
 
 
-        public CharacterModel(IServiceProvider services, GraphicsDeviceManager graphics,Vector2 screenXY)
+        public CharacterModel(IServiceProvider services, GraphicsDeviceManager graphics,Vector2 screenXY, Player player)
 {
             Content = new ContentManager(services, "Content");
             //work your way down the body from the top
@@ -42,7 +45,7 @@ namespace Thru
             pantsColor = Color.White;
             shoeColor = Color.White;
 
-
+            Player = player;
             spriteBody = new AnimatedSprite(body, 1, 2, bodyColor);
             spriteHair = new AnimatedSprite(hair, 1, 2, hairColor);
             spriteEyes = new AnimatedSprite(eyes, 1, 2, eyeColor);
@@ -55,6 +58,11 @@ namespace Thru
 
         public void Update(GameTime gameTime)
         {
+
+            foreach (Item item in Player.Equipped)
+                item.AnimatedSprite.Update(gameTime);
+
+
             spriteBody.Color = bodyColor;
             spriteBody.Update(gameTime);
             spriteHair.Color = hairColor;
@@ -68,8 +76,10 @@ namespace Thru
             spriteShoes.Color = shoeColor;
             spriteShoes.Update(gameTime);
         }
-        public void Draw(SpriteBatch spriteBatch, float scale )
+        public void Draw(SpriteBatch spriteBatch, float scale = 1f )
         {
+            if (scale == 1f)
+                scale = Scale;
             ScreenXY = new Vector2(ScreenXY.X - spriteBody.Texture.Bounds.X / 2, ScreenXY.Y - spriteBody.Texture.Bounds.Y / 2);
             spriteBody.Draw(spriteBatch, ScreenXY, scale);
             spriteHair.Draw(spriteBatch, ScreenXY, scale);
@@ -78,6 +88,8 @@ namespace Thru
             spritePants.Draw(spriteBatch, ScreenXY, scale);
             spriteShoes.Draw(spriteBatch, ScreenXY, scale);
 
+            foreach (Item item in Player.Equipped)
+                item.AnimatedSprite.Draw(spriteBatch, ScreenXY, scale);
         }
 
     }

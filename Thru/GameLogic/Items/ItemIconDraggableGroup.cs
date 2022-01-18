@@ -65,6 +65,7 @@ namespace Thru
                 return Item.ItemSlot;
             }
         }
+
         
         public ItemIconDraggable Icon
         {

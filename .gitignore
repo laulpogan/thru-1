@@ -43,5 +43,6 @@ Thru/bin
 Thru/obj
 Thru/Content/bin
 Thru/Content/obj
+Thru.Tests/bin/Debug
 
 *.mgstats

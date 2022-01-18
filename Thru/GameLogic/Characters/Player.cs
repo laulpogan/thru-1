@@ -18,7 +18,7 @@ namespace Thru
 		public string locationID;
 		public string Perk;
 		public Location Location, TrailLocation;
-		public CharacterModel model;
+		public CharacterModel CharacterModel;
 		public Vector3 MapCoords;
 		public Vector2 ScreenXY;
 		public List<Item> equipped, inventory;
@@ -30,6 +30,7 @@ namespace Thru
 		public Genders Gender;
 		public Dictionary<string, Item> Inventory;
 		public Dictionary<string, ICharacter> Tramily;
+		public List<Item> Equipped;
 		public Player(IServiceProvider services, GraphicsDeviceManager graphics, string name)
 		{
 			
@@ -37,7 +38,7 @@ namespace Thru
 			Name = name;
 			stats = new Stats();
 			ScreenXY = new Vector2(0,0);
-			model = new CharacterModel(services, graphics, ScreenXY);
+			CharacterModel = new CharacterModel(services, graphics, ScreenXY);
 		}
 
 		  public void MoveTo(Location location)
@@ -49,12 +50,12 @@ namespace Thru
 		public State Update(GameTime gameTime) {
 			/*ScreenXY.X = trailLocation.Coords.X;
 			ScreenXY.Y = trailLocation.Coords.Y;*/
-			model.ScreenXY = ScreenXY;
-			model.Update(gameTime);
+			CharacterModel.ScreenXY = ScreenXY;
+			CharacterModel.Update(gameTime);
 			return State.MainSettings; }
 		public void Draw(SpriteBatch spriteBatch) {
 
-			model.Draw(spriteBatch, 1);
+			CharacterModel.Draw(spriteBatch, 1);
 		}
 
 	}

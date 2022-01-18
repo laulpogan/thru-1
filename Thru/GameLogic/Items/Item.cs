@@ -18,8 +18,15 @@ namespace Thru
 		public ItemSlot ItemSlot;
 		public int[,] trueShape;
 		public string Name, Description;
-
-		public Item(MouseHandler mouseHandler, Texture2D icon, Point point, Point boardOrigin, bool isflexible, float bulk, float weight, float scale, int[,] itemShape, ItemSlot itemSlot, SpriteFont font = null)
+		public AnimatedSprite AnimatedSprite;
+		public enum ItemState
+        {
+			Equipped,
+			Inventory
+        }
+		public Player Owner;
+		public ItemState State;
+		public Item(MouseHandler mouseHandler, Texture2D icon, Point point, Point boardOrigin, bool isflexible, float bulk, float weight, float scale, int[,] itemShape, ItemSlot itemSlot, SpriteFont font = null, Texture2D animatedSprite = null)
 		{
 			trueShape = ThruLib.emptyBoard(itemShape.GetLength(0), itemShape.GetLength(1));
 			Icon = icon;
@@ -29,7 +36,12 @@ namespace Thru
 			Weight = weight;
 			isFlexible = isflexible;
 			ItemSlot = itemSlot;
+			if (animatedSprite is not null)
+				AnimatedSprite = new AnimatedSprite(animatedSprite, 1, 4, Color.Black);
+			else
+				AnimatedSprite = null;
 			DraggableGroup = new ItemIconDraggableGroup(mouseHandler, Icon,itemShape,Home, boardOrigin,this,  font);
+
 		}
 
 		public void Update(GameTime gameTime)
