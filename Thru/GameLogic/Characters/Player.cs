@@ -38,7 +38,7 @@ namespace Thru
 			Name = name;
 			stats = new Stats();
 			ScreenXY = new Vector2(0,0);
-			CharacterModel = new CharacterModel(services, graphics, ScreenXY);
+			CharacterModel = new CharacterModel(services, graphics, ScreenXY, this);
 		}
 
 		  public void MoveTo(Location location)
