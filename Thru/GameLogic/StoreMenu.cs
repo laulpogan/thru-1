@@ -85,10 +85,10 @@ namespace Thru
 
             if (Player is not null)
             {
-                if (Player.stats.Energy! > Value)
+                if (Player.Stats.Energy! > Value)
                 {
-                    Console.WriteLine($"Traveling to {location.Name} for {Value} Energy. {Player.Name} now has {Player.stats.Snacks} energy.");
-                    Player.stats.Energy = Player.stats.Energy - (int)Value;
+                    Console.WriteLine($"Traveling to {location.Name} for {Value} Energy. {Player.Name} now has {Player.Stats.Snacks} energy.");
+                    Player.Stats.Energy = Player.Stats.Energy - (int)Value;
                     currentLocation = location;
                 }
             }

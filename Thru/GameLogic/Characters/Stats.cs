@@ -80,6 +80,55 @@ namespace Thru
             }
             return statValue;
         }
+
+        public int maxValue(string field)
+        {
+            int statValue = 0;
+            switch (field)
+            {
+                case "Age":
+                    statValue = 1000;
+                    break;
+                case "Charisma":
+                    statValue = 100;
+                    break;
+                case "Chillness":
+                    statValue = 100;
+                    break;
+                case "Cleverness":
+                    statValue = 100;
+                    break;
+                case "Energy":
+                    statValue = 1000;
+                    break;
+                case "Fitness":
+                    statValue = 100;
+                    break;
+                case "Luck":
+                    statValue = 100;
+                    break;
+                case "Miles":
+                    statValue = 2650;
+                    break;
+                case "Money":
+                    statValue = 999999999;
+                    break;
+                case "Morale":
+                    statValue = 100;
+                    break;
+                case "Outdoorsyness":
+                    statValue = 100;
+                    break;
+                case "Snacks":
+                    statValue = 100;
+                    break;
+                case "Speed":
+                    statValue = 100;
+                    break;
+
+            }
+            return statValue;
+        }
         public void set(string field, int statValue)
         {
             switch (field)

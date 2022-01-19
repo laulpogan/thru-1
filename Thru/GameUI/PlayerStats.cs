@@ -32,7 +32,7 @@ namespace Thru
         public void Update()
         {
             // todo add location    \nLocation: {_player.location.Name}
-            _stats = $"Name: {_player.TrailName}({_player.Name})\n\nMorale: {_player.stats.Morale}\nMoney: ${_player.stats.Money}\nEnergy: {_player.stats.Energy}\nSnacks: {_player.stats.Snacks}";
+            _stats = $"Name: {_player.TrailName}({_player.Name})\n\nMorale: {_player.Stats.Morale}\nMoney: ${_player.Stats.Money}\nEnergy: {_player.Stats.Energy}\nSnacks: {_player.Stats.Snacks}";
         }
 
         public void Draw(SpriteBatch spriteBatch)

@@ -119,7 +119,7 @@ namespace Thru
 			bool success = false;
 			Message = option.text;
 			Random rand = new Random();
-			int stat =character.stats.get(option.checkStat);
+			int stat =character.Stats.get(option.checkStat);
 				if (stat + rand.Next(20) >= option.diceCheck)
                 {
 					Title = "Success!";
@@ -145,8 +145,8 @@ namespace Thru
 
 		public void resolveEncounter(EncounterResolutionData resolution)
         {
-            int stat = character.stats.get(resolution.effectedStat);
-			character.stats.set(resolution.effectedStat, stat + resolution.effect);
+            int stat = character.Stats.get(resolution.effectedStat);
+			character.Stats.set(resolution.effectedStat, stat + resolution.effect);
          }
 
     }

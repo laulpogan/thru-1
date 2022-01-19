@@ -104,8 +104,8 @@ namespace Thru
 			if (hud.snackButton.State == BState.JUST_RELEASED)
             {
 			//	eatingSoundEffect.Play();
-				Player.stats.Energy += 5;
-				Player.stats.Snacks = Player.stats.Snacks - 1;
+				Player.Stats.Energy += 5;
+				Player.Stats.Snacks = Player.Stats.Snacks - 1;
 			}
 			
 			Player.Update(gameTime);	

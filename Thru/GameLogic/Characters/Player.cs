@@ -11,7 +11,7 @@ namespace Thru
 {
 	public class Player : ICharacter
 	{
-		public Stats stats;
+		public Stats Stats;
 		public string Name;
 		public string TrailName;
 		public DateTime Date;
@@ -36,7 +36,7 @@ namespace Thru
 			
 			
 			Name = name;
-			stats = new Stats();
+			Stats = new Stats();
 			ScreenXY = new Vector2(0,0);
 			CharacterModel = new CharacterModel(services, graphics, ScreenXY, this);
 		}
