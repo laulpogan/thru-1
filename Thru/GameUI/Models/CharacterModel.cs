@@ -58,10 +58,10 @@ namespace Thru
 
         public void Update(GameTime gameTime)
         {
-
+/*
             foreach (Item item in Player.Equipped)
                 item.AnimatedSprite.Update(gameTime);
-
+*/
 
             spriteBody.Color = bodyColor;
             spriteBody.Update(gameTime);
@@ -88,8 +88,8 @@ namespace Thru
             spritePants.Draw(spriteBatch, ScreenXY, scale);
             spriteShoes.Draw(spriteBatch, ScreenXY, scale);
 
-            foreach (Item item in Player.Equipped)
-                item.AnimatedSprite.Draw(spriteBatch, ScreenXY, scale);
+            /*foreach (Item item in Player.Equipped)
+                item.AnimatedSprite.Draw(spriteBatch, ScreenXY, scale);*/
         }
 
     }

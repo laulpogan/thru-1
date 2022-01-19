@@ -41,7 +41,7 @@ namespace Thru
             {
 
             }
-			model = new CharacterModel(services, graphics, ScreenXY);
+			//model = new CharacterModel(services, graphics, ScreenXY);
 		}
 
 		  public void MoveTo(Location location)

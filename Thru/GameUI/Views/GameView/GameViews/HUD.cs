@@ -13,7 +13,7 @@ namespace Thru
         public Button mainMenuButton, mapButton, snackButton, inventoryButton;
         private ContentManager Content;
         ButtonGroup buttonGroup;
-        private PlayerStats _playerStats;
+        private PlayerStatsDisplay _playerStats;
         Player Player;
 
         public HUD(IServiceProvider services, GraphicsDeviceManager graphics, Player player, GlobalState globalState)
@@ -33,13 +33,13 @@ namespace Thru
             buttonList.Add(snackButton);
             buttonList.Add(inventoryButton);
             buttonGroup = new ButtonGroup(buttonList, new Vector2(1700, 10));
-            _playerStats = new PlayerStats(services, player);
+            _playerStats = new PlayerStatsDisplay(services, graphics,player);
         }
 
         public void Update(GameTime gameTime)
         {
             buttonGroup.Update(gameTime);
-            _playerStats.Update();
+            _playerStats.Update(gameTime);
             
         }
         public void Draw(SpriteBatch spriteBatch)

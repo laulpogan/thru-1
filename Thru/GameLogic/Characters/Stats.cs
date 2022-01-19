@@ -3,6 +3,24 @@ using System;
 
 namespace Thru
 {
+
+    public enum StatTypes
+    {
+        Age,
+        Charisma,
+        Chillness,
+        Cleverness,
+        Energy,
+        Fitness,
+        Luck,
+        Miles,
+        Money,
+        Morale,
+        Outdoorsyness,
+        Speed,
+        Snacks
+    }
+
     public class Stats
     {
         [JsonProperty(PropertyName = "Age")]
@@ -32,6 +50,9 @@ namespace Thru
         [JsonProperty(PropertyName = "Snacks")]
         public int Snacks;
 
+
+
+      
         public int get(string field)
         {
             int statValue = 0;
@@ -99,7 +120,7 @@ namespace Thru
                     statValue = 100;
                     break;
                 case "Energy":
-                    statValue = 1000;
+                    statValue = 100;
                     break;
                 case "Fitness":
                     statValue = 100;
