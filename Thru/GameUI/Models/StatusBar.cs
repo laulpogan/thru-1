@@ -8,7 +8,7 @@ namespace Thru
     public class StatusBar 
     {
 
-        public Vector2 ScreenXY, TitleXY;
+        public Point ScreenXY, TitleXY;
         public Rectangle BaseBounds, ActualBounds;
         public Texture2D BaseBar, ActualBar;
         public SpriteFont Font;
@@ -16,56 +16,122 @@ namespace Thru
         public string Stat;
         public Player Player;
         int StatMax;
-        int oldVal, newVal;
-        public Color BaseColor, ActualColor;
+        int oldVal;
+        public Color BaseColor;
+
+        public Color TrueActualColor, TrueBaseColor;
+        
+        public Color ActualColor
+        {
+            get
+            {
+                if (AdjustedLength >0)
+                {
+                    return TrueActualColor;
+                }
+                else
+                    return Color.Transparent;
+            }
+            set { TrueActualColor = value; }
+        }
         public int Width, Height;
         public GraphicsDeviceManager Graphics;
-
-
-
-        public StatusBar( GraphicsDeviceManager graphics, Point screenXY, int width, int height, string stat, Player player, SpriteFont font = null, string name = "", Color? baseColor = null, Color? actualColor = null)
+        public bool IsVertical;
+        Color TempColor;
+        public  int AdjustedLength
         {
+            get {
+                if (IsVertical)
+                    return getProportion(StatMax - StatValue, StatMax, Height);
+                else
+                    return getProportion(StatValue, StatMax, Width);
+            }
+        }
+
+
+        public int StatValue
+        {
+            get
+            {
+                return Player.Stats.get(Stat);
+            }
+        }
+
+
+
+
+        public StatusBar( GraphicsDeviceManager graphics, Point screenXY, int width, int height, string stat, Player player, bool isVertical = false,SpriteFont font = null, string name = "", Color? baseColor = null, Color? actualColor = null)
+        {
+            Player = player;
+            Stat = stat;
+            StatMax = Player.Stats.maxValue(stat);
             Font = font;
             Name = name;
             BaseColor = (Color)(baseColor is not null ? baseColor : Color.Red);
-            ActualColor = (Color)(actualColor is not null ? actualColor : Color.Green); ;
-            TitleXY = new Vector2(screenXY.X, screenXY.Y - 10);
+            ActualColor = (Color)(actualColor is not null ? actualColor : Color.Green);
+           
+            TitleXY = new Point(screenXY.X, screenXY.Y - 10);
             
-            ScreenXY = screenXY.ToVector2();
+            ScreenXY = screenXY;
             Graphics = graphics;
-            Stat = stat;
-            Player = player;
-            StatMax = Player.Stats.maxValue(stat);
             Width = width;
             Height = height;
             oldVal = 0;
+            if (isVertical)
+            {
+                TempColor = BaseColor;
+                BaseColor = ActualColor;
+                ActualColor = TempColor;
+            }
             BaseBar = ThruLib.makeBlankRect(graphics, width, height);
-            ActualBar = ThruLib.makeBlankRect(graphics, getWidth(Player.Stats.get(Stat), StatMax), height);
             BaseBounds = BaseBar.Bounds;
             BaseBounds.Location = screenXY;
-            ActualBounds = ActualBar.Bounds;
-            ActualBounds.Location = screenXY;
+            IsVertical = isVertical;
+            makeStatusBar();
+
+
+            
         }
 
         public GameState Update(GameTime gameTime)
         {
-            newVal = Player.Stats.get(Stat);
-            if (newVal != oldVal)
+            if (StatValue != oldVal)
             {
-                ActualBar = ThruLib.makeBlankRect(Graphics, getWidth(newVal,StatMax), Height);
-                ActualBounds = ActualBar.Bounds;
-                ActualBounds.Location = ScreenXY.ToPoint();
-                oldVal = newVal;
-                RatioString = newVal + "/" + StatMax;
+                makeStatusBar();
+                oldVal = StatValue;
+                RatioString = StatValue + "/" + StatMax;
             }
 
             return GameState.Inventory;
         }
 
-        public int getWidth(int value, int max)
-        {
 
-            float temp = ((float)value / (float)max) * (float)Width;
+
+        
+        public void makeStatusBar()
+        {
+            try
+            {
+                if (IsVertical)
+                    ActualBar = ThruLib.makeBlankRect(Graphics, Width, AdjustedLength);
+                else
+                    ActualBar = ThruLib.makeBlankRect(Graphics, AdjustedLength, Height);
+            }   catch(Exception e)
+            {
+
+            }
+
+
+            ActualBounds = ActualBar.Bounds;
+            ActualBounds.Location = ScreenXY;
+
+        }
+
+        public static int getProportion(int value, int max, int dimension)
+        {
+            if (value > max)
+                value = max;
+            float temp = ((float)value / (float)max) * (float)dimension;
             return (int)temp;
         }
 
@@ -78,8 +144,8 @@ namespace Thru
         {
             spriteBatch.Draw(BaseBar, BaseBounds, BaseColor);
             spriteBatch.Draw(ActualBar, ActualBounds, ActualColor);
-            spriteBatch.DrawString(Font, Stat, TitleXY , Color.Black, 0f, Vector2.Zero, .75f, new SpriteEffects(), 0f);
-            spriteBatch.DrawString(Font, RatioString, findBarCenter(ScreenXY), Color.White, 0f, Vector2.Zero, .75f, new SpriteEffects(), 0f);
+            spriteBatch.DrawString(Font, Stat, TitleXY.ToVector2() , Color.Black, 0f, Vector2.Zero, .75f, new SpriteEffects(), 0f);
+            spriteBatch.DrawString(Font, RatioString, findBarCenter(ScreenXY.ToVector2()), Color.White, 0f, Vector2.Zero, .75f, new SpriteEffects(), 0f);
         }
 
 
