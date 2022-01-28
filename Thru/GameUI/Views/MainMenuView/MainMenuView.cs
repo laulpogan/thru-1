@@ -67,7 +67,7 @@ namespace Thru
 
 		public void Draw(GraphicsDeviceManager graphics) {
 			spriteBatch.Begin();
-			background.Draw(spriteBatch, new Vector2(650, 40), 1f);
+			background.Draw(spriteBatch, new Point(650, 40), 1f);
 			buttonGroup.Draw(spriteBatch);
 			spriteBatch.End();
 

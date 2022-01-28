@@ -10,44 +10,67 @@ namespace Thru
     public class PlayerEquipmentModel
     {
         public List<EquipmentReceiver>Receivers;
+        public Dictionary<ItemSlot, CharacterModelSprite> EquippedSprites;
         public Point ModelOrigin;
-        Player Player;
+        Character Player;
         public int gridMargin;
         public MouseHandler MouseHandler;
         public FreeSpace FreeSpace;
         SpriteFont Font;
        
 
-        public PlayerEquipmentModel(GraphicsDeviceManager graphics, MouseHandler mouseHandler,  Player player, int margin, int iconSize, Point modelOrigin, SpriteFont font = null)
+        public PlayerEquipmentModel(GraphicsDeviceManager graphics, MouseHandler mouseHandler,  Character player, int margin, int iconSize, Point modelOrigin, SpriteFont font = null)
         {
             Player = player;
-           
             Receivers = new List<EquipmentReceiver>();
-           
+            EquippedSprites = Player.CharacterModel.EquippedSprites;
             ModelOrigin = modelOrigin;
             gridMargin = margin + iconSize;
             MouseHandler = mouseHandler;
             FreeSpace = new FreeSpace();
             Font = font;
 
-            Receivers.Add(new EquipmentReceiver(mouseHandler, graphics,  new Point(0,1), this, ItemSlot.Bag, Font, "Bag"));
+            Receivers.Add(new EquipmentReceiver(mouseHandler, graphics,  new Point(0,1), this, ItemSlot.Backpack, Font, "Bag"));
             Receivers.Add(new EquipmentReceiver(mouseHandler, graphics,  new Point(1, 0), this, ItemSlot.Hat, Font, "Hat"));
             Receivers.Add(new EquipmentReceiver(mouseHandler, graphics, new Point(1, 1), this, ItemSlot.Shirt, Font, "Shirt"));
             Receivers.Add(new EquipmentReceiver(mouseHandler, graphics, new Point(1, 2), this, ItemSlot.Pants, Font, "Pants"));
             Receivers.Add(new EquipmentReceiver(mouseHandler, graphics,  new Point(1, 3), this, ItemSlot.Shoes, Font, "Shoes"));
             Receivers.Add(new EquipmentReceiver(mouseHandler, graphics, new Point(2,1), this, ItemSlot.Poles, Font, "Poles"));
-            Receivers.Add(new EquipmentReceiver(mouseHandler, graphics, new Point(2, 2), this, ItemSlot.Misc, Font, "Misc"));
-            Receivers.Add(new EquipmentReceiver(mouseHandler, graphics, new Point(0, 2), this, ItemSlot.Misc, Font, "Misc"));
-            Player.ScreenXY += new Vector2(3 * gridMargin, 0);
+            Receivers.Add(new EquipmentReceiver(mouseHandler, graphics, new Point(2, 2), this, ItemSlot.Misc1, Font, "Misc"));
+            Receivers.Add(new EquipmentReceiver(mouseHandler, graphics, new Point(0, 2), this, ItemSlot.Misc2, Font, "Misc"));
+            Player.ScreenXY += new Point(3 * gridMargin, 0);
 
         }
+
+
 
         public GameState Update(GameTime gameTime)
         {
            
-            Player.Update(gameTime);
             foreach (EquipmentReceiver receiver in Receivers)
-                receiver.Update(gameTime);
+            {
+
+                if (receiver.isOccupied)
+                {
+                       if(receiver.Item.AnimatedSprite != EquippedSprites[receiver.itemSlot])
+                    {
+                        EquippedSprites[receiver.itemSlot] =  receiver.Item.AnimatedSprite;
+                        if (receiver.itemSlot == ItemSlot.Shirt)
+                            EquippedSprites[ItemSlot.Sleeves] = receiver.Item.SecondarySprite;
+                        else if (receiver.itemSlot == ItemSlot.Backpack)
+                            EquippedSprites[ItemSlot.BackpackStraps] = receiver.Item.SecondarySprite;
+                    }  
+                } else
+                {
+                    Player.CharacterModel.EquippedSprites[receiver.itemSlot] = null;
+                     if (receiver.itemSlot == ItemSlot.Shirt)
+                            EquippedSprites[ItemSlot.Sleeves] = null;
+                        else if (receiver.itemSlot == ItemSlot.Backpack)
+                            EquippedSprites[ItemSlot.BackpackStraps] = null;
+                }
+                                 receiver.Update(gameTime);   
+            }
+            Player.Update(gameTime);
             return GameState.Inventory;
         }
 
@@ -55,9 +78,10 @@ namespace Thru
      
         public void Draw(SpriteBatch spriteBatch)
         {
-            Player.Draw(spriteBatch);
             foreach (EquipmentReceiver receiver in Receivers)
                 receiver.Draw(spriteBatch);
+                        Player.Draw(spriteBatch);
+
         }
     }
 }

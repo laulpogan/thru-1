@@ -20,9 +20,12 @@ namespace Thru
 		Dictionary<string, FirstName> nameDict;
 		public IOController IOController;
 		public Location Location;
-		IServiceProvider Services;
-		GraphicsDeviceManager Graphics;
-		public CharacterBuilder(IServiceProvider services, GraphicsDeviceManager graphics)
+		public IServiceProvider Services;
+		public GraphicsDeviceManager Graphics;
+		public SpriteFont Font;
+		public Character Character;
+
+		public CharacterBuilder(IServiceProvider services, GraphicsDeviceManager graphics, Microsoft.Xna.Framework.Point screenXY, SpriteFont font = null)
         {
 			
 			// TODO config file or relative path
@@ -31,28 +34,29 @@ namespace Thru
 			nameDict = jsonText;
 			Services = services;
 			Graphics = graphics;
-			Player boo = createCharacter();
-            Dictionary<string, Player> participants = new Dictionary<string, Player>();
-            participants[boo.Name] = boo;
+			Character = createCharacter(screenXY);
+            Dictionary<string, Character> participants = new Dictionary<string, Character>();
+            participants[Character.Name] = Character;
+			Font = font;
         }
 
 		
 
-		public  Player createCharacter()
+		public  Character createCharacter(Microsoft.Xna.Framework.Point screenXY)
         {
 			
 			Random rand = new Random();
 
 			List<string> names = new List<string>(nameDict.Keys);
-			Player character = new Player(Services, Graphics, names[rand.Next(names.Count)]);
+			Character character = new Character(Services, Graphics, names[rand.Next(names.Count)], screenXY, Font);
 			Console.WriteLine(character.Name);
 
 			if (nameDict[character.Name].most_likely == "male")
             {
-				character.Gender = Player.Genders.male;
+				character.Gender = Character.Genders.male;
             } else
             {
-				character.Gender = Player.Genders.female;
+				character.Gender = Character.Genders.female;
 			}
 ;
 			Console.WriteLine(character.Name + " " + character.Gender );

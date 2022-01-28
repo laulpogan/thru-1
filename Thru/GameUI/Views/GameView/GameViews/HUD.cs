@@ -14,9 +14,9 @@ namespace Thru
         private ContentManager Content;
         ButtonGroup buttonGroup;
         private PlayerStatsDisplay _playerStats;
-        Player Player;
+        Character Player;
 
-        public HUD(IServiceProvider services, GraphicsDeviceManager graphics, Player player, GlobalState globalState)
+        public HUD(IServiceProvider services, GraphicsDeviceManager graphics, Character player, GlobalState globalState)
         {
             Content = new ContentManager(services, "Content");
             Player = player;

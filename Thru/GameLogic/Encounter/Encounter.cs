@@ -21,11 +21,11 @@ namespace Thru
         public Dictionary<string, EncounterOptionData> Options;
 		public ButtonGroup ButtonGroup;
 		public bool selectionMade;
-		public Player character;
+		public Character character;
 		public bool isResolved;
 		Button okButton;
 		ButtonGroup okButtonGroup;
-		public Encounter(Player player, EncounterData data, Location location, IServiceProvider services, GraphicsDeviceManager graphics, GlobalState globalState)
+		public Encounter(Character player, EncounterData data, Location location, IServiceProvider services, GraphicsDeviceManager graphics, GlobalState globalState)
 		{
 			character = player;
 			selectionMade = false;

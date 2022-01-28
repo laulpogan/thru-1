@@ -16,12 +16,13 @@ namespace Thru
 		public GameViewStateMachine stateMachine;
 		public GameTime gameTime;
 		public PlayGameView playView;
-		public Player Player;
+		public Character Player;
 		public InventoryGameView inventoryView;
 		public GameView(int clientWidth, int clientHeight, IServiceProvider services, GraphicsDeviceManager graphics, GlobalState globalState)
 		{
 
-			Player = PlayGameView.setupTestPlayer(services,graphics);
+
+			Player = globalState.Player;
 			mapView = new MapGameView(services, clientWidth, clientHeight, graphics, Player, globalState);
 			inventoryView = new InventoryGameView(services, graphics, Player, globalState);
 			currentLocation = mapView.currentLocation;

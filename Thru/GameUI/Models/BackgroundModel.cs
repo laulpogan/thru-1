@@ -14,7 +14,7 @@ namespace Thru
         public Color backgroundColor, weatherColor;
         private ContentManager Content;
         public SpriteBatch spriteBatch;
-        public Vector2 ScreenXY;
+        public Point ScreenXY;
 
 
 
@@ -32,7 +32,7 @@ namespace Thru
             weather = new AnimatedSprite(weatherAsset, 24, 1, weatherColor);
            
 
-            ScreenXY = new Vector2(x, y);
+            ScreenXY = new Point(x, y);
         }
 
         public void Update(GameTime gameTime)

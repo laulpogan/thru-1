@@ -3,13 +3,16 @@
     public enum ItemSlot
     {
         Shoes,
-        Bag,
+        Backpack,
         Blanket,
         Hat,
         Shirt,
+        Sleeves,
+        BackpackStraps,
         Pants,
         Poles,
-        Misc
+        Misc1,
+        Misc2
 
     }
 }

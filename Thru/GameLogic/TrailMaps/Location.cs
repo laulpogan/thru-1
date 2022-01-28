@@ -57,7 +57,7 @@ namespace Thru
 			var widthAvg = (sprite.Texture.Width/sprite.Columns /2 )*scale;
 			var heightAvg = (sprite.Texture.Height / sprite.Rows /2 )*scale;
 			Vector2 pos = new Vector2(Coords.X - (int)widthAvg, Coords.Y - (int)heightAvg);
-			sprite.Draw(spriteBatch,pos, scale);
+			sprite.Draw(spriteBatch,pos.ToPoint(), scale);
 			pos.Y -= 4;
 			pos.X -= 10;
 			spriteBatch.DrawString(Font, Name, pos, Color.Black,0,Vector2.Zero, .2f, new SpriteEffects(), 0);

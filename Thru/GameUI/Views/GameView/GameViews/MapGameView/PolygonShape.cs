@@ -100,7 +100,6 @@ namespace Thru
                 }
                 catch (Exception exception)
                 {
-                    throw exception;
                 }
             }
 

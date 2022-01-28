@@ -46,35 +46,9 @@ namespace Thru.Tests.ThruPackage
             // Code here will be run once after every test.
         }
 
-        [Test]
-        public void getTrueLength_Shape_Success()
-        {
+   
 
-           
-            int[] trueLength = new int[2] {3,2};
-
-            Assert.AreEqual(InventoryGameBoard.getTrueLength(itemShape1), trueLength);
-
-        }
-
-
-        [Test]
-        public void isInBounds_Successs()
-        {
-            Assert.IsTrue(InventoryGameBoard.isInBounds(itemShape1, new Point(2, 2), 5, 5));
-        }
-
-        [Test]
-        public void isInBounds_Right_Border_Failure()
-        {
-            Assert.IsFalse(InventoryGameBoard.isInBounds(itemShape1, new Point(1, 4), 5, 5));
-        }
-
-        [Test]
-        public void isInBounds_Bottom_Border_Failure()
-        {
-            Assert.IsFalse(InventoryGameBoard.isInBounds(itemShape2, new Point(4, 1), 5, 5));
-        }
+      
         [Test]
         public void isValidMove_Success()
         {
@@ -91,7 +65,7 @@ namespace Thru.Tests.ThruPackage
         public void draggablesItemGroupTheSame()
         {
             MouseHandler mouseHandler = new MouseHandler();
-            Item item = new Item(mouseHandler, null, Point.Zero, Point.Zero, false, 0f, 0f, 1f, itemShape2, ItemSlot.Misc);
+            Item item = new Item(mouseHandler, null, Point.Zero, Point.Zero, false, 0f, 0f, 1f, itemShape2, ItemSlot.Misc1);
             
 
             Assert.AreEqual(itemShape2, item.DraggableGroup.ItemShape);

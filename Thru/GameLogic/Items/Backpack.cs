@@ -14,7 +14,7 @@ namespace Thru
 		public int size;
 		public bool isFlexible;
 		public Item pack;
-		public Backpack(IServiceProvider services, GraphicsDeviceManager graphics, Player player, MouseHandler mouseHandler)
+		public Backpack(IServiceProvider services, GraphicsDeviceManager graphics, Character player, MouseHandler mouseHandler)
 		{
 			ContentManager Content = new ContentManager(services, "Content");
 			int[,] itemShape = new int[0, 0];

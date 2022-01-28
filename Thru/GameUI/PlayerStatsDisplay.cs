@@ -12,13 +12,13 @@ namespace Thru
     class PlayerStatsDisplay
     {
         public SpriteFont font;
-        private readonly Player Player;
+        private readonly Character Player;
         private Texture2D bgTexture;
         private Vector2 drawCoords;
         private string _stats;
         Vector2 textOffset;
         public StatusBar MoraleBar, EnergyBar;
-        public PlayerStatsDisplay(IServiceProvider services, GraphicsDeviceManager graphics, Player player)
+        public PlayerStatsDisplay(IServiceProvider services, GraphicsDeviceManager graphics, Character player)
         {
             Player = player;
             var Content = new ContentManager(services, "Content");
@@ -27,7 +27,7 @@ namespace Thru
             textOffset = new Vector2(bgTexture.Width * .05f, bgTexture.Height * 0.1f);
             drawCoords = new Vector2(10, 10);
             MoraleBar = new StatusBar(graphics, drawCoords.ToPoint() + new Point(0,80) +textOffset.ToPoint(), 250, 15, "Morale", player, false, font); ;
-            EnergyBar = new StatusBar(graphics, drawCoords.ToPoint() + new Point(0,110) + textOffset.ToPoint(), 250, 15, "Energy", player,true, font);
+            EnergyBar = new StatusBar(graphics, drawCoords.ToPoint() + new Point(0,110) + textOffset.ToPoint(), 250, 15, "Energy", player,false , font);
 
 
         }

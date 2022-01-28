@@ -99,6 +99,7 @@ namespace Thru
                     break;
                 
             }
+
             return statValue;
         }
 
@@ -152,6 +153,10 @@ namespace Thru
         }
         public void set(string field, int statValue)
         {
+            //attempting to set caps for max stats but doing poorly lol
+          /*  if (statValue > maxValue(field))
+                statValue = maxValue(field);
+*/
             switch (field)
             {
                 case "Age":
@@ -220,7 +225,7 @@ namespace Thru
             return this;
         }
 
-     public Stats withModifiers(Player player)
+     public Stats withModifiers(Character player)
         {
             return this;
         }

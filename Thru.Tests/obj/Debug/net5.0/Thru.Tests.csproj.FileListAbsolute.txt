@@ -358,3 +358,11 @@ G:\Users\thein\source\repos\thru\Thru.Tests\bin\Debug\net5.0\Content\ItemModels\
 G:\Users\thein\source\repos\thru\Thru.Tests\bin\Debug\net5.0\Content\ItemModels\CharacterAnimation-shoes-Sheet.xnb
 G:\Users\thein\source\repos\thru\Thru.Tests\bin\Debug\net5.0\Content\ItemModels\CharacterAnimation-shorts-Sheet.xnb
 G:\Users\thein\source\repos\thru\Thru.Tests\bin\Debug\net5.0\Content\ItemModels\CharacterAnimation-sleeves-Sheet.xnb
+G:\Users\thein\source\repos\thru\Thru.Tests\bin\Debug\net5.0\Content\CharacterModels\CharacterAnimation-arms-Sheet.xnb
+G:\Users\thein\source\repos\thru\Thru.Tests\bin\Debug\net5.0\Content\CharacterModels\CharacterAnimation-backpack-Sheet.xnb
+G:\Users\thein\source\repos\thru\Thru.Tests\bin\Debug\net5.0\Content\CharacterModels\CharacterAnimation-backpackstrapst-Sheet.xnb
+G:\Users\thein\source\repos\thru\Thru.Tests\bin\Debug\net5.0\Content\CharacterModels\CharacterAnimation-body-Sheet.xnb
+G:\Users\thein\source\repos\thru\Thru.Tests\bin\Debug\net5.0\Content\CharacterModels\CharacterAnimation-shirt-Sheet.xnb
+G:\Users\thein\source\repos\thru\Thru.Tests\bin\Debug\net5.0\Content\CharacterModels\CharacterAnimation-shoes-Sheet.xnb
+G:\Users\thein\source\repos\thru\Thru.Tests\bin\Debug\net5.0\Content\CharacterModels\CharacterAnimation-shorts-Sheet.xnb
+G:\Users\thein\source\repos\thru\Thru.Tests\bin\Debug\net5.0\Content\CharacterModels\CharacterAnimation-sleeves-Sheet.xnb

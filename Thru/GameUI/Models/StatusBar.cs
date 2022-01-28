@@ -14,7 +14,7 @@ namespace Thru
         public SpriteFont Font;
         public string Name, RatioString;
         public string Stat;
-        public Player Player;
+        public Character Player;
         int StatMax;
         int oldVal;
         public Color BaseColor;
@@ -60,7 +60,7 @@ namespace Thru
 
 
 
-        public StatusBar( GraphicsDeviceManager graphics, Point screenXY, int width, int height, string stat, Player player, bool isVertical = false,SpriteFont font = null, string name = "", Color? baseColor = null, Color? actualColor = null)
+        public StatusBar( GraphicsDeviceManager graphics, Point screenXY, int width, int height, string stat, Character player, bool isVertical = false,SpriteFont font = null, string name = "", Color? baseColor = null, Color? actualColor = null)
         {
             Player = player;
             Stat = stat;
@@ -116,14 +116,15 @@ namespace Thru
                     ActualBar = ThruLib.makeBlankRect(Graphics, Width, AdjustedLength);
                 else
                     ActualBar = ThruLib.makeBlankRect(Graphics, AdjustedLength, Height);
+                ActualBounds = ActualBar.Bounds;
+            ActualBounds.Location = ScreenXY;
             }   catch(Exception e)
             {
 
             }
 
 
-            ActualBounds = ActualBar.Bounds;
-            ActualBounds.Location = ScreenXY;
+            
 
         }
 

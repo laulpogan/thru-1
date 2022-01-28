@@ -18,7 +18,7 @@ namespace Thru
 		public Encounter Encounter;
 		public HUD hud;
 		public DesignGrid grid;
-		public Player Player;
+		public Character Player;
 		public Location currentLocation, TrailLocation;
 		private ContentManager Content;
 		private SpriteFont font;
@@ -27,7 +27,7 @@ namespace Thru
 		public GlobalState GlobalState;
 
 
-		public PlayGameView(IServiceProvider services, GraphicsDeviceManager graphics, Location location, Location trailLocation, Player player, GlobalState globalState )
+		public PlayGameView(IServiceProvider services, GraphicsDeviceManager graphics, Location location, Location trailLocation, Character player, GlobalState globalState )
 {
 			GlobalState = globalState;
 			Graphics = graphics;
@@ -55,11 +55,7 @@ namespace Thru
 			eatingSoundEffect.Play();
 		}
 
-		public  static Player  setupTestPlayer(IServiceProvider services, GraphicsDeviceManager graphics)
-        {
-			CharacterBuilder CharacterBuilder = new CharacterBuilder(services, graphics);
-			return  CharacterBuilder.createCharacter();
-		}
+	
 		public Encounter setupTestEncounter(IServiceProvider services, GraphicsDeviceManager graphics)
 		{
 

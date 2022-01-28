@@ -18,15 +18,24 @@ namespace Thru
 		public ItemSlot ItemSlot;
 		public int[,] trueShape;
 		public string Name, Description;
-		public AnimatedSprite AnimatedSprite;
+		public CharacterModelSprite AnimatedSprite;
+		public CharacterModelSprite SecondarySprite;	
+		public Point ScreenXY
+        {
+            get
+            {
+				return DraggableGroup.CurrentPoint;
+            }
+        }
 		public enum ItemState
         {
 			Equipped,
 			Inventory
         }
-		public Player Owner;
+
+		public Character Owner;
 		public ItemState State;
-		public Item(MouseHandler mouseHandler, Texture2D icon, Point point, Point boardOrigin, bool isflexible, float bulk, float weight, float scale, int[,] itemShape, ItemSlot itemSlot, SpriteFont font = null, Texture2D animatedSprite = null)
+		public Item(MouseHandler mouseHandler, Texture2D icon, Point point, Point boardOrigin, bool isflexible, float bulk, float weight, float scale, int[,] itemShape, ItemSlot itemSlot, SpriteFont font = null, Texture2D animatedSprite = null, Texture2D secondarySprite = null)
 		{
 			trueShape = ThruLib.emptyBoard(itemShape.GetLength(0), itemShape.GetLength(1));
 			Icon = icon;
@@ -37,9 +46,11 @@ namespace Thru
 			isFlexible = isflexible;
 			ItemSlot = itemSlot;
 			if (animatedSprite is not null)
-				AnimatedSprite = new AnimatedSprite(animatedSprite, 1, 4, Color.Black);
+				AnimatedSprite = new CharacterModelSprite(animatedSprite, 1, 4, null,Color.White);
 			else
 				AnimatedSprite = null;
+			if(secondarySprite is not null)
+				SecondarySprite = new CharacterModelSprite(animatedSprite, 1, 4,null, Color.White);
 			DraggableGroup = new ItemIconDraggableGroup(mouseHandler, Icon,itemShape,Home, boardOrigin,this,  font);
 
 		}
@@ -47,6 +58,11 @@ namespace Thru
 		public void Update(GameTime gameTime)
 		{
 			DraggableGroup.Update(gameTime);
+
+			if (State == ItemState.Equipped && AnimatedSprite is not null)
+            {
+				 				AnimatedSprite.Update(gameTime);
+            }
 		}
 
 		public void Draw(SpriteBatch spriteBatch)

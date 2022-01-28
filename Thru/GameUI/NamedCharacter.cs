@@ -20,7 +20,7 @@ namespace Thru
 		public Location Location, TrailLocation;
 		public CharacterModel model;
 		public Vector3 MapCoords;
-		public Vector2 ScreenXY;
+		public Point ScreenXY;
 		public bool hasAltArt;
 		public enum Genders
         {
@@ -35,7 +35,7 @@ namespace Thru
 
 			Name = name;
 			stats = new Stats();
-			ScreenXY = new Vector2(0,0);
+			ScreenXY = Point.Zero;
 			hasAltArt = altArt;
             if (hasAltArt)
             {

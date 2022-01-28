@@ -26,13 +26,13 @@ namespace Thru
 		public Camera cam;
 		public GraphicsDeviceManager Graphics;
 		private SpriteFont font;
-		public Player Player;
+		public Character Player;
 		int mileCounter;
 		int Value;
 		public ArrayList Visited;
 		Queue<Vector3> vertList;
 		
-		public MapGameView( IServiceProvider services, int width, int height, GraphicsDeviceManager graphics, Player player, GlobalState globalState)
+		public MapGameView( IServiceProvider services, int width, int height, GraphicsDeviceManager graphics, Character player, GlobalState globalState)
 {
 			Graphics = graphics;
 			cam = new Camera(graphics.GraphicsDevice.Viewport);
@@ -93,7 +93,7 @@ namespace Thru
         {
 
 			var tempVec = vertList.Dequeue();
-			Player.ScreenXY = new Vector2(tempVec.X, tempVec.Y);
+			Player.ScreenXY = new Point((int)tempVec.X, (int)tempVec.Y);
          /*   if (destinationTrailLocation.Coords.X > currentTrailLocation.Coords.X)
                 Player.ScreenXY.X += 1;
             else if (destinationTrailLocation.Coords.X < currentTrailLocation.Coords.X)

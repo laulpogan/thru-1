@@ -22,7 +22,7 @@ namespace Thru
         public int Days;
         public ArrayList localWeather;
         private GraphicsDeviceManager Graphics;
-
+        public Character Player;
         public State currentState
         {
             get { return state; }
@@ -47,6 +47,8 @@ namespace Thru
         public MouseState mouseState;
         public int windowWidth, windowHeight;
         public MouseHandler MouseHandler;
+         SpriteFont Font ;
+            
         public GlobalState(int clientWidth, int clientHeight, IServiceProvider services, GraphicsDeviceManager graphics)
         {
             MouseHandler = new MouseHandler();
@@ -55,11 +57,14 @@ namespace Thru
             windowWidth = clientWidth;
             windowHeight = clientHeight;
             Graphics = graphics;
+             Font = Content.Load<SpriteFont>("Score");
             Texture2D rect = new Texture2D(graphics.GraphicsDevice, 1000, 250);
             IOController = new IOController(services, "TestPlaces4.json");
             menu = new MainMenuView(services, graphics, this);
+            Player = setupTestPlayer(services,graphics, new Point(200,200), Font );
             mainSettings = new MainSettingsView(windowWidth, windowHeight, services, graphics, this);
             gameView = new GameView(windowWidth, windowHeight, services, graphics, this);
+            characterCreationView = new CharacterCreationView(services, 1000, 1000, graphics, this);
             background = Content.Load<Texture2D>("southern_terminus");
             graphics.PreferredBackBufferWidth = background.Width;  // set this value to the desired width of your window
             graphics.PreferredBackBufferHeight = background.Height;   // set this value to the desired height of your window
@@ -69,7 +74,11 @@ namespace Thru
 
 
 
-
+          public   Character  setupTestPlayer(IServiceProvider services, GraphicsDeviceManager graphics, Point screenXY, SpriteFont font)
+        {
+			CharacterBuilder CharacterBuilder = new CharacterBuilder(services, graphics, screenXY );
+			return  CharacterBuilder.Character;
+		}
 
         private void stateMachine(GameTime gameTime, StateMode stateMode)
         {

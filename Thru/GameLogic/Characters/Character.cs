@@ -9,7 +9,7 @@ using System.Text.Json.Serialization;
 
 namespace Thru
 {
-	public class Player : ICharacter
+	public class Character : ICharacter
 	{
 		public Stats Stats;
 		public string Name;
@@ -20,7 +20,7 @@ namespace Thru
 		public Location Location, TrailLocation;
 		public CharacterModel CharacterModel;
 		public Vector3 MapCoords;
-		public Vector2 ScreenXY;
+		public Point ScreenXY;
 		public List<Item> equipped, inventory;
 		public enum Genders
         {
@@ -30,15 +30,18 @@ namespace Thru
 		public Genders Gender;
 		public Dictionary<string, Item> Inventory;
 		public Dictionary<string, ICharacter> Tramily;
-		public List<Item> Equipped;
-		public Player(IServiceProvider services, GraphicsDeviceManager graphics, string name)
+		public SpriteFont Font;
+        public Character(IServiceProvider services, GraphicsDeviceManager graphics, string name, Point? screenXY  = null, SpriteFont font = null)
 		{
 			
-			
+            
+			if (screenXY is null)
+				screenXY = Point.Zero;
+			Font = font;
 			Name = name;
 			Stats = new Stats();
-			ScreenXY = new Vector2(0,0);
-			CharacterModel = new CharacterModel(services, graphics, ScreenXY, this);
+			ScreenXY = (Point)screenXY;
+			CharacterModel = new CharacterModel(services, graphics, ScreenXY, this, font);
 		}
 
 		  public void MoveTo(Location location)

@@ -19,9 +19,9 @@ namespace Thru
         public Location currentLocation;
         public GraphicsDeviceManager Graphics;
         public Vector2 Coords;
-        public Player Player;
+        public Character Player;
         public GlobalState GlobalState;
-        public StoreMenu(IServiceProvider services, GraphicsDeviceManager graphics, Location location, Vector2 drawCoords, GlobalState globalState, Player player = null)
+        public StoreMenu(IServiceProvider services, GraphicsDeviceManager graphics, Location location, Vector2 drawCoords, GlobalState globalState, Character player = null)
         {
             GlobalState = globalState;
             if (player is not null)
