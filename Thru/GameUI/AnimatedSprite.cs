@@ -31,6 +31,7 @@ namespace Thru
        public  int millisecondsPerFrame{ get; set; }
         
         public Color Color { get; set; }
+        //default constructor
         public AnimatedSprite()
         {
            

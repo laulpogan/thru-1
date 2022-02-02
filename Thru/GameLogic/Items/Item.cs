@@ -46,11 +46,11 @@ namespace Thru
 			isFlexible = isflexible;
 			ItemSlot = itemSlot;
 			if (animatedSprite is not null)
-				AnimatedSprite = new CharacterModelSprite(animatedSprite, 1, 4, null,Color.White);
+				AnimatedSprite = new CharacterModelSprite(animatedSprite, null,Color.White);
 			else
 				AnimatedSprite = null;
 			if(secondarySprite is not null)
-				SecondarySprite = new CharacterModelSprite(animatedSprite, 1, 4,null, Color.White);
+				SecondarySprite = new CharacterModelSprite(secondarySprite, null, Color.White);
 			DraggableGroup = new ItemIconDraggableGroup(mouseHandler, Icon,itemShape,Home, boardOrigin,this,  font);
 
 		}
@@ -61,9 +61,11 @@ namespace Thru
 
 			if (State == ItemState.Equipped && AnimatedSprite is not null)
             {
-				 				AnimatedSprite.Update(gameTime);
+                AnimatedSprite.Update(gameTime);
+				if (SecondarySprite is not null)
+					SecondarySprite.Update(gameTime);
             }
-		}
+        }
 
 		public void Draw(SpriteBatch spriteBatch)
 		{

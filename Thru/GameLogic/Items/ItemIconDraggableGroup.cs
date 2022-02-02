@@ -138,7 +138,6 @@ namespace Thru
             gridMargin = 50;
             Draggables = new ItemIconDraggable[itemShape.GetLength(0), itemShape.GetLength(1)];
             Bulk = itemShape.GetLength(0);
-            ItemIconDraggable draggable;
             for (int i = 0; i < itemShape.GetLength(0); i++)
                 for (int j = 0; j < itemShape.GetLength(1); j++)
                     if (itemShape[i, j] == 1)
@@ -160,7 +159,12 @@ namespace Thru
         {
             foreach (ItemIconDraggable draggable in Draggables)
                 if (draggable is not null)
+                {
                     draggable.Draw(spriteBatch);
+                    if (groupState == GroupState.isAtHome)
+                        break;
+                }
+                    
         }
 
         public void Rotate()

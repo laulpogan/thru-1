@@ -38,7 +38,7 @@ namespace Thru
             Receivers.Add(new EquipmentReceiver(mouseHandler, graphics, new Point(2,1), this, ItemSlot.Poles, Font, "Poles"));
             Receivers.Add(new EquipmentReceiver(mouseHandler, graphics, new Point(2, 2), this, ItemSlot.Misc1, Font, "Misc"));
             Receivers.Add(new EquipmentReceiver(mouseHandler, graphics, new Point(0, 2), this, ItemSlot.Misc2, Font, "Misc"));
-            Player.ScreenXY += new Point(3 * gridMargin, 0);
+            Player.ScreenXY += new Point(ModelOrigin.X, ModelOrigin.Y);
 
         }
 
@@ -55,6 +55,8 @@ namespace Thru
                        if(receiver.Item.AnimatedSprite != EquippedSprites[receiver.itemSlot])
                     {
                         EquippedSprites[receiver.itemSlot] =  receiver.Item.AnimatedSprite;
+                        if (receiver.Item.SecondarySprite != null)
+                            receiver.Item.SecondarySprite.Model = Player.CharacterModel;
                         if (receiver.itemSlot == ItemSlot.Shirt)
                             EquippedSprites[ItemSlot.Sleeves] = receiver.Item.SecondarySprite;
                         else if (receiver.itemSlot == ItemSlot.Backpack)

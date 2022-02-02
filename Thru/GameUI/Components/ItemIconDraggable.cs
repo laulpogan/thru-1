@@ -99,7 +99,7 @@ namespace Thru
                 Color = (Color)color;
             else
                 Color = Color.White;
-            Button = new Button(group.MouseHandler, this.Icon, shapeHome.ToString(), font, color, Color.Black, null, .44f );
+            Button = new Button(group.MouseHandler, this.Icon,"", font, color, Color.Black, null, .44f );
             
         }
         
@@ -107,7 +107,6 @@ namespace Thru
         public GameState Update(GameTime gameTime)
         {
             Button.Bounds.Location = CurrentPoint;
-            Button.Text = ShapeHome.ToString();
             if (isBeingDragged)
                 Color = Color.Red;
             else if (isOnBoard)

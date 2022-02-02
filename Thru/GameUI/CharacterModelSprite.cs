@@ -20,35 +20,72 @@ using Newtonsoft.Json;
 
 namespace Thru
 {
-    public class CharacterModelSprite : AnimatedSprite
+    public class CharacterModelSprite 
     {
+        public Texture2D Texture { get; set; }
+        public int Rows   {
+          get {
+                 return Model.Rows;
+            }
+        }
+        public int Columns  {
+          get {
+                 return Model.Columns;
+            }
+        }
+        public int totalFrames  {
+          get {
+                 return Model.totalFrames;
+            }
+        }
+        
+        public Color Color { get; set; }
         public int currentFrame
         {
           get {
-                if(Model is not null)
                  return Model.currentFrame;
-                else
-                    return 0;
             }
         }
 
         public CharacterModel Model;
 
-
-        public CharacterModelSprite(Texture2D texture, int rows, int columns, CharacterModel model, Color? color = null)
+        public int timeSinceLastFrame
         {
-            timeSinceLastFrame = 0;
-            millisecondsPerFrame = 500;
+            get
+            {
+                return Model.timeSinceLastFrame;
+            }
+        }
+
+        public int millisecondsPerFrame
+        {
+            get
+            {
+                return Model.millisecondsPerFrame;
+            }
+        }
+
+        public CharacterModelSprite(Texture2D texture, CharacterModel model, Color? color = null)
+        {
             Model = model;
             Texture = texture;
             if (color is null)
                 color = Color.White;
             Color = (Color)color;
-            Rows = rows;
-            Columns = columns;
-            totalFrames = Rows * Columns;
         }
 
+        public void Update(GameTime gameTime) { }
+           public void Draw(SpriteBatch spriteBatch, Microsoft.Xna.Framework.Point location, float scale = 1f)
+        {
+            int width = Texture.Width / Columns;
+            int height = Texture.Height / Rows;
+            int row = currentFrame / Columns;
+            int column = currentFrame % Columns;
 
+            Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
+            Rectangle destinationRectangle = new Rectangle((int)location.X, (int)location.Y, width, height);
+
+            spriteBatch.Draw(Texture,location.ToVector2(), sourceRectangle, Color, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+        }
     }
 }

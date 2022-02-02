@@ -17,13 +17,13 @@ namespace Thru
         private ContentManager Content;
         public Point ScreenXY;
         public float Scale;
-        Character Player;
+       public Character Player;
         public SpriteFont Font;
         public int currentFrame;
         public int Rows, Columns;
         public  int totalFrames;
-        int timeSinceLastFrame = 0;
-        int millisecondsPerFrame = 500;
+        public int timeSinceLastFrame = 0;
+        public int millisecondsPerFrame = 500;
         public Dictionary<ItemSlot,CharacterModelSprite> EquippedSprites;
 
 
@@ -38,13 +38,15 @@ namespace Thru
             Texture2D shirt = Content.Load<Texture2D>("ItemModels/shirt-blue");
             Texture2D pants = Content.Load<Texture2D>("ItemModels/pants-olive");
             Texture2D shoes = Content.Load<Texture2D>("ItemModels/shoes-green");*/
-                 Texture2D hair = Content.Load<Texture2D>("CharacterModels/hair-orange");
-            Texture2D eyes = Content.Load<Texture2D>("CharacterModels/eyes-white");
+                 Texture2D hair = Content.Load<Texture2D>("CharacterModels/CharacterAnimation-Hair-Sheet");
+            Texture2D eyes = Content.Load<Texture2D>("CharacterModels/CharacterAnimation-eyes-Sheet");
              Texture2D body = Content.Load<Texture2D>("CharacterModels/CharacterAnimation-body-Sheet");
             Texture2D arms = Content.Load<Texture2D>("CharacterModels/CharacterAnimation-arms-Sheet");
-          
+            Rows = 1;
+            Columns = 4;
+            totalFrames = Rows * Columns;
 
-            blankSprite = new CharacterModelSprite(ThruLib.makeBlankRect(graphics, 1, 1), 1, 1, this);
+            blankSprite = new CharacterModelSprite(ThruLib.makeBlankRect(graphics, 1, 1), this);
 
             currentFrame = 0;
 
@@ -72,10 +74,10 @@ namespace Thru
             shoeColor = Color.White;
 
             Player = player;
-            spriteBody = new CharacterModelSprite(body, 1, 4, this, bodyColor);
-            spriteHair = new CharacterModelSprite(hair, 1, 2, this, hairColor);
-            spriteEyes = new CharacterModelSprite(eyes, 1, 2, this, eyeColor);
-            spriteArms = new CharacterModelSprite(arms, 1, 4, this, bodyColor);
+            spriteBody = new CharacterModelSprite(body,this, bodyColor);
+            spriteHair = new CharacterModelSprite(hair,  this, hairColor);
+            spriteEyes = new CharacterModelSprite(eyes,  this, eyeColor);
+            spriteArms = new CharacterModelSprite(arms,this, bodyColor);
             ScreenXY = screenXY;
         }
 
@@ -94,7 +96,10 @@ namespace Thru
         public CharacterModelSprite getSprite(ItemSlot slot)
         {
                if(EquippedSprites[slot] is not null)
-                    return EquippedSprites[slot];
+            {
+                EquippedSprites[slot].Model = this;
+                                       return EquippedSprites[slot];
+            }
                return blankSprite;
         }
 
@@ -104,6 +109,8 @@ namespace Thru
                         foreach (Item item in Player.Equipped)
                             item.AnimatedSprite.Update(gameTime);
             */  
+            
+           setSpriteClothes();
             timeSinceLastFrame += gameTime.ElapsedGameTime.Milliseconds;
             if (timeSinceLastFrame > millisecondsPerFrame)
             {
@@ -112,7 +119,6 @@ namespace Thru
                 if (currentFrame == totalFrames)
                     currentFrame = 0;
             }
-           setSpriteClothes();
             if(spriteBody is not null)
                 spriteBody.Update(gameTime);
             if(spriteHair is not null)
@@ -136,17 +142,17 @@ namespace Thru
         }
         public void Draw(SpriteBatch spriteBatch, float scale = 1f )
         {
-
-            Point temp =new Point(68,55);
+           if(Font is not null)
+                spriteBatch.DrawString(Font, Player.Name, ScreenXY.ToVector2(), Color.Red);
            ScreenXY = new Point(ScreenXY.X - spriteBody.Texture.Bounds.X / 2, ScreenXY.Y - spriteBody.Texture.Bounds.Y / 2);
             if (spriteBackpack is not null)
                 spriteBackpack.Draw(spriteBatch, ScreenXY, scale);
             if(spriteBody is not null)
                 spriteBody.Draw(spriteBatch, ScreenXY, scale);
             if(spriteHair is not null)
-                spriteHair.Draw(spriteBatch, ScreenXY - temp, scale);
+                spriteHair.Draw(spriteBatch, ScreenXY, scale);
             if (spriteEyes is not null)
-                spriteEyes.Draw(spriteBatch, ScreenXY - temp, scale);
+                spriteEyes.Draw(spriteBatch, ScreenXY, scale);
             if(spriteShirt is not null)
                 spriteShirt.Draw(spriteBatch, ScreenXY, scale);
             if(spriteArms is not null)
@@ -159,8 +165,7 @@ namespace Thru
                 spritePants.Draw(spriteBatch, ScreenXY, scale);
             if (spriteShoes is not null)
                 spriteShoes.Draw(spriteBatch, ScreenXY, scale);
-            if(Font is not null)
-                spriteBatch.DrawString(Font, "TEST", ScreenXY.ToVector2(), Color.Black);
+            
             /*foreach (Item item in Player.Equipped)
                 item.AnimatedSprite.Draw(spriteBatch, ScreenXY, scale);*/
         }

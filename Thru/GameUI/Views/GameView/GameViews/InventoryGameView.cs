@@ -15,10 +15,12 @@ namespace Thru
 
         public SpriteBatch spriteBatch;
         public InventoryGameBoard GameBoard;
+        public BackgroundModel Background;
 
         public InventoryGameView(IServiceProvider services, GraphicsDeviceManager graphics, Character player, GlobalState globalState)
 {
             GameBoard = new InventoryGameBoard(services, globalState.MouseHandler, graphics, player, 5,4, 18, 32, new Point(1025, 250));
+            Background = new BackgroundModel(services, graphics, 0, 0);
             spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
         }
 
@@ -27,6 +29,7 @@ namespace Thru
            // Player.Update(gameTime);
             GameBoard.Update(gameTime);
 
+            Background.Update(gameTime);
             
             return GameState.Inventory;
         }
@@ -34,6 +37,7 @@ namespace Thru
         public  void Draw(GraphicsDeviceManager graphics)
         {
             spriteBatch.Begin();
+            Background.Draw(graphics);
             GameBoard.Draw(spriteBatch);
             spriteBatch.End();
 

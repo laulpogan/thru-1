@@ -187,6 +187,30 @@
 /processorParam:TextureFormat=Color
 /build:CharacterModels/CharacterAnimation-body-Sheet.png
 
+#begin CharacterModels/CharacterAnimation-eyes-Sheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:CharacterModels/CharacterAnimation-eyes-Sheet.png
+
+#begin CharacterModels/CharacterAnimation-Hair-Sheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:CharacterModels/CharacterAnimation-Hair-Sheet.png
+
 #begin CharacterModels/CharacterAnimation-shirt-Sheet.png
 /importer:TextureImporter
 /processor:TextureProcessor
