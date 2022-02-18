@@ -45,7 +45,7 @@ namespace Thru
 			buttons.Add(menuButton);
 			Coords = new Vector2(100, 100);
 			buttonGroup = new ButtonGroup(buttons, Coords);
-			characterModel = new CharacterModel(services, graphics, new Point(600, 400), globalState.Player, Font);
+			characterModel = new CharacterModel(services, graphics, new Point(600, 400), globalState.Player, 1f,Font);
 			Colors = ThruLib.allColors();
 	}
 

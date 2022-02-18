@@ -41,7 +41,7 @@ namespace Thru
 			Name = name;
 			Stats = new Stats();
 			ScreenXY = (Point)screenXY;
-			CharacterModel = new CharacterModel(services, graphics, ScreenXY, this, font);
+			CharacterModel = new CharacterModel(services, graphics, ScreenXY, this, 1f, font);
 		}
 
 		  public void MoveTo(Location location)
@@ -60,6 +60,24 @@ namespace Thru
 
 			CharacterModel.Draw(spriteBatch, 1);
 		}
+
+
+
+		//Gives the specified item to the specified character, if the two are in the same location. 
+		public void Give(Character character, Item item) {
+			if (this.Location != character.Location)
+				return;
+				this.inventory.Remove(item);
+				character.inventory.Add(item);
+		}
+
+		public void Pay(Character character, int amount)
+        {
+			if (this.Stats.Money < amount)
+				return;
+			this.Stats.Money-= amount;
+			character.Stats.Money += amount;
+        }
 
 	}
 }

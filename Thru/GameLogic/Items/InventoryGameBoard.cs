@@ -51,7 +51,7 @@ namespace Thru
         {
             Content = new ContentManager(services, "Content");
             Font = Content.Load<SpriteFont>("score");
-            PlayerModel = new PlayerEquipmentModel(graphics, mouseHandler, player, margin, iconSize, new Point(200, 650), Font); 
+            PlayerModel = new PlayerEquipmentModel(graphics, mouseHandler, player, margin, iconSize, new Point(200, 650), 4f, Font); 
             trueBoard = ThruLib.emptyBoard(rows, columns);
             receivers = new DraggableReceiver[rows, columns];
             bloc = margin + iconSize;

@@ -19,7 +19,7 @@ namespace Thru
         SpriteFont Font;
        
 
-        public PlayerEquipmentModel(GraphicsDeviceManager graphics, MouseHandler mouseHandler,  Character player, int margin, int iconSize, Point modelOrigin, SpriteFont font = null)
+        public PlayerEquipmentModel(GraphicsDeviceManager graphics, MouseHandler mouseHandler,  Character player, int margin, int iconSize, Point modelOrigin, float scale = 1f,SpriteFont font = null)
         {
             Player = player;
             Receivers = new List<EquipmentReceiver>();

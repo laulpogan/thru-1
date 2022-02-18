@@ -24,12 +24,14 @@ namespace Thru
         public  int totalFrames;
         public int timeSinceLastFrame = 0;
         public int millisecondsPerFrame = 500;
+        public float scale = 1f;
         public Dictionary<ItemSlot,CharacterModelSprite> EquippedSprites;
 
 
-        public CharacterModel(IServiceProvider services, GraphicsDeviceManager graphics, Point screenXY, Character player, SpriteFont font = null)
+        public CharacterModel(IServiceProvider services, GraphicsDeviceManager graphics, Point screenXY, Character player, float scale =1f, SpriteFont font = null)
 {
             Content = new ContentManager(services, "Content");
+            Scale = scale;
             Font = font;
             //work your way down the body from the top
             /*Texture2D body = Content.Load<Texture2D>("CharacterModels/body-tone-1");
@@ -140,31 +142,31 @@ namespace Thru
             if(spriteSleeves is not null)
                 spriteSleeves.Update(gameTime);
         }
-        public void Draw(SpriteBatch spriteBatch, float scale = 1f )
+        public void Draw(SpriteBatch spriteBatch, float Scale = 1f )
         {
            if(Font is not null)
                 spriteBatch.DrawString(Font, Player.Name, ScreenXY.ToVector2(), Color.Red);
            ScreenXY = new Point(ScreenXY.X - spriteBody.Texture.Bounds.X / 2, ScreenXY.Y - spriteBody.Texture.Bounds.Y / 2);
             if (spriteBackpack is not null)
-                spriteBackpack.Draw(spriteBatch, ScreenXY, scale);
+                spriteBackpack.Draw(spriteBatch, ScreenXY, Scale);
             if(spriteBody is not null)
-                spriteBody.Draw(spriteBatch, ScreenXY, scale);
+                spriteBody.Draw(spriteBatch, ScreenXY, Scale);
             if(spriteHair is not null)
-                spriteHair.Draw(spriteBatch, ScreenXY, scale);
+                spriteHair.Draw(spriteBatch, ScreenXY, Scale);
             if (spriteEyes is not null)
-                spriteEyes.Draw(spriteBatch, ScreenXY, scale);
+                spriteEyes.Draw(spriteBatch, ScreenXY, Scale);
             if(spriteShirt is not null)
-                spriteShirt.Draw(spriteBatch, ScreenXY, scale);
+                spriteShirt.Draw(spriteBatch, ScreenXY, Scale);
             if(spriteArms is not null)
-                spriteArms.Draw(spriteBatch, ScreenXY, scale);
+                spriteArms.Draw(spriteBatch, ScreenXY, Scale);
             if(spriteSleeves is not null)
-                spriteSleeves.Draw(spriteBatch, ScreenXY, scale);
+                spriteSleeves.Draw(spriteBatch, ScreenXY, Scale);
             if(spriteBackpackStraps is not null)
-                spriteBackpackStraps.Draw(spriteBatch, ScreenXY, scale);
+                spriteBackpackStraps.Draw(spriteBatch, ScreenXY, Scale);
             if(spritePants is not null)
-                spritePants.Draw(spriteBatch, ScreenXY, scale);
+                spritePants.Draw(spriteBatch, ScreenXY, Scale);
             if (spriteShoes is not null)
-                spriteShoes.Draw(spriteBatch, ScreenXY, scale);
+                spriteShoes.Draw(spriteBatch, ScreenXY, Scale);
             
             /*foreach (Item item in Player.Equipped)
                 item.AnimatedSprite.Draw(spriteBatch, ScreenXY, scale);*/
