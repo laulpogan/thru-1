@@ -1,41 +1,33 @@
 {
   "format": 1,
   "restore": {
-    "G:\\Users\\thein\\source\\repos\\thru\\Thru.Tests\\Thru.Tests.csproj": {}
+    "/Users/laul_pogan/Source/thru/Thru.Tests/Thru.Tests.csproj": {}
   },
   "projects": {
-    "G:\\Users\\thein\\source\\repos\\thru\\Thru.Tests\\Thru.Tests.csproj": {
+    "/Users/laul_pogan/Source/thru/Thru.Tests/Thru.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\Users\\thein\\source\\repos\\thru\\Thru.Tests\\Thru.Tests.csproj",
+        "projectUniqueName": "/Users/laul_pogan/Source/thru/Thru.Tests/Thru.Tests.csproj",
         "projectName": "Thru.Tests",
-        "projectPath": "G:\\Users\\thein\\source\\repos\\thru\\Thru.Tests\\Thru.Tests.csproj",
-        "packagesPath": "C:\\Users\\thein\\.nuget\\packages\\",
-        "outputPath": "G:\\Users\\thein\\source\\repos\\thru\\Thru.Tests\\obj\\",
+        "projectPath": "/Users/laul_pogan/Source/thru/Thru.Tests/Thru.Tests.csproj",
+        "packagesPath": "/Users/laul_pogan/.nuget/packages/",
+        "outputPath": "/Users/laul_pogan/Source/thru/Thru.Tests/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
-        ],
         "configFilePaths": [
-          "C:\\Users\\thein\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "/Users/laul_pogan/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "G:\\Users\\thein\\source\\repos\\thru\\Thru\\Thru.csproj": {
-                "projectPath": "G:\\Users\\thein\\source\\repos\\thru\\Thru\\Thru.csproj"
+              "/Users/laul_pogan/Source/thru/Thru/Thru.csproj": {
+                "projectPath": "/Users/laul_pogan/Source/thru/Thru/Thru.csproj"
               }
             }
           }
@@ -76,39 +68,41 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[5.0.0, 5.0.0]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[5.0.0, 5.0.0]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.200/RuntimeIdentifierGraph.json"
         }
       }
     },
-    "G:\\Users\\thein\\source\\repos\\thru\\Thru\\Thru.csproj": {
+    "/Users/laul_pogan/Source/thru/Thru/Thru.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\Users\\thein\\source\\repos\\thru\\Thru\\Thru.csproj",
+        "projectUniqueName": "/Users/laul_pogan/Source/thru/Thru/Thru.csproj",
         "projectName": "Thru",
-        "projectPath": "G:\\Users\\thein\\source\\repos\\thru\\Thru\\Thru.csproj",
-        "packagesPath": "C:\\Users\\thein\\.nuget\\packages\\",
-        "outputPath": "G:\\Users\\thein\\source\\repos\\thru\\Thru\\obj\\",
+        "projectPath": "/Users/laul_pogan/Source/thru/Thru/Thru.csproj",
+        "packagesPath": "/Users/laul_pogan/.nuget/packages/",
+        "outputPath": "/Users/laul_pogan/Source/thru/Thru/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
-        ],
         "configFilePaths": [
-          "C:\\Users\\thein\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "/Users/laul_pogan/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -147,10 +141,6 @@
               "target": "Package",
               "version": "[3.8.0.1641, )"
             },
-            "MonoGame.Primitives2D": {
-              "target": "Package",
-              "version": "[1.1.1, )"
-            },
             "MonoGame.Spritesheet": {
               "target": "Package",
               "version": "[1.2.1, )"
@@ -178,12 +168,26 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[5.0.0, 5.0.0]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.osx-x64",
+              "version": "[5.0.14, 5.0.14]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[5.0.0, 5.0.0]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.200/RuntimeIdentifierGraph.json"
         }
       }
     }

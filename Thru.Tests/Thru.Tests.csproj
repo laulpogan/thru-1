@@ -30,9 +30,15 @@
       <Reference Include="MonoGame.Framework">
         <HintPath>..\Thru\bin\Debug\netcoreapp5.0\MonoGame.Framework.dll</HintPath>
       </Reference>
+      <Reference Include="dotnet">
+        <HintPath>..\..\..\..\..\usr\local\share\dotnet\sdk\6.0.200\dotnet.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
     <!-- Actually cleans your project when you run "dotnet clean" -->
+    <ItemGroup>
+      <None Remove="dotnet" />
+    </ItemGroup>
     <Target Name="SpicNSpan" AfterTargets="Clean">
         <!-- Remove obj folder -->
         <RemoveDir Directories="$(BaseIntermediateOutputPath)" />
