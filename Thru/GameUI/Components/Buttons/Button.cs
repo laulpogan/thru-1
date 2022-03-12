@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using System.Text;
+using FontStashSharp;
 
 namespace Thru
 {
@@ -15,7 +16,7 @@ namespace Thru
 		public MouseState mouse_state;
 		public string Text;
 		public Rectangle Bounds;
-		public SpriteFont Font;
+		public SpriteFontBase Font;
 		public string ID;
 		public float Scale;
 		public Color TextColor, Color;
@@ -23,7 +24,7 @@ namespace Thru
 		public delegate void ButtonEventHandler(object sender, EventArgs e);
 		public event ButtonEventHandler onClick;
 		MouseHandler mouseHandler;
-		public Button(MouseHandler mousehandler, Texture2D texture, string text = "", SpriteFont font = null, Color? color = null, Color? textColor = null, ButtonEventHandler onclick = null, float scale = .5f)
+		public Button(MouseHandler mousehandler, Texture2D texture, string text = "", SpriteFontBase font = null, Color? color = null, Color? textColor = null, ButtonEventHandler onclick = null, float scale = .5f)
 		{
 			mouseHandler = mousehandler;
 			Texture = texture;
@@ -69,7 +70,8 @@ namespace Thru
 			if (Font != null)
 			{
 				// todo - smarter buttons (text falls off edge)
-				spriteBatch.DrawString(Font, Text, new Vector2((Bounds.Width * 0.05f) + Bounds.X, (Bounds.Height * 0.4f) + Bounds.Y), TextColor, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
+				//				spriteBatch.DrawString(Font, Text, new Vector2((Bounds.Width * 0.05f) + Bounds.X, (Bounds.Height * 0.4f) + Bounds.Y), TextColor, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0f);
+				spriteBatch.DrawString(Font, Text, new Vector2((Bounds.Width * 0.05f) + Bounds.X, (Bounds.Height * 0.4f) + Bounds.Y), TextColor);
 			}
 		}
 	}

@@ -6,6 +6,7 @@ using System.Collections;
 using System.Text.Json;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using FontStashSharp;
 
 namespace Thru
 {
@@ -30,8 +31,8 @@ namespace Thru
 		public Genders Gender;
 		public Dictionary<string, Item> Inventory;
 		public Dictionary<string, ICharacter> Tramily;
-		public SpriteFont Font;
-        public Character(IServiceProvider services, GraphicsDeviceManager graphics, string name, Point? screenXY  = null, SpriteFont font = null)
+		public SpriteFontBase Font;
+        public Character(IServiceProvider services, GraphicsDeviceManager graphics, string name, Point? screenXY  = null, SpriteFontBase font = null)
 		{
 			
             
@@ -77,6 +78,11 @@ namespace Thru
 				return;
 			this.Stats.Money-= amount;
 			character.Stats.Money += amount;
+        }
+
+		public void Talk(Character character)
+        {
+
         }
 
 	}

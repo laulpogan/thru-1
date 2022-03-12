@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FontStashSharp;
 
 namespace Thru
 {
@@ -127,7 +128,7 @@ namespace Thru
       
       
 
-        public ItemIconDraggableGroup(MouseHandler mouseHandler, Texture2D icon, int[,] itemShape, Point home,Point boardOrigin, Item item,SpriteFont font = null)
+        public ItemIconDraggableGroup(MouseHandler mouseHandler, Texture2D icon, int[,] itemShape, Point home,Point boardOrigin, Item item,SpriteFontBase font = null)
         {
             MouseHandler = mouseHandler;
             CurrentPoint = home;

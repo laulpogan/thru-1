@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Reflection.Metadata;
+using FontStashSharp;
 
 namespace Thru
 {
@@ -18,7 +19,7 @@ namespace Thru
         public Point ScreenXY;
         public float Scale;
        public Character Player;
-        public SpriteFont Font;
+        public SpriteFontBase Font;
         public int currentFrame;
         public int Rows, Columns;
         public  int totalFrames;
@@ -28,7 +29,7 @@ namespace Thru
         public Dictionary<ItemSlot,CharacterModelSprite> EquippedSprites;
 
 
-        public CharacterModel(IServiceProvider services, GraphicsDeviceManager graphics, Point screenXY, Character player, float scale =1f, SpriteFont font = null)
+        public CharacterModel(IServiceProvider services, GraphicsDeviceManager graphics, Point screenXY, Character player, float scale =1f, SpriteFontBase font = null)
 {
             Content = new ContentManager(services, "Content");
             Scale = scale;

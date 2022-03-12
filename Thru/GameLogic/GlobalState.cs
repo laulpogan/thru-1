@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using System.Reflection.Metadata;
+using FontStashSharp;
 
 namespace Thru
 {
@@ -47,7 +48,7 @@ namespace Thru
         public MouseState mouseState;
         public int windowWidth, windowHeight;
         public MouseHandler MouseHandler;
-         SpriteFont Font ;
+        public SpriteFontBase Font ;
             
         public GlobalState(int clientWidth, int clientHeight, IServiceProvider services, GraphicsDeviceManager graphics)
         {
@@ -57,7 +58,6 @@ namespace Thru
             windowWidth = clientWidth;
             windowHeight = clientHeight;
             Graphics = graphics;
-             Font = Content.Load<SpriteFont>("Score");
             Texture2D rect = new Texture2D(graphics.GraphicsDevice, 1000, 250);
             IOController = new IOController(services, "TestPlaces4.json");
             menu = new MainMenuView(services, graphics, this);
@@ -74,7 +74,7 @@ namespace Thru
 
 
 
-          public   Character  setupTestPlayer(IServiceProvider services, GraphicsDeviceManager graphics, Point screenXY, SpriteFont font)
+          public   Character  setupTestPlayer(IServiceProvider services, GraphicsDeviceManager graphics, Point screenXY, SpriteFontBase font)
         {
 			CharacterBuilder CharacterBuilder = new CharacterBuilder(services, graphics, screenXY );
 			return  CharacterBuilder.Character;

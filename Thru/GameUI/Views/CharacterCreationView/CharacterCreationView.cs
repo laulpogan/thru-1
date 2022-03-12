@@ -23,7 +23,6 @@ namespace Thru
 		public CharacterModel characterModel;
 		public Vector2 Coords;
 		public Color[] Colors;
-		public SpriteFont Font;
 
 
         public CharacterCreationView(IServiceProvider services, int width, int height, GraphicsDeviceManager graphics, GlobalState globalState)
@@ -32,11 +31,10 @@ namespace Thru
 			Content = new ContentManager(services, "Content");
 			spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
 			hudBatch = new SpriteBatch(graphics.GraphicsDevice);
-			Font = Content.Load<SpriteFont>("score");
-			characterBuilder = new CharacterBuilder(services, graphics, new Point(600,400), Font);
+			characterBuilder = new CharacterBuilder(services, graphics, new Point(600,400),  globalState.Font);
 			buttonImage = Content.Load<Texture2D>("longbutton");
-			shuffleButton = new Button(globalState.MouseHandler,buttonImage, "Shuffle", Content.Load<SpriteFont>("Score"),null, null, Shuffle);
-			menuButton = new Button(globalState.MouseHandler, buttonImage, "Main Menu", Content.Load<SpriteFont>("Score"));
+			shuffleButton = new Button(globalState.MouseHandler,buttonImage, "Shuffle", globalState.Font,null, null, Shuffle);
+			menuButton = new Button(globalState.MouseHandler, buttonImage, "Main Menu",globalState.Font);
 			shuffleButton.stateMachineState = State.CharacterCreation;
 			menuButton.stateMachineState = State.Menu;
 			//menuButton.
@@ -45,7 +43,7 @@ namespace Thru
 			buttons.Add(menuButton);
 			Coords = new Vector2(100, 100);
 			buttonGroup = new ButtonGroup(buttons, Coords);
-			characterModel = new CharacterModel(services, graphics, new Point(600, 400), globalState.Player, 1f,Font);
+			characterModel = new CharacterModel(services, graphics, new Point(600, 400), globalState.Player, 1f,globalState.Font);
 			Colors = ThruLib.allColors();
 	}
 

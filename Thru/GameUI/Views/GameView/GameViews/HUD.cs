@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using CDO;
+using FontStashSharp;
 
 namespace Thru
 {
@@ -21,7 +22,7 @@ namespace Thru
             Content = new ContentManager(services, "Content");
             Player = player;
             Texture2D buttonImage = Content.Load<Texture2D>("square_button");
-            SpriteFont font = Content.Load<SpriteFont>("Score");
+            SpriteFontBase font =  globalState.Font;
             ArrayList buttonList = new ArrayList();
             Content.RootDirectory = "Content";
             mainMenuButton = new Button(globalState.MouseHandler, buttonImage, "Main Menu", font);
@@ -33,7 +34,7 @@ namespace Thru
             buttonList.Add(snackButton);
             buttonList.Add(inventoryButton);
             buttonGroup = new ButtonGroup(buttonList, new Vector2(1700, 10));
-            _playerStats = new PlayerStatsDisplay(services, graphics,player);
+            _playerStats = new PlayerStatsDisplay(services, graphics,player, globalState.Font);
         }
 
         public void Update(GameTime gameTime)

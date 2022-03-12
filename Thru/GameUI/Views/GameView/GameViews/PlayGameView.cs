@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Content;
 using System.Reflection.Metadata;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Audio;
+using FontStashSharp;
 
 namespace Thru
 {
@@ -21,7 +22,7 @@ namespace Thru
 		public Character Player;
 		public Location currentLocation, TrailLocation;
 		private ContentManager Content;
-		private SpriteFont font;
+		private SpriteFontBase Font;
 		public MapMenu mapMenu;
 		public SoundEffect eatingSoundEffect;
 		public GlobalState GlobalState;
@@ -35,7 +36,7 @@ namespace Thru
 			TrailLocation = trailLocation;
 			Content = new ContentManager(services, "Content");
 			Content.RootDirectory = "Content";
-			font = Content.Load<SpriteFont>("Score");
+			Font =globalState.Font;
 			background = new BackgroundModel(services,graphics,0,0);
 			spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
 			hudBatch = new SpriteBatch(graphics.GraphicsDevice);
@@ -121,7 +122,7 @@ namespace Thru
 			hudBatch.Begin();
 			hud.Draw(hudBatch);
 			mapMenu.Draw(hudBatch);
-			hudBatch.DrawString(font, $"Current Location: [{currentLocation.ID}] {currentLocation.Name}", new Vector2(400, 20), Color.Black);
+			hudBatch.DrawString(Font, $"Current Location: [{currentLocation.ID}] {currentLocation.Name}", new Vector2(400, 20), Color.Black);
 			hudBatch.End();
 		}
 

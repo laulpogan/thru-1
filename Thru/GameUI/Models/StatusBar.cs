@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json;
 using System;
+using FontStashSharp;
 
 namespace Thru
 {
@@ -11,7 +12,7 @@ namespace Thru
         public Point ScreenXY, TitleXY;
         public Rectangle BaseBounds, ActualBounds;
         public Texture2D BaseBar, ActualBar;
-        public SpriteFont Font;
+        public SpriteFontBase Font;
         public string Name, RatioString;
         public string Stat;
         public Character Player;
@@ -60,7 +61,7 @@ namespace Thru
 
 
 
-        public StatusBar( GraphicsDeviceManager graphics, Point screenXY, int width, int height, string stat, Character player, bool isVertical = false,SpriteFont font = null, string name = "", Color? baseColor = null, Color? actualColor = null)
+        public StatusBar( GraphicsDeviceManager graphics, Point screenXY, int width, int height, string stat, Character player, bool isVertical = false,SpriteFontBase font = null, string name = "", Color? baseColor = null, Color? actualColor = null)
         {
             Player = player;
             Stat = stat;
@@ -145,8 +146,10 @@ namespace Thru
         {
             spriteBatch.Draw(BaseBar, BaseBounds, BaseColor);
             spriteBatch.Draw(ActualBar, ActualBounds, ActualColor);
-            spriteBatch.DrawString(Font, Stat, TitleXY.ToVector2() , Color.Black, 0f, Vector2.Zero, .75f, new SpriteEffects(), 0f);
-            spriteBatch.DrawString(Font, RatioString, findBarCenter(ScreenXY.ToVector2()), Color.White, 0f, Vector2.Zero, .75f, new SpriteEffects(), 0f);
+             spriteBatch.DrawString(Font, Stat, TitleXY.ToVector2() , Color.Black);
+            spriteBatch.DrawString(Font, RatioString, findBarCenter(ScreenXY.ToVector2()), Color.White);
+            //spriteBatch.DrawString(Font, Stat, TitleXY.ToVector2() , Color.Black, 0f, Vector2.Zero, .75f, new SpriteEffects(), 0f);
+           // spriteBatch.DrawString(Font, RatioString, findBarCenter(ScreenXY.ToVector2()), Color.White, 0f, Vector2.Zero, .75f, new SpriteEffects(), 0f);
         }
 
 

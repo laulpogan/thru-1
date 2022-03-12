@@ -11,6 +11,7 @@ using CColor = System.Drawing.Color;
 using KColor = System.Drawing.KnownColor;
 using System.Text;
 using System.Reflection.Metadata;
+using FontStashSharp;
 
 namespace Thru {
 	public static class ThruLib
@@ -79,7 +80,7 @@ namespace Thru {
 		}
 
 		//todo:fix this
-		public static string WrapText(SpriteFont spriteFont, string text, float maxLineWidth)
+		public static string WrapText(SpriteFontBase spriteFont, string text, float maxLineWidth)
 		{
 			string[] words = text.Split(' ');
 			StringBuilder sb = new StringBuilder();

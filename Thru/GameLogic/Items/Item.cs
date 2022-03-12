@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
+using FontStashSharp;
 
 namespace Thru
 {
@@ -35,7 +36,7 @@ namespace Thru
 
 		public Character Owner;
 		public ItemState State;
-		public Item(MouseHandler mouseHandler, Texture2D icon, Point point, Point boardOrigin, bool isflexible, float bulk, float weight, float scale, int[,] itemShape, ItemSlot itemSlot, SpriteFont font = null, Texture2D animatedSprite = null, Texture2D secondarySprite = null)
+		public Item(MouseHandler mouseHandler, Texture2D icon, Point point, Point boardOrigin, bool isflexible, float bulk, float weight, float scale, int[,] itemShape, ItemSlot itemSlot, Texture2D animatedSprite = null, Texture2D secondarySprite = null,  SpriteFontBase font = null)
 		{
 			trueShape = ThruLib.emptyBoard(itemShape.GetLength(0), itemShape.GetLength(1));
 			Icon = icon;

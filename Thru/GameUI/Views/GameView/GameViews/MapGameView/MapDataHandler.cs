@@ -16,6 +16,7 @@ using Microsoft.Xna.Framework.Input;
 using MonoGame;
 using MSDASC;
 using Newtonsoft.Json;
+using FontStashSharp;
 
 namespace Thru
 {
@@ -44,10 +45,10 @@ namespace Thru
         int baseLat = 33, baseLng = -116;
         double radius = 6371;
         Texture2D standardBackground;
-        SpriteFont Font;
+        SpriteFontBase Font;
         Texture2D blinkingButton;
         Color color;
-        public MapDataHandler(int clientWidth, int clientHeight, IServiceProvider services, string mapDataPath, Color colorInput )
+        public MapDataHandler(int clientWidth, int clientHeight, IServiceProvider services, string mapDataPath, Color colorInput, SpriteFontBase font = null )
         {
             color = colorInput;
             Content = new ContentManager(services, "Content");
@@ -56,7 +57,7 @@ namespace Thru
             ClientHeight = clientHeight;
             standardBackground = Content.Load<Texture2D>("Backgrounds/southern_terminus");
             List<FeatureCollection> mapDataTotal = new List<FeatureCollection>();
-            Font = Content.Load<SpriteFont>("Score");
+            Font = font;
 // TODO config for map source data
             Console.WriteLine("Loading maps data from: " + mapDataPath);
             foreach (var file in Directory.GetFiles(mapDataPath))
@@ -79,7 +80,7 @@ namespace Thru
             allShapes = new List<List<VertexPositionColorTexture>>();
             gameMap = new TrailMap(new ArrayList(), new ArrayList(), "Game Map");
 
-            Location newLoc = new Location(null, null, null, null, new Vector3(0, 0,0), Content.Load<SpriteFont>("Score"));
+            Location newLoc = new Location(null, null, null, null, new Vector3(0, 0,0), Font);
             Location oldLoc;
             Trail tempEdge = new Trail(null, null,0,  "", null);
             float distance;

@@ -12,6 +12,7 @@ using GeoJSON;
 using Newtonsoft.Json;
 using GeoJSON.Net.Geometry;
 using GeoJSON.Net.Feature;
+using FontStashSharp;
 
 namespace Thru
 {
@@ -22,10 +23,10 @@ namespace Thru
 		public Location Location;
 		public IServiceProvider Services;
 		public GraphicsDeviceManager Graphics;
-		public SpriteFont Font;
+		public SpriteFontBase Font;
 		public Character Character;
 
-		public CharacterBuilder(IServiceProvider services, GraphicsDeviceManager graphics, Microsoft.Xna.Framework.Point screenXY, SpriteFont font = null)
+		public CharacterBuilder(IServiceProvider services, GraphicsDeviceManager graphics, Microsoft.Xna.Framework.Point screenXY, SpriteFontBase font = null)
         {
 			
 			// TODO config file or relative path

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json;
 using System;
 using static Thru.DraggableReceiver;
+using FontStashSharp;
 
 namespace Thru
 {
@@ -89,7 +90,7 @@ namespace Thru
             }
         }
                              
-        public ItemIconDraggable(Texture2D Icon,  Point shapeHome, Item item, ItemIconDraggableGroup group, SpriteFont font = null, Color? color = null)
+        public ItemIconDraggable(Texture2D Icon,  Point shapeHome, Item item, ItemIconDraggableGroup group, SpriteFontBase font = null, Color? color = null)
         {
             this.Icon = Icon;
             Group = group;

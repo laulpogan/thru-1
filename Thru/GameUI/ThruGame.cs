@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using FontStashSharp;
 using GeoJSON.Net;
 using GeoJSON.Net.Feature;
 using GeoJSON.Net.Geometry;
@@ -20,10 +21,10 @@ namespace Thru
     public class ThruGame : Game
     {
        
-        public SpriteFont font;
+        public SpriteFontBase font;
         public GraphicsDeviceManager graphics;
         public GlobalState state;
-      
+        private FontSystem _fontSystem;
         public ThruGame()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -40,8 +41,12 @@ namespace Thru
 
         protected override void LoadContent()
         {
-            font = Content.Load<SpriteFont>("Score"); // Use the name of your sprite font file here instead of 'Score'.
+
+        _fontSystem = new FontSystem();
+        _fontSystem.AddFont(File.ReadAllBytes(@"Fonts/DroidSans.ttf"));
+            state.Font = _fontSystem.GetFont(18); 
         }
+
 
 
 

@@ -127,6 +127,10 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "FontStashSharp.MonoGame": {
+              "target": "Package",
+              "version": "[1.0.4, )"
+            },
             "GeoJSON.Net": {
               "target": "Package",
               "version": "[1.2.22-rc, )"

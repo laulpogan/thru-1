@@ -33,20 +33,19 @@ namespace Thru
 			ArrayList buttonList = new ArrayList();
 			ContentManager Content = new ContentManager(services, "Content");
 			Texture2D buttonImage = Content.Load<Texture2D>("InterfaceTextures/short_button");
-			SpriteFont font = Content.Load<SpriteFont>("Score");
 			Title = data.title;
 			Message = data.text;
-			DisplayWindow = new InteractionMessageBox(Message,Title,services,graphics, 1000, 150);
+			DisplayWindow = new InteractionMessageBox(Message,Title,services,graphics, 1000, 150, globalState.Font);
 			foreach (EncounterOptionData option in data.options)
 			{
 				Button tempButton = new Button(globalState.MouseHandler, buttonImage);
 				tempButton.Text = option.text;
-				tempButton.Font = font;
+				tempButton.Font = globalState.Font;
 				buttonList.Add(tempButton);
 				Options.Add(option.text, option);
 			}
 			ButtonGroup = new ButtonGroup(buttonList, new Vector2(800, 750), ButtonArrangement.Horizontal);
-			okButton = new Button(globalState.MouseHandler, buttonImage, "OK", font);
+			okButton = new Button(globalState.MouseHandler, buttonImage, "OK",  globalState.Font);
 			buttonList.Clear();
 			buttonList.Add(okButton);
 			okButtonGroup = new ButtonGroup(buttonList, new Vector2(800, 850), ButtonArrangement.Horizontal);

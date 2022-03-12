@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
+using FontStashSharp;
 
 namespace Thru
 { 
@@ -22,7 +23,7 @@ namespace Thru
 			Content = new ContentManager(services, "Content");
 			Content.RootDirectory = "Content";
 			Texture2D buttonImage = Content.Load<Texture2D>("InterfaceTextures/short_button");
-			SpriteFont font = Content.Load<SpriteFont>("Score");
+			SpriteFontBase font =  globalState.Font;
 			ArrayList buttonList = new ArrayList();
 			newGameButton = new Button(globalState.MouseHandler, buttonImage, "New Game", font, null,null, globalState.Game);
 			mainSettingsButton = new Button(globalState.MouseHandler, buttonImage, "Main Settings", font,null, null, globalState.MainSettings);

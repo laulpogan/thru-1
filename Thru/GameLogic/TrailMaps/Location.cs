@@ -8,6 +8,7 @@ using GeoJSON.Net.Feature;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Xml.Linq;
+using FontStashSharp;
 
 namespace Thru
 {
@@ -32,8 +33,8 @@ namespace Thru
 		[JsonProperty(PropertyName = "Description")]
 		public string Description { get; set; }
 		public Tags[] Tags;
-		SpriteFont Font;
-		public Location(String id, String name, ArrayList edges, Texture2D texture, Vector3 coords, SpriteFont font)
+		SpriteFontBase Font;
+		public Location(String id, String name, ArrayList edges, Texture2D texture, Vector3 coords, SpriteFontBase font)
 		{
 			ID = id;
 			Name = name;
@@ -60,7 +61,9 @@ namespace Thru
 			sprite.Draw(spriteBatch,pos.ToPoint(), scale);
 			pos.Y -= 4;
 			pos.X -= 10;
-			spriteBatch.DrawString(Font, Name, pos, Color.Black,0,Vector2.Zero, .2f, new SpriteEffects(), 0);
+			//spriteBatch.DrawString(Font, Name, pos, Color.Black,0,Vector2.Zero, .2f, new SpriteEffects(), 0);
+			spriteBatch.DrawString(Font, Name, pos, Color.Black);
+
 
 		}
 		public ArrayList AdjacentLocations()

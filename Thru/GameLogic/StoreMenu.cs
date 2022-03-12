@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using FontStashSharp;
 
 namespace Thru
 {
     public class StoreMenu
     {
-        public SpriteFont font;
+        public SpriteFontBase Font;
         private ContentManager Content;
         public ButtonGroup buttonGroup;
         public Texture2D buttonImage;
@@ -21,21 +22,21 @@ namespace Thru
         public Vector2 Coords;
         public Character Player;
         public GlobalState GlobalState;
-        public StoreMenu(IServiceProvider services, GraphicsDeviceManager graphics, Location location, Vector2 drawCoords, GlobalState globalState, Character player = null)
+        public StoreMenu(IServiceProvider services, GraphicsDeviceManager graphics, Location location, Vector2 drawCoords, GlobalState globalState, Character player = null, SpriteFontBase font = null)
         {
             GlobalState = globalState;
             if (player is not null)
                 Player = player;
             Content = new ContentManager(services, "Content");
             buttonImage = Content.Load<Texture2D>("short_button");
-            font = Content.Load<SpriteFont>("Score");
+            Font = font;
             Graphics = graphics;
             Coords = drawCoords;
             buttonGroup = new ButtonGroup(new ArrayList(), Coords, ButtonArrangement.Horizontal);
             currentLocation = location;
 
-            menuButton = new Button(globalState.MouseHandler, buttonImage, "Menu", font);
-            gameButton = new Button(globalState.MouseHandler, buttonImage, "Game", font);
+            menuButton = new Button(globalState.MouseHandler, buttonImage, "Menu", Font);
+            gameButton = new Button(globalState.MouseHandler, buttonImage, "Game", Font);
 
             buildMapButtons();
             foreach (Location location1 in currentLocation.AdjacentLocations())
@@ -98,7 +99,7 @@ namespace Thru
             ArrayList buttons = new ArrayList();
             foreach (Location location in currentLocation.AdjacentLocations())
             {
-                Button button = new Button(GlobalState.MouseHandler,buttonImage, $"{location.ID}", font);
+                Button button = new Button(GlobalState.MouseHandler,buttonImage, $"{location.ID}", Font);
                 buttons.Add(button);
             }
 

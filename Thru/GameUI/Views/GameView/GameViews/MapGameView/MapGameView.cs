@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using System.Collections.Generic;
-
+using FontStashSharp;
 namespace Thru
 {
 	public class MapGameView : IGameView
@@ -25,7 +25,7 @@ namespace Thru
 		public SpriteBatch spriteBatch, hudBatch;
 		public Camera cam;
 		public GraphicsDeviceManager Graphics;
-		private SpriteFont font;
+		private SpriteFontBase Font;
 		public Character Player;
 		int mileCounter;
 		int Value;
@@ -38,8 +38,8 @@ namespace Thru
 			cam = new Camera(graphics.GraphicsDevice.Viewport);
 			Player = player;
 			Visited = new ArrayList();
-			trailOutline = new MapDataHandler(width, height, services,   "Content\\DataLists\\pct_map", Color.Black);
-			mapOutline = new MapDataHandler(width, height, services, "Content\\DataLists\\world_map", Color.Red);
+			trailOutline = new MapDataHandler(width, height, services,   "Content\\DataLists\\pct_map", Color.Black, globalState.Font);
+			mapOutline = new MapDataHandler(width, height, services, "Content\\DataLists\\world_map", Color.Red, globalState.Font);
 			//mapFeatures  = new MapDataHandler(width, height, services, "Content\\DataLists\\map_features", Color.Orange);
 			gameMap = trailOutline.getGameMap();
 			//todo: getTrailMap is FUBAR right now. Need to fix so our boi has a path
@@ -56,7 +56,7 @@ namespace Thru
 			cam.Pos = currentLocation.CoordsXY;
 
 			Content = new ContentManager(services, "Content");
-			font = Content.Load<SpriteFont>("Score");
+			Font = globalState.Font;
 			mapMenu = new MapMenu(services, graphics, currentLocation, new Vector2(200,850), globalState);
 			Queue<Vector3> trailCoords = trailOutline.getTrailPoints();
 			//Player.MapCoords = trailCoords[0];
@@ -175,7 +175,7 @@ namespace Thru
 			spriteBatch.End();
 
 			hudBatch.Begin();
-			hudBatch.DrawString(font, $"Current Location: [{currentLocation.ID}] {currentLocation.Name}", new Vector2(400, 20), Color.Black);
+			hudBatch.DrawString(Font, $"Current Location: [{currentLocation.ID}] {currentLocation.Name}", new Vector2(400, 20), Color.Black);
 			mapMenu.Draw(hudBatch);
 			hudBatch.End();
 		}
