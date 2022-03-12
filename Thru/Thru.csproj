@@ -213,9 +213,6 @@
     <EmbeddedResource Include="Icon.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <MonoGameContentReference Include="Content\Content.mgcb" />
-  </ItemGroup>
-  <ItemGroup>
     <TrimmerRootAssembly Include="Microsoft.Xna.Framework.Content.ContentTypeReader" Visible="false" />
   </ItemGroup>
   <ItemGroup>
@@ -250,6 +247,9 @@
       <HintPath>bin\Debug\netcoreapp5.0\MonoGame.Framework.dll</HintPath>
     </Reference>
    
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Content\Content.mgcb" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
