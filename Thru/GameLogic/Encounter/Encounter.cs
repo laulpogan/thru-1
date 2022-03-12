@@ -35,17 +35,17 @@ namespace Thru
 			Texture2D buttonImage = Content.Load<Texture2D>("InterfaceTextures/short_button");
 			Title = data.title;
 			Message = data.text;
-			DisplayWindow = new InteractionMessageBox(Message,Title,services,graphics, 1000, 150, globalState.Font);
+			DisplayWindow = new InteractionMessageBox(Message,Title,services,graphics, 1000, 150, globalState.FontSystem.GetFont(12));
 			foreach (EncounterOptionData option in data.options)
 			{
 				Button tempButton = new Button(globalState.MouseHandler, buttonImage);
 				tempButton.Text = option.text;
-				tempButton.Font = globalState.Font;
+				tempButton.Font = globalState.FontSystem.GetFont(12);
 				buttonList.Add(tempButton);
 				Options.Add(option.text, option);
 			}
 			ButtonGroup = new ButtonGroup(buttonList, new Vector2(800, 750), ButtonArrangement.Horizontal);
-			okButton = new Button(globalState.MouseHandler, buttonImage, "OK",  globalState.Font);
+			okButton = new Button(globalState.MouseHandler, buttonImage, "OK",  globalState.FontSystem.GetFont(12));
 			buttonList.Clear();
 			buttonList.Add(okButton);
 			okButtonGroup = new ButtonGroup(buttonList, new Vector2(800, 850), ButtonArrangement.Horizontal);

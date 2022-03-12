@@ -48,7 +48,7 @@ namespace Thru
         SpriteFontBase Font;
         Texture2D blinkingButton;
         Color color;
-        public MapDataHandler(int clientWidth, int clientHeight, IServiceProvider services, string mapDataPath, Color colorInput, SpriteFontBase font = null )
+        public MapDataHandler(int clientWidth, int clientHeight, IServiceProvider services, string mapDataPath, Color colorInput, SpriteFontBase font )
         {
             color = colorInput;
             Content = new ContentManager(services, "Content");

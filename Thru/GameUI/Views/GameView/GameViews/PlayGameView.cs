@@ -36,7 +36,7 @@ namespace Thru
 			TrailLocation = trailLocation;
 			Content = new ContentManager(services, "Content");
 			Content.RootDirectory = "Content";
-			Font =globalState.Font;
+			Font =globalState.FontSystem.GetFont(16);
 			background = new BackgroundModel(services,graphics,0,0);
 			spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
 			hudBatch = new SpriteBatch(graphics.GraphicsDevice);
@@ -100,7 +100,7 @@ namespace Thru
 				returnState = GameState.Inventory;
 			if (hud.snackButton.State == BState.JUST_RELEASED)
             {
-			//	eatingSoundEffect.Play();
+				eatingSoundEffect.Play();
 				Player.Stats.Energy += 5;
 				Player.Stats.Snacks = Player.Stats.Snacks - 1;
 			}

@@ -44,7 +44,7 @@ namespace Thru
 
         _fontSystem = new FontSystem();
         _fontSystem.AddFont(File.ReadAllBytes(@"Content/Fonts/PressStart2P-Regular.ttf"));
-        state = new(Window.ClientBounds.Width, Window.ClientBounds.Height, Services, graphics, _fontSystem.GetFont(18));
+        state = new(Window.ClientBounds.Width, Window.ClientBounds.Height, Services, graphics, _fontSystem);
         }
 
 

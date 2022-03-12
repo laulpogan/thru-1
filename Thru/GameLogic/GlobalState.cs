@@ -48,11 +48,11 @@ namespace Thru
         public MouseState mouseState;
         public int windowWidth, windowHeight;
         public MouseHandler MouseHandler;
-        public SpriteFontBase Font ;
+        public FontSystem FontSystem;
             
-        public GlobalState(int clientWidth, int clientHeight, IServiceProvider services, GraphicsDeviceManager graphics, SpriteFontBase font)
+        public GlobalState(int clientWidth, int clientHeight, IServiceProvider services, GraphicsDeviceManager graphics, FontSystem font)
         {
-            Font = font;
+            FontSystem = font;
             MouseHandler = new MouseHandler();
             Content = new ContentManager(services, "Content");
             Content.RootDirectory = "Content"; currentState = State.Menu;
@@ -62,7 +62,7 @@ namespace Thru
             Texture2D rect = new Texture2D(graphics.GraphicsDevice, 1000, 250);
             IOController = new IOController(services, "TestPlaces4.json");
             menu = new MainMenuView(services, graphics, this);
-            Player = setupTestPlayer(services,graphics, new Point(200,200), Font );
+            Player = setupTestPlayer(services,graphics, new Point(200,200), FontSystem.GetFont(12) );
             mainSettings = new MainSettingsView(windowWidth, windowHeight, services, graphics, this);
             gameView = new GameView(windowWidth, windowHeight, services, graphics, this);
             characterCreationView = new CharacterCreationView(services, 1000, 1000, graphics, this);

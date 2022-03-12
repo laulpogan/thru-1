@@ -23,7 +23,7 @@ namespace Thru
 			Content = new ContentManager(services, "Content");
 			Content.RootDirectory = "Content";
 			Texture2D buttonImage = Content.Load<Texture2D>("InterfaceTextures/short_button");
-			SpriteFontBase font =  globalState.Font;
+			SpriteFontBase font =  globalState.FontSystem.GetFont(12);
 			ArrayList buttonList = new ArrayList();
 			newGameButton = new Button(globalState.MouseHandler, buttonImage, "New Game", font, null,null, globalState.Game);
 			mainSettingsButton = new Button(globalState.MouseHandler, buttonImage, "Main Settings", font,null, null, globalState.MainSettings);

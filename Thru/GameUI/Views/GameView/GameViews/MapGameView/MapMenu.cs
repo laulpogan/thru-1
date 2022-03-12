@@ -29,7 +29,7 @@ namespace Thru
                 Player = player;
             Content = new ContentManager(services, "Content");
             buttonImage = Content.Load<Texture2D>("InterfaceTextures/short_button");
-            Font = globalState.Font;
+            Font = globalState.FontSystem.GetFont(12);
             Graphics = graphics;
             Coords = drawCoords;
             buttonGroup = new ButtonGroup(new ArrayList(), Coords, ButtonArrangement.Horizontal);

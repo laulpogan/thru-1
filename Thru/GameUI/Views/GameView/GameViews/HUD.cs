@@ -22,7 +22,7 @@ namespace Thru
             Content = new ContentManager(services, "Content");
             Player = player;
             Texture2D buttonImage = Content.Load<Texture2D>("square_button");
-            SpriteFontBase font =  globalState.Font;
+            SpriteFontBase font =  globalState.FontSystem.GetFont(12);
             ArrayList buttonList = new ArrayList();
             Content.RootDirectory = "Content";
             mainMenuButton = new Button(globalState.MouseHandler, buttonImage, "Main Menu", font);
@@ -34,7 +34,7 @@ namespace Thru
             buttonList.Add(snackButton);
             buttonList.Add(inventoryButton);
             buttonGroup = new ButtonGroup(buttonList, new Vector2(1700, 10));
-            _playerStats = new PlayerStatsDisplay(services, graphics,player, globalState.Font);
+            _playerStats = new PlayerStatsDisplay(services, graphics,player, globalState.FontSystem.GetFont(12));
         }
 
         public void Update(GameTime gameTime)
