@@ -50,8 +50,9 @@ namespace Thru
         public MouseHandler MouseHandler;
         public SpriteFontBase Font ;
             
-        public GlobalState(int clientWidth, int clientHeight, IServiceProvider services, GraphicsDeviceManager graphics)
+        public GlobalState(int clientWidth, int clientHeight, IServiceProvider services, GraphicsDeviceManager graphics, SpriteFontBase font)
         {
+            Font = font;
             MouseHandler = new MouseHandler();
             Content = new ContentManager(services, "Content");
             Content.RootDirectory = "Content"; currentState = State.Menu;

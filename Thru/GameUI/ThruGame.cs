@@ -35,7 +35,7 @@ namespace Thru
        
         protected override void Initialize()
         {
-            state = new(Window.ClientBounds.Width, Window.ClientBounds.Height, Services, graphics);
+                        LoadContent();
             base.Initialize();
         }
 
@@ -43,8 +43,8 @@ namespace Thru
         {
 
         _fontSystem = new FontSystem();
-        _fontSystem.AddFont(File.ReadAllBytes(@"Fonts/DroidSans.ttf"));
-            state.Font = _fontSystem.GetFont(18); 
+        _fontSystem.AddFont(File.ReadAllBytes(@"Content/Fonts/PressStart2P-Regular.ttf"));
+        state = new(Window.ClientBounds.Width, Window.ClientBounds.Height, Services, graphics, _fontSystem.GetFont(18));
         }
 
 

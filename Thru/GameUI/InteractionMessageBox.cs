@@ -29,7 +29,7 @@ namespace Thru
             Font = font;
             Rect = ThruLib.makeBlankRect(graphics, x, y);
             Title = title;  
-            Message = ThruLib.WrapText(font, message, Rect.Bounds.Width-textOffset.X);
+            Message = ThruLib.WrapText(Font, message, Rect.Bounds.Width-textOffset.X);
             Coor = new Vector2(500, 600);
         
         }
