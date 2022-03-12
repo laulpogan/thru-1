@@ -44,7 +44,7 @@
           "Microsoft.AspNetCore.App"
         ]
       },
-      "Microsoft.CodeCoverage/17.0.0": {
+      "Microsoft.CodeCoverage/17.1.0": {
         "type": "package",
         "compile": {
           "lib/netcoreapp1.0/Microsoft.VisualStudio.CodeCoverage.Shim.dll": {}
@@ -184,11 +184,11 @@
           "lib/netcoreapp3.0/Microsoft.Extensions.Primitives.dll": {}
         }
       },
-      "Microsoft.NET.Test.Sdk/17.0.0": {
+      "Microsoft.NET.Test.Sdk/17.1.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.CodeCoverage": "17.0.0",
-          "Microsoft.TestPlatform.TestHost": "17.0.0"
+          "Microsoft.CodeCoverage": "17.1.0",
+          "Microsoft.TestPlatform.TestHost": "17.1.0"
         },
         "compile": {
           "lib/netcoreapp2.1/_._": {}
@@ -213,10 +213,10 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "Microsoft.TestPlatform.ObjectModel/17.0.0": {
+      "Microsoft.TestPlatform.ObjectModel/17.1.0": {
         "type": "package",
         "dependencies": {
-          "NuGet.Frameworks": "5.0.0",
+          "NuGet.Frameworks": "5.11.0",
           "System.Reflection.Metadata": "1.6.0"
         },
         "compile": {
@@ -310,10 +310,10 @@
           }
         }
       },
-      "Microsoft.TestPlatform.TestHost/17.0.0": {
+      "Microsoft.TestPlatform.TestHost/17.1.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.TestPlatform.ObjectModel": "17.0.0",
+          "Microsoft.TestPlatform.ObjectModel": "17.1.0",
           "Newtonsoft.Json": "9.0.1"
         },
         "compile": {
@@ -475,12 +475,6 @@
         "type": "package",
         "dependencies": {
           "MonoGame.Framework.DesktopGL": "3.7.1.189"
-        },
-        "compile": {
-          "lib/net45/MonoGame.Primitives2D.dll": {}
-        },
-        "runtime": {
-          "lib/net45/MonoGame.Primitives2D.dll": {}
         }
       },
       "MonoGame.Spritesheet/1.2.1": {
@@ -531,7 +525,7 @@
           "lib/netstandard2.0/Newtonsoft.Json.Bson.dll": {}
         }
       },
-      "NuGet.Frameworks/5.0.0": {
+      "NuGet.Frameworks/5.11.0": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/NuGet.Frameworks.dll": {}
@@ -713,10 +707,10 @@
         "microsoft.aspnetcore.mvc.newtonsoftjson.nuspec"
       ]
     },
-    "Microsoft.CodeCoverage/17.0.0": {
-      "sha512": "+B+09FPYBtf+cXfZOPIgpnP5mzLq5QdlBo+JEFy9CdqBaWHWE/YMY0Mos9uDsZhcgFegJm9GigAgMyqBZyfq+Q==",
+    "Microsoft.CodeCoverage/17.1.0": {
+      "sha512": "0N/ZJ71ncCxQWhgtkEYKOgu2oMHa8h1tsOUbhmIKXF8UwtSUCe4vHAsJ3DVcNWRwNfQzSTy263ZE+QF6MdIhhQ==",
       "type": "package",
-      "path": "microsoft.codecoverage/17.0.0",
+      "path": "microsoft.codecoverage/17.1.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -743,10 +737,13 @@
         "build/netstandard1.0/CodeCoverage/msvcp140.dll",
         "build/netstandard1.0/CodeCoverage/msvcp140_atomic_wait.dll",
         "build/netstandard1.0/CodeCoverage/vcruntime140.dll",
-        "build/netstandard1.0/InstrumentationEngine/alpine/x64/ProductionBreakpoints_x64.config",
+        "build/netstandard1.0/InstrumentationEngine/alpine/x64/VanguardInstrumentationProfiler_x64.config",
         "build/netstandard1.0/InstrumentationEngine/alpine/x64/libCoverageInstrumentationMethod.so",
         "build/netstandard1.0/InstrumentationEngine/alpine/x64/libInstrumentationEngine.so",
-        "build/netstandard1.0/InstrumentationEngine/ubuntu/x64/ProductionBreakpoints_x64.config",
+        "build/netstandard1.0/InstrumentationEngine/macos/x64/VanguardInstrumentationProfiler_x64.config",
+        "build/netstandard1.0/InstrumentationEngine/macos/x64/libCoverageInstrumentationMethod.dylib",
+        "build/netstandard1.0/InstrumentationEngine/macos/x64/libInstrumentationEngine.dylib",
+        "build/netstandard1.0/InstrumentationEngine/ubuntu/x64/VanguardInstrumentationProfiler_x64.config",
         "build/netstandard1.0/InstrumentationEngine/ubuntu/x64/libCoverageInstrumentationMethod.so",
         "build/netstandard1.0/InstrumentationEngine/ubuntu/x64/libInstrumentationEngine.so",
         "build/netstandard1.0/InstrumentationEngine/x64/MicrosoftInstrumentationEngine_x64.dll",
@@ -775,7 +772,7 @@
         "build/netstandard1.0/zh-Hant/Microsoft.VisualStudio.TraceDataCollector.resources.dll",
         "lib/net45/Microsoft.VisualStudio.CodeCoverage.Shim.dll",
         "lib/netcoreapp1.0/Microsoft.VisualStudio.CodeCoverage.Shim.dll",
-        "microsoft.codecoverage.17.0.0.nupkg.sha512",
+        "microsoft.codecoverage.17.1.0.nupkg.sha512",
         "microsoft.codecoverage.nuspec"
       ]
     },
@@ -1034,10 +1031,10 @@
         "version.txt"
       ]
     },
-    "Microsoft.NET.Test.Sdk/17.0.0": {
-      "sha512": "fJcnMY3jX1MzJvhGvUWauRhU5eQsOaHdwlrcnI3NabBhbi8WLAkMFI8d0YnewA/+b9q/U7vbhp8Xmh1vJ05FYQ==",
+    "Microsoft.NET.Test.Sdk/17.1.0": {
+      "sha512": "MVKvOsHIfrZrvg+8aqOF5dknO/qWrR1sWZjMPQ1N42MKMlL/zQL30FQFZxPeWfmVKWUWAOmAHYsqB5OerTKziw==",
       "type": "package",
-      "path": "microsoft.net.test.sdk/17.0.0",
+      "path": "microsoft.net.test.sdk/17.1.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1064,7 +1061,7 @@
         "lib/netcoreapp1.0/_._",
         "lib/netcoreapp2.1/_._",
         "lib/uap10.0/_._",
-        "microsoft.net.test.sdk.17.0.0.nupkg.sha512",
+        "microsoft.net.test.sdk.17.1.0.nupkg.sha512",
         "microsoft.net.test.sdk.nuspec"
       ]
     },
@@ -1083,10 +1080,10 @@
         "runtime.json"
       ]
     },
-    "Microsoft.TestPlatform.ObjectModel/17.0.0": {
-      "sha512": "WMugCdPkA8U/BsSRc+3RN+DXcaYSDvp/s0MofVld08iF1O5fek4iKecygk6NruNf1rgJsv4LK71mrwbyeqhzHA==",
+    "Microsoft.TestPlatform.ObjectModel/17.1.0": {
+      "sha512": "OMo/FYnKGy3lZEK0gfitskRM3ga/YBt6MyCyFPq0xNLeybGOQ6HnYNAAvzyePo5WPuMiw3LX+HiuRWNjnas1fA==",
       "type": "package",
-      "path": "microsoft.testplatform.objectmodel/17.0.0",
+      "path": "microsoft.testplatform.objectmodel/17.1.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1324,14 +1321,14 @@
         "lib/uap10.0/zh-Hans/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
         "lib/uap10.0/zh-Hant/Microsoft.TestPlatform.CoreUtilities.resources.dll",
         "lib/uap10.0/zh-Hant/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
-        "microsoft.testplatform.objectmodel.17.0.0.nupkg.sha512",
+        "microsoft.testplatform.objectmodel.17.1.0.nupkg.sha512",
         "microsoft.testplatform.objectmodel.nuspec"
       ]
     },
-    "Microsoft.TestPlatform.TestHost/17.0.0": {
-      "sha512": "xkKFzm0hylHF0SlDj78ACYMJC/i8fQ3i16sDDNYoKnjTsstGSQfuSBJ+QT4nqRXk/fOiYTh+iY0KIX5N7HTLuQ==",
+    "Microsoft.TestPlatform.TestHost/17.1.0": {
+      "sha512": "JS0JDLniDhIzkSPLHz7N/x1CG8ywJOtwInFDYA3KQvbz+ojGoT5MT2YDVReL1b86zmNRV8339vsTSm/zh0RcMg==",
       "type": "package",
-      "path": "microsoft.testplatform.testhost/17.0.0",
+      "path": "microsoft.testplatform.testhost/17.1.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1545,7 +1542,7 @@
         "lib/uap10.0/Microsoft.VisualStudio.TestPlatform.Common.dll",
         "lib/uap10.0/Microsoft.VisualStudio.TestPlatform.ObjectModel.dll",
         "lib/uap10.0/testhost.dll",
-        "microsoft.testplatform.testhost.17.0.0.nupkg.sha512",
+        "microsoft.testplatform.testhost.17.1.0.nupkg.sha512",
         "microsoft.testplatform.testhost.nuspec"
       ]
     },
@@ -1861,20 +1858,21 @@
         "newtonsoft.json.bson.nuspec"
       ]
     },
-    "NuGet.Frameworks/5.0.0": {
-      "sha512": "c5JVjuVAm4f7E9Vj+v09Z9s2ZsqFDjBpcsyS3M9xRo0bEdm/LVZSzLxxNvfvAwRiiE8nwe1h2G4OwiwlzFKXlA==",
+    "NuGet.Frameworks/5.11.0": {
+      "sha512": "eaiXkUjC4NPcquGWzAGMXjuxvLwc6XGKMptSyOGQeT0X70BUZObuybJFZLA0OfTdueLd3US23NBPTBb6iF3V1Q==",
       "type": "package",
-      "path": "nuget.frameworks/5.0.0",
+      "path": "nuget.frameworks/5.11.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
+        "icon.png",
         "lib/net40/NuGet.Frameworks.dll",
         "lib/net40/NuGet.Frameworks.xml",
         "lib/net472/NuGet.Frameworks.dll",
         "lib/net472/NuGet.Frameworks.xml",
         "lib/netstandard2.0/NuGet.Frameworks.dll",
         "lib/netstandard2.0/NuGet.Frameworks.xml",
-        "nuget.frameworks.5.0.0.nupkg.sha512",
+        "nuget.frameworks.5.11.0.nupkg.sha512",
         "nuget.frameworks.nuspec"
       ]
     },
@@ -2192,42 +2190,32 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\thein\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
-    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
+    "/Users/laul_pogan/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\Users\\thein\\source\\repos\\thru\\Thru.Tests\\Thru.Tests.csproj",
+      "projectUniqueName": "/Users/laul_pogan/Source/thru/Thru.Tests/Thru.Tests.csproj",
       "projectName": "Thru.Tests",
-      "projectPath": "G:\\Users\\thein\\source\\repos\\thru\\Thru.Tests\\Thru.Tests.csproj",
-      "packagesPath": "C:\\Users\\thein\\.nuget\\packages\\",
-      "outputPath": "G:\\Users\\thein\\source\\repos\\thru\\Thru.Tests\\obj\\",
+      "projectPath": "/Users/laul_pogan/Source/thru/Thru.Tests/Thru.Tests.csproj",
+      "packagesPath": "/Users/laul_pogan/.nuget/packages/",
+      "outputPath": "/Users/laul_pogan/Source/thru/Thru.Tests/obj/",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
-      ],
       "configFilePaths": [
-        "C:\\Users\\thein\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "/Users/laul_pogan/.config/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "G:\\Users\\thein\\source\\repos\\thru\\Thru\\Thru.csproj": {
-              "projectPath": "G:\\Users\\thein\\source\\repos\\thru\\Thru\\Thru.csproj"
+            "/Users/laul_pogan/Source/thru/Thru/Thru.csproj": {
+              "projectPath": "/Users/laul_pogan/Source/thru/Thru/Thru.csproj"
             }
           }
         }
@@ -2258,31 +2246,15 @@
             "version": "[*, )"
           }
         },
-        "imports": [
-          "net461",
-          "net462",
-          "net47",
-          "net471",
-          "net472",
-          "net48"
-        ],
-        "assetTargetFallback": true,
-        "warn": true,
-        "frameworkReferences": {
-          "Microsoft.NETCore.App": {
-            "privateAssets": "all"
-          }
-        },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/x64/sdk/3.1.416/RuntimeIdentifierGraph.json"
       }
     }
   },
   "logs": [
     {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'MonoGame.Primitives2D 1.1.1' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net5.0'. This package may not be fully compatible with your project.",
+      "code": "NU1202",
+      "level": "Error",
+      "message": "Package MonoGame.Primitives2D 1.1.1 is not compatible with net5.0 (.NETCoreApp,Version=v5.0). Package MonoGame.Primitives2D 1.1.1 supports: net45 (.NETFramework,Version=v4.5)",
       "libraryId": "MonoGame.Primitives2D",
       "targetGraphs": [
         "net5.0"
