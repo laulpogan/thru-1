@@ -31,7 +31,10 @@ namespace Thru
         public IOController(IServiceProvider services, string filename)
         {
             fileName = filename;
-            path = fileName;
+            string dir = Path.GetDirectoryName(
+     System.Reflection.Assembly.GetExecutingAssembly().Location);
+
+            path = "/../../" +dir + '/'+fileName;
         }
         public void serializeToFile<T>(Dictionary<string, T> obj)
         {

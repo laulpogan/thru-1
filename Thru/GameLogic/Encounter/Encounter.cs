@@ -7,8 +7,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using System.Reflection;
 using System.Linq;
-using ADOX;
-using CDO;
+
 
 namespace Thru
 {

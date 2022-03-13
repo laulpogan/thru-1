@@ -23,7 +23,7 @@ namespace Thru
         {
             Player = player;
             var Content = new ContentManager(services, "Content");
-            bgTexture = Content.Load<Texture2D>("stats_bar");
+            bgTexture = Content.Load<Texture2D>("InterfaceTextures/stats_bar");
             Font = font;
             textOffset = new Vector2(bgTexture.Width * .05f, bgTexture.Height * 0.1f);
             drawCoords = new Vector2(10, 10);

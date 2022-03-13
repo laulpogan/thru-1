@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using static Thru.ItemIconDraggableGroup;
+using FontStashSharp;
 
 namespace Thru
 {
@@ -44,13 +45,13 @@ namespace Thru
         public int gridMargin;
         public MouseHandler MouseHandler;
         public FreeSpace FreeSpace;
-        public SpriteFont Font;
+        public SpriteFontBase Font;
         public PlayerEquipmentModel PlayerModel;
 
-        public InventoryGameBoard(IServiceProvider services ,MouseHandler mouseHandler, GraphicsDeviceManager graphics, Character player, int rows, int columns, int margin, int iconSize, Point boardOrigin)
+        public InventoryGameBoard(IServiceProvider services ,MouseHandler mouseHandler, GraphicsDeviceManager graphics, Character player, int rows, int columns, int margin, int iconSize, Point boardOrigin, GlobalState globalState)
         {
             Content = new ContentManager(services, "Content");
-            Font = Content.Load<SpriteFont>("score");
+            Font = globalState.FontSystem.GetFont(12);
             PlayerModel = new PlayerEquipmentModel(graphics, mouseHandler, player, margin, iconSize, new Point(200, 650), 4f, Font); 
             trueBoard = ThruLib.emptyBoard(rows, columns);
             receivers = new DraggableReceiver[rows, columns];

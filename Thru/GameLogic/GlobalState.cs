@@ -66,7 +66,7 @@ namespace Thru
             mainSettings = new MainSettingsView(windowWidth, windowHeight, services, graphics, this);
             gameView = new GameView(windowWidth, windowHeight, services, graphics, this);
             characterCreationView = new CharacterCreationView(services, 1000, 1000, graphics, this);
-            background = Content.Load<Texture2D>("southern_terminus");
+            background = Content.Load<Texture2D>("Backgrounds/southern_terminus");
             graphics.PreferredBackBufferWidth = background.Width;  // set this value to the desired width of your window
             graphics.PreferredBackBufferHeight = background.Height;   // set this value to the desired height of your window
             graphics.ApplyChanges();

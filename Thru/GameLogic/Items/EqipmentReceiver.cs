@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Newtonsoft.Json;
 using System;
 using static Thru.DraggableReceiver;
+using FontStashSharp;
 
 namespace Thru
 {
@@ -13,7 +14,7 @@ namespace Thru
         public Rectangle Bounds;
         public Texture2D Icon;
         public MouseHandler MouseHandler;
-        public SpriteFont Font;
+        public SpriteFontBase Font;
         public string Name;
         public ItemSlot itemSlot { get; set; }
         public Color Color
@@ -59,7 +60,7 @@ namespace Thru
         public ItemIconDraggable iconHeld { get; set; }
 
 
-        public EquipmentReceiver(MouseHandler mouseHandler, GraphicsDeviceManager graphics, Point modelHome, PlayerEquipmentModel playerModel, ItemSlot itemslot, SpriteFont font = null, string name = "", Color? color = null)
+        public EquipmentReceiver(MouseHandler mouseHandler, GraphicsDeviceManager graphics, Point modelHome, PlayerEquipmentModel playerModel, ItemSlot itemslot, SpriteFontBase font = null, string name = "", Color? color = null)
         {
             receiverType = InventoryState.Equipment;
             Font = font;
@@ -86,7 +87,7 @@ namespace Thru
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(Icon, Bounds, Color);
-            spriteBatch.DrawString(Font, Name, Bounds.Location.ToVector2(), Color.White, 0f, Vector2.Zero, .5f, new SpriteEffects(), 0f);
+            spriteBatch.DrawString(Font, Name, Bounds.Location.ToVector2(), Color.White);
         }
 
 

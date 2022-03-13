@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using FontStashSharp;
 
 namespace Thru
 {
@@ -16,10 +17,10 @@ namespace Thru
         public int gridMargin;
         public MouseHandler MouseHandler;
         public FreeSpace FreeSpace;
-        SpriteFont Font;
+        SpriteFontBase Font;
        
 
-        public PlayerEquipmentModel(GraphicsDeviceManager graphics, MouseHandler mouseHandler,  Character player, int margin, int iconSize, Point modelOrigin, float scale = 1f,SpriteFont font = null)
+        public PlayerEquipmentModel(GraphicsDeviceManager graphics, MouseHandler mouseHandler,  Character player, int margin, int iconSize, Point modelOrigin, float scale = 1f,SpriteFontBase font = null)
         {
             Player = player;
             Receivers = new List<EquipmentReceiver>();

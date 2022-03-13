@@ -32,7 +32,7 @@ namespace Thru
 			spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
 			hudBatch = new SpriteBatch(graphics.GraphicsDevice);
 			characterBuilder = new CharacterBuilder(services, graphics, new Point(600,400),  globalState.FontSystem.GetFont(12));
-			buttonImage = Content.Load<Texture2D>("longbutton");
+			buttonImage = Content.Load<Texture2D>("InterfaceTextures/longbutton");
 			shuffleButton = new Button(globalState.MouseHandler,buttonImage, "Shuffle", globalState.FontSystem.GetFont(12),null, null, Shuffle);
 			menuButton = new Button(globalState.MouseHandler, buttonImage, "Main Menu",globalState.FontSystem.GetFont(12));
 			shuffleButton.stateMachineState = State.CharacterCreation;

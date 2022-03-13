@@ -30,7 +30,7 @@ namespace Thru
         {
 			
 			// TODO config file or relative path
-			IOController = new IOController(services, "Content\\DataLists\\first_name_list.json");
+			IOController = new IOController(services, "first_name_list.json");
 			var jsonText = IOController.deserializeFromFile<FirstName>();
 			nameDict = jsonText;
 			Services = services;

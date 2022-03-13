@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
-using CDO;
 using FontStashSharp;
 
 namespace Thru
@@ -21,7 +20,7 @@ namespace Thru
         {
             Content = new ContentManager(services, "Content");
             Player = player;
-            Texture2D buttonImage = Content.Load<Texture2D>("square_button");
+            Texture2D buttonImage = Content.Load<Texture2D>("InterfaceTextures/square_button");
             SpriteFontBase font =  globalState.FontSystem.GetFont(12);
             ArrayList buttonList = new ArrayList();
             Content.RootDirectory = "Content";
