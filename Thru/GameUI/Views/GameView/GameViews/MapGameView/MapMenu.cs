@@ -22,7 +22,14 @@ namespace Thru
         public Vector2 Coords;
         public Character Player;
         public GlobalState GlobalState;
-        public MapMenu(IServiceProvider services, GraphicsDeviceManager graphics, Location location, Vector2 drawCoords,GlobalState globalState, Character player = null)
+        public Dictionary<Location, float> adjacentLocations
+        {
+            get
+            {
+                return currentLocation.AdjacentLocationsWithWeight();
+            }
+        }
+        public MapMenu(IServiceProvider services, GraphicsDeviceManager graphics, Location location, Vector2 drawCoords,GlobalState globalState, Character player )
         {
             GlobalState = globalState;
             if(player is not null)
@@ -59,11 +66,10 @@ namespace Thru
                 if (button.State == BState.JUST_RELEASED)
                 {
                     Console.WriteLine("You just pressed " + button.Text);
-                    Dictionary<Location, float> adjacentLocations = currentLocation.AdjacentLocationsWithWeight();
                     foreach (Location location in adjacentLocations.Keys)
                     {
-                        Console.WriteLine("Adjacent Location: " + location.Name);
-                        if (location.ID == button.Text)
+                        Console.WriteLine("Location ID: " + location.ID);
+                        if (button.Text.Contains(location.ID))
                         {
                             if (Player is not null)
                             {
@@ -83,15 +89,19 @@ namespace Thru
 
         public void TravelTo(Location location, float Value)
         {
-
+            Console.WriteLine("Traveling To reached");
             if (Player is not null)
             {
-               if(Player.Stats.Energy!> Value)
+                if (Player.Stats.Energy! > Value)
                 {
                     Console.WriteLine($"Traveling to {location.Name} for {Value} Energy. {Player.Name} now has {Player.Stats.Snacks} energy.");
-                    Player.Stats.Energy = Player.Stats.Energy- (int)Value;
+                    Player.Stats.Energy = Player.Stats.Energy - (int)Value;
+                    Player.Location = location;
+                    Player.ScreenXY = location.CoordsXY.ToPoint();
                     currentLocation = location;
                 }
+                else
+                    Console.WriteLine("Don't have enough energy to travel");
             }
         }
         public void buildMapButtons()
@@ -99,7 +109,7 @@ namespace Thru
             ArrayList buttons = new ArrayList();
             foreach (Location location in currentLocation.AdjacentLocations())
             {
-                Button button = new Button(GlobalState.MouseHandler,buttonImage, $"Travel to {location.ID}", Font);
+                Button button = new Button(GlobalState.MouseHandler,buttonImage, $"Travel to {location.ID}\nfor {adjacentLocations[location]}\n Energy.", Font);
                 buttons.Add(button);
             }
 

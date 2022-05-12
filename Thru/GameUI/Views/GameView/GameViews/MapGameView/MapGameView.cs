@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using System.Collections.Generic;
 using FontStashSharp;
+using Microsoft.Xna.Framework.Audio;
+
 namespace Thru
 {
 	public class MapGameView : IGameView
@@ -31,7 +33,11 @@ namespace Thru
 		int Value;
 		public ArrayList Visited;
 		Queue<Vector3> vertList;
-		
+		public HUD hud;
+		public SoundEffect eatingSoundEffect;
+
+
+
 		public MapGameView( IServiceProvider services, int width, int height, GraphicsDeviceManager graphics, Character player, GlobalState globalState)
 {
 			Graphics = graphics;
@@ -45,8 +51,8 @@ namespace Thru
 			//todo: getTrailMap is FUBAR right now. Need to fix so our boi has a path
 			TrailMap = trailOutline.getGameMap();
 			vertList = trailOutline.getTrailPoints();
-			currentLocation = (Location)gameMap.Locations[0];
-            currentTrailLocation = (Location)TrailMap.Locations[0];
+			currentLocation = (Location)gameMap.Locations[1];
+            currentTrailLocation = (Location)TrailMap.Locations[1];
 			
 			Player.Location = currentLocation;
 			Player.TrailLocation = currentTrailLocation;
@@ -57,13 +63,17 @@ namespace Thru
 
 			Content = new ContentManager(services, "Content");
 			Font = globalState.FontSystem.GetFont(22);
-			mapMenu = new MapMenu(services, graphics, currentLocation, new Vector2(200,850), globalState);
+			mapMenu = new MapMenu(services, graphics, currentLocation, new Vector2(200,850), globalState, Player);
 			Queue<Vector3> trailCoords = trailOutline.getTrailPoints();
 			//Player.MapCoords = trailCoords[0];
 			spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
 			hudBatch = new SpriteBatch(graphics.GraphicsDevice);
 			mileCounter = 0;
-			Value =3;
+			Value =300;
+			hud = new HUD(services, graphics, Player, globalState);
+			eatingSoundEffect = Content.Load<SoundEffect>("Audio/MunchMunch");
+
+
 
 		}
 
@@ -92,7 +102,7 @@ namespace Thru
 		public void step()
         {
 
-			var tempVec = vertList.Dequeue();
+				var tempVec = vertList.Dequeue();
 			Player.ScreenXY = new Point((int)tempVec.X, (int)tempVec.Y);
          /*   if (destinationTrailLocation.Coords.X > currentTrailLocation.Coords.X)
                 Player.ScreenXY.X += 1;
@@ -102,13 +112,13 @@ namespace Thru
                 Player.ScreenXY.Y += 1;
             else if (destinationTrailLocation.Coords.Y < currentTrailLocation.Coords.Y)
                 Player.ScreenXY.Y -= 1;*/
-            if (destinationTrailLocation.Coords == currentTrailLocation.Coords)
-            {
-                Console.WriteLine("Huzzah, inflection point at " + currentTrailLocation.Coords);
-               /* lastTrailLocation = currentTrailLocation;
-                currentTrailLocation = destinationTrailLocation;
-                destinationTrailLocation = chooseRoute();*/
-            }
+            //if (destinationTrailLocation.Coords == currentTrailLocation.Coords)
+            //{
+            //    Console.WriteLine("Huzzah, inflection point at " + currentTrailLocation.Coords);
+            //    lastTrailLocation = currentTrailLocation;
+            //     currentTrailLocation = destinationTrailLocation;
+            //     destinationTrailLocation = chooseRoute();
+            //}
 
         }
 
@@ -131,10 +141,11 @@ namespace Thru
 
 				mileCounter++;
 			}
-           
-			currentLocation = mapMenu.Update(gameTime);
 
+			currentLocation = mapMenu.Update(gameTime);
+			Player.Location = currentLocation;
 			trailOutline.Update(gameTime);
+			hud.Update(gameTime);
 			mapOutline.Update(gameTime);
 			gameMap.Update(gameTime);
 			Player.Update(gameTime);
@@ -156,7 +167,18 @@ namespace Thru
             {
 				returnState = GameState.Play;
             }
-			
+			if (hud.mainMenuButton.State == BState.JUST_RELEASED)
+				returnState = GameState.Play;
+			if (hud.mapButton.State == BState.JUST_RELEASED)
+				returnState = GameState.Map;
+			if (hud.inventoryButton.State == BState.JUST_RELEASED)
+				returnState = GameState.Inventory;
+			if (hud.snackButton.State == BState.JUST_RELEASED)
+			{
+				eatingSoundEffect.Play();
+				Player.Stats.Energy += 5;
+				Player.Stats.Snacks = Player.Stats.Snacks - 1;
+			}
 			return returnState;
         }
 		public  void Draw( GraphicsDeviceManager graphics)
@@ -175,6 +197,7 @@ namespace Thru
 			spriteBatch.End();
 
 			hudBatch.Begin();
+			hud.Draw(hudBatch);
 			hudBatch.DrawString(Font, $"Current Location: [{currentLocation.ID}] {currentLocation.Name}", new Vector2(400, 20), Color.Black);
 			mapMenu.Draw(hudBatch);
 			hudBatch.End();

@@ -43,7 +43,6 @@ namespace Thru
 			Player = player;
 			Encounter = setupTestEncounter(services, graphics);
 			hud = new HUD(services, graphics, Player, globalState);
-			mapMenu = new MapMenu(services, graphics, currentLocation, new Vector2(250, 850),globalState, Player);
 			grid = new DesignGrid(services, graphics);
 			eatingSoundEffect = Content.Load<SoundEffect>("Audio/MunchMunch");
 			hud.snackButton.onClick += playMunch;
@@ -86,8 +85,7 @@ namespace Thru
 			Encounter.Update(gameTime);
 			hud.Update(gameTime);
 			background.Update(gameTime);
-			currentLocation = mapMenu.Update(gameTime);
-			if(currentLocation.Tags[0] == Tags.Town)
+			if(Player.Location.Tags[0] == Tags.Town)
             {
 
             }
@@ -121,7 +119,6 @@ namespace Thru
 
 			hudBatch.Begin();
 			hud.Draw(hudBatch);
-			mapMenu.Draw(hudBatch);
 			hudBatch.DrawString(Font, $"Current Location: [{currentLocation.ID}] {currentLocation.Name}", new Vector2(400, 20), Color.Black);
 			hudBatch.End();
 		}

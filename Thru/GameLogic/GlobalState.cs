@@ -16,7 +16,6 @@ namespace Thru
             Update,
             Draw
         }
-
         public SpriteBatch spriteBatch;
         public Location currentLocation;
         public GameTime gameTime;
@@ -70,7 +69,6 @@ namespace Thru
             graphics.PreferredBackBufferWidth = background.Width;  // set this value to the desired width of your window
             graphics.PreferredBackBufferHeight = background.Height;   // set this value to the desired height of your window
             graphics.ApplyChanges();
-            
         }
 
 

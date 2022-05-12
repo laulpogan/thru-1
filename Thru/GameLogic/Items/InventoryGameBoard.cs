@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using static Thru.ItemIconDraggableGroup;
 using FontStashSharp;
+using System.Text;
+using System.IO;
 
 namespace Thru
 {
@@ -13,11 +15,11 @@ namespace Thru
         public List<Item> draggables;
         public Item BearCan, ColdSoakJar, CookPot, IceAxe, Knife, MountainHouse, RawologyCorkball,
             SawyerBugRepellent, SawyerFilter, SleepingBag, Spoon, Spork, Stove, Tent, ToiletPaper, TrekkingPoles,
-            WaterbottleClean, WaterbottleDirty, Shorts, HawaiianShirt2, ClimbingShoes, Backpack;
+            WaterbottleClean, WaterbottleDirty, Shorts, HawaiianShirt2, ClimbingShoes, Backpack, ZpackShirt;
         private ContentManager Content;
         public Texture2D BackpackImage,BearCanImage, ColdSoakJarImage, CookPotImage, IceAxeImage, KnifeImage, MountainHouseImage,
             RawologyCorkballImage, SawyerBugRepellentImage, SawyerFilterImage, SleepingBagImage, SpoonImage, SporkImage, StoveImage,
-            TentImage, ToiletPaperImage, TrekkingPolesImage, WaterbottleCleanImage, WaterbottleDirtyImage, ShortsImage, HawaiianShirt2Image, ClimbingShoesImage;
+            TentImage, ToiletPaperImage, TrekkingPolesImage, WaterbottleCleanImage, WaterbottleDirtyImage, ShortsImage, HawaiianShirt2Image, ClimbingShoesImage, ZpacksShirtImage;
         public Character Player;
         //public Backpack Backpack;
 
@@ -47,6 +49,7 @@ namespace Thru
         public FreeSpace FreeSpace;
         public SpriteFontBase Font;
         public PlayerEquipmentModel PlayerModel;
+        public GraphicsDeviceManager Graphics;
 
         public InventoryGameBoard(IServiceProvider services ,MouseHandler mouseHandler, GraphicsDeviceManager graphics, Character player, int rows, int columns, int margin, int iconSize, Point boardOrigin, GlobalState globalState)
         {
@@ -60,6 +63,7 @@ namespace Thru
             gridMargin = margin + iconSize;
             MouseHandler = mouseHandler;
             FreeSpace = new FreeSpace();
+            Graphics = graphics;
             spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
            // Backpack = new Backpack(services, graphics, Player, MouseHandler);
             loadImages();                   
@@ -303,7 +307,21 @@ namespace Thru
             ThruLib.printLn(board);
         }
 
-        
+        private Texture2D PremultiplyTexture(String FilePath, GraphicsDevice device)
+        {
+            Texture2D texture;
+
+            FileStream titleStream = File.OpenRead(FilePath);
+            texture = Texture2D.FromStream(device, titleStream);
+            titleStream.Close();
+            Color[] buffer = new Color[texture.Width * texture.Height];
+            texture.GetData(buffer);
+            for (int i = 0; i < buffer.Length; i++)
+                buffer[i] = Color.FromNonPremultiplied(buffer[i].R, buffer[i].G, buffer[i].B, buffer[i].A);
+            texture.SetData(buffer);
+
+            return texture;
+        }
         public void loadImages()
         {
 
@@ -329,7 +347,7 @@ namespace Thru
             ShortsImage = Content.Load<Texture2D>("ItemIcons/Pants-Shorts-32x32");
             HawaiianShirt2Image = Content.Load<Texture2D>("ItemIcons/Shirt-Hawaiian2-32x32");
             ClimbingShoesImage = Content.Load<Texture2D>("ItemIcons/Shoes-climbers-32x32");
-
+            ZpacksShirtImage = Content.Load<Texture2D>("ItemIcons/ShirtLogo-ZPacks32x32");
             //work your way down the body from the top
             /*Texture2D body = Content.Load<Texture2D>("CharacterModels/body-tone-1");
             Texture2D hair = Content.Load<Texture2D>("CharacterModels/hair-orange");
@@ -344,6 +362,9 @@ namespace Thru
             Texture2D shirt = Content.Load<Texture2D>("CharacterModels/CharacterAnimation-shirt-Sheet");
             Texture2D pants = Content.Load<Texture2D>("CharacterModels/CharacterAnimation-shorts-Sheet");
             Texture2D shoes = Content.Load<Texture2D>("CharacterModels/CharacterAnimation-shoes-Sheet");
+            Texture2D ZpacksShirtAnimation =  PremultiplyTexture(Path.GetFullPath("../../../")+"Content/CharacterModels/zpacks_shirt_animation.png", Graphics.GraphicsDevice);
+
+
 
             
             int[,] itemShape = new int[,]{
@@ -393,10 +414,11 @@ namespace Thru
             HawaiianShirt2 = new Item(MouseHandler, HawaiianShirt2Image, new Point(900, 700), BoardOrigin, false, 4, 1.7f, 0, singleShape, ItemSlot.Shirt, shirt, sleeves);
             ClimbingShoes = new Item(MouseHandler, ClimbingShoesImage, new Point(800, 700), BoardOrigin, false, 4, 1.7f, 0, singleShape, ItemSlot.Shoes, shoes);
             Backpack = new Item(MouseHandler, BackpackImage, new Point(700, 700), BoardOrigin, false, 4, 1.7f, 0, singleShape, ItemSlot.Backpack,backpack, backpackStraps);
+            ZpackShirt = new Item(MouseHandler, ZpacksShirtImage, new Point(800, 200), BoardOrigin, false, 4, 1.7f,0, singleShape, ItemSlot.Shirt, ZpacksShirtAnimation);
             draggables = new List<Item>(){
                 BearCan, ColdSoakJar, CookPot, IceAxe, Knife, MountainHouse, RawologyCorkball,
                 SawyerBugRepellent, SawyerFilter, SleepingBag, Spoon, Spork, Stove, Tent, ToiletPaper, TrekkingPoles,
-                WaterbottleClean, WaterbottleDirty, Shorts, HawaiianShirt2, Backpack, ClimbingShoes
+                WaterbottleClean, WaterbottleDirty, Shorts, HawaiianShirt2, Backpack, ClimbingShoes, ZpackShirt
         };
         }
 

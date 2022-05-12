@@ -16,7 +16,11 @@ namespace Thru
         public CharacterModelSprite blankSprite, spriteBody,spriteArms,spriteHair, spriteEyes, spriteBackpack, spriteBackpackStraps, spriteSleeves, spriteShirt, spritePants, spriteShoes;
         public Color bodyColor, eyeColor, hairColor, shirtColor, pantsColor, shoeColor;
         private ContentManager Content;
-        public Point ScreenXY;
+        public Point ScreenXY { get {
+                return Player.ScreenXY;
+            }
+            set { Player.ScreenXY = value; }
+        }
         public float Scale;
        public Character Player;
         public SpriteFontBase Font;
