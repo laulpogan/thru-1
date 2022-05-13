@@ -30,11 +30,8 @@ namespace Thru
         string path;
         public IOController(IServiceProvider services, string filename)
         {
-            fileName = filename;
-            string dir = Path.GetDirectoryName(
-     System.Reflection.Assembly.GetExecutingAssembly().Location);
 
-            path = "/../../" +dir + '/'+fileName;
+ path = Path.GetFullPath("../../../") + filename;
         }
         public void serializeToFile<T>(Dictionary<string, T> obj)
         {
@@ -45,7 +42,7 @@ namespace Thru
 
             if (!File.Exists(path))
             {
-                Console.WriteLine("Creating file" + GetPath(fileName) + fileName);
+                Console.WriteLine("Creating file " + path);
 
                 // Create a file to write to.
                 using (StreamWriter sw = File.CreateText(path))
@@ -58,7 +55,7 @@ namespace Thru
             else
             {
                 var temp = deserializeFromFile<T>();
-                Console.WriteLine("Writing to file " + GetPath(fileName) + fileName);
+                Console.WriteLine("Writing to file " + path);
                 temp.ToList().ForEach(x => obj[x.Key] = x.Value);
                 jsonString = JsonConvert.SerializeObject(temp, typeof(T), Settings);
                 using (StreamWriter sw = File.CreateText(path))
@@ -77,7 +74,7 @@ namespace Thru
         {
 
             StringBuilder jsonString = new StringBuilder("");
-            Console.WriteLine("Reading from file " + GetPath(fileName) + fileName);
+            Console.WriteLine("Reading from file " +path);
 
             // Open the file to read from.
             using (StreamReader sr = File.OpenText(path))
@@ -92,10 +89,6 @@ namespace Thru
             }
 
             return JsonConvert.DeserializeObject<Dictionary<string, T>>(jsonString.ToString(), Settings);
-        }
-        string GetPath(string filePath)
-        {
-            return Path.GetDirectoryName(Path.GetFullPath(filePath));
         }
 
 

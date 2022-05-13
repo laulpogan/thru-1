@@ -15,164 +15,169 @@ using GeoJSON.Net.Feature;
 
 namespace Thru
 {
-	public record FirstName
-	{
-		[JsonProperty(PropertyName = "female")]
-		public int female;
-		[JsonProperty(PropertyName = "male")]
-		public int male;
-		[JsonProperty(PropertyName = "most_likely")]
-		public string most_likely;
-	}
-
-	public record EncounterData
-	{
-		[JsonProperty(PropertyName = "text")]
-		public string text;
-		[JsonProperty(PropertyName = "title")]
-		public string title;
-		[JsonProperty(PropertyName = "options")]
-		public EncounterOptionData[] options;
-		[JsonProperty(PropertyName = "dropRate")]
-		public float dropRate;
-		[JsonProperty(PropertyName = "locationType")]
-		public Tags[] encounterTags;
-		[JsonProperty(PropertyName = "resolutionType")]
-		public ResolutionType resolutionType;
-	}
-
-	public enum ResolutionType
+    public record FirstName
     {
-		Cutscene,
-		Duo,
-		Leader,
-		PVP,
-		PVE,
-		Quadruple,
-		Random,
-		SimpleMajority,
-		Tramily,
-		Triple
+        [JsonProperty(PropertyName = "female")]
+        public int female;
+        [JsonProperty(PropertyName = "male")]
+        public int male;
+        [JsonProperty(PropertyName = "most_likely")]
+        public string most_likely;
     }
 
-	public record EncounterOptionData
+    public record EncounterData
     {
-		[JsonProperty(PropertyName = "text")]
-		public string text;
-		[JsonProperty(PropertyName = "checkStat")]
-		public string checkStat;
-		[JsonProperty(PropertyName = "diceCheck")]
-		public int diceCheck;
-		[JsonProperty(PropertyName = "success")]
-		public EncounterResolutionData success;
-		[JsonProperty(PropertyName = "failure")]
-		public EncounterResolutionData failure;
-		public EncounterOptionData(string Text, string CheckStat, int DC, EncounterResolutionData Success, EncounterResolutionData Failure)
+        [JsonProperty(PropertyName = "text")]
+        public string text;
+        [JsonProperty(PropertyName = "title")]
+        public string title;
+        [JsonProperty(PropertyName = "options")]
+        public EncounterOptionData[] options;
+        [JsonProperty(PropertyName = "dropRate")]
+        public float dropRate;
+        [JsonProperty(PropertyName = "locationType")]
+        public Tags[] encounterTags;
+        [JsonProperty(PropertyName = "resolutionType")]
+        public ResolutionType resolutionType;
+    }
 
-		{
-			text = Text;
-			checkStat = CheckStat;
-			success = Success;
-			failure = Failure;
-			diceCheck = DC;
-        }
-	}
-	
+    public enum ResolutionType
+    {
+        Cutscene,
+        Duo,
+        Leader,
+        PVP,
+        PVE,
+        Quadruple,
+        Random,
+        SimpleMajority,
+        Tramily,
+        Triple
+    }
 
-	public record EncounterResolutionData
-	{
-		[JsonProperty(PropertyName = "effectedStat")]
-		public string effectedStat;
-		[JsonProperty(PropertyName = "text")]
-		public string text;
-		[JsonProperty(PropertyName = "effect")]
-		public int effect;
-		[JsonProperty(PropertyName = "rewardItem")]
-		public ItemData rewardItem;
-		[JsonProperty(PropertyName = "rewardTrailName")]
-		public TrailNameData rewardTrailName;
+    public record EncounterOptionData
+    {
+        [JsonProperty(PropertyName = "text")]
+        public string text;
+        [JsonProperty(PropertyName = "checkStat")]
+        public string checkStat;
+        [JsonProperty(PropertyName = "diceCheck")]
+        public int diceCheck;
+        [JsonProperty(PropertyName = "success")]
+        public EncounterResolutionData success;
+        [JsonProperty(PropertyName = "failure")]
+        public EncounterResolutionData failure;
+        public EncounterOptionData(string Text, string CheckStat, int DC, EncounterResolutionData Success, EncounterResolutionData Failure)
 
-		public EncounterResolutionData(string EffectedStat, int Effect, ItemData item, TrailNameData trailName)
         {
-			effectedStat = EffectedStat;
-			effect = Effect;
-			rewardItem = item;
-			rewardTrailName = trailName;
+            text = Text;
+            checkStat = CheckStat;
+            success = Success;
+            failure = Failure;
+            diceCheck = DC;
         }
-	}
+    }
 
-	public record GlobalStateData
+
+    public record EncounterResolutionData
+    {
+        [JsonProperty(PropertyName = "effectedStat")]
+        public string effectedStat;
+        [JsonProperty(PropertyName = "text")]
+        public string text;
+        [JsonProperty(PropertyName = "effect")]
+        public int effect;
+        [JsonProperty(PropertyName = "rewardItem")]
+        public ItemData rewardItem;
+        [JsonProperty(PropertyName = "rewardTrailName")]
+        public TrailNameData rewardTrailName;
+
+        public EncounterResolutionData(string EffectedStat, int Effect, ItemData item, TrailNameData trailName)
+        {
+            effectedStat = EffectedStat;
+            effect = Effect;
+            rewardItem = item;
+            rewardTrailName = trailName;
+        }
+    }
+
+    public record GlobalStateData
     {
 
     }
-	
-	public record ItemData
+
+    public record ItemData
     {
-		[JsonProperty(PropertyName = "ID")]
-		public string ID;
-		[JsonProperty(PropertyName = "name")]
-		public string name;
+        [JsonProperty(PropertyName = "ID")]
+        public string ID;
+        [JsonProperty(PropertyName = "name")]
+        public string name;
         [JsonProperty(PropertyName = "buff")]
         public buffData buff;
-		[JsonProperty(PropertyName = "itemShape")]
-		public int[,] itemShape;
-		[JsonProperty(PropertyName = "isFlexible")]
-		public bool isFlexible;
-		[JsonProperty(PropertyName = "iconPath")]
-		public string iconPath;
-		[JsonProperty(PropertyName = "spriteSheetPath")]
-		public string spriteSheetPath;
-		[JsonProperty(PropertyName = "bulk")]
-		public float bulk;
-		[JsonProperty(PropertyName = "weight")]
-		public float weight;
-		[JsonProperty(PropertyName = "boardHome")]
-		public Microsoft.Xna.Framework.Point boardHome;
+        [JsonProperty(PropertyName = "itemShape")]
+        public int[,] itemShape;
+        [JsonProperty(PropertyName = "itemSlot")]
+        public ItemSlot itemSlot;
+        [JsonProperty(PropertyName = "isFlexible")]
+        public bool isFlexible;
+        [JsonProperty(PropertyName = "iconPath")]
+        public string iconPath;
+        [JsonProperty(PropertyName = "spriteSheetPath")]
+        public string spriteSheetPath;
+        [JsonProperty(PropertyName = "bulk")]
+        public float bulk;
+        [JsonProperty(PropertyName = "weight")]
+        public float weight;
+        [JsonProperty(PropertyName = "boardHome")]
+        public Microsoft.Xna.Framework.Point boardHome;
+        [JsonProperty(PropertyName = "secondarySpriteSheetPath")]
+        public string secondarySpriteSheetPath;
+
     }
 
     public record CharacterData
     {
-		[JsonProperty(PropertyName = "name")]
-		public string name;
-		[JsonProperty(PropertyName = "characterStats")]
-		public Stats characterStats;
-		[JsonProperty(PropertyName = "trailName")]
-		public TrailNameData trailName;
-		[JsonProperty(PropertyName = "tramily")]
-		public CharacterData[] tramily;
-    }
-
-	
-
-
-	public record TrailNameData
-    {
-		[JsonProperty(PropertyName = "name")]
-		public string name;
-		[JsonProperty(PropertyName = "dropRate")]
-		public float dropRate;
-		[JsonProperty(PropertyName = "buff")]
-		public buffData buff;
-	}
-
-	public record buffData
-    {
-		[JsonProperty(PropertyName = "isDeBuff")]
-		public bool isDeBuff = false;
-		[JsonProperty(PropertyName = "effectedStat")]
-		public Stats effectedStat;
-		[JsonProperty(PropertyName = "statModifier")]
-		public int statModifier;
+        [JsonProperty(PropertyName = "name")]
+        public string name;
+        [JsonProperty(PropertyName = "characterStats")]
+        public Stats characterStats;
+        [JsonProperty(PropertyName = "trailName")]
+        public TrailNameData trailName;
+        [JsonProperty(PropertyName = "tramily")]
+        public CharacterData[] tramily;
     }
 
 
 
-	public record perkData
+
+    public record TrailNameData
     {
-		[JsonProperty(PropertyName = "name")]
-		public string name;
-		[JsonProperty(PropertyName = "buff")]
-		public buffData buff;
-	}
+        [JsonProperty(PropertyName = "name")]
+        public string name;
+        [JsonProperty(PropertyName = "dropRate")]
+        public float dropRate;
+        [JsonProperty(PropertyName = "buff")]
+        public buffData buff;
+    }
+
+    public record buffData
+    {
+        [JsonProperty(PropertyName = "isDeBuff")]
+        public bool isDeBuff = false;
+        [JsonProperty(PropertyName = "effectedStat")]
+        public Stats effectedStat;
+        [JsonProperty(PropertyName = "statModifier")]
+        public int statModifier;
+    }
+
+
+
+    public record perkData
+    {
+        [JsonProperty(PropertyName = "name")]
+        public string name;
+        [JsonProperty(PropertyName = "buff")]
+        public buffData buff;
+    }
 
 }

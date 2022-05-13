@@ -29,6 +29,7 @@
     <None Remove="MonoGame.Content.Builder.Task" />
     <None Remove="dotnet" />
     <None Remove="MonoGame.Framework.DesktopGL" />
+    <None Remove="GameData\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="GameLogic\Characters\HikerMemory.cs" />
@@ -75,5 +76,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GameUI\Models\" />
+    <Folder Include="GameData\" />
   </ItemGroup>
 </Project>
