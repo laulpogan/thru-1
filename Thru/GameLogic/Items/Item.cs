@@ -17,7 +17,7 @@ namespace Thru
         public bool isFlexible;
         public ItemIconDraggableGroup DraggableGroup;
         public ItemSlot ItemSlot;
-        public int[,] trueShape;
+        public int[,] ItemShape;
         public string Name, Description;
         public CharacterModelSprite AnimatedSprite;
         public CharacterModelSprite SecondarySprite;
@@ -40,9 +40,9 @@ namespace Thru
         public Item(MouseHandler mouseHandler, string name, Texture2D icon, Point point, Point boardOrigin, bool isflexible, float bulk, float weight, float scale, int[,] itemShape, ItemSlot itemSlot, Texture2D animatedSprite = null, Texture2D secondarySprite = null, SpriteFontBase font = null)
         {
             Name = name;
-            trueShape = ThruLib.emptyBoard(itemShape.GetLength(0), itemShape.GetLength(1));
             Icon = icon;
             Home = point;
+            ItemShape = itemShape;
             renderScale = scale;
             Bulk = bulk;
             Weight = weight;
@@ -73,21 +73,25 @@ namespace Thru
         public void Draw(SpriteBatch spriteBatch)
         {
             DraggableGroup.Draw(spriteBatch);
-            //spriteBatch.Draw(Icon, new Vector2( Home.X, Home.Y), null,Color.White,0f, Vector2.Zero,renderScale,SpriteEffects.None,0f) ;
         }
 
 
 
         public ItemData convertToRecord()
         {
+
+
+            Console.WriteLine(ItemShape);
+            Console.WriteLine(Home);
             ItemData itemData = new ItemData();
             itemData.name = Name;
-            itemData.itemShape = trueShape;
+            itemData.itemShape = DraggableGroup.ItemShape;
             itemData.isFlexible = isFlexible;
             itemData.bulk = Bulk;
             itemData.weight = Weight;
             itemData.itemSlot = ItemSlot;
-            itemData.boardHome = Home;
+            itemData.boardHome = DraggableGroup.BoardHome;
+            itemData.screenXY = DraggableGroup.ScreenHome;
             itemData.iconPath = iconPath;
             itemData.spriteSheetPath = spritePath;
             itemData.secondarySpriteSheetPath = secondarySpritePath;

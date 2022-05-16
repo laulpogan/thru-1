@@ -316,8 +316,10 @@ namespace Thru
             ThruLib.printLn(board);
         }
 
-        private Texture2D PremultiplyTexture(String FilePath, GraphicsDevice device)
+        public Texture2D PremultiplyTexture(String FilePath, GraphicsDevice device)
         {
+            if (String.IsNullOrEmpty(FilePath))
+                return null;
             Texture2D texture;
             FilePath = Path.GetFullPath("../../../Content/") + FilePath;
             FileStream titleStream = File.OpenRead(FilePath);
@@ -333,109 +335,14 @@ namespace Thru
         }
         public void loadImages()
         {
-            BackpackImage = Content.Load<Texture2D>("ItemIcons/Backpack-ZPacks1-32x32");
-            BearCanImage = Content.Load<Texture2D>("ItemIcons/Bearcan32x32");
-            ColdSoakJarImage = Content.Load<Texture2D>("ItemIcons/ColdSoakJar32x32");
-            CookPotImage = Content.Load<Texture2D>("ItemIcons/CookPot32x32");
-            IceAxeImage = Content.Load<Texture2D>("ItemIcons/IceAx32x32");
-            KnifeImage = Content.Load<Texture2D>("ItemIcons/Knife32x32");
-            MountainHouseImage = Content.Load<Texture2D>("ItemIcons/MountainHouse32x32");
-            RawologyCorkballImage = Content.Load<Texture2D>("ItemIcons/RawologyCorkballLarge32x32");
-            SawyerBugRepellentImage = Content.Load<Texture2D>("ItemIcons/Sawyer-BugRepellent32x32");
-            SawyerFilterImage = Content.Load<Texture2D>("ItemIcons/Sawyer-Filter32x32");
-            SleepingBagImage = Content.Load<Texture2D>("ItemIcons/SleepingBag132x32");
-            SpoonImage = Content.Load<Texture2D>("ItemIcons/Spoon32x32");
-            SporkImage = Content.Load<Texture2D>("ItemIcons/Spork32x32");
-            StoveImage = Content.Load<Texture2D>("ItemIcons/Stove32x32");
-            TentImage = Content.Load<Texture2D>("ItemIcons/Tent132x32");
-            ToiletPaperImage = Content.Load<Texture2D>("ItemIcons/ToiletPaper32x32");
-            TrekkingPolesImage = Content.Load<Texture2D>("ItemIcons/TrekkingPoles32x32");
-            WaterbottleCleanImage = Content.Load<Texture2D>("ItemIcons/Waterbottle-CLEAN32x32");
-            WaterbottleDirtyImage = Content.Load<Texture2D>("ItemIcons/Waterbottle-DIRTY32x32");
-            ShortsImage = Content.Load<Texture2D>("ItemIcons/Pants-Shorts-32x32");
-            HawaiianShirt2Image = Content.Load<Texture2D>("ItemIcons/Shirt-Hawaiian2-32x32");
-            ClimbingShoesImage = Content.Load<Texture2D>("ItemIcons/Shoes-climbers-32x32");
-            ZpacksShirtImage = Content.Load<Texture2D>("ItemIcons/ShirtLogo-ZPacks32x32");
-            //work your way down the body from the top
-            /*Texture2D body = Content.Load<Texture2D>("CharacterModels/body-tone-1");
-            Texture2D hair = Content.Load<Texture2D>("CharacterModels/hair-orange");
-            Texture2D eyes = Content.Load<Texture2D>("CharacterModels/eyes-white");
-            Texture2D shirt = Content.Load<Texture2D>("ItemModels/shirt-blue");
-            Texture2D pants = Content.Load<Texture2D>("ItemModels/pants-olive");
-            Texture2D shoes = Content.Load<Texture2D>("ItemModels/shoes-green");*/
-
-            Texture2D backpack = Content.Load<Texture2D>("CharacterModels/CharacterAnimation-backpack-Sheet");
-            Texture2D backpackStraps = Content.Load<Texture2D>("CharacterModels/CharacterAnimation-backpackstrapst-Sheet");
-            Texture2D sleeves = Content.Load<Texture2D>("CharacterModels/CharacterAnimation-sleeves-Sheet");
-            Texture2D shirt = Content.Load<Texture2D>("CharacterModels/CharacterAnimation-shirt-Sheet");
-            Texture2D pants = Content.Load<Texture2D>("CharacterModels/CharacterAnimation-shorts-Sheet");
-            Texture2D shoes = Content.Load<Texture2D>("CharacterModels/CharacterAnimation-shoes-Sheet");
-            Texture2D ZpacksShirtAnimation = PremultiplyTexture("CharacterModels/zpacks_shirt_animation.png", Graphics.GraphicsDevice);
-
-
-
-
-            int[,] itemShape = new int[,]{
-               { 0, 1, 0},
-                { 1, 1, 1},
-                { 0,0, 0}
-};
-            int[,] shirtShape = new int[,]{
-               { 0, 0, 1},
-                { 1, 1,1},
-                { 0,1, 1}
-};
-            int[,] shoeShape = new int[,]{
-
-               { 1,0},
-               { 1, 0}
-};
-            int[,] singleShape = new int[,]{
-               { 1 }
-};
-            int[,] backpackShape = new int[,]{
-                {0, 1, 0, 0},
-                { 1, 0, 1, 0},
-                { 1, 1, 1, 0},
-                {1, 1, 1, 1},
-            };
-
-            BearCan = new Item(MouseHandler, "BearCan", BearCanImage, new Point(500, 250), BoardOrigin, false, 4, 1.7f, 0, itemShape, ItemSlot.Misc1);
-            ColdSoakJar = new Item(MouseHandler, "ColdSoakJar", ColdSoakJarImage, new Point(550, 250), BoardOrigin, false, 4, 1.7f, 0, itemShape, ItemSlot.Misc1);
-            CookPot = new Item(MouseHandler, "CookPot", CookPotImage, new Point(600, 250), BoardOrigin, false, 4, 1.7f, 0, itemShape, ItemSlot.Misc1);
-            IceAxe = new Item(MouseHandler, "IceAxe", IceAxeImage, new Point(650, 250), BoardOrigin, false, 4, 1.7f, 0, itemShape, ItemSlot.Misc1);
-            Knife = new Item(MouseHandler, "Knife", KnifeImage, new Point(700, 250), BoardOrigin, false, 4, 1.7f, 0, itemShape, ItemSlot.Misc1);
-            MountainHouse = new Item(MouseHandler, "MountainHouse", MountainHouseImage, new Point(500, 300), BoardOrigin, false, 4, 1.7f, 0, itemShape, ItemSlot.Misc1);
-            RawologyCorkball = new Item(MouseHandler, "RawologyCorkball", RawologyCorkballImage, new Point(500, 350), BoardOrigin, false, 4, 1.7f, 0, itemShape, ItemSlot.Misc1);
-            SawyerBugRepellent = new Item(MouseHandler, "SawyerBugRepellent", SawyerBugRepellentImage, new Point(500, 400), BoardOrigin, false, 4, 1.7f, 0, itemShape, ItemSlot.Misc1);
-            SawyerFilter = new Item(MouseHandler, "SawyerFilter", SawyerFilterImage, new Point(550, 300), BoardOrigin, false, 4, 1.7f, 0, itemShape, ItemSlot.Misc1);
-            SleepingBag = new Item(MouseHandler, "SleepingBag", SleepingBagImage, new Point(600, 300), BoardOrigin, false, 4, 1.7f, 0, itemShape, ItemSlot.Misc1);
-            Spoon = new Item(MouseHandler, "Spoon", SpoonImage, new Point(650, 300), BoardOrigin, false, 4, 1.7f, 0, itemShape, ItemSlot.Misc1);
-            Spork = new Item(MouseHandler, "Spork", SporkImage, new Point(700, 300), BoardOrigin, false, 4, 1.7f, 0, itemShape, ItemSlot.Misc1);
-            Stove = new Item(MouseHandler, "Stove", StoveImage, new Point(550, 350), BoardOrigin, false, 4, 1.7f, 0, itemShape, ItemSlot.Misc1);
-            Tent = new Item(MouseHandler, "Tent", TentImage, new Point(600, 350), BoardOrigin, false, 4, 1.7f, 0, itemShape, ItemSlot.Misc1);
-            ToiletPaper = new Item(MouseHandler, "ToiletPaper", ToiletPaperImage, new Point(650, 350), BoardOrigin, false, 4, 1.7f, 0, itemShape, ItemSlot.Misc1);
-            TrekkingPoles = new Item(MouseHandler, "TrekkingPoles", TrekkingPolesImage, new Point(700, 350), BoardOrigin, false, 4, 1.7f, 0, itemShape, ItemSlot.Misc1);
-            WaterbottleClean = new Item(MouseHandler, "WaterbottleClean", WaterbottleCleanImage, new Point(550, 400), BoardOrigin, false, 4, 1.7f, 0, itemShape, ItemSlot.Misc1);
-            WaterbottleDirty = new Item(MouseHandler, "WaterbottleDirty", WaterbottleDirtyImage, new Point(600, 400), BoardOrigin, false, 4, 1.7f, 0, itemShape, ItemSlot.Misc1);
-            Shorts = new Item(MouseHandler, "Shorts", ShortsImage, new Point(1000, 700), BoardOrigin, false, 4, 1.7f, 0, singleShape, ItemSlot.Pants, pants);
-            HawaiianShirt2 = new Item(MouseHandler, "HawaiianShirt2", HawaiianShirt2Image, new Point(900, 700), BoardOrigin, false, 4, 1.7f, 0, singleShape, ItemSlot.Shirt, shirt, sleeves);
-            ClimbingShoes = new Item(MouseHandler, "ClimbingShoes", ClimbingShoesImage, new Point(800, 700), BoardOrigin, false, 4, 1.7f, 0, singleShape, ItemSlot.Shoes, shoes);
-            Backpack = new Item(MouseHandler, "Backpack", BackpackImage, new Point(700, 700), BoardOrigin, false, 4, 1.7f, 0, singleShape, ItemSlot.Backpack, backpack, backpackStraps);
-            ZpackShirt = new Item(MouseHandler, "ZpackShirt", ZpacksShirtImage, new Point(800, 200), BoardOrigin, false, 4, 1.7f, 0, singleShape, ItemSlot.Shirt, ZpacksShirtAnimation);
-            draggables = new List<Item>(){
-                BearCan, ColdSoakJar, CookPot, IceAxe, Knife, MountainHouse, RawologyCorkball,
-                SawyerBugRepellent, SawyerFilter, SleepingBag, Spoon, Spork, Stove, Tent, ToiletPaper, TrekkingPoles,
-                WaterbottleClean, WaterbottleDirty, Shorts, HawaiianShirt2, Backpack, ClimbingShoes, ZpackShirt
-        };
 
 
             Dictionary<string, ItemData> recordsLoaded = dataController.deserializeFromFile<ItemData>();
-
+            draggables = new List<Item>();
             foreach (string itemName in recordsLoaded.Keys)
             {
                 ItemData record = recordsLoaded[itemName];
-                Item newItem = new Item(MouseHandler, itemName, PremultiplyTexture(record.iconPath, Graphics.GraphicsDevice), record.boardHome,
+                Item newItem = new Item(MouseHandler, itemName, PremultiplyTexture(record.iconPath, Graphics.GraphicsDevice), record.screenXY,
                     BoardOrigin, record.isFlexible, record.bulk, record.weight, 1.7f, record.itemShape, record.itemSlot,
                     PremultiplyTexture(record.spriteSheetPath, Graphics.GraphicsDevice), PremultiplyTexture(record.secondarySpriteSheetPath, Graphics.GraphicsDevice));
                 newItem.iconPath = record.iconPath;
@@ -443,13 +350,14 @@ namespace Thru
                 newItem.secondarySpritePath = record.secondarySpriteSheetPath;
                 draggables.Add(newItem);
             }
+
+
+
             Dictionary<string, ItemData> records = new Dictionary<string, ItemData>();
-            //Dictionary<string, Item> records = new Dictionary<string, Item>();
 
             foreach (Item item in draggables)
             {
                 records[item.Name] = item.convertToRecord();
-                //records[item.Name] = item;
 
 
             }

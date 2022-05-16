@@ -4,9 +4,9 @@
     "name": "BearCan",
     "buff": null,
     "itemShape": [
-      [ 0, 0, 0 ],
-      [ 0, 0, 0 ],
-      [ 0, 0, 0 ]
+      [ 1, 1, 1 ],
+      [ 1, 1, 1 ],
+      [ 1, 1, 1 ]
     ],
     "itemSlot": 9,
     "isFlexible": false,
@@ -17,16 +17,20 @@
     "boardHome": {
       "X": 0,
       "Y": 0
-    }
-
+    },
+    "screenXY": {
+      "X": 200,
+      "Y": 250
+    },
+    "secondarySpriteSheetPath": null
   },
   "ColdSoakJar": {
     "ID": null,
     "name": "ColdSoakJar",
     "buff": null,
     "itemShape": [
-      [ 0, 0, 0 ],
-      [ 0, 0, 0 ],
+      [ 0, 1, 0 ],
+      [ 0, 1, 0 ],
       [ 0, 0, 0 ]
     ],
     "itemSlot": 9,
@@ -38,15 +42,20 @@
     "boardHome": {
       "X": 0,
       "Y": 0
-    }
+    },
+    "screenXY": {
+      "X": 100,
+      "Y": 150
+    },
+    "secondarySpriteSheetPath": null
   },
   "CookPot": {
     "ID": null,
     "name": "CookPot",
     "buff": null,
     "itemShape": [
-      [ 0, 0, 0 ],
-      [ 0, 0, 0 ],
+      [ 0, 1, 0 ],
+      [ 0, 1, 0 ],
       [ 0, 0, 0 ]
     ],
     "itemSlot": 9,
@@ -58,15 +67,20 @@
     "boardHome": {
       "X": 0,
       "Y": 0
-    }
+    },
+    "screenXY": {
+      "X": 300,
+      "Y": 300
+    },
+    "secondarySpriteSheetPath": null
   },
   "IceAxe": {
     "ID": null,
     "name": "IceAxe",
     "buff": null,
     "itemShape": [
-      [ 0, 0, 0 ],
-      [ 0, 0, 0 ],
+      [ 1, 1, 1 ],
+      [ 0, 1, 0 ],
       [ 0, 0, 0 ]
     ],
     "itemSlot": 9,
@@ -78,7 +92,12 @@
     "boardHome": {
       "X": 0,
       "Y": 0
-    }
+    },
+    "screenXY": {
+      "X": 400,
+      "Y": 400
+    },
+    "secondarySpriteSheetPath": null
   },
   "Knife": {
     "ID": null,
@@ -86,8 +105,8 @@
     "buff": null,
     "itemShape": [
       [ 0, 0, 0 ],
-      [ 0, 0, 0 ],
-      [ 0, 0, 0 ]
+      [ 0, 1, 0 ],
+      [ 0, 1, 0 ]
     ],
     "itemSlot": 9,
     "isFlexible": false,
@@ -98,7 +117,12 @@
     "boardHome": {
       "X": 0,
       "Y": 0
-    }
+    },
+    "screenXY": {
+      "X": 200,
+      "Y": 350
+    },
+    "secondarySpriteSheetPath": null
   },
   "MountainHouse": {
     "ID": null,
@@ -106,8 +130,8 @@
     "buff": null,
     "itemShape": [
       [ 0, 0, 0 ],
-      [ 0, 0, 0 ],
-      [ 0, 0, 0 ]
+      [ 0, 1, 1 ],
+      [ 0, 1, 1 ]
     ],
     "itemSlot": 9,
     "isFlexible": false,
@@ -118,7 +142,12 @@
     "boardHome": {
       "X": 0,
       "Y": 0
-    }
+    },
+    "screenXY": {
+      "X": 400,
+      "Y": 200
+    },
+    "secondarySpriteSheetPath": null
   },
   "RawologyCorkball": {
     "ID": null,
@@ -126,7 +155,7 @@
     "buff": null,
     "itemShape": [
       [ 0, 0, 0 ],
-      [ 0, 0, 0 ],
+      [ 0, 1, 0 ],
       [ 0, 0, 0 ]
     ],
     "itemSlot": 9,
@@ -138,15 +167,20 @@
     "boardHome": {
       "X": 0,
       "Y": 0
-    }
+    },
+    "screenXY": {
+      "X": 500,
+      "Y": 200
+    },
+    "secondarySpriteSheetPath": null
   },
   "SawyerBugRepellent": {
     "ID": null,
     "name": "SawyerBugRepellent",
     "buff": null,
     "itemShape": [
-      [ 0, 0, 0 ],
-      [ 0, 0, 0 ],
+      [ 0, 1, 0 ],
+      [ 0, 1, 0 ],
       [ 0, 0, 0 ]
     ],
     "itemSlot": 9,
@@ -158,15 +192,20 @@
     "boardHome": {
       "X": 0,
       "Y": 0
-    }
+    },
+    "screenXY": {
+      "X": 400,
+      "Y": 100
+    },
+    "secondarySpriteSheetPath": null
   },
   "SawyerFilter": {
     "ID": null,
     "name": "SawyerFilter",
     "buff": null,
     "itemShape": [
-      [ 0, 0, 0 ],
-      [ 0, 0, 0 ],
+      [ 0, 1, 0 ],
+      [ 0, 1, 0 ],
       [ 0, 0, 0 ]
     ],
     "itemSlot": 9,
@@ -178,7 +217,12 @@
     "boardHome": {
       "X": 0,
       "Y": 0
-    }
+    },
+    "screenXY": {
+      "X": 500,
+      "Y": 500
+    },
+    "secondarySpriteSheetPath": null
   },
   "SleepingBag": {
     "ID": null,
@@ -186,8 +230,8 @@
     "buff": null,
     "itemShape": [
       [ 0, 0, 0 ],
-      [ 0, 0, 0 ],
-      [ 0, 0, 0 ]
+      [ 1, 1, 1 ],
+      [ 1, 1, 1 ]
     ],
     "itemSlot": 9,
     "isFlexible": false,
@@ -198,15 +242,20 @@
     "boardHome": {
       "X": 0,
       "Y": 0
-    }
+    },
+    "screenXY": {
+      "X": 450,
+      "Y": 250
+    },
+    "secondarySpriteSheetPath": null
   },
   "Spoon": {
     "ID": null,
     "name": "Spoon",
     "buff": null,
     "itemShape": [
-      [ 0, 0, 0 ],
-      [ 0, 0, 0 ],
+      [ 0, 1, 0 ],
+      [ 0, 1, 0 ],
       [ 0, 0, 0 ]
     ],
     "itemSlot": 9,
@@ -218,15 +267,20 @@
     "boardHome": {
       "X": 0,
       "Y": 0
-    }
+    },
+    "screenXY": {
+      "X": 300,
+      "Y": 250
+    },
+    "secondarySpriteSheetPath": null
   },
   "Spork": {
     "ID": null,
     "name": "Spork",
     "buff": null,
     "itemShape": [
-      [ 0, 0, 0 ],
-      [ 0, 0, 0 ],
+      [ 0, 1, 0 ],
+      [ 0, 1, 0 ],
       [ 0, 0, 0 ]
     ],
     "itemSlot": 9,
@@ -238,15 +292,20 @@
     "boardHome": {
       "X": 0,
       "Y": 0
-    }
+    },
+    "screenXY": {
+      "X": 350,
+      "Y": 250
+    },
+    "secondarySpriteSheetPath": null
   },
   "Stove": {
     "ID": null,
     "name": "Stove",
     "buff": null,
     "itemShape": [
-      [ 0, 0, 0 ],
-      [ 0, 0, 0 ],
+      [ 0, 1, 0 ],
+      [ 0, 1, 0 ],
       [ 0, 0, 0 ]
     ],
     "itemSlot": 9,
@@ -258,15 +317,20 @@
     "boardHome": {
       "X": 0,
       "Y": 0
-    }
+    },
+    "screenXY": {
+      "X": 200,
+      "Y": 500
+    },
+    "secondarySpriteSheetPath": null
   },
   "Tent": {
     "ID": null,
     "name": "Tent",
     "buff": null,
     "itemShape": [
-      [ 0, 0, 0 ],
-      [ 0, 0, 0 ],
+      [ 1, 1, 1 ],
+      [ 1, 1, 1 ],
       [ 0, 0, 0 ]
     ],
     "itemSlot": 9,
@@ -278,15 +342,20 @@
     "boardHome": {
       "X": 0,
       "Y": 0
-    }
+    },
+    "screenXY": {
+      "X": 550,
+      "Y": 200
+    },
+    "secondarySpriteSheetPath": null
   },
   "ToiletPaper": {
     "ID": null,
     "name": "ToiletPaper",
     "buff": null,
     "itemShape": [
-      [ 0, 0, 0 ],
-      [ 0, 0, 0 ],
+      [ 0, 1, 1 ],
+      [ 0, 1, 1 ],
       [ 0, 0, 0 ]
     ],
     "itemSlot": 9,
@@ -298,15 +367,20 @@
     "boardHome": {
       "X": 0,
       "Y": 0
-    }
+    },
+    "screenXY": {
+      "X": 250,
+      "Y": 550
+    },
+    "secondarySpriteSheetPath": null
   },
   "TrekkingPoles": {
     "ID": null,
     "name": "TrekkingPoles",
     "buff": null,
     "itemShape": [
-      [ 0, 0, 0 ],
-      [ 0, 0, 0 ],
+      [ 1, 1, 1 ],
+      [ 1, 1, 1 ],
       [ 0, 0, 0 ]
     ],
     "itemSlot": 9,
@@ -318,15 +392,20 @@
     "boardHome": {
       "X": 0,
       "Y": 0
-    }
+    },
+    "screenXY": {
+      "X": 450,
+      "Y": 350
+    },
+    "secondarySpriteSheetPath": null
   },
   "WaterbottleClean": {
     "ID": null,
     "name": "WaterbottleClean",
     "buff": null,
     "itemShape": [
-      [ 0, 0, 0 ],
-      [ 0, 0, 0 ],
+      [ 0, 1, 0 ],
+      [ 0, 1, 1 ],
       [ 0, 0, 0 ]
     ],
     "itemSlot": 9,
@@ -336,17 +415,22 @@
     "bulk": 4.0,
     "weight": 1.7,
     "boardHome": {
+      "X": 200,
+      "Y": 200
+    },
+    "screenXY": {
       "X": 0,
       "Y": 0
-    }
+    },
+    "secondarySpriteSheetPath": null
   },
   "WaterbottleDirty": {
     "ID": null,
     "name": "WaterbottleDirty",
     "buff": null,
     "itemShape": [
-      [ 0, 0, 0 ],
-      [ 0, 0, 0 ],
+      [ 0, 1, 0 ],
+      [ 0, 1, 0 ],
       [ 0, 0, 0 ]
     ],
     "itemSlot": 9,
@@ -358,13 +442,18 @@
     "boardHome": {
       "X": 0,
       "Y": 0
-    }
+    },
+    "screenXY": {
+      "X": 700,
+      "Y": 600
+    },
+    "secondarySpriteSheetPath": null
   },
   "Shorts": {
     "ID": null,
     "name": "Shorts",
     "buff": null,
-    "itemShape": [ [ 0 ] ],
+    "itemShape": [ [ 1 ] ],
     "itemSlot": 7,
     "isFlexible": false,
     "iconPath": "ItemIcons/Pants-Shorts-32x32.png",
@@ -374,47 +463,60 @@
     "boardHome": {
       "X": 0,
       "Y": 0
-    }
+    },
+    "screenXY": {
+      "X": 600,
+      "Y": 600
+    },
+    "secondarySpriteSheetPath": null
   },
   "HawaiianShirt2": {
     "ID": null,
     "name": "HawaiianShirt2",
     "buff": null,
-    "itemShape": [ [ 0 ] ],
+    "itemShape": [ [ 1 ] ],
     "itemSlot": 4,
     "isFlexible": false,
     "iconPath": "ItemIcons/Shirt-Hawaiian2-32x32.png",
     "spriteSheetPath": "CharacterModels/CharacterAnimation-shirt-Sheet.png",
-    "secondarySpriteSheetPath": "CharacterModels/CharacterAnimation-sleeves-Sheet.png",
     "bulk": 4.0,
     "weight": 1.7,
     "boardHome": {
       "X": 0,
       "Y": 0
-    }
+    },
+    "screenXY": {
+      "X": 500,
+      "Y": 600
+    },
+    "secondarySpriteSheetPath": "CharacterModels/CharacterAnimation-sleeves-Sheet.png"
   },
   "Backpack": {
     "ID": null,
     "name": "Backpack",
     "buff": null,
-    "itemShape": [ [ 0 ] ],
+    "itemShape": [ [ 1 ] ],
     "itemSlot": 1,
     "isFlexible": false,
     "iconPath": "ItemIcons/Backpack-ZPacks1-32x32.png",
     "spriteSheetPath": "CharacterModels/CharacterAnimation-backpack-Sheet.png",
-    "secondarySpriteSheetPath": "CharacterModels/CharacterAnimation-backpackstrapst-Sheet.png",
     "bulk": 4.0,
     "weight": 1.7,
     "boardHome": {
       "X": 0,
       "Y": 0
-    }
+    },
+    "screenXY": {
+      "X": 500,
+      "Y": 500
+    },
+    "secondarySpriteSheetPath": "CharacterModels/CharacterAnimation-backpackstrapst-Sheet.png"
   },
   "ClimbingShoes": {
     "ID": null,
     "name": "ClimbingShoes",
     "buff": null,
-    "itemShape": [ [ 0 ] ],
+    "itemShape": [ [ 1 ] ],
     "itemSlot": 0,
     "isFlexible": false,
     "iconPath": "ItemIcons/Shoes-climbers-32x32.png",
@@ -424,13 +526,18 @@
     "boardHome": {
       "X": 0,
       "Y": 0
-    }
+    },
+    "screenXY": {
+      "X": 400,
+      "Y": 600
+    },
+    "secondarySpriteSheetPath": null
   },
   "ZpackShirt": {
     "ID": null,
     "name": "ZpackShirt",
     "buff": null,
-    "itemShape": [ [ 0 ] ],
+    "itemShape": [ [ 1 ] ],
     "itemSlot": 4,
     "isFlexible": false,
     "iconPath": "ItemIcons/ShirtLogo-ZPacks32x32.png",
@@ -440,6 +547,11 @@
     "boardHome": {
       "X": 0,
       "Y": 0
-    }
+    },
+    "screenXY": {
+      "X": 350,
+      "Y": 600
+    },
+    "secondarySpriteSheetPath": null
   }
 }

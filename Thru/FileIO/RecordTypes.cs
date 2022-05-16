@@ -130,6 +130,9 @@ namespace Thru
         public float weight;
         [JsonProperty(PropertyName = "boardHome")]
         public Microsoft.Xna.Framework.Point boardHome;
+        [JsonProperty(PropertyName = "screenXY")]
+        public Microsoft.Xna.Framework.Point screenXY;
+
         [JsonProperty(PropertyName = "secondarySpriteSheetPath")]
         public string secondarySpriteSheetPath;
 
