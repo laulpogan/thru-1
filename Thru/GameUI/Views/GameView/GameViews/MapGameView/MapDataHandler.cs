@@ -31,7 +31,7 @@ namespace Thru
             [JsonProperty(PropertyName = "desc")]
             public string description;
             [JsonProperty(PropertyName = "sym")]
-            public string  sym;
+            public string sym;
         }
         List<VertexPositionColorTexture> vert;
         List<List<VertexPositionColorTexture>> allShapes;
@@ -47,7 +47,7 @@ namespace Thru
         SpriteFontBase Font;
         Texture2D blinkingButton;
         Color color;
-        public MapDataHandler(int clientWidth, int clientHeight, IServiceProvider services, string mapDataPath, Color colorInput, SpriteFontBase font )
+        public MapDataHandler(int clientWidth, int clientHeight, IServiceProvider services, string mapDataPath, Color colorInput, SpriteFontBase font)
         {
             color = colorInput;
             Content = new ContentManager(services, "Content");
@@ -57,7 +57,7 @@ namespace Thru
             standardBackground = Content.Load<Texture2D>("Backgrounds/southern_terminus");
             List<FeatureCollection> mapDataTotal = new List<FeatureCollection>();
             Font = font;
-// TODO config for map source data
+            // TODO config for map source data
             Console.WriteLine("Loading maps data from: " + mapDataPath);
             foreach (var file in Directory.GetFiles(mapDataPath))
             {
@@ -68,55 +68,56 @@ namespace Thru
                     {
                         mapDataTotal.Add(data);
                     }
-                } catch
-                {
-                 
                 }
-                
+                catch
+                {
+
+                }
+
             }
             Console.WriteLine("Maps loaded");
             vert = new List<VertexPositionColorTexture>();
             allShapes = new List<List<VertexPositionColorTexture>>();
             gameMap = new TrailMap(new ArrayList(), new ArrayList(), "Game Map");
 
-            Location newLoc = new Location(null, null, null, null, new Vector3(0, 0,0), Font);
+            Location newLoc = new Location(null, null, null, null, new Vector3(0, 0, 0), Font);
             Location oldLoc;
-            Trail tempEdge = new Trail(null, null,0,  "", null);
+            Trail tempEdge = new Trail(null, null, 0, "", null);
             float distance;
             foreach (FeatureCollection mapDataIndividual in mapDataTotal)
+            {
+                Console.WriteLine("vertices list size: " + vert.Count);
+                features = mapDataIndividual.Features;
+                //features.RemoveAll(item => item == null);
+                var shapeList = new List<PolygonShape>();
+                List<VertexPositionColorTexture> tempVerts = new List<VertexPositionColorTexture>();
+                foreach (Feature feature in features ?? Enumerable.Empty<Feature>())
                 {
-                    Console.WriteLine("vertices list size: " + vert.Count);
-                    features = mapDataIndividual.Features;
-                    //features.RemoveAll(item => item == null);
-                    var shapeList = new List<PolygonShape>();
-                    List<VertexPositionColorTexture> tempVerts = new List<VertexPositionColorTexture>();
-                    foreach (Feature feature in features ?? Enumerable.Empty<Feature>())
+                    //only waypoints have names in geoJSON
+                    if (feature.Properties.ContainsKey("name") && feature.Properties.ContainsKey("sym"))
                     {
-                        //only waypoints have names in geoJSON
-                        if (feature.Properties.ContainsKey("name") && feature.Properties.ContainsKey("sym"))
-                        {
 
                         string symbol = feature.Properties["sym"].ToString();
-                            if (String.Equals(symbol, "Campground") || String.Equals(symbol, "Flag, Blue") || String.Equals(symbol, "Post Office"))
+                        if (String.Equals(symbol, "Campground") || String.Equals(symbol, "Flag, Blue") || String.Equals(symbol, "Post Office"))
+                        {
+                            oldLoc = newLoc;
+                            newLoc = geojsonToLocation(feature);
+                            if (oldLoc.Trails != null)
                             {
-                                oldLoc = newLoc;
-                                newLoc = geojsonToLocation(feature);
-                                if (oldLoc.Trails != null)
-                                {
                                 distance = Vector3.Distance(oldLoc.Coords, newLoc.Coords);
 
                                 tempEdge = new Trail(oldLoc, newLoc, distance, "test", standardBackground);
-                                    oldLoc.Trails.Add(tempEdge);
-                                    newLoc.Trails.Add(tempEdge);
-                                    gameMap.Trails.Add(tempEdge);
-                                }
-                                gameMap.Locations.Add(newLoc);
+                                oldLoc.Trails.Add(tempEdge);
+                                newLoc.Trails.Add(tempEdge);
+                                gameMap.Trails.Add(tempEdge);
                             }
-
+                            gameMap.Locations.Add(newLoc);
                         }
-                        geoTypeParser(feature.Geometry);
+
                     }
+                    geoTypeParser(feature.Geometry);
                 }
+            }
         }
 
         public TrailMap getGameMap()
@@ -126,7 +127,7 @@ namespace Thru
 
         public Vector3 geoTypeParser(IGeometryObject geometry)
         {
-            
+
             switch (geometry.Type)
             {
                 case GeoJSONObjectType.LineString:
@@ -173,24 +174,25 @@ namespace Thru
                     break;
             }
 
-            Vector3 returnVec = new Vector3(0,0,0);
-            returnVec.X = vert[vert.Count-1].Position.X;
-            returnVec.Y = vert[vert.Count-1].Position.Y;
-            
+            Vector3 returnVec = new Vector3(0, 0, 0);
+            returnVec.X = vert[vert.Count - 1].Position.X;
+            returnVec.Y = vert[vert.Count - 1].Position.Y;
+
             return returnVec;
         }
         public Location geojsonToLocation(Feature feature)
         {
             string symbol = feature.Properties["sym"].ToString();
 
-           
+
             Vector3 point = geoTypeParser(feature.Geometry);
             Console.WriteLine("Creating Location: " + feature.Properties["name"].ToString() + " at " + point);
             Location location = new Location(feature.Properties["name"].ToString(), feature.Properties["desc"].ToString(), new ArrayList(), blinkingButton, point, Font);
             if (String.Equals(symbol, "Flag, Blue") || String.Equals(symbol, "Post Office"))
             {
                 location.Tags[0] = Tags.Town;
-            }   else
+            }
+            else
             {
                 location.Tags[0] = Tags.Desert;
             }
@@ -199,25 +201,26 @@ namespace Thru
             return location;
         }
 
-       
+
 
         public Vector3 coordConvert(Vector3 coords)
         {
             float lng = coords.X;
             float lat = coords.Y;
-            float x= ClientWidth * floorCeil(lat, baseLat);
+            float x = ClientWidth * floorCeil(lat, baseLat);
             float y = ClientHeight * floorCeil(lng, baseLng);
-            return new Vector3(x,-y,coords.Z);
+            return new Vector3(x, -y, coords.Z);
         }
 
-        public float floorCeil(float measure, int baseMeasure){
-            float retVal = 0 ;
+        public float floorCeil(float measure, int baseMeasure)
+        {
+            float retVal = 0;
             if (measure > baseMeasure)
-                retVal+=  measure-baseMeasure;
+                retVal += measure - baseMeasure;
             if (baseMeasure > measure)
                 retVal -= baseMeasure - measure;
             return retVal;
-     }
+        }
         public List<VertexPositionColorTexture> logCoords(IReadOnlyCollection<IPosition> coords)
         {
             List<VertexPositionColorTexture> vertices = new List<VertexPositionColorTexture>();
@@ -232,7 +235,7 @@ namespace Thru
         {
 
             VertexPositionColorTexture tempVPT = new VertexPositionColorTexture();
-            Vector3 pos = coordConvert(new Vector3((float)coord.Latitude,(float) coord.Longitude, (float)(coord.Altitude ?? 0)));
+            Vector3 pos = coordConvert(new Vector3((float)coord.Latitude, (float)coord.Longitude, (float)(coord.Altitude ?? 0)));
             tempVPT.Position = pos;
             tempVPT.TextureCoordinate = new Vector2(0, 0);
             tempVPT.Color = Color.Black;
@@ -254,7 +257,7 @@ namespace Thru
                     jsonString.Append(s);
                 }
                 sr.Close();
-              //  Console.WriteLine(fileName + " closed");
+                //  Console.WriteLine(fileName + " closed");
             }
             return JsonConvert.DeserializeObject<FeatureCollection>(jsonString.ToString());
         }
@@ -263,7 +266,7 @@ namespace Thru
         {
         }
 
-         
+
 
         public Queue<Vector3> getTrailPoints()
         {
@@ -284,17 +287,17 @@ namespace Thru
         {
 
             TrailMap trailMap = new TrailMap(new ArrayList(), new ArrayList(), "Trail Map"); ;
-            
 
 
-            Location newLoc = new Location(null, null, null, null, new Vector3(0,0, 0), Font);
-            Location oldLoc = new Location(null, null, null, null, new Vector3(0, 0, 0), Font) ;
+
+            Location newLoc = new Location(null, null, null, null, new Vector3(0, 0, 0), Font);
+            Location oldLoc = new Location(null, null, null, null, new Vector3(0, 0, 0), Font);
             Trail tempEdge = new Trail(null, null, 0, "", null);
             foreach (Vector3 vec in getTrailPoints())
             {
 
                 oldLoc = newLoc;
-                newLoc = new Location(vec.GetHashCode().ToString(), vec.GetHashCode().ToString(), new ArrayList(), standardBackground,vec, Font);
+                newLoc = new Location(vec.GetHashCode().ToString(), vec.GetHashCode().ToString(), new ArrayList(), standardBackground, vec, Font);
                 if (oldLoc.Trails != null)
                 {
                     float distance = Vector3.Distance(oldLoc.Coords, newLoc.Coords);
@@ -308,17 +311,20 @@ namespace Thru
             return trailMap;
         }
 
-
-
-public void Update(GameTime gameTime)
+        public void saveLocation()
         {
 
-           
+        }
+
+        public void Update(GameTime gameTime)
+        {
+
+
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach(List<VertexPositionColorTexture> vertList in allShapes)
+            foreach (List<VertexPositionColorTexture> vertList in allShapes)
             {
                 for (int i = vertList.Count - 1; i > 0; i--)
                 {
@@ -329,25 +335,25 @@ public void Update(GameTime gameTime)
                     float y2 = vertList[i - 1].Position.Y;
 
                     spriteBatch.DrawLine(new Vector2(scaleToX(x1), scaleToY(y1)), new Vector2(scaleToX(x2), scaleToY(y2)), color);
-      
+
                 }
             }
-            
+
 
         }
         public float scaleToY(float y)
         {
-           // y =   y/1074;
+            // y =   y/1074;
             return y;
 
         }
         public float scaleToX(float x)
         {
-          //  x = x/ 1920;
+            //  x = x/ 1920;
             return x;
         }
 
-       
+
 
     }
 }

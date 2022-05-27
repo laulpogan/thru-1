@@ -13,6 +13,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame;
+using MonoSound;
 using Newtonsoft.Json;
 
 
@@ -20,7 +21,7 @@ namespace Thru
 {
     public class ThruGame : Game
     {
-       
+
         public SpriteFontBase font;
         public GraphicsDeviceManager graphics;
         public GlobalState state;
@@ -32,19 +33,27 @@ namespace Thru
             IsMouseVisible = true;
 
         }
-       
+
         protected override void Initialize()
         {
-                        LoadContent();
+
+            MonoSoundManager.Init();
+            LoadContent();
             base.Initialize();
+        }
+
+        protected override void UnloadContent()
+        {
+            MonoSoundManager.DeInit();
+            base.UnloadContent();
         }
 
         protected override void LoadContent()
         {
 
-        _fontSystem = new FontSystem();
-        _fontSystem.AddFont(File.ReadAllBytes(@"Content/Fonts/PressStart2P-Regular.ttf"));
-        state = new(Window.ClientBounds.Width, Window.ClientBounds.Height, Services, graphics, _fontSystem);
+            _fontSystem = new FontSystem();
+            _fontSystem.AddFont(File.ReadAllBytes(@"Content/Fonts/PressStart2P-Regular.ttf"));
+            state = new(Window.ClientBounds.Width, Window.ClientBounds.Height, Services, graphics, _fontSystem);
         }
 
 

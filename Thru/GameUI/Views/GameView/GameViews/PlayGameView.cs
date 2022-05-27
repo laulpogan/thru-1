@@ -8,120 +8,123 @@ using System.Reflection.Metadata;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Audio;
 using FontStashSharp;
+using System.IO;
+using MonoSound;
 
 namespace Thru
 {
-	public class PlayGameView : IGameView
-	{
-		public GraphicsDeviceManager Graphics;
-		public SpriteBatch spriteBatch, hudBatch;
-		public BackgroundModel background;
-		public Encounter Encounter;
-		public HUD hud;
-		public DesignGrid grid;
-		public Character Player;
-		public Location currentLocation, TrailLocation;
-		private ContentManager Content;
-		private SpriteFontBase Font;
-		public MapMenu mapMenu;
-		public SoundEffect eatingSoundEffect;
-		public GlobalState GlobalState;
+    public class PlayGameView : IGameView
+    {
+        public GraphicsDeviceManager Graphics;
+        public SpriteBatch spriteBatch, hudBatch;
+        public BackgroundModel background;
+        public Encounter Encounter;
+        public HUD hud;
+        public DesignGrid grid;
+        public Character Player;
+        public Location currentLocation, TrailLocation;
+        private ContentManager Content;
+        private SpriteFontBase Font;
+        public MapMenu mapMenu;
+        public SoundEffect eatingSoundEffect;
+        public GlobalState GlobalState;
 
 
-		public PlayGameView(IServiceProvider services, GraphicsDeviceManager graphics, Location location, Location trailLocation, Character player, GlobalState globalState )
-{
-			GlobalState = globalState;
-			Graphics = graphics;
-			currentLocation = location;
-			TrailLocation = trailLocation;
-			Content = new ContentManager(services, "Content");
-			Content.RootDirectory = "Content";
-			Font =globalState.FontSystem.GetFont(16);
-			background = new BackgroundModel(services,graphics,0,0);
-			spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
-			hudBatch = new SpriteBatch(graphics.GraphicsDevice);
-			Player = player;
-			Encounter = setupTestEncounter(services, graphics);
-			hud = new HUD(services, graphics, Player, globalState);
-			grid = new DesignGrid(services, graphics);
-			eatingSoundEffect = Content.Load<SoundEffect>("Audio/MunchMunch");
-			hud.snackButton.onClick += playMunch;
-
-		}
-
-
-		public void playMunch(object sender, EventArgs e) 
+        public PlayGameView(IServiceProvider services, GraphicsDeviceManager graphics, Location location, Location trailLocation, Character player, GlobalState globalState)
         {
-			eatingSoundEffect.Play();
-		}
+            GlobalState = globalState;
+            Graphics = graphics;
+            currentLocation = location;
+            TrailLocation = trailLocation;
+            Content = new ContentManager(services, "Content");
+            Content.RootDirectory = "Content";
+            Font = globalState.FontSystem.GetFont(16);
+            background = new BackgroundModel(services, graphics, 0, 0);
+            spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
+            hudBatch = new SpriteBatch(graphics.GraphicsDevice);
+            Player = player;
+            Encounter = setupTestEncounter(services, graphics);
+            hud = new HUD(services, graphics, Player, globalState);
+            grid = new DesignGrid(services, graphics);
+            string path = Path.GetFullPath("../../../");
+            eatingSoundEffect = MonoSoundManager.GetEffect(path + "Content/Audio/MunchMunch.mp3");
+            hud.snackButton.onClick += playMunch;
 
-	
-		public Encounter setupTestEncounter(IServiceProvider services, GraphicsDeviceManager graphics)
-		{
-
-			
-			EncounterData data = new EncounterData();
-			EncounterResolutionData success = new EncounterResolutionData("Morale", 1, null, null);
-			EncounterResolutionData failure = new EncounterResolutionData("Morale", -1, null, null);
-
-			EncounterOptionData option1 = new EncounterOptionData("option1", "Morale", 50, success, failure);
-			EncounterOptionData option2 = new EncounterOptionData("option2", "Speed", 10, success, failure);
-			EncounterOptionData option3 = new EncounterOptionData("option3", "Chillness", 15, success, failure);
-			EncounterOptionData[] opts = new EncounterOptionData[] { option1, option2, option3 };
-			data.text = "Sampletext";
-			data.title = "SampleTitle";
-			data.options = opts;
-			data.dropRate = 4;
-			data.encounterTags = new Tags[] { Tags.Desert };
+        }
 
 
+        public void playMunch(object sender, EventArgs e)
+        {
+            eatingSoundEffect.Play();
+        }
 
-			return new Encounter(Player, data, null, services, graphics, GlobalState) ;
 
-		}
+        public Encounter setupTestEncounter(IServiceProvider services, GraphicsDeviceManager graphics)
+        {
 
-		public GameState Update(GameTime gameTime)
-		{
-			Encounter.Update(gameTime);
-			hud.Update(gameTime);
-			background.Update(gameTime);
-			if(Player.Location.Tags[0] == Tags.Town)
+
+            EncounterData data = new EncounterData();
+            EncounterResolutionData success = new EncounterResolutionData("Morale", 1, null, null);
+            EncounterResolutionData failure = new EncounterResolutionData("Morale", -1, null, null);
+
+            EncounterOptionData option1 = new EncounterOptionData("option1", "Morale", 50, success, failure);
+            EncounterOptionData option2 = new EncounterOptionData("option2", "Speed", 10, success, failure);
+            EncounterOptionData option3 = new EncounterOptionData("option3", "Chillness", 15, success, failure);
+            EncounterOptionData[] opts = new EncounterOptionData[] { option1, option2, option3 };
+            data.text = "Sampletext";
+            data.title = "SampleTitle";
+            data.options = opts;
+            data.dropRate = 4;
+            data.encounterTags = new Tags[] { Tags.Desert };
+
+
+
+            return new Encounter(Player, data, null, services, graphics, GlobalState);
+
+        }
+
+        public GameState Update(GameTime gameTime)
+        {
+            Encounter.Update(gameTime);
+            hud.Update(gameTime);
+            background.Update(gameTime);
+            if (Player.Location.Tags[0] == Tags.Town)
             {
 
             }
-			GameState returnState = GameState.Play;
-			if (hud.mainMenuButton.State == BState.JUST_RELEASED)
-				returnState = GameState.Play;
-			if (hud.mapButton.State == BState.JUST_RELEASED)
-				returnState = GameState.Map;
-			if (hud.inventoryButton.State == BState.JUST_RELEASED)
-				returnState = GameState.Inventory;
-			if (hud.snackButton.State == BState.JUST_RELEASED)
+            GameState returnState = GameState.Play;
+            if (hud.mainMenuButton.State == BState.JUST_RELEASED)
+                returnState = GameState.Play;
+            if (hud.mapButton.State == BState.JUST_RELEASED)
+                returnState = GameState.Map;
+            if (hud.inventoryButton.State == BState.JUST_RELEASED)
+                returnState = GameState.Inventory;
+            if (hud.snackButton.State == BState.JUST_RELEASED)
             {
-				eatingSoundEffect.Play();
-				Player.Stats.Energy += 5;
-				Player.Stats.Snacks = Player.Stats.Snacks - 1;
-			}
-			
-			Player.Update(gameTime);	
-			return returnState;
-		}
-		public void Draw(GraphicsDeviceManager graphics)
-		{
-			spriteBatch.Begin();
-			background.Draw(graphics);
-			Encounter.Draw(spriteBatch);
-			//grid.Draw(spriteBatch);
-			Player.Draw(spriteBatch);
-			spriteBatch.End();
+                eatingSoundEffect.Play();
+                Player.Stats.Energy += 5;
+                Player.Stats.Snacks = Player.Stats.Snacks - 1;
+            }
+
+            Player.Update(gameTime);
+            return returnState;
+        }
+        public void Draw(GraphicsDeviceManager graphics)
+        {
+            spriteBatch.Begin();
+            background.Draw(graphics);
+            Encounter.Draw(spriteBatch);
+            //grid.Draw(spriteBatch);
+            Player.Draw(spriteBatch);
+            spriteBatch.End();
 
 
 
-			hudBatch.Begin();
-			hud.Draw(hudBatch);
-			hudBatch.DrawString(Font, $"Current Location: [{currentLocation.ID}] {currentLocation.Name}", new Vector2(400, 20), Color.Black);
-			hudBatch.End();
-		}
+            hudBatch.Begin();
+            hud.Draw(hudBatch);
+            hudBatch.DrawString(Font, $"Current Location: [{currentLocation.ID}] {currentLocation.Name}", new Vector2(400, 20), Color.Black);
+            hudBatch.End();
+        }
 
-	}
+    }
 }

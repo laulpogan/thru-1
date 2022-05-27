@@ -31,13 +31,13 @@ namespace Thru
         public IOController(IServiceProvider services, string filename)
         {
 
- path = Path.GetFullPath("../../../") + filename;
+            path = Path.GetFullPath("../../../") + filename;
         }
         public void serializeToFile<T>(Dictionary<string, T> obj)
         {
 
-     
-       
+
+
             string jsonString = JsonConvert.SerializeObject(obj, Settings);
 
             if (!File.Exists(path))
@@ -74,7 +74,7 @@ namespace Thru
         {
 
             StringBuilder jsonString = new StringBuilder("");
-            Console.WriteLine("Reading from file " +path);
+            Console.WriteLine("Reading from file " + path);
 
             // Open the file to read from.
             using (StreamReader sr = File.OpenText(path))
@@ -91,6 +91,34 @@ namespace Thru
             return JsonConvert.DeserializeObject<Dictionary<string, T>>(jsonString.ToString(), Settings);
         }
 
+        public void loadManifests()
+        {
+            Dictionary<string, RecordManifestData> manifests = this.deserializeFromFile<RecordManifestData>();
+        }
+
+        public void loadEncounters()
+        {
+
+        }
+
+        public void loadItems() { }
+        public void loadCharacters() { }
+
+
+        public void saveCharacter()
+        {
+
+        }
+
+        public void saveItem()
+        {
+
+        }
+
+        public void saveGlobalState()
+        {
+
+        }
 
         /*public class InfoToStringConverter : JsonConverter<string>
 			{

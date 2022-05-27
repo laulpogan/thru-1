@@ -25,6 +25,23 @@ namespace Thru
         public string most_likely;
     }
 
+    public record LocationData
+    {
+        [JsonProperty(PropertyName = "text")]
+        public string text;
+        [JsonProperty(PropertyName = "title")]
+        public string title;
+        [JsonProperty(PropertyName = "options")]
+        public EncounterOptionData[] options;
+        [JsonProperty(PropertyName = "dropRate")]
+        public float dropRate;
+        [JsonProperty(PropertyName = "locationType")]
+        public Tags[] encounterTags;
+        [JsonProperty(PropertyName = "resolutionType")]
+        public ResolutionType resolutionType;
+
+    }
+
     public record EncounterData
     {
         [JsonProperty(PropertyName = "text")]
@@ -99,6 +116,15 @@ namespace Thru
             rewardItem = item;
             rewardTrailName = trailName;
         }
+    }
+
+
+    public record RecordManifestData
+    {
+        [JsonProperty(PropertyName = "type")]
+        public string type;
+        [JsonProperty(PropertyName = "path")]
+        public string path;
     }
 
     public record GlobalStateData
