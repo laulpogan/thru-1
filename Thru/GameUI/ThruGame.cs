@@ -72,6 +72,9 @@ namespace Thru
         protected override void Draw(GameTime gameTime)
         {
             graphics.GraphicsDevice.Clear(Color.White);
+            graphics.PreferredBackBufferHeight = 800;
+            graphics.PreferredBackBufferWidth = 1400;
+            graphics.ApplyChanges();
             state.Draw(gameTime);
             base.Draw(gameTime);
         }

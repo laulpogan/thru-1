@@ -33,7 +33,7 @@ namespace Thru
             buttonList.Add(mapButton);
             buttonList.Add(snackButton);
             buttonList.Add(inventoryButton);
-            buttonGroup = new ButtonGroup(buttonList, new Vector2(1700, 10));
+            buttonGroup = new ButtonGroup(buttonList, new Vector2(1200, 10));
             _playerStats = new PlayerStatsDisplay(services, graphics, player, globalState.FontSystem.GetFont(12));
 
         }
